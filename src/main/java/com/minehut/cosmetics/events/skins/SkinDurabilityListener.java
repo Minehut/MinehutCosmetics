@@ -4,7 +4,6 @@ import com.minehut.cosmetics.modules.KeyManager;
 import com.minehut.cosmetics.util.ItemUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerItemMendEvent;
 import org.bukkit.inventory.ItemStack;
@@ -71,10 +70,5 @@ public class SkinDurabilityListener implements Listener {
 
             data.set(keys.DURABILITY, PersistentDataType.INTEGER, storedDurability);
         });
-    }
-
-    @EventHandler
-    public void onInteract(PlayerInteractAtEntityEvent event) {
-        event.setCancelled(true);
     }
 }

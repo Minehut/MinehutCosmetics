@@ -2,11 +2,9 @@ package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
-import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -22,7 +20,7 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     private static final List<Material> RAINBOW = List.of(Material.RED_WOOL, Material.ORANGE_WOOL, Material.YELLOW_WOOL, Material.LIME_WOOL, Material.LIGHT_BLUE_WOOL, Material.CYAN_WOOL, Material.PURPLE_WOOL);
     private static final int RAINBOW_COLORS = RAINBOW.size();
 
-    private static final Component DISPLAY_NAME = MiniMessage.miniMessage().deserialize("<rainbow>Rainbow Swirl Particles");
+    private static final Component DISPLAY_NAME = Component.text("Rainbow Swirl Particles").color(NamedTextColor.AQUA);
     private static final Component[] LORE = new Component[]{Component.empty(),
             Component.text("Magical rainbow swirling around you!").color(NamedTextColor.WHITE),
             Component.empty(),

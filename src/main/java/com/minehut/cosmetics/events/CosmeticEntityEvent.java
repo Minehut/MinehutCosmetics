@@ -4,7 +4,6 @@ import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import com.minehut.cosmetics.util.EntityUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPortalEvent;

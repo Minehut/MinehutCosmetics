@@ -6,7 +6,6 @@ import com.minehut.cosmetics.cosmetics.groups.particle.base.AmbientPixelArtParti
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,7 +16,7 @@ public class GoldPickParticle extends AmbientPixelArtParticle {
             .lore(Component.empty(),
                     Component.text("Just another particle").color(NamedTextColor.WHITE),
                     Component.empty(),
-                    Component.text("Requires ").color(NamedTextColor.GRAY).append(MiniMessage.miniMessage().deserialize("<rainbow>%s".formatted(REQUIRED))),
+                    Component.text("Requires ").color(NamedTextColor.GRAY).append(Component.text(REQUIRED)),
                     Component.empty())
             .build();
 
