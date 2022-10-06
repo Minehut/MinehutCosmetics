@@ -1,0 +1,78 @@
+package com.minehut.cosmetics.cosmetics.bindings;
+
+import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
+import com.minehut.cosmetics.cosmetics.groups.item.Item;
+import org.bukkit.Material;
+
+import java.util.List;
+
+public class Bindings {
+    // bindings for sword items
+    public static MaterialBinding SWORD = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.WOODEN_SWORD,
+                    Material.STONE_SWORD,
+                    Material.IRON_SWORD,
+                    Material.GOLDEN_SWORD,
+                    Material.DIAMOND_SWORD,
+                    Material.NETHERITE_SWORD
+            ))
+            .registerCosmetics(List.of(
+                    Item.EXPLORER_SWORD,
+                    Item.FALL_22_SWORD
+            ));
+
+    // bindings for pickaxe items
+    public static MaterialBinding PICKAXE = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.WOODEN_PICKAXE,
+                    Material.STONE_PICKAXE,
+                    Material.IRON_PICKAXE,
+                    Material.GOLDEN_PICKAXE,
+                    Material.DIAMOND_PICKAXE,
+                    Material.NETHERITE_PICKAXE
+            ))
+            .registerCosmetics(List.of(
+                    Item.EXPLORER_PICKAXE
+            ));
+
+    // bindings for pickaxe items
+    public static MaterialBinding SPYGLASS = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.SPYGLASS
+            ))
+            .registerCosmetics(List.of(
+                    Item.EXPLORER_SPYGLASS
+            ));
+
+    public static MaterialBinding HAT = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.LEATHER_HELMET,
+                    Material.GOLDEN_HELMET,
+                    Material.CHAINMAIL_HELMET,
+                    Material.IRON_HELMET,
+                    Material.DIAMOND_HELMET,
+                    Material.NETHERITE_HELMET,
+                    Material.TURTLE_HELMET
+            ))
+            .registerCosmetics(List.of(
+                    Hat.values()
+            ));
+
+    public static MaterialBinding SHIELD = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.SHIELD
+            ))
+            .registerCosmetics(List.of(
+                    Item.FALL_22_SHIELD
+            ));
+
+
+    public static List<MaterialBinding> ALL = List.of(
+            SWORD,
+            PICKAXE,
+            SPYGLASS,
+            HAT,
+            SHIELD
+    );
+}

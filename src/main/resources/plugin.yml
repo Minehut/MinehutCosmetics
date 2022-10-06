@@ -1,0 +1,16 @@
+name: MinehutCosmetics
+version: 1.0.0
+main: com.minehut.cosmetics.Cosmetics
+api-version: 1.17
+
+softdepend: [ "Lobby" ]
+
+commands:
+  cosmeticsdebug:
+    description: "Print debug info for cosmetics"
+  cosmetics:
+    description: "Open the cosmetics menu."
+  skin:
+    description: "Open the skinning menu for the held item."
+  unskin:
+    description: "Remove a skin for the held item."
