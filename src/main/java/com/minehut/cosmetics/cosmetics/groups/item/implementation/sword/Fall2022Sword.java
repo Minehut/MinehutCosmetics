@@ -32,7 +32,7 @@ public class Fall2022Sword extends ItemCosmetic {
 
     public Fall2022Sword() {
         super(
-                Item.EXPLORER_SWORD.name(),
+                Item.FALL_22_SWORD.name(),
                 NAME,
                 CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name()),
                 ITEM
