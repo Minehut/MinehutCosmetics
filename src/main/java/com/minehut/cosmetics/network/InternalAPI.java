@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.network;
 
-import com.minehut.cosmetics.config.ConfigManager;
+import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.gson.GsonModel;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class InternalAPI extends CosmeticsAPI {
 
-    public InternalAPI(ConfigManager config) {
+    public InternalAPI(Config config) {
         super(config);
     }
 

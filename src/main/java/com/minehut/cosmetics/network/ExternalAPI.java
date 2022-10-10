@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.network;
 
 import com.google.gson.Gson;
-import com.minehut.cosmetics.config.ConfigManager;
+import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.gson.GsonModel;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
@@ -16,7 +16,7 @@ public class ExternalAPI extends CosmeticsAPI {
 
     private static final Gson gson = new Gson();
 
-    public ExternalAPI(ConfigManager config) {
+    public ExternalAPI(Config config) {
         super(config);
     }
 

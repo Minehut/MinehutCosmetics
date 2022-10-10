@@ -8,19 +8,22 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 import java.util.Optional;
 
-public class ConfigManager {
+public class Config {
 
     private String apiUrl = "https://api.minehut.com";
     private String apiSecret = "";
     private Mode mode = Mode.PLAYER_SERVER;
 
+    private final CompanionConfig companion;
 
     private final Plugin plugin;
 
-    public ConfigManager(Plugin plugin) {
+    public Config(Plugin plugin) {
         this.plugin = plugin;
         plugin.saveDefaultConfig();
         reload();
+
+        this.companion = new CompanionConfig(plugin);
     }
 
     public void load() {
@@ -50,6 +53,10 @@ public class ConfigManager {
      */
     public Mode mode() {
         return mode;
+    }
+
+    public CompanionConfig companion() {
+        return companion;
     }
 
     /**

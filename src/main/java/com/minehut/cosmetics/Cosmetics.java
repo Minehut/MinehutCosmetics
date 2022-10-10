@@ -4,7 +4,7 @@ import com.minehut.cosmetics.commands.Debug;
 import com.minehut.cosmetics.commands.MenuCommand;
 import com.minehut.cosmetics.commands.SkinCommand;
 import com.minehut.cosmetics.commands.UnSkinCommand;
-import com.minehut.cosmetics.config.ConfigManager;
+import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.events.CosmeticEntityEvent;
@@ -38,7 +38,7 @@ public final class Cosmetics extends JavaPlugin {
     private static Cosmetics INSTANCE;
 
     // Managers
-    private ConfigManager config;
+    private Config config;
     private CosmeticsManager manager;
     private KeyManager keyManager;
 
@@ -52,7 +52,7 @@ public final class Cosmetics extends JavaPlugin {
     @Override
     public void onEnable() {
         Cosmetics.INSTANCE = this;
-        this.config = new ConfigManager(this);
+        this.config = new Config(this);
         this.keyManager = new KeyManager(this);
         this.manager = new CosmeticsManager(this);
 
@@ -114,7 +114,7 @@ public final class Cosmetics extends JavaPlugin {
         return keyManager;
     }
 
-    public ConfigManager config() {
+    public Config config() {
         return config;
     }
 

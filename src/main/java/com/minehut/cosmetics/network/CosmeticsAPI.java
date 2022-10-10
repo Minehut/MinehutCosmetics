@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.network;
 
 import com.google.gson.Gson;
-import com.minehut.cosmetics.config.ConfigManager;
+import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
@@ -18,9 +18,9 @@ import java.util.function.Function;
 public abstract class CosmeticsAPI {
     private static final Gson gson = new Gson();
 
-    private ConfigManager config;
+    private Config config;
 
-    public CosmeticsAPI(ConfigManager config) {
+    public CosmeticsAPI(Config config) {
         this.config = config;
     }
 

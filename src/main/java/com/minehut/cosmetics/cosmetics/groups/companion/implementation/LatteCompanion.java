@@ -14,7 +14,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class LatteCompanion extends CompanionCosmetic {
@@ -27,7 +26,7 @@ public class LatteCompanion extends CompanionCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Component.text("Autumn 2022").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
                     Component.empty()
             )
             .modelData(Model.COMPANION.LATTE_KUN)

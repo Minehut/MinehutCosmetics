@@ -1,2 +1,4 @@
 apiUrl: https://api.dev.minehut.com
 mode: "PLAYER_SERVER"
+companion:
+  use-teleports: true
