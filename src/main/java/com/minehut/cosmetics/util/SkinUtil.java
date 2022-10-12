@@ -60,12 +60,13 @@ public class SkinUtil {
     public static void swapType(ItemStack item, Material material) {
         item.editMeta(meta -> {
             final Material base = item.getType();
-            item.setType(material);
 
             if (!meta.hasDisplayName()) {
                 meta.displayName(Component.translatable(base.translationKey()).decoration(TextDecoration.ITALIC, false));
             }
         });
+
+        item.setType(material);
     }
 
     public static Optional<EquipmentSlot> getEquipmentSlot(ItemStack item) {
