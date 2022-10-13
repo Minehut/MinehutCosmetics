@@ -33,10 +33,39 @@ public class Bindings {
                     Material.NETHERITE_PICKAXE
             ))
             .registerCosmetics(List.of(
-                    Item.EXPLORER_PICKAXE
+                    Item.EXPLORER_PICKAXE,
+                    Item.FALL_22_PICKAXE
+            ));
+    
+    // bindings for shovel items
+    public static MaterialBinding SHOVEL = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.WOODEN_SHOVEL,
+                    Material.STONE_SHOVEL,
+                    Material.IRON_SHOVEL,
+                    Material.GOLDEN_SHOVEL,
+                    Material.DIAMOND_SHOVEL,
+                    Material.NETHERITE_SHOVEL
+            ))
+            .registerCosmetics(List.of(
+                    Item.FALL_22_SHOVEL
             ));
 
-    // bindings for pickaxe items
+    // bindings for axe items
+    public static MaterialBinding AXE = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.WOODEN_AXE,
+                    Material.STONE_AXE,
+                    Material.IRON_AXE,
+                    Material.GOLDEN_AXE,
+                    Material.DIAMOND_AXE,
+                    Material.NETHERITE_AXE
+            ))
+            .registerCosmetics(List.of(
+                    Item.FALL_22_AXE
+            ));
+
+    // bindings for spyglass items
     public static MaterialBinding SPYGLASS = new MaterialBinding()
             .registerMaterials(List.of(
                     Material.SPYGLASS
@@ -71,6 +100,8 @@ public class Bindings {
     public static List<MaterialBinding> ALL = List.of(
             SWORD,
             PICKAXE,
+            SHOVEL,
+            AXE,
             SPYGLASS,
             HAT,
             SHIELD

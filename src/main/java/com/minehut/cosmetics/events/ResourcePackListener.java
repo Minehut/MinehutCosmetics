@@ -31,7 +31,6 @@ public class ResourcePackListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-
         final PackInfo info = packPollingModule.state();
         if (!info.isValid()) return;
 
@@ -44,7 +43,5 @@ public class ResourcePackListener implements Listener {
                     PACK_COPY
             );
         }, 10);
-
-
     }
 }

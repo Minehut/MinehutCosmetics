@@ -29,6 +29,14 @@ public final class Model {
 
         public static class PICKAXE {
             public static final int EXPLORER = 1_000_001;
+            public static final int FALL_2022 = 1_000_002;
+        }
+        public static class SHOVEL {
+            public static final int FALL_2022 = 1_000_001;
+        }
+
+        public static class AXE {
+            public static final int FALL_2022 = 1_000_001;
         }
 
         public static class SPYGLASS {

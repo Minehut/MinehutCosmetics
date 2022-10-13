@@ -24,7 +24,7 @@ public class ItemMenu extends CosmeticSubMenu {
 
 
     public ItemMenu() {
-        super(CosmeticCategory.ITEM, 1);
+        super(CosmeticCategory.ITEM, 2);
     }
 
     @Override
@@ -37,7 +37,10 @@ public class ItemMenu extends CosmeticSubMenu {
                 Item.EXPLORER_SPYGLASS,
                 // Fall 2022
                 Item.FALL_22_SWORD,
-                Item.FALL_22_SHIELD
+                Item.FALL_22_SHIELD,
+                Item.FALL_22_PICKAXE,
+                Item.FALL_22_AXE,
+                Item.FALL_22_SHOVEL
         );
     }
 

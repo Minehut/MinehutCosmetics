@@ -116,3 +116,4 @@ run/
 build.sh
 install_dev.sh
 install_live.sh
+install.sh
