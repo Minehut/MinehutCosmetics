@@ -25,7 +25,7 @@ public abstract class CosmeticSubMenu extends Menu {
     private final CosmeticCategory category;
 
     public CosmeticSubMenu(CosmeticCategory category, List<CosmeticSupplier<? extends Cosmetic>> cosmetics) {
-        super(Cosmetics.get(), 1, category.categoryName());
+        super(Cosmetics.get(), 2, category.categoryName());
         this.category = category;
 
 
@@ -35,10 +35,6 @@ public abstract class CosmeticSubMenu extends Menu {
             if (!supplier.isVisible()) continue;
             available.add(supplier);
         }
-
-        int rows = (int) Math.max(1, Math.ceil(available.size() + 1) / 9f);
-        setProxy(new ProxyInventory(rows));
-
         available.forEach(cosmetic -> getProxy().addItem(menuItem(cosmetic)));
 
         setupRenderTask(0, 10);

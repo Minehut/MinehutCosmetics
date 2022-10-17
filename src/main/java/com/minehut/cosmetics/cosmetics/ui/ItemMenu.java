@@ -26,19 +26,19 @@ public class ItemMenu extends CosmeticSubMenu {
 
     public ItemMenu() {
         super(CosmeticCategory.ITEM, List.of(
-                // Explorer
-                Item.EXPLORER_SWORD,
+                // Explorer items
                 Item.EXPLORER_PICKAXE,
+                Item.EXPLORER_SWORD,
                 Item.EXPLORER_SPYGLASS,
-                // Fall 2022
-                Item.FALL_22_SWORD,
-                Item.FALL_22_SHIELD,
-                Item.FALL_22_PICKAXE,
+                // Autumn Items
                 Item.FALL_22_AXE,
+                Item.FALL_22_PICKAXE,
+                Item.FALL_22_SHIELD,
                 Item.FALL_22_SHOVEL,
-                // Spooktacular 2022
+                Item.FALL_22_SWORD,
+                //  Halloween
                 Item.GRAVE_SHOVEL
-        ));
+                ));
     }
     
     @Override
