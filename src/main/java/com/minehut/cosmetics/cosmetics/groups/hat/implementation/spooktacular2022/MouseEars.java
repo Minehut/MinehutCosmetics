@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 public class MouseEars extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Mouse Ears")
+    private static final Component NAME = Component.text("I'm a Mouse, duh.")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)

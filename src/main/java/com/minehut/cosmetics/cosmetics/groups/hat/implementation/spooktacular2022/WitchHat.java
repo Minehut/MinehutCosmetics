@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 public class WitchHat extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Witch Hat")
+    private static final Component NAME = Component.text("Witches Hat")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)

@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class GhostCompanion extends CompanionCosmetic {
 
-    private static final Component NAME = Component.text("Ghost-sama")
+    private static final Component NAME = Component.text("Ghosty-sama")
             .decoration(TextDecoration.ITALIC, false)
             .color(NamedTextColor.GOLD);
 
