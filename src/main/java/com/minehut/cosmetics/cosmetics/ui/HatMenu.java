@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -24,16 +25,7 @@ public class HatMenu extends CosmeticSubMenu {
             ).supplier();
 
     public HatMenu() {
-        super(CosmeticCategory.HAT, 1);
-    }
-
-    @Override
-    public void render() {
-        super.render();
-
-        addCosmetic(
-                Hat.EXPLORER
-        );
+        super(CosmeticCategory.HAT, List.of(Hat.values()));
     }
 
     @Override

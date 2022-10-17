@@ -4,6 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.groups.follower.MountedFollowerCosmetic;
 import com.minehut.cosmetics.util.EntityUtil;
+import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -49,7 +50,7 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
             this.handle = EntityUtil.spawnCosmeticEntity(spawn, Parrot.class, entity -> {
                 entity.setInvisible(true);
                 entity.setLeashHolder(player);
-                entity.getPersistentDataContainer().set(Cosmetics.get().keyManager().LEASHED, PersistentDataType.STRING, "true");
+                Key.LEASHED.write(entity, "true");
             });
         });
     }
@@ -65,7 +66,7 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
     @Override
     public void tick() {
         super.tick();
-        entity().ifPresent(entity -> handle().ifPresent(handle -> handle.teleport(entity.getLocation().add(0, 0.5, 0))));
+        entities().forEach(entity -> handle().ifPresent(handle -> handle.teleport(entity.getLocation().add(0, 0.5, 0))));
     }
 
     public Optional<Entity> handle() {

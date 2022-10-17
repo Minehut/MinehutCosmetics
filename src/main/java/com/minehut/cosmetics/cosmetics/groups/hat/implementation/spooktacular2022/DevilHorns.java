@@ -14,27 +14,27 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class ExplorerHat extends HatCosmetic {
+public class DevilHorns extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Explorer’s Hat")
+    private static final Component NAME = Component.text("Devil Horns")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                     Component.empty()
             )
-            .modelData(Model.HAT.EXPLORER)
+            .modelData(Model.HAT.DEVIL_HORNS)
             .supplier();
 
 
-    public ExplorerHat() {
+    public DevilHorns() {
         super(
-                Hat.EXPLORER.name(),
+                Hat.DEVIL_HORNS.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.EXPLORER.name()),
+                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.DEVIL_HORNS.name()),
                 ITEM
         );
     }
@@ -42,13 +42,6 @@ public class ExplorerHat extends HatCosmetic {
     @Override
     public Component name() {
         return NAME;
-    }
-
-    @Override
-    public ItemStack item() {
-        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-                .modelData(Model.HAT.EXPLORER)
-                .build();
     }
 
     @Override

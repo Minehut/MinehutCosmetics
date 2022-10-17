@@ -1,6 +1,5 @@
 package com.minehut.cosmetics.commands;
 
-import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
@@ -10,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public class UnSkinCommand implements CommandExecutor {

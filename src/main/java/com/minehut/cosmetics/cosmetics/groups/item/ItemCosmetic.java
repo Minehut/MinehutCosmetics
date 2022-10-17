@@ -1,17 +1,13 @@
 package com.minehut.cosmetics.cosmetics.groups.item;
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
-import com.minehut.cosmetics.modules.KeyManager;
 import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -52,23 +48,13 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
         return item();
     }
 
-    public Supplier<ItemStack> getItemSupplier() {
-        return itemSupplier;
-    }
-
     @Override
     public void applySkin(ItemStack item) {
-        SkinUtil.applyCosmeticKeys(item, this);
-
+        SkinUtil.writeSkinKeys(item);
         ItemStack base = item();
         item.editMeta(meta -> {
-            // apply any visual things
             meta.setCustomModelData(base.getItemMeta().getCustomModelData());
+            SkinUtil.writeCosmeticKeys(meta, this);
         });
-    }
-
-    @Override
-    public void removeSkin(ItemStack item) {
-        Skinnable.super.removeSkin(item);
     }
 }

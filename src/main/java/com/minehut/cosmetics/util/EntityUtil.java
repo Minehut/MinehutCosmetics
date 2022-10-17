@@ -1,14 +1,11 @@
 package com.minehut.cosmetics.util;
 
-import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.modules.KeyManager;
+import com.minehut.cosmetics.util.data.Key;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.function.Consumer;
 
@@ -41,9 +38,7 @@ public class EntityUtil {
             }
 
             // apply data keys
-            final KeyManager keys = Cosmetics.get().keyManager();
-            final PersistentDataContainer data = entity.getPersistentDataContainer();
-            data.set(keys.COSMETIC_ENTITY, PersistentDataType.STRING, "");
+            Key.COSMETIC_ENTITY.write(entity, "");
         });
     }
 
@@ -54,10 +49,7 @@ public class EntityUtil {
      * @return whether the entity is used for cosmetics
      */
     public static boolean isCosmeticEntity(Entity entity) {
-        if (entity == null) return false;
-        final KeyManager manager = Cosmetics.get().keyManager();
-        final PersistentDataContainer data = entity.getPersistentDataContainer();
-        return data.has(manager.COSMETIC_ENTITY, PersistentDataType.STRING);
+        return Key.COSMETIC_ENTITY.read(entity).isPresent();
     }
 
     /**
@@ -78,10 +70,5 @@ public class EntityUtil {
             stand.setInvisible(true);
             actions.accept(stand);
         });
-    }
-
-    public static void removeRecursively(Entity entity) {
-        entity.getPassengers().forEach(EntityUtil::removeRecursively);
-        entity.remove();
     }
 }

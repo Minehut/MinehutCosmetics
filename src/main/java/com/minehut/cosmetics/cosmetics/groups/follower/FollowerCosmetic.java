@@ -5,29 +5,27 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
-import com.minehut.cosmetics.util.ItemUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public abstract class FollowerCosmetic extends Cosmetic implements Equippable, Tickable {
-    protected Function<Player, ItemStack> companionSupplier;
+    protected List<Function<Player, ItemStack>> companionSuppliers;
+    protected List<UUID> entityUUIDs;
 
 
     protected boolean equipped = false;
-    protected UUID entityUUID;
 
     private final Vector offset;
 
@@ -36,12 +34,13 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
             CosmeticCategory category,
             final Component name,
             final Function<Player, CompletableFuture<Boolean>> permission,
-            Function<Player, ItemStack> companionSupplier,
+            List<Function<Player, ItemStack>> companionSuppliers,
             Vector offset
     ) {
         super(id, name, permission, category);
-        this.companionSupplier = companionSupplier;
+        this.companionSuppliers = companionSuppliers;
         this.offset = offset;
+        entityUUIDs = new ArrayList<>();
     }
 
     @Override
@@ -50,12 +49,17 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
         equipped = true;
         // we need the player to spawn the entity
         player().ifPresent(player -> {
-            final Location spawnLocation = player.getEyeLocation().clone().subtract(0, 0.5, 0);
-            final Vector behind = spawnLocation.getDirection().setY(0).normalize().multiply(-1);
-            spawnLocation.add(behind);
+            for (Function<Player, ItemStack> companionSupplier : companionSuppliers) {
+                final Location spawnLocation = player.getEyeLocation().clone().subtract(0, 0.5, 0);
+                final Vector behind = spawnLocation.getDirection().setY(0).normalize().multiply(-1);
+                spawnLocation.add(behind);
+                final Vector random = new Vector(Math.random() - 0.5, 0, Math.random() - 0.5);
+                spawnLocation.add(random);
+                spawnLocation.add(offset);
 
-            Entity entity = spawnEntity(player, spawnLocation);
-            this.entityUUID = entity.getUniqueId();
+                Entity entity = spawnEntity(player, spawnLocation, companionSupplier);
+                entityUUIDs.add(entity.getUniqueId());
+            }
         });
     }
 
@@ -63,10 +67,10 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     public void unequip() {
         if (!equipped) return;
         equipped = false;
-        entity().ifPresent(Entity::remove);
+        entities().forEach(Entity::remove);
     }
 
-    public Entity spawnEntity(Player player, Location location) {
+    public Entity spawnEntity(Player player, Location location, Function<Player, ItemStack> companionSupplier) {
         return EntityUtil.spawnCosmeticEntity(location, Item.class, item -> {
             item.setItemStack(companionSupplier.apply(player));
             item.setCanPlayerPickup(false);
@@ -78,37 +82,75 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
 
     public void tick() {
         // process if the player is present
-        player().ifPresentOrElse(player -> entity().ifPresent(entity -> {
+        player().ifPresentOrElse(player -> entities().forEach(entity -> {
             Location target = player.getEyeLocation().clone().subtract(0, 0.5, 0);
             // if the entity is too far away teleport them to the player
             if (entity.getLocation().distanceSquared(target) < 144) {
-                moveTowards(entity, target, 0.25, 1);
+                entity.setVelocity(moveTowards(entity, target, 0.25, 1));
             } else {
                 target.setYaw(0);
                 target.setPitch(0);
                 entity.teleport(target);
             }
+
+            //Move away from each other
+            for (Entity otherEntity : entities()) {
+                if (entity.equals(otherEntity)) {
+                    continue;
+                }
+
+                //Rarely they can get stacked on top of each other, this adds some random velocity to move them away from each other
+                if (entity.getLocation().getX() == otherEntity.getLocation().getX() && entity.getLocation().getZ() == otherEntity.getLocation().getZ()) {
+                    final Vector random = new Vector(Math.random() - 0.5, 0, Math.random() - 0.5);
+                    entity.setVelocity(entity.getVelocity().add(random));
+                }
+
+                double speed = getMoveAwaySpeed(entity.getLocation().distanceSquared(otherEntity.getLocation()));
+
+                //Negative speed to move away
+                entity.setVelocity(entity.getVelocity().add(moveAway(entity, otherEntity.getLocation(), speed)));
+            }
         }), this::unequip);
     }
 
-    public Optional<? extends Entity> entity() {
-        return Optional.ofNullable(entityUUID).map(Bukkit::getEntity);
+    public List<? extends Entity> entities() {
+        return entityUUIDs.stream().map(Bukkit::getEntity).toList();
     }
 
-    private void moveTowards(final Entity entity, final Location target, final double speed, final double followDistance) {
+    @SuppressWarnings("SameParameterValue")
+    private Vector moveTowards(final Entity entity, final Location target, final double speed, final double followDistance) {
         final Location location = entity.getLocation().clone();
         final Vector movement = target.toVector().add(offset).subtract(location.toVector()).normalize().multiply(speed);
         final double distance = entity.getLocation().distance(target);
         final double scalingFactor = Math.max(0, distance <= followDistance ? 0 : Math.log(distance - followDistance));
-        final Vector velocity = movement.multiply(scalingFactor);
-        entity.setVelocity(velocity);
+        return movement.multiply(scalingFactor);
+    }
+
+    private Vector moveAway(final Entity entity, final Location target, final double speed) {
+        final Location location = entity.getLocation().clone();
+        final Vector movement = target.toVector().add(offset).subtract(location.toVector()).normalize().multiply(speed);
+        return movement.multiply(-1).setY(0);
+    }
+
+    /**
+     * Takes distance of two entities squared and outputs a speed with this formula:
+     * y = -0.0625x + 0.25
+     * This locks the output speed (y) between 0.25 (the max move towards player speed) and 0,
+     * between the distance (x) ranges of 0 and 4.
+     *
+     * https://www.desmos.com/calculator/hrkyyewmzc
+     * @param distanceSquared the distance between the two entities, squared
+     * @return the speed to move away at
+     */
+    private double getMoveAwaySpeed(double distanceSquared) {
+        return Math.max((distanceSquared * -0.0625d) + 0.25d, 0);
     }
 
     public Vector getOffset() {
         return offset;
     }
 
-    public Function<Player, ItemStack> getCompanionSupplier() {
-        return companionSupplier;
+    public List<Function<Player, ItemStack>> getCompanionSuppliers() {
+        return companionSuppliers;
     }
 }

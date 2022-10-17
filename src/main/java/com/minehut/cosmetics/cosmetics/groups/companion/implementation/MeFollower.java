@@ -3,7 +3,6 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.companion.CompanionCosmetic;
-import com.minehut.cosmetics.cosmetics.groups.follower.MountedFollowerCosmetic;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

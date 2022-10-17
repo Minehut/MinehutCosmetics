@@ -25,7 +25,7 @@ public class CompieCompanion extends CompanionCosmetic {
                     stack.editMeta(meta -> {
                         meta.lore(List.of(
                                 Component.empty(),
-                                Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                                Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                                 Component.empty()
                         ));
                         meta.setCustomModelData(Model.COMPANION.COMPIE_CHAN);

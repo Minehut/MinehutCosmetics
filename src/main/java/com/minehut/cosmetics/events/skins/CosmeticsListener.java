@@ -30,7 +30,7 @@ public class CosmeticsListener implements Listener {
         manager.getProfile(uuid).thenAccept(res -> {
             Bukkit.getScheduler().runTask(plugin, () -> res.map(CosmeticProfileResponse::getEquipped).ifPresent(
                     (equipped) -> equipped.forEach(
-                            (category, id) -> CosmeticCategory.getCosmetic(category, id).ifPresent(
+                            (category, id) -> CosmeticCategory.cosmetic(category, id).ifPresent(
                                     cosmetic -> manager.setCosmetic(uuid, cosmetic, false)
                             )
                     )

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -19,13 +20,17 @@ public abstract class CompanionCosmetic extends MountedFollowerCosmetic {
      * @param id                of the cosmetic
      * @param name              of this companion
      * @param permission        required to equip this companion
-     * @param companionSupplier build the itemstack for this companion
+     * @param companionSuppliers build the itemstack for this companion
      * @param offset            to spawn the cosmetic at
      * @param small             whether to use a mini armor stand
      * @param lookX             whether to track rotation on the x axis
      * @param lookY             whether to track rotation on the y axis
      */
+    public CompanionCosmetic(String id, Component name, Function<Player, CompletableFuture<Boolean>> permission, List<Function<Player, ItemStack>> companionSuppliers, Vector offset, boolean small, boolean lookX, boolean lookY) {
+        super(id, CosmeticCategory.COMPANION, name, permission, companionSuppliers, offset, small, lookX, lookY);
+    }
+
     public CompanionCosmetic(String id, Component name, Function<Player, CompletableFuture<Boolean>> permission, Function<Player, ItemStack> companionSupplier, Vector offset, boolean small, boolean lookX, boolean lookY) {
-        super(id, CosmeticCategory.COMPANION, name, permission, companionSupplier, offset, small, lookX, lookY);
+        this(id, name, permission, List.of(companionSupplier), offset, small, lookX, lookY);
     }
 }

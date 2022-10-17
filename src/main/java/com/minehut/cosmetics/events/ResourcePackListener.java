@@ -35,13 +35,11 @@ public class ResourcePackListener implements Listener {
         if (!info.isValid()) return;
 
         // send the pack to the player
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            event.getPlayer().setResourcePack(
-                    info.getUrl(),
-                    info.getSha1(),
-                    false,
-                    PACK_COPY
-            );
-        }, 10);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack(
+                info.getUrl(),
+                info.getSha1(),
+                false,
+                PACK_COPY
+        ), 10);
     }
 }

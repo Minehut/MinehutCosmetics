@@ -20,32 +20,39 @@ import com.minehut.cosmetics.cosmetics.groups.particle.implementation.StarPartic
 
 import java.util.function.Supplier;
 
-public enum Particle implements CosmeticSupplier {
-    CLOUD(CloudParticle::new),
-    FLAME(FlameParticle::new),
-    NETHER(NetherParticle::new),
-    RAINBOW_SWIRL(RainbowSwirlParticle::new),
-    RAIN_CLOUD(RainCloudParticle::new),
-    HALO(HaloParticle::new),
-    EXPLORER(ExplorerParticle::new),
-    QUILL(QuillParticle::new),
-    COMPASS(CompassParticle::new),
-    FANCY_COMPASS(FancyCompassParticle::new),
-    REAL_PICK(RealPickParticle::new),
-    FIRE(FireParticle::new),
-    STAR(StarParticle::new),
-    BLOB_DANCE(BlobDanceParticle::new),
-    COMPASS_BURST(CompassBurstParticle::new),
-    GOLD_PICK(GoldPickParticle::new);
+public enum Particle implements CosmeticSupplier<ParticleCosmetic> {
+    CLOUD(CloudParticle::new, true),
+    FLAME(FlameParticle::new, true),
+    NETHER(NetherParticle::new, true),
+    RAINBOW_SWIRL(RainbowSwirlParticle::new, true),
+    RAIN_CLOUD(RainCloudParticle::new, true),
+    HALO(HaloParticle::new, true),
+    EXPLORER(ExplorerParticle::new, true),
+    QUILL(QuillParticle::new, false),
+    COMPASS(CompassParticle::new, false),
+    FANCY_COMPASS(FancyCompassParticle::new, false),
+    REAL_PICK(RealPickParticle::new, false),
+    FIRE(FireParticle::new, false),
+    STAR(StarParticle::new, false),
+    BLOB_DANCE(BlobDanceParticle::new, false),
+    COMPASS_BURST(CompassBurstParticle::new, false),
+    GOLD_PICK(GoldPickParticle::new, false);
 
     private final Supplier<ParticleCosmetic> supplier;
+    private final boolean visible;
 
-    Particle(final Supplier<ParticleCosmetic> supplier) {
+    Particle(final Supplier<ParticleCosmetic> supplier, boolean visible) {
         this.supplier = supplier;
+        this.visible = visible;
     }
 
     @Override
     public ParticleCosmetic get() {
         return supplier.get();
+    }
+
+    @Override
+    public boolean isVisible() {
+        return visible;
     }
 }

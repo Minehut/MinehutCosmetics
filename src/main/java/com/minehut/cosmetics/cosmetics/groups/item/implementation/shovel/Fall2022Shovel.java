@@ -31,7 +31,7 @@ public class Fall2022Shovel extends ItemCosmetic {
         super(
                 Item.FALL_22_SHOVEL.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name()),
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHOVEL.name()),
                 ITEM
         );
     }

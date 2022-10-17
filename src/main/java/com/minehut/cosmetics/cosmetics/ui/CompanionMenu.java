@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class CompanionMenu extends CosmeticSubMenu {
@@ -24,18 +25,7 @@ public class CompanionMenu extends CosmeticSubMenu {
             .supplier();
 
     public CompanionMenu() {
-        super(CosmeticCategory.COMPANION, 1);
-    }
-
-    @Override
-    public void render() {
-        super.render();
-        addCosmetic(
-                // Explorer
-                Companion.EXPLORER,
-                // Fall 2022
-                Companion.LATTE_KUN
-        );
+        super(CosmeticCategory.COMPANION, List.of(Companion.values()));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Bindings {
                     Item.EXPLORER_PICKAXE,
                     Item.FALL_22_PICKAXE
             ));
-    
+
     // bindings for shovel items
     public static MaterialBinding SHOVEL = new MaterialBinding()
             .registerMaterials(List.of(
@@ -48,7 +48,8 @@ public class Bindings {
                     Material.NETHERITE_SHOVEL
             ))
             .registerCosmetics(List.of(
-                    Item.FALL_22_SHOVEL
+                    Item.FALL_22_SHOVEL,
+                    Item.GRAVE_SHOVEL
             ));
 
     // bindings for axe items
@@ -85,7 +86,14 @@ public class Bindings {
                     Material.TURTLE_HELMET
             ))
             .registerCosmetics(List.of(
-                    Hat.values()
+                    // Explorer
+                    Hat.EXPLORER,
+                    // Spooktacular 2022
+                    Hat.WITCH,
+                    Hat.CAT_EARS,
+                    Hat.DEVIL_HORNS,
+                    Hat.FOX_EARS,
+                    Hat.FOX_EARS
             ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()

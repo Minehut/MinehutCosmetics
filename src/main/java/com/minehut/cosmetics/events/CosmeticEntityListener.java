@@ -11,7 +11,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-public class CosmeticEntityEvent implements Listener {
+public class CosmeticEntityListener implements Listener {
 
     /*
      * Damage Events

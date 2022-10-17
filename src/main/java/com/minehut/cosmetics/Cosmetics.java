@@ -7,17 +7,11 @@ import com.minehut.cosmetics.commands.UnSkinCommand;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.events.CosmeticEntityEvent;
-import com.minehut.cosmetics.events.CosmeticsListener;
-import com.minehut.cosmetics.events.DeathListener;
-import com.minehut.cosmetics.events.LeashEvent;
-import com.minehut.cosmetics.events.ResourcePackListener;
-import com.minehut.cosmetics.events.CosmeticsTeleportEvent;
+import com.minehut.cosmetics.events.*;
 import com.minehut.cosmetics.events.skins.SkinDurabilityListener;
 import com.minehut.cosmetics.events.skins.SkinEquipListener;
 import com.minehut.cosmetics.events.skins.SkinModifyListener;
 import com.minehut.cosmetics.events.skins.SkinTriggerListener;
-import com.minehut.cosmetics.modules.KeyManager;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
@@ -25,6 +19,7 @@ import com.minehut.cosmetics.network.CosmeticsAPI;
 import com.minehut.cosmetics.network.ExternalAPI;
 import com.minehut.cosmetics.network.InternalAPI;
 import com.minehut.cosmetics.util.EntityUtil;
+import com.minehut.cosmetics.util.data.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -40,8 +35,6 @@ public final class Cosmetics extends JavaPlugin {
     // Managers
     private Config config;
     private CosmeticsManager manager;
-    private KeyManager keyManager;
-
     // Local storage only for use on player servers
     private @Nullable LocalStorageManager localStorage;
 
@@ -52,8 +45,9 @@ public final class Cosmetics extends JavaPlugin {
     @Override
     public void onEnable() {
         Cosmetics.INSTANCE = this;
+        Key.init(this);
+
         this.config = new Config(this);
-        this.keyManager = new KeyManager(this);
         this.manager = new CosmeticsManager(this);
 
         // process different actions depending on the operation mode the server is in
@@ -67,7 +61,7 @@ public final class Cosmetics extends JavaPlugin {
                 // register listeners
                 registerEvents(new SkinTriggerListener(this, manager));
                 registerEvents(new SkinEquipListener());
-                registerEvents(new SkinDurabilityListener(keyManager));
+                registerEvents(new SkinDurabilityListener());
                 registerEvents(new SkinModifyListener());
 
                 // commands
@@ -89,9 +83,9 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticsListener(this));
         registerEvents(new ResourcePackListener(this, packInfoModule));
         registerEvents(new DeathListener(this));
-        registerEvents(new LeashEvent(this));
-        registerEvents(new CosmeticsTeleportEvent(this));
-        registerEvents(new CosmeticEntityEvent());
+        registerEvents(new LeashListener(this));
+        registerEvents(new CosmeticsTeleportListener(this));
+        registerEvents(new CosmeticEntityListener());
 
         // register commands
         setExecutor("cosmetics", new MenuCommand(manager));
@@ -108,10 +102,6 @@ public final class Cosmetics extends JavaPlugin {
 
     public CosmeticsManager cosmeticManager() {
         return manager;
-    }
-
-    public KeyManager keyManager() {
-        return keyManager;
     }
 
     public Config config() {

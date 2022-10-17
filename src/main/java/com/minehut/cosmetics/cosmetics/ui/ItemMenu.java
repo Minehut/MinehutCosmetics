@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ItemMenu extends CosmeticSubMenu {
@@ -24,13 +25,7 @@ public class ItemMenu extends CosmeticSubMenu {
 
 
     public ItemMenu() {
-        super(CosmeticCategory.ITEM, 2);
-    }
-
-    @Override
-    public void render() {
-        super.render();
-        addCosmetic(
+        super(CosmeticCategory.ITEM, List.of(
                 // Explorer
                 Item.EXPLORER_SWORD,
                 Item.EXPLORER_PICKAXE,
@@ -40,10 +35,12 @@ public class ItemMenu extends CosmeticSubMenu {
                 Item.FALL_22_SHIELD,
                 Item.FALL_22_PICKAXE,
                 Item.FALL_22_AXE,
-                Item.FALL_22_SHOVEL
-        );
+                Item.FALL_22_SHOVEL,
+                // Spooktacular 2022
+                Item.GRAVE_SHOVEL
+        ));
     }
-
+    
     @Override
     public ItemStack icon() {
         return ICON.get();

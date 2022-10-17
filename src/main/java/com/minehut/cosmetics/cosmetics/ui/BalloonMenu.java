@@ -1,14 +1,16 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
-import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.groups.balloon.Balloon;
+import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
+import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class BalloonMenu extends CosmeticSubMenu {
@@ -19,13 +21,7 @@ public class BalloonMenu extends CosmeticSubMenu {
             .supplier();
 
     public BalloonMenu() {
-        super(CosmeticCategory.BALLOON, 1);
-    }
-
-    @Override
-    public void render() {
-        super.render();
-        addCosmetic();
+        super(CosmeticCategory.BALLOON, List.of(Balloon.values()));
     }
 
     @Override

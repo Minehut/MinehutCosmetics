@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ParticleMenu extends CosmeticSubMenu {
@@ -21,21 +22,7 @@ public class ParticleMenu extends CosmeticSubMenu {
             ).supplier();
 
     public ParticleMenu() {
-        super(CosmeticCategory.PARTICLE, 1);
-    }
-
-    @Override
-    public void render() {
-        super.render();
-        addCosmetic(
-                Particle.CLOUD,
-                Particle.FLAME,
-                Particle.NETHER,
-                Particle.RAINBOW_SWIRL,
-                Particle.RAIN_CLOUD,
-                Particle.HALO,
-                Particle.EXPLORER
-        );
+        super(CosmeticCategory.PARTICLE, List.of(Particle.values()));
     }
 
     @Override

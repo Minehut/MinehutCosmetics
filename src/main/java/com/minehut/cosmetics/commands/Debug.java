@@ -6,10 +6,14 @@ import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -45,6 +49,18 @@ public class Debug implements CommandExecutor {
                     .append(Component.newline())
                     .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
             );
+
+            final ItemStack item = player.getInventory().getItemInMainHand();
+            if (item == null) return;
+            if (Material.AIR == item.getType()) return;
+
+            Component keylist = Component.empty();
+
+            for (final NamespacedKey key : item.getItemMeta().getPersistentDataContainer().getKeys()) {
+                keylist = keylist.append(Component.newline().append(Component.text(key.toString())));
+            }
+
+            player.sendMessage(keylist);
         });
 
         return true;

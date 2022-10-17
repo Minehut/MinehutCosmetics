@@ -1,13 +1,11 @@
 package com.minehut.cosmetics.cosmetics.groups.hat;
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
-import com.minehut.cosmetics.modules.KeyManager;
-import com.minehut.cosmetics.util.ItemUtil;
 import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -15,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -69,24 +66,26 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
     @Override
     public void applySkin(ItemStack item) {
         ItemStack base = item();
+
+        // apply any keys we need to the item
         SkinUtil.copyAttributes(item, item);
-        SkinUtil.applyCosmeticKeys(item, this);
+        SkinUtil.writeSkinKeys(item);
 
-        ItemUtil.editMeta(item, (meta, data) -> {
-            KeyManager keys = Cosmetics.get().keyManager();
-            meta.setCustomModelData(base.getItemMeta().getCustomModelData());
+        final Material type = item.getType();
 
-            // set equipment slot key
-            ItemUtil.setIfUnset(data, keys.EQUIPMENT_SLOT, PersistentDataType.STRING, EquipmentSlot.HEAD.name());
-            // set material key
-            final Material type = item.getType();
-            ItemUtil.setIfUnset(data, keys.MATERIAL, PersistentDataType.STRING, type.name());
+        item.editMeta(meta -> {
+            SkinUtil.writeCosmeticKeys(meta, this);
+            
+            Key.EQUIPMENT_SLOT.writeIfAbsent(meta, EquipmentSlot.HEAD.name());
+            Key.MATERIAL.writeIfAbsent(meta, type.name());
 
             // durability keys
             if (meta instanceof Damageable damageable) {
-                ItemUtil.setIfUnset(data, keys.DURABILITY, PersistentDataType.INTEGER, type.getMaxDurability() - damageable.getDamage());
-                ItemUtil.setIfUnset(data, keys.MAX_DURABILITY, PersistentDataType.INTEGER, (int) type.getMaxDurability());
+                Key.DURABILITY.writeIfAbsent(meta, type.getMaxDurability() - damageable.getDamage());
+                Key.MAX_DURABILITY.writeIfAbsent(meta, (int) type.getMaxDurability());
             }
+
+            meta.setCustomModelData(base.getItemMeta().getCustomModelData());
         });
 
         SkinUtil.swapType(item, base.getType());
@@ -94,7 +93,7 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
 
     @Override
     public void removeSkin(ItemStack item) {
-        if (!item.hasItemMeta()) return;
         item.setType(SkinUtil.getBaseType(item));
+        item.editMeta(meta -> Key.SKINNED.remove(meta));
     }
 }

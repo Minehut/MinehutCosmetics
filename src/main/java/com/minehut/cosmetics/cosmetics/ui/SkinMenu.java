@@ -1,9 +1,7 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.bindings.MaterialBinding;
@@ -11,7 +9,6 @@ import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.menu.Menu;
 import com.minehut.cosmetics.menu.ProxyInventory;
 import com.minehut.cosmetics.menu.icon.MenuItem;
-import com.minehut.cosmetics.modules.KeyManager;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
@@ -23,8 +20,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +47,7 @@ public class SkinMenu extends Menu {
     });
 
     private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Remove Skin").color(NamedTextColor.RED)).build();
-    private final HashSet<CosmeticSupplier> cosmetics = new HashSet<>();
+    private final HashSet<CosmeticSupplier<? extends Cosmetic>> cosmetics = new HashSet<>();
 
     @NotNull
     private final ItemStack item;
@@ -80,7 +75,7 @@ public class SkinMenu extends Menu {
     @Override
     public void render() {
         int slot = 0;
-        for (CosmeticSupplier supplier : cosmetics) {
+        for (CosmeticSupplier<? extends Cosmetic> supplier : cosmetics) {
             Cosmetic cosmetic = supplier.get();
             if (!(cosmetic instanceof Skinnable skinnable)) return;
             getProxy().setItem(slot, MenuItem.of(cosmetic.menuIcon(), (player, ignored) -> {
@@ -101,23 +96,13 @@ public class SkinMenu extends Menu {
         }
 
         getProxy().setItem(getProxy().getSize() - 1, CLEAR_ITEM, (player, click) -> {
-            // grab the cosmetic id and category from the items data
-            KeyManager keys = Cosmetics.get().keyManager();
-
-            // grab the cosmetic from the persistent data
-            PersistentDataContainer data = item.getItemMeta().getPersistentDataContainer();
-            String category = data.get(keys.COSMETIC_CATEGORY, PersistentDataType.STRING);
-            String id = data.get(keys.COSMETIC_ID, PersistentDataType.STRING);
-            if (category == null || id == null) return;
-
-            // remove the cosmetic skin
-            CosmeticCategory.getCosmetic(category, id).ifPresent(cosmetic -> {
+            SkinUtil.getCosmetic(item).ifPresent(cosmetic -> {
                 if (!(cosmetic instanceof Skinnable skinnable)) return;
                 cosmetic.owner(player.getUniqueId());
                 skinnable.removeSkin(item);
-                player.sendMessage(Component.text("Removed item skin.").color(NamedTextColor.RED));
             });
 
+            player.sendMessage(Component.text("Removed item skin.").color(NamedTextColor.RED));
             player.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
         });
     }
@@ -136,8 +121,8 @@ public class SkinMenu extends Menu {
         return CompletableFuture.supplyAsync(() -> new SkinMenu(plugin, manager, player, item));
     }
 
-    public static CompletableFuture<Void> open(Plugin plugin, CosmeticsManager manager, Player player, ItemStack item) {
-        return create(plugin, manager, player, item).thenAccept((menu) -> Bukkit.getScheduler().runTask(plugin, () -> menu.openTo(player)));
+    public static void open(Plugin plugin, CosmeticsManager manager, Player player, ItemStack item) {
+        create(plugin, manager, player, item).thenAccept((menu) -> Bukkit.getScheduler().runTask(plugin, () -> menu.openTo(player)));
     }
 }
 

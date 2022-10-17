@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics;
 
-@FunctionalInterface
-public interface CosmeticSupplier {
-    Cosmetic get();
+public interface CosmeticSupplier<T extends Cosmetic> {
+    T get();
+    boolean isVisible();
 }

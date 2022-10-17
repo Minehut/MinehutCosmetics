@@ -26,7 +26,7 @@ public class CosmeticsManager {
      * Cache for retrieving player cosmetic profiles
      */
     private final Cache<UUID, CosmeticProfileResponse> cache = CacheBuilder.newBuilder()
-            .expireAfterWrite(5, TimeUnit.MINUTES)
+            .expireAfterWrite(15, TimeUnit.SECONDS)
             .build();
 
     /**
@@ -63,7 +63,11 @@ public class CosmeticsManager {
 
         return CompletableFuture.supplyAsync(() -> {
             final Optional<CosmeticProfileResponse> response = cosmetics.api().getProfile(uuid);
-            response.ifPresent(res -> this.cache.put(uuid, res));
+
+            if (Cosmetics.get().config().mode() != Mode.LOBBY) {
+                response.ifPresent(res -> this.cache.put(uuid, res));
+            }
+
             return response;
         });
     }
@@ -136,7 +140,8 @@ public class CosmeticsManager {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             Optional<Map<String, String>> equipped = Optional.empty();
 
-            switch (cosmetics.config().mode()) {
+            final Mode mode = cosmetics.config().mode();
+            switch (mode) {
                 case LOBBY -> equipped = getProfile(uuid).join().map(CosmeticProfileResponse::getEquipped);
                 case PLAYER_SERVER ->
                         equipped = Optional.of(cosmetics.localStorage().loadProfile(uuid).join().getEquipped());
@@ -144,7 +149,13 @@ public class CosmeticsManager {
 
             // equip on main thread
             final Optional<Map<String, String>> finalEquipped = equipped;
-            Bukkit.getScheduler().runTask(cosmetics, () -> equipFromId(uuid, finalEquipped.orElseGet(HashMap::new)));
+            Bukkit.getScheduler().runTask(cosmetics, () -> finalEquipped.ifPresent(equipMap -> equipMap.forEach((category, id) -> {
+                // get the cosmetic and equip it for the player
+                CosmeticCategory.cosmetic(category, id).ifPresent(cosmetic -> {
+                    if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal()) return;
+                    setCosmetic(uuid, cosmetic, false);
+                });
+            })));
         });
     }
 
@@ -196,20 +207,6 @@ public class CosmeticsManager {
             if (!(cosmetic instanceof Equippable equippable)) return;
             equippable.equip();
         });
-    }
-
-    private void equipFromId(UUID uuid, Map<String, String> equipped) {
-
-        final HashMap<CosmeticCategory, Cosmetic> cosmetics = new HashMap<>();
-
-        // grab cosmetics using the ids retrieved from the profile
-        equipped.forEach((category, id) ->
-                CosmeticCategory.getCosmetic(category, id)
-                        .ifPresent(cosmetic -> cosmetics.put(cosmetic.category(), cosmetic))
-        );
-
-        // Equip cosmetics on the main bukkit thread
-        cosmetics.forEach((category, cosmetic) -> this.cosmetics.cosmeticManager().setCosmetic(uuid, cosmetic, false));
     }
 
     /**

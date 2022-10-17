@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -51,15 +52,29 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
             final boolean lookX,
             final boolean lookY
     ) {
-        super(id, category, name, permission, companionSupplier, offset);
+        this(id, category, name, permission, List.of(companionSupplier), offset, small, lookX, lookY);
+    }
+
+    public MountedFollowerCosmetic(
+            final String id,
+            final CosmeticCategory category,
+            final Component name,
+            final Function<Player, CompletableFuture<Boolean>> permission,
+            final List<Function<Player, ItemStack>> companionSuppliers,
+            final Vector offset,
+            final boolean small,
+            final boolean lookX,
+            final boolean lookY
+    ) {
+        super(id, category, name, permission, companionSuppliers, offset);
         this.small = small;
         this.lookX = lookX;
         this.lookY = lookY;
     }
 
     @Override
-    public Entity spawnEntity(Player player, Location location) {
-        Location spawnLocation = player.getEyeLocation();
+    public Entity spawnEntity(Player player, Location location, Function<Player, ItemStack> companionSupplier) {
+        Location spawnLocation = location.clone();
         spawnLocation.setYaw(0);
         spawnLocation.setPitch(0);
         spawnLocation.subtract(0, 1.5, 0);
@@ -78,7 +93,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
         if (!lookX && !lookY) return;
 
         // make the pet 'look' at the player
-        player().ifPresent(player -> entity().ifPresent((entity) -> {
+        player().ifPresent(player -> entities().forEach((entity) -> {
             ArmorStand stand = (ArmorStand) entity;
             Location dir = player.getEyeLocation().subtract(stand.getEyeLocation());
 
@@ -98,7 +113,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
     }
 
     @Override
-    public Optional<LivingEntity> entity() {
-        return super.entity().filter(LivingEntity.class::isInstance).map(LivingEntity.class::cast);
+    public List<LivingEntity> entities() {
+        return super.entities().stream().filter(LivingEntity.class::isInstance).map(LivingEntity.class::cast).toList();
     }
 }

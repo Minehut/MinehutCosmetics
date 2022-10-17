@@ -1,23 +1,14 @@
 package com.minehut.cosmetics.events.skins;
 
-import com.minehut.cosmetics.modules.KeyManager;
-import com.minehut.cosmetics.util.ItemUtil;
+import com.minehut.cosmetics.util.data.Key;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerItemMendEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class SkinDurabilityListener implements Listener {
-
-    private KeyManager keys;
-
-    public SkinDurabilityListener(KeyManager keys) {
-        this.keys = keys;
-    }
 
     /*
      * Handle scaling durability for cosmetic items
@@ -28,22 +19,20 @@ public class SkinDurabilityListener implements Listener {
         if (!item.hasItemMeta()) return;
         if (!(item.getItemMeta() instanceof Damageable damageable)) return;
 
-        // grab durability nbt from the item
-        ItemUtil.editMeta(item, (meta, data) -> {
-            Integer storedDurability = data.get(keys.DURABILITY, PersistentDataType.INTEGER);
-            Integer storedMax = data.get(keys.MAX_DURABILITY, PersistentDataType.INTEGER);
-            if (storedDurability == null || storedMax == null) return;
+        item.editMeta(meta -> Key.DURABILITY.read(meta).ifPresent(storedCurrent -> {
+            Key.MAX_DURABILITY.read(meta).ifPresent(storedMax -> {
+                int durability = storedCurrent;
+                durability -= event.getDamage();
 
-            storedDurability -= event.getDamage();
+                float durabilityPercentage = durability / (float) storedMax;
+                int maxDurability = item.getType().getMaxDurability();
+                int target = maxDurability - (int) (maxDurability * durabilityPercentage);
 
-            float durabilityPercentage = storedDurability / (float) storedMax;
-            int maxDurability = item.getType().getMaxDurability();
-            int target = maxDurability - (int) (maxDurability * durabilityPercentage);
+                event.setDamage(target - damageable.getDamage());
 
-            event.setDamage(target - damageable.getDamage());
-
-            data.set(keys.DURABILITY, PersistentDataType.INTEGER, storedDurability);
-        });
+                Key.DURABILITY.write(meta, durability);
+            });
+        }));
     }
 
     @EventHandler
@@ -52,23 +41,18 @@ public class SkinDurabilityListener implements Listener {
         if (!item.hasItemMeta()) return;
 
         // grab durability nbt from the item
-        item.editMeta(meta -> {
-            PersistentDataContainer data = meta.getPersistentDataContainer();
-            Integer storedDurability = data.get(keys.DURABILITY, PersistentDataType.INTEGER);
-            Integer storedMax = data.get(keys.MAX_DURABILITY, PersistentDataType.INTEGER);
-            if (storedDurability == null || storedMax == null) return;
-
-            storedDurability += event.getRepairAmount();
-
+        item.editMeta(meta -> Key.DURABILITY.read(meta).ifPresent(currentDurability -> Key.MAX_DURABILITY.read(meta).ifPresent(maxDurability -> {
+            int durability = currentDurability;
+            durability += event.getRepairAmount();
 
             // ratio
             int itemMax = item.getType().getMaxDurability();
-            float scale = itemMax / (float) storedDurability;
+            float scale = itemMax / (float) durability;
 
             int scaledRepairAmount = (int) (scale * event.getRepairAmount());
             event.setRepairAmount(scaledRepairAmount);
 
-            data.set(keys.DURABILITY, PersistentDataType.INTEGER, storedDurability);
-        });
+            Key.DURABILITY.write(meta, durability);
+        })));
     }
 }

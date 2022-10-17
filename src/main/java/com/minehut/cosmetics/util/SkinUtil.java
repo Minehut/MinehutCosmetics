@@ -1,16 +1,14 @@
 package com.minehut.cosmetics.util;
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.modules.KeyManager;
+import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.persistence.PersistentDataHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,8 +49,7 @@ public class SkinUtil {
     public static Material getBaseType(@NotNull ItemStack item) {
         return Optional.of(item)
                 .map(ItemStack::getItemMeta)
-                .map(ItemMeta::getPersistentDataContainer)
-                .map((data) -> data.get(Cosmetics.get().keyManager().MATERIAL, PersistentDataType.STRING))
+                .flatMap(meta -> Key.MATERIAL.read(meta))
                 .flatMap((material) -> EnumUtil.valueOfSafe(Material.class, material))
                 .orElse(item.getType());
     }
@@ -69,38 +66,34 @@ public class SkinUtil {
         item.setType(material);
     }
 
-    public static Optional<EquipmentSlot> getEquipmentSlot(ItemStack item) {
-        return ItemUtil.readKeySafe(item, Cosmetics.get().keyManager().EQUIPMENT_SLOT, PersistentDataType.STRING)
-                .flatMap(value -> EnumUtil.valueOfSafe(EquipmentSlot.class, value));
+    public static Optional<EquipmentSlot> getEquipmentSlot(@Nullable ItemStack item) {
+        return Optional.ofNullable(item)
+                .map(ItemStack::getItemMeta)
+                .flatMap(Key.EQUIPMENT_SLOT::read)
+                .flatMap(slot -> EnumUtil.valueOfSafe(EquipmentSlot.class, slot));
     }
 
-    public static boolean isSkinned(ItemStack item) {
-        return ItemUtil.readKeySafe(item, Cosmetics.get().keyManager().COSMETIC_ID, PersistentDataType.STRING).isPresent();
+    public static boolean isSkinned(@Nullable ItemStack item) {
+        if (item == null) return false;
+        return Key.SKINNED.read(item.getItemMeta()).isPresent();
     }
 
-    public static Optional<Cosmetic> getCosmetic(ItemStack stack) {
-        final KeyManager keys = Cosmetics.get().keyManager();
-        return ItemUtil.readKeySafe(stack, keys.COSMETIC_CATEGORY, PersistentDataType.STRING).flatMap(category ->
-                ItemUtil.readKeySafe(stack, keys.COSMETIC_ID, PersistentDataType.STRING).flatMap(id ->
-                        CosmeticCategory.getCosmetic(category, id)
+    public static Optional<Cosmetic> getCosmetic(@Nullable ItemStack stack) {
+        if (stack == null) return Optional.empty();
+        return Key.COSMETIC_CATEGORY.read(stack.getItemMeta()).flatMap(category ->
+                Key.COSMETIC_ID.read(stack.getItemMeta()).flatMap(id ->
+                        CosmeticCategory.cosmetic(category, id)
                 )
         );
     }
 
-    public static void applyCosmeticKeys(@NotNull ItemStack item, @NotNull Cosmetic cosmetic) {
-        final KeyManager keys = Cosmetics.get().keyManager();
-        ItemUtil.editMeta(item, (ignored, data) -> {
-            data.set(keys.COSMETIC_CATEGORY, PersistentDataType.STRING, cosmetic.category().name());
-            data.set(keys.COSMETIC_ID, PersistentDataType.STRING, cosmetic.id());
-        });
+    public static void writeCosmeticKeys(@NotNull PersistentDataHolder holder, @NotNull Cosmetic cosmetic) {
+        Key.COSMETIC_CATEGORY.write(holder, cosmetic.category().name());
+        Key.COSMETIC_ID.write(holder, cosmetic.id());
     }
 
-    public static void removeSkinKeys(@NotNull ItemStack item) {
-        final KeyManager keys = Cosmetics.get().keyManager();
-        ItemUtil.editMeta(item, (ignored, data) -> {
-            data.remove(keys.COSMETIC_ID);
-            data.remove(keys.COSMETIC_CATEGORY);
-        });
+    public static void writeSkinKeys(@NotNull ItemStack item) {
+        item.editMeta(meta -> Key.SKINNED.writeIfAbsent(meta, ""));
     }
 
     public static Integer getEquipmentSlotIndex(@NotNull EquipmentSlot slot) {

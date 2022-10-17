@@ -12,10 +12,12 @@ import org.bukkit.inventory.Inventory;
 
 public class SkinModifyListener implements Listener {
 
-    private static Component UNSKIN_CTA = Component.text()
-            .append(Component.text("Please un-skin this item before proceeding!").color(NamedTextColor.YELLOW))
+    private static final Component UNSKIN_CTA = Component.text()
+            .append(Component.text("Please hold the item and run").color(NamedTextColor.YELLOW))
             .append(Component.space())
-            .append(Component.text("[Click to Un-skin]").color(NamedTextColor.GREEN).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/unskin")))
+            .append(Component.text("/unskin").color(NamedTextColor.GREEN).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/unskin")))
+            .append(Component.space())
+            .append(Component.text("to proceed.").color(NamedTextColor.YELLOW))
             .build();
 
     @EventHandler
