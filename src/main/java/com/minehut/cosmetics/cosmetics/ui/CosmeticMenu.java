@@ -50,6 +50,7 @@ public class CosmeticMenu extends Menu {
         if (Mode.PLAYER_SERVER == mode) {
             getProxy().addItem(MenuItem.of(SKIN_INFO));
         }
+
     }
 
     private void addMenu(Supplier<CosmeticSubMenu> supplier) {

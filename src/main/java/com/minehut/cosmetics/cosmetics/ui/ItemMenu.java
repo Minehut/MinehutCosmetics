@@ -38,9 +38,9 @@ public class ItemMenu extends CosmeticSubMenu {
                 Item.FALL_22_SWORD,
                 //  Halloween
                 Item.GRAVE_SHOVEL
-                ));
+        ));
     }
-    
+
     @Override
     public ItemStack icon() {
         return ICON.get();

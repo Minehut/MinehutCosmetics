@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.menu;
 
 import com.minehut.cosmetics.menu.icon.ActionHandler;
+import io.papermc.paper.text.PaperComponents;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -25,7 +26,8 @@ public abstract class Menu implements Listener {
 
     private final Plugin plugin;
     private ProxyInventory proxyInventory;
-    private final Inventory inventory;
+    private Inventory inventory;
+    private final Component title;
     private Map<Integer, ActionHandler> actionHandlers;
     private BukkitTask renderTask;
     private Player player;
@@ -33,9 +35,8 @@ public abstract class Menu implements Listener {
     public Menu(Plugin plugin, int rows, Component title) {
         Validate.isTrue(rows <= 6 && rows > 0, "The amount of rows in a menu must be between 1 and 6.");
         this.plugin = plugin;
-        this.proxyInventory = new ProxyInventory(rows);
-        this.inventory = Bukkit.createInventory(null, rows * 9, title);
-        this.actionHandlers = new HashMap<>(rows * 9);
+        this.title = title;
+        setRows(rows);
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
@@ -149,6 +150,12 @@ public abstract class Menu implements Listener {
      */
     public void setProxy(ProxyInventory proxy) {
         this.proxyInventory = proxy;
+    }
+
+    public void setRows(int rows) {
+        this.proxyInventory = new ProxyInventory(rows);
+        this.inventory = Bukkit.createInventory(null, rows * 9, title);
+        this.actionHandlers = new HashMap<>(rows * 9);
     }
 
     /**

@@ -5,7 +5,6 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.menu.Menu;
-import com.minehut.cosmetics.menu.ProxyInventory;
 import com.minehut.cosmetics.menu.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -22,33 +21,35 @@ public abstract class CosmeticSubMenu extends Menu {
 
     private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Clear Item").color(NamedTextColor.RED)).build();
 
-    private final CosmeticCategory category;
-
     public CosmeticSubMenu(CosmeticCategory category, List<CosmeticSupplier<? extends Cosmetic>> cosmetics) {
-        super(Cosmetics.get(), 2, category.categoryName());
-        this.category = category;
+        super(Cosmetics.get(), 1, category.categoryName());
 
-
-        final List<CosmeticSupplier<? extends Cosmetic>> available = new ArrayList<>();
+        final List<MenuItem> items = new ArrayList<>();
 
         for (final CosmeticSupplier<? extends Cosmetic> supplier : cosmetics) {
             if (!supplier.isVisible()) continue;
-            available.add(supplier);
+            items.add(menuItem(supplier));
         }
-        available.forEach(cosmetic -> getProxy().addItem(menuItem(cosmetic)));
 
-        setupRenderTask(0, 10);
-    }
+        int size = (int) Math.max(1, Math.ceil((items.size() + 1) / 9f));
+        setRows(size);
 
-    @Override
-    public void render() {
-        getProxy().setItem(getProxy().getSize() - 1, MenuItem.of(CLEAR_ITEM, (player, click) -> {
+        getProxy().setItem(size * 9 - 1, MenuItem.of(CLEAR_ITEM, (player, click) -> {
             final UUID uuid = player.getUniqueId();
 
             Cosmetics.get().cosmeticManager().removeCosmetic(uuid, category, true);
             player.sendMessage(Component.text("Item removed.").color(NamedTextColor.AQUA));
             player.closeInventory();
         }));
+
+        items.forEach(getProxy()::addItem);
+
+        setupRenderTask(0, 10);
+    }
+
+    @Override
+    public void render() {
+
     }
 
     protected MenuItem menuItem(CosmeticSupplier<? extends Cosmetic> supplier) {
