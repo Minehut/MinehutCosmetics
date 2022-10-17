@@ -29,7 +29,7 @@ public class GraveShovel extends ItemCosmetic {
 
     public GraveShovel() {
         super(
-                Item.FALL_22_SHOVEL.name(),
+                Item.GRAVE_SHOVEL.name(),
                 DISPLAY_NAME,
                 CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.GRAVE_SHOVEL.name()),
                 ITEM
