@@ -70,10 +70,18 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
         base().ifPresent(Entity::remove);
     }
 
+
+    float lastAngle = 0;
     @Override
     public void tick() {
         player().ifPresent(player -> wings().ifPresent(wings -> {
-            wings.setRotation(player.getEyeLocation().getYaw(), 0);
+
+            final float rawAngle = player.getEyeLocation().getYaw();
+
+            if(Math.abs(lastAngle - (rawAngle + 180)) >= 20) {
+                wings.setRotation(player.getEyeLocation().getYaw(), 0);
+                lastAngle = rawAngle + 180;
+            }
         }));
     }
 

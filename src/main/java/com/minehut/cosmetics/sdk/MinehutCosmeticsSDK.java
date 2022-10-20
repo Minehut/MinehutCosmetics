@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.sdk;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import org.bukkit.Bukkit;
 
@@ -19,7 +18,7 @@ public class MinehutCosmeticsSDK implements CosmeticsSDK {
     @Override
     public void openCosmeticsMenu(UUID uuid) {
         Optional.ofNullable(Bukkit.getPlayer(uuid)).ifPresent(player -> {
-            new CosmeticMenu().openTo(player);
+            new CosmeticMenu(player).openTo(player);
         });
     }
 }

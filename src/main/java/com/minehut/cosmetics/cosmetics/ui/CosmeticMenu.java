@@ -8,7 +8,9 @@ import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
@@ -28,33 +30,40 @@ public class CosmeticMenu extends Menu {
             .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjcwNWZkOTRhMGM0MzE5MjdmYjRlNjM5YjBmY2ZiNDk3MTdlNDEyMjg1YTAyYjQzOWUwMTEyZGEyMmIyZTJlYyJ9fX0=")
             .build();
 
-    public CosmeticMenu() {
+    public CosmeticMenu(Player player) {
         super(Cosmetics.get(), 1, "Cosmetics");
-    }
 
-    @Override
-    public void render() {
+
         final Mode mode = Cosmetics.get().config().mode();
 
-        addMenu(ParticleMenu::new);
-        addMenu(CompanionMenu::new);
-        addMenu(BalloonMenu::new);
-        addMenu(TrinketMenu::new);
+        addMenu(ParticleMenu.ICON, () -> new ParticleMenu(player));
+        addMenu(CompanionMenu.ICON, () -> new CompanionMenu(player));
+        addMenu(BalloonMenu.ICON, () -> new BalloonMenu(player));
+        addMenu(TrinketMenu.ICON, () -> new TrinketMenu(player));
+        addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(player));
 
         // menus that are only visible when in lobby mode
         if (Mode.LOBBY == mode) {
-            addMenu(ItemMenu::new);
-            addMenu(HatMenu::new);
+            addMenu(ItemMenu.ICON, () -> new ItemMenu(player));
+            addMenu(HatMenu.ICON, () -> new HatMenu(player));
         }
 
         if (Mode.PLAYER_SERVER == mode) {
             getProxy().addItem(MenuItem.of(SKIN_INFO));
         }
-
     }
 
-    private void addMenu(Supplier<CosmeticSubMenu> supplier) {
-        final CosmeticSubMenu menu = supplier.get();
-        getProxy().addItem(menu.icon(), (player, ignored) -> menu.openTo(player));
+    @Override
+    public void render() {
+    }
+
+    private void addMenu(ItemStack icon, Supplier<CosmeticSubMenu> supplier) {
+        getProxy().addItem(icon, (player, ignored) -> {
+            // create menus async then open them
+            Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
+                final CosmeticSubMenu subMenu = supplier.get();
+                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> subMenu.openTo(player));
+            });
+        });
     }
 }

@@ -18,7 +18,7 @@ public enum CosmeticCategory {
     COMPANION("Companions", query -> EnumUtil.valueOfSafe(Companion.class, query).map(Companion::get), true),
     ITEM("Items", query -> EnumUtil.valueOfSafe(Item.class, query).map(Item::get), false),
     BALLOON("Balloons", query -> EnumUtil.valueOfSafe(Balloon.class, query).map(Balloon::get), true),
-    WING("Wings", query -> EnumUtil.valueOfSafe(Wing.class, query).map(Wing::get), true),
+    WING("Backpieces", query -> EnumUtil.valueOfSafe(Wing.class, query).map(Wing::get), true),
     TRINKET("Trinkets", query -> EnumUtil.valueOfSafe(Trinket.class, query).map(Trinket::get), false);
     private final String categoryName;
     private final Function<String, Optional<Cosmetic>> getCosmetic;

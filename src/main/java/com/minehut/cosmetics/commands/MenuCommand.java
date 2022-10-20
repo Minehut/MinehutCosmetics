@@ -24,7 +24,7 @@ public class MenuCommand implements CommandExecutor {
             return true;
         }
 
-        new CosmeticMenu().openTo(player);
+        new CosmeticMenu(player).openTo(player);
         return true;
     }
 }

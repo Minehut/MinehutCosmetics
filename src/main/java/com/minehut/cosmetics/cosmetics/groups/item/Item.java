@@ -10,6 +10,7 @@ import com.minehut.cosmetics.cosmetics.groups.item.implementation.shovel.GraveSh
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.spyglass.ExplorerSpyglass;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.Fall2022Sword;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.ExplorerSword;
+import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.Katana;
 
 import java.util.function.Supplier;
 
@@ -21,6 +22,7 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     // swords
     EXPLORER_SWORD(ExplorerSword::new, true),
     FALL_22_SWORD(Fall2022Sword::new, true),
+    KATANA(Katana::new, false),
     // shovels
     FALL_22_SHOVEL(Fall2022Shovel::new, true),
     GRAVE_SHOVEL(GraveShovel::new, true),
@@ -31,6 +33,7 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
 
     private final Supplier<ItemCosmetic> supplier;
     private final boolean visible;
+
     Item(final Supplier<ItemCosmetic> supplier, boolean visible) {
         this.supplier = supplier;
         this.visible = visible;

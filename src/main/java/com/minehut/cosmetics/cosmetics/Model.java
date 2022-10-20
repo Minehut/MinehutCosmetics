@@ -34,6 +34,8 @@ public final class Model {
         public static class SWORD {
             public static final int EXPLORER = 1_000_001;
             public static final int AUTUMN = 1_000_002;
+            public static final int KATANA = 1_000_003;
+
         }
 
         public static class PICKAXE {
