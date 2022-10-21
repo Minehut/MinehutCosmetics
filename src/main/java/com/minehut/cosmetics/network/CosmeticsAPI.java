@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequestWithBody;
@@ -28,7 +29,7 @@ public abstract class CosmeticsAPI {
 
     public abstract Optional<CosmeticProfileResponse> getProfile(UUID uuid);
 
-    public abstract void equipCosmetic(UUID uuid, String category, String id);
+    public abstract Optional<SimpleResponse> equipCosmetic(UUID uuid, String category, String id);
 
     public abstract List<PlayerRank> getRanks();
 

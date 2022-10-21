@@ -5,6 +5,7 @@ import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.gson.GsonModel;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import kong.unirest.HttpMethod;
 
@@ -33,8 +34,9 @@ public class ExternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public void equipCosmetic(UUID uuid, String category, String id) {
+    public Optional<SimpleResponse> equipCosmetic(UUID uuid, String category, String id) {
         // equip cosmetic is not possible from an external server
+        return Optional.empty();
     }
 
     @Override

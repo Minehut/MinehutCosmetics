@@ -4,6 +4,7 @@ import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.gson.GsonModel;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import kong.unirest.HttpMethod;
 
@@ -30,8 +31,8 @@ public class InternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public void equipCosmetic(UUID uuid, String category, String id) {
-        request(HttpMethod.POST, "/v1/cosmetics/equip/{uuid}/{category}/{id}", (req) ->
+    public Optional<SimpleResponse> equipCosmetic(UUID uuid, String category, String id) {
+        return requestType(HttpMethod.POST, "/v1/cosmetics/equip/{uuid}/{category}/{id}", SimpleResponse.class, (req) ->
                 req.routeParam("uuid", uuid.toString())
                         .routeParam("category", category)
                         .routeParam("id", id)

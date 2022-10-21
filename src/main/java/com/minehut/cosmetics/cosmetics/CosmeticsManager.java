@@ -6,9 +6,12 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.bindings.Bindings;
 import com.minehut.cosmetics.cosmetics.bindings.CosmeticBindings;
+import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
+import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.profile.SimpleResponse;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,10 +92,23 @@ public class CosmeticsManager {
         if (cosmetic instanceof Equippable equippable) {
             equippable.equip();
         }
+
         getEquippedForUser(uuid).put(cosmetic.category(), cosmetic);
 
         if (updateMeta) {
-            sendEquipmentUpdate(uuid, cosmetic.category(), cosmetic.id());
+            Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
+                if (Cosmetics.get().config().mode() == Mode.LOBBY) {
+                    if (cosmetic instanceof TrinketCosmetic) {
+                        sendEquipmentUpdateSync(uuid, CosmeticCategory.ITEM, "EMPTY");
+                    }
+
+                    if (cosmetic instanceof ItemCosmetic) {
+                        sendEquipmentUpdateSync(uuid, CosmeticCategory.TRINKET, "EMPTY");
+                    }
+                }
+
+                sendEquipmentUpdateSync(uuid, cosmetic.category(), cosmetic.id());
+            });
         }
     }
 
@@ -128,6 +144,17 @@ public class CosmeticsManager {
      */
     private void sendEquipmentUpdate(UUID uuid, CosmeticCategory category, String id) {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> cosmetics.api().equipCosmetic(uuid, category.name(), id));
+    }
+
+    /**
+     * Updates this users equipment meta synchronously
+     *
+     * @param uuid     of the user to update data for
+     * @param category of equipment to update
+     * @param id       id for the cosmetic to equip
+     */
+    private void sendEquipmentUpdateSync(UUID uuid, CosmeticCategory category, String id) {
+        cosmetics.api().equipCosmetic(uuid, category.name(), id);
     }
 
     /**

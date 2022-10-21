@@ -7,7 +7,6 @@ import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -42,19 +41,5 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable {
     @Override
     public ItemStack menuIcon() {
         return ITEM.get();
-    }
-
-    @Override
-    public void equip() {
-        player().ifPresent(player -> {
-            final ItemStack item = ITEM.get();
-            item.editMeta(meta -> SkinUtil.writeCosmeticKeys(meta, this));
-            player.getInventory().addItem(item);
-        });
-    }
-
-    @Override
-    public void unequip() {
-        // we don't unequip trinkets, we just give them to the player
     }
 }
