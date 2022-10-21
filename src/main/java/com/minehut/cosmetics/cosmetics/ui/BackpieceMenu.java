@@ -8,14 +8,21 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
 public class BackpieceMenu extends CosmeticSubMenu {
 
-    public static final ItemStack ICON = ItemBuilder.of(Material.FEATHER)
-            .display(Component.text("Backpieces").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA))
+    public static final ItemStack ICON = ItemBuilder.of(Material.IRON_CHESTPLATE)
+            .flags(ItemFlag.HIDE_ATTRIBUTES)
+            .display(Component.text("Backpieces", NamedTextColor.DARK_GREEN).decoration(TextDecoration.ITALIC, false))
+            .lore(
+                    Component.empty(),
+                    Component.text("Item Skins to throw on your back!", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, true),
+                    Component.empty()
+            )
             .build();
 
     public BackpieceMenu(Player player) {

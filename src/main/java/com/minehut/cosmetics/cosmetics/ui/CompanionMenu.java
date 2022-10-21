@@ -15,10 +15,10 @@ import java.util.List;
 public class CompanionMenu extends CosmeticSubMenu {
 
     public static final ItemStack ICON = ItemBuilder.of(Material.PLAYER_HEAD)
-            .display(Component.text("Companions").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false))
+            .display(Component.text("Companions", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
             .lore(
                     Component.empty(),
-                    Component.text("Pets to chill with!").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false),
+                    Component.text("Friends to join you on your adventures!", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, true),
                     Component.empty()
             )
             .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQ4OGZhZjM2ZjIyNzJjMTQ1MzIxYjVhNDNlMzljZmEwNWJhNDM5ZGE3ODFiNmE5MTc2NGYzZGIxYWY3MTUyMyJ9fX0=")
