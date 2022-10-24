@@ -51,7 +51,6 @@ public class Debug implements CommandExecutor {
             );
 
             final ItemStack item = player.getInventory().getItemInMainHand();
-            if (item == null) return;
             if (Material.AIR == item.getType()) return;
 
             Component keylist = Component.empty();

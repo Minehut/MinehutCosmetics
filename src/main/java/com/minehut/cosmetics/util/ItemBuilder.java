@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -63,6 +64,24 @@ public class ItemBuilder {
     public ItemBuilder lore(Component... lore) {
         return lore(List.of(lore));
     }
+
+    public ItemBuilder appendLore(List<Component> toAppend) {
+        return editMeta(meta -> {
+            List<Component> lore = meta.lore();
+            if (lore == null) {
+                lore = new ArrayList<>();
+            }
+
+            lore.addAll(toAppend);
+
+            meta.lore(lore);
+        });
+    }
+
+    public ItemBuilder appendLore(Component... toAppend) {
+        return appendLore(List.of(toAppend));
+    }
+
 
     public ItemBuilder unbreakable(boolean unbreakable) {
         return editMeta(meta -> meta.setUnbreakable(unbreakable));

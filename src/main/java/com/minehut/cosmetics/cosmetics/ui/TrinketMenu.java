@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -23,6 +25,6 @@ public class TrinketMenu extends CosmeticSubMenu {
             .build();
 
     public TrinketMenu(Player player) {
-        super(CosmeticCategory.TRINKET, player, List.of(Trinket.values()));
+        super(CosmeticCategory.TRINKET, player, List.of(Trinket.values()), ClickHandler.HANDED);
     }
 }

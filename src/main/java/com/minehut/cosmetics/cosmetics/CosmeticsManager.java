@@ -6,12 +6,14 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.bindings.Bindings;
 import com.minehut.cosmetics.cosmetics.bindings.CosmeticBindings;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
+import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
-import com.minehut.cosmetics.model.profile.SimpleResponse;
+import com.minehut.cosmetics.util.EnumUtil;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +37,7 @@ public class CosmeticsManager {
     /**
      * Map of active cosmetics for each user
      */
-    private final Map<UUID, Map<CosmeticCategory, Cosmetic>> cosmeticsCache = new HashMap<>();
+    private final Map<UUID, Map<CosmeticSlot, Cosmetic>> cosmeticsCache = new HashMap<>();
     private final CosmeticBindings bindings = new CosmeticBindings();
     private final Cosmetics cosmetics;
 
@@ -67,7 +69,7 @@ public class CosmeticsManager {
         return CompletableFuture.supplyAsync(() -> {
             final Optional<CosmeticProfileResponse> response = cosmetics.api().getProfile(uuid);
 
-            if (Cosmetics.get().config().mode() != Mode.LOBBY) {
+            if (Cosmetics.mode() != Mode.LOBBY) {
                 response.ifPresent(res -> this.cache.put(uuid, res));
             }
 
@@ -83,32 +85,26 @@ public class CosmeticsManager {
      * @param cosmetic   to apply
      * @param updateMeta whether to update metadata with this decision
      */
-    public void setCosmetic(@NotNull final UUID uuid, @NotNull final Cosmetic cosmetic, boolean updateMeta) {
+    public void setCosmetic(@NotNull final UUID uuid, @NotNull CosmeticSlot slot, @NotNull final Cosmetic cosmetic, boolean updateMeta) {
         // remove the existing cosmetic
-        removeCosmetic(uuid, cosmetic.category(), false);
+        removeCosmetic(uuid, slot, false);
 
         // equip the item
         cosmetic.owner(uuid);
+
+        // if we need to handle slots, set it immediately
+        if (cosmetic instanceof SlotHandler slotHandler) {
+            slotHandler.setSlot(slot);
+        }
+        // if the item is equippable, equip it.
         if (cosmetic instanceof Equippable equippable) {
             equippable.equip();
         }
 
-        getEquippedForUser(uuid).put(cosmetic.category(), cosmetic);
+        getEquippedForUser(uuid).put(slot, cosmetic);
 
         if (updateMeta) {
-            Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-                if (Cosmetics.get().config().mode() == Mode.LOBBY) {
-                    if (cosmetic instanceof TrinketCosmetic) {
-                        sendEquipmentUpdateSync(uuid, CosmeticCategory.ITEM, "EMPTY");
-                    }
-
-                    if (cosmetic instanceof ItemCosmetic) {
-                        sendEquipmentUpdateSync(uuid, CosmeticCategory.TRINKET, "EMPTY");
-                    }
-                }
-
-                sendEquipmentUpdateSync(uuid, cosmetic.category(), cosmetic.id());
-            });
+            sendEquipmentUpdate(uuid, slot, cosmetic.getQualifiedId());
         }
     }
 
@@ -116,21 +112,22 @@ public class CosmeticsManager {
      * Remove equipment for the given uuid and cosmetic type
      *
      * @param uuid       of the player to remove cosmetics for
-     * @param category   of cosmetic to remove
+     * @param slot       of the cosmetic to remove
      * @param updateMeta whether to update the players meta for this removal, defaults to true
      */
-    public void removeCosmetic(UUID uuid, CosmeticCategory category, boolean updateMeta) {
+    public void removeCosmetic(UUID uuid, CosmeticSlot slot, boolean updateMeta) {
         // remove the cosmetic
-        getCosmeticForUser(uuid, category).ifPresent((cosmetic) -> {
+        getCosmeticForUser(uuid, slot).ifPresent((cosmetic) -> {
             if (cosmetic instanceof Equippable equippable) {
                 equippable.unequip();
             }
         });
+
         // remove the cosmetic from that players map
-        getEquippedForUser(uuid).remove(category);
+        getEquippedForUser(uuid).remove(slot);
 
         if (updateMeta) {
-            sendEquipmentUpdate(uuid, category, "EMPTY");
+            sendEquipmentUpdate(uuid, slot, "EMPTY");
         }
     }
 
@@ -138,12 +135,12 @@ public class CosmeticsManager {
     /**
      * Updates this users equipment meta
      *
-     * @param uuid     of the user to update data for
-     * @param category of equipment to update
-     * @param id       id for the cosmetic to equip
+     * @param uuid of the user to update data for
+     * @param slot that this cosmetic occupies
+     * @param id   of the cosmetic in COSMETIC:CATEGORY format
      */
-    private void sendEquipmentUpdate(UUID uuid, CosmeticCategory category, String id) {
-        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> cosmetics.api().equipCosmetic(uuid, category.name(), id));
+    private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
+        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> cosmetics.api().equipCosmetic(uuid, slot.name(), id));
     }
 
     /**
@@ -176,11 +173,15 @@ public class CosmeticsManager {
 
             // equip on main thread
             final Optional<Map<String, String>> finalEquipped = equipped;
-            Bukkit.getScheduler().runTask(cosmetics, () -> finalEquipped.ifPresent(equipMap -> equipMap.forEach((category, id) -> {
-                // get the cosmetic and equip it for the player
-                CosmeticCategory.cosmetic(category, id).ifPresent(cosmetic -> {
-                    if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal()) return;
-                    setCosmetic(uuid, cosmetic, false);
+            Bukkit.getScheduler().runTask(cosmetics, () -> finalEquipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
+                // grab the slot this cosmetic belongs to
+                EnumUtil.valueOfSafe(CosmeticSlot.class, slotName).ifPresent(slot -> {
+                    // grab the cosmetic from it's id
+                    Cosmetic.fromQualifiedId(qualifiedId).ifPresent(cosmetic -> {
+                        // this is here for legacy cosmetic profiles, probably want to invalidate those at some point
+                        if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal()) return;
+                        setCosmetic(uuid, slot, cosmetic, false);
+                    });
                 });
             })));
         });
@@ -197,7 +198,7 @@ public class CosmeticsManager {
         cache.invalidate(uuid);
 
         // un-equip and clear the players map
-        Map<CosmeticCategory, Cosmetic> equipped = getEquippedForUser(uuid);
+        Map<CosmeticSlot, Cosmetic> equipped = getEquippedForUser(uuid);
         equipped.values().forEach((cosmetic) -> {
             // un-equip if that's possible
             if (cosmetic instanceof Equippable equippable) {
@@ -243,7 +244,7 @@ public class CosmeticsManager {
      * @param uuid of the user to get equipped items for
      * @return map containing info on equipped cosmetics
      */
-    public Map<CosmeticCategory, Cosmetic> getEquippedForUser(UUID uuid) {
+    public Map<CosmeticSlot, Cosmetic> getEquippedForUser(UUID uuid) {
         return cosmeticsCache.computeIfAbsent(uuid, (k) -> new HashMap<>());
     }
 
@@ -254,7 +255,7 @@ public class CosmeticsManager {
      * @param type of cosmetic to get
      * @return a possible cosmetic
      */
-    public Optional<Cosmetic> getCosmeticForUser(final UUID uuid, CosmeticCategory type) {
+    public Optional<Cosmetic> getCosmeticForUser(final UUID uuid, CosmeticSlot type) {
         return Optional.ofNullable(getEquippedForUser(uuid).get(type));
     }
 

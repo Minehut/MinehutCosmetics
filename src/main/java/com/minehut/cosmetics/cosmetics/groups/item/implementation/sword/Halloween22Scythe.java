@@ -16,27 +16,28 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Fall2022Sword extends ItemCosmetic {
+public class Halloween22Scythe extends ItemCosmetic {
 
-    private static final Component NAME = Component.text("Blade of Autumn")
+    public static final Component NAME = Component.text("The Night Bringer")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
+
+    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    CosmeticCollection.SPOOKY_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.AUTUMN)
+            .modelData(Model.Item.SWORD.HALLO_22_SCYTHE)
             .supplier();
 
-    public Fall2022Sword() {
+    public Halloween22Scythe() {
         super(
-                Item.FALL_22_SWORD.name(),
+                Item.HALLO_22_SCYTHE.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name())
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name())
         );
     }
 

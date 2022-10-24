@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -24,6 +26,6 @@ public class ParticleMenu extends CosmeticSubMenu {
             .build();
 
     public ParticleMenu(Player player) {
-        super(CosmeticCategory.PARTICLE, player, List.of(Particle.values()));
+        super(CosmeticCategory.PARTICLE, player, List.of(Particle.values()), ClickHandler.slot(CosmeticSlot.PARTICLE));
     }
 }

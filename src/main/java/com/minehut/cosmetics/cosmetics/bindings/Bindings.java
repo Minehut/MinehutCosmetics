@@ -20,7 +20,8 @@ public class Bindings {
             .registerCosmetics(List.of(
                     Item.EXPLORER_SWORD,
                     Item.FALL_22_SWORD,
-                    Item.KATANA
+                    Item.KATANA,
+                    Item.HALLO_22_SCYTHE
             ));
 
     // bindings for pickaxe items

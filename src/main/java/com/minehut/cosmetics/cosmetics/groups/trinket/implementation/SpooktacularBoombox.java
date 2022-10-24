@@ -1,21 +1,27 @@
 package com.minehut.cosmetics.cosmetics.groups.trinket.implementation;
 
+import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
+import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
-public class SpooktacularBoombox extends TrinketCosmetic implements Equippable {
+public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, SlotHandler {
 
     private static final Component DISPLAY_NAME = Component.text("Kat's Boombox")
             .color(NamedTextColor.GOLD)
@@ -30,6 +36,8 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable {
             .modelData(Model.Item.TRINKET.BOOMBOX)
             .supplier();
 
+    private CosmeticSlot slot = null;
+
     public SpooktacularBoombox() {
         super(
                 Trinket.SPOOKTACULAR_BOOMBOX.name(),
@@ -41,5 +49,51 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable {
     @Override
     public ItemStack menuIcon() {
         return ITEM.get();
+    }
+
+    @Override
+    public void equip() {
+        player().ifPresent(player -> slot().ifPresent(slot -> {
+
+            final ItemStack item = ITEM.get();
+            item.editMeta(meta -> SkinUtil.writeCosmeticKeys(meta, this));
+
+            switch (Cosmetics.mode()) {
+                // handle based on the slot being used
+                case LOBBY -> {
+                    switch (slot) {
+                        case MAIN_HAND -> {
+                            player.getInventory().setItem(6, item);
+                            player.getInventory().setHeldItemSlot(6);
+                        }
+                        case OFF_HAND -> player.getInventory().setItemInOffHand(item);
+                    }
+                }
+                case PLAYER_SERVER -> player.getInventory().addItem(item);
+            }
+        }));
+    }
+
+    @Override
+    public void unequip() {
+        player().ifPresent(player -> slot().ifPresent(slot -> {
+            // handle like items in lobby mode
+            if (Mode.LOBBY == Cosmetics.mode()) {
+                switch (slot) {
+                    case MAIN_HAND -> player.getInventory().setItem(6, null);
+                    case OFF_HAND -> player.getInventory().setItemInOffHand(null);
+                }
+            }
+        }));
+    }
+
+    @Override
+    public Optional<CosmeticSlot> slot() {
+        return Optional.ofNullable(slot);
+    }
+
+    @Override
+    public void setSlot(CosmeticSlot slot) {
+        this.slot = slot;
     }
 }

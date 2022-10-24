@@ -2,6 +2,7 @@ package com.minehut.cosmetics.modules;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.model.profile.LocalCosmeticProfile;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -55,7 +56,7 @@ public class LocalStorageManager {
         });
     }
 
-    public void writeProfile(UUID uuid, Map<CosmeticCategory, Cosmetic> equipped) {
+    public void writeProfile(UUID uuid, Map<CosmeticSlot, Cosmetic> equipped) {
         CompletableFuture.runAsync(() -> {
             final LocalCosmeticProfile profile = LocalCosmeticProfile.from(equipped);
             final Path path = createPath(uuid);

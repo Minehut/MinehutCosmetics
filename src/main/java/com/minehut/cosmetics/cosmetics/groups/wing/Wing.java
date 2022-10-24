@@ -1,12 +1,16 @@
 package com.minehut.cosmetics.cosmetics.groups.wing;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.groups.wing.implementation.BatWings;
+import com.minehut.cosmetics.cosmetics.groups.wing.implementation.Halloween22ScytheBack;
 import com.minehut.cosmetics.cosmetics.groups.wing.implementation.KatanaBack;
 
 import java.util.function.Supplier;
 
 public enum Wing implements CosmeticSupplier<WingCosmetic> {
-    KATANA(KatanaBack::new, false)
+    KATANA(KatanaBack::new, false),
+    HALLO_22_SCYTHE(Halloween22ScytheBack::new, true),
+    BAT(BatWings::new, true)
     ;
 
     private final Supplier<WingCosmetic> supplier;

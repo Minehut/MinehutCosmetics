@@ -12,19 +12,21 @@ import com.minehut.cosmetics.cosmetics.groups.hat.implementation.spooktacular202
 import java.util.function.Supplier;
 
 public enum Hat implements CosmeticSupplier<HatCosmetic> {
+    // explorer
     EXPLORER(ExplorerHat::new, true),
+    // halloween
     WITCH(WitchHat::new, true),
     CAT_EARS(CatEars::new, true),
     DEVIL_HORNS(DevilHorns::new, true),
     FOX_EARS(FoxEars::new, true),
     MOUSE_EARS(MouseEars::new, true);
-    
+
     private final Supplier<HatCosmetic> supplier;
     private final boolean visible;
 
     /**
      * @param supplier supplier for cosmetic
-     * @param visible whether the cosmetic is visible
+     * @param visible  whether the cosmetic is visible
      */
     Hat(final Supplier<HatCosmetic> supplier, boolean visible) {
         this.supplier = supplier;

@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.balloon.Balloon;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -25,6 +27,6 @@ public class BalloonMenu extends CosmeticSubMenu {
             .build();
 
     public BalloonMenu(Player player) {
-        super(CosmeticCategory.BALLOON, player, List.of(Balloon.values()));
+        super(CosmeticCategory.BALLOON, player, List.of(Balloon.values()), ClickHandler.slot(CosmeticSlot.BALLOON));
     }
 }

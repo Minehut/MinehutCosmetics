@@ -20,6 +20,7 @@ public enum CosmeticCategory {
     BALLOON("Balloons", query -> EnumUtil.valueOfSafe(Balloon.class, query).map(Balloon::get), true),
     WING("Backpieces", query -> EnumUtil.valueOfSafe(Wing.class, query).map(Wing::get), true),
     TRINKET("Trinkets", query -> EnumUtil.valueOfSafe(Trinket.class, query).map(Trinket::get), false);
+
     private final String categoryName;
     private final Function<String, Optional<Cosmetic>> getCosmetic;
     private final boolean saveLocal;
@@ -44,20 +45,5 @@ public enum CosmeticCategory {
 
     public boolean isSaveLocal() {
         return saveLocal;
-    }
-
-    /**
-     * Get a cosmetic using a category string and id string,
-     * this is primarily useful for grabbing cosmetic values in game
-     * from the "equipped" field of the cosmetic profile
-     *
-     * @param category of the cosmetic
-     * @param id       of the cosmetic
-     * @return a possible cosmetic for the given category and id
-     */
-    public static Optional<Cosmetic> cosmetic(String category, String id) {
-        return EnumUtil
-                .valueOfSafe(CosmeticCategory.class, category.toUpperCase())
-                .flatMap((cat) -> cat.cosmetic(id.toUpperCase()));
     }
 }

@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -26,6 +28,6 @@ public class BackpieceMenu extends CosmeticSubMenu {
             .build();
 
     public BackpieceMenu(Player player) {
-        super(CosmeticCategory.WING, player, List.of(Wing.values()));
+        super(CosmeticCategory.WING, player, List.of(Wing.values()), ClickHandler.slot(CosmeticSlot.BACK));
     }
 }

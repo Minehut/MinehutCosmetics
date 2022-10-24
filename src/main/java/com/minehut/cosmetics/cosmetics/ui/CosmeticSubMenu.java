@@ -5,6 +5,8 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.menu.Menu;
 import com.minehut.cosmetics.menu.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -13,18 +15,29 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 public abstract class CosmeticSubMenu extends Menu {
 
-    private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Clear Item").color(NamedTextColor.RED)).build();
+    private static final ItemStack CLEAR_ITEM =
+            ItemBuilder.of(Material.BARRIER)
+                    .display(Component.text("Clear Item").color(NamedTextColor.RED))
+                    .build();
 
-    public CosmeticSubMenu(CosmeticCategory category, Player player, List<CosmeticSupplier<? extends Cosmetic>> cosmetics) {
+    private final ClickHandler clickHandler;
+
+    public CosmeticSubMenu(CosmeticCategory category,
+                           Player player,
+                           List<CosmeticSupplier<? extends Cosmetic>> cosmetics,
+                           ClickHandler clickHandler) {
         super(Cosmetics.get(), 1, category.categoryName());
+        this.clickHandler = clickHandler;
 
         final List<MenuItem> items = new ArrayList<>();
 
@@ -39,7 +52,9 @@ public abstract class CosmeticSubMenu extends Menu {
         getProxy().setItem(size * 9 - 1, MenuItem.of(CLEAR_ITEM, (whoClicked, click) -> {
             final UUID uuid = whoClicked.getUniqueId();
 
-            Cosmetics.get().cosmeticManager().removeCosmetic(uuid, category, true);
+            final CosmeticSlot slot = this.clickHandler.apply(click);
+            Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
+
             whoClicked.sendMessage(Component.text("Item removed.").color(NamedTextColor.AQUA));
             whoClicked.closeInventory();
         }));
@@ -65,7 +80,9 @@ public abstract class CosmeticSubMenu extends Menu {
                 final UUID uuid = player.getUniqueId();
                 player.sendMessage(Component.text().append(Component.text("Selected ")).append(cosmetic.name()).append(Component.text("!")).color(NamedTextColor.AQUA).build());
 
-                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().cosmeticManager().setCosmetic(uuid, cosmetic, true));
+                final CosmeticSlot slot = clickHandler.apply(click);
+
+                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().cosmeticManager().setCosmetic(uuid, slot, cosmetic, true));
             } else {
                 player.sendMessage(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.RED));
             }

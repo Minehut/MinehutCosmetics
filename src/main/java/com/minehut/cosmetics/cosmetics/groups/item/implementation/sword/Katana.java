@@ -20,6 +20,7 @@ public class Katana extends ItemCosmetic {
     public static final Component NAME = Component.text("Katana's Katana")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
+    
     public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
             .display(NAME)
             .lore(
@@ -36,8 +37,7 @@ public class Katana extends ItemCosmetic {
         super(
                 Item.KATANA.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name()),
-                ITEM
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name())
         );
     }
 

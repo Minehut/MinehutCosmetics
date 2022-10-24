@@ -7,7 +7,13 @@ import com.minehut.cosmetics.commands.UnSkinCommand;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.events.*;
+import com.minehut.cosmetics.cosmetics.groups.trinket.listener.TrinketListener;
+import com.minehut.cosmetics.events.CosmeticEntityListener;
+import com.minehut.cosmetics.events.CosmeticsListener;
+import com.minehut.cosmetics.events.CosmeticsTeleportListener;
+import com.minehut.cosmetics.events.DeathListener;
+import com.minehut.cosmetics.events.LeashListener;
+import com.minehut.cosmetics.events.ResourcePackListener;
 import com.minehut.cosmetics.events.skins.SkinDurabilityListener;
 import com.minehut.cosmetics.events.skins.SkinEquipListener;
 import com.minehut.cosmetics.events.skins.SkinModifyListener;
@@ -86,9 +92,10 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new LeashListener(this));
         registerEvents(new CosmeticsTeleportListener(this));
         registerEvents(new CosmeticEntityListener());
+        registerEvents(new TrinketListener());
 
         // register commands
-        setExecutor("cosmetics", new MenuCommand(manager));
+        setExecutor("cosmetics", new MenuCommand());
         setExecutor("cosmeticsdebug", new Debug(this));
     }
 
@@ -117,6 +124,10 @@ public final class Cosmetics extends JavaPlugin {
 
     public CosmeticsAPI api() {
         return api;
+    }
+
+    public static Mode mode() {
+        return get().config().mode();
     }
 
     /**

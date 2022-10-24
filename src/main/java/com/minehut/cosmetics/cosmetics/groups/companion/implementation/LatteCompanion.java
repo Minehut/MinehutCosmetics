@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.Model;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
@@ -26,7 +27,7 @@ public class LatteCompanion extends CompanionCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Autumn 2022").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                    CosmeticCollection.FALL_22.tag(),
                     Component.empty()
             )
             .modelData(Model.COMPANION.LATTE_KUN)

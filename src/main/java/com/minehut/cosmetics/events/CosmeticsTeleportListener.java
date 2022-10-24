@@ -4,7 +4,6 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -12,9 +11,12 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class CosmeticsTeleportListener implements Listener {
+
+    private static final Set<Material> blacklist = Set.of(Material.END_PORTAL, Material.NETHER_PORTAL, Material.END_GATEWAY);
 
     private final Cosmetics cosmetics;
     private final CosmeticsManager manager;
@@ -39,21 +41,23 @@ public class CosmeticsTeleportListener implements Listener {
 
     @EventHandler
     public void onEnterPortal(PlayerMoveEvent event) {
-        if (event.getTo().toVector().equals(event.getFrom().toVector())) return;
+        if (event.getFrom().toVector().equals(event.getTo().toVector())) return;
 
         final UUID uuid = event.getPlayer().getUniqueId();
+        final Material targetType = event.getTo().getBlock().getType();
+        final boolean shouldRemove = blacklist.contains(targetType);
 
-        if (portalFlag.contains(uuid)) {
-            manager.equipAll(uuid);
+        if (!shouldRemove && portalFlag.contains(uuid)) {
+            cosmetics.cosmeticManager().equipAll(uuid);
             portalFlag.remove(uuid);
             return;
         }
 
-        final Material type = event.getTo().getBlock().getType();
-
-        if (Material.NETHER_PORTAL != type && Material.END_PORTAL != type && Material.END_GATEWAY != type) return;
-        portalFlag.add(uuid);
-        manager.unEquipAll(uuid);
+        if (shouldRemove) {
+            cosmetics.cosmeticManager().unEquipAll(uuid);
+            portalFlag.add(uuid);
+            return;
+        }
     }
 
     private void handleTeleport(UUID uuid) {

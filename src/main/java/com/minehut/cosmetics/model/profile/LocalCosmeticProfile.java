@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.model.profile;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
@@ -45,9 +45,9 @@ public class LocalCosmeticProfile implements ConfigurationSerializable {
         );
     }
 
-    public static LocalCosmeticProfile from(Map<CosmeticCategory, Cosmetic> profile) {
+    public static LocalCosmeticProfile from(Map<CosmeticSlot, Cosmetic> profile) {
         final LocalCosmeticProfile local = new LocalCosmeticProfile();
-        profile.forEach(((category, cosmetic) -> local.equipped.put(category.name(), cosmetic.id())));
+        profile.forEach(((slot, cosmetic) -> local.equipped.put(slot.name(), cosmetic.getQualifiedId())));
         return local;
     }
 }

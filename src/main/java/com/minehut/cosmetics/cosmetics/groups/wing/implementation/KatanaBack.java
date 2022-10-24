@@ -10,7 +10,10 @@ import org.bukkit.inventory.ItemStack;
 public class KatanaBack extends WingCosmetic {
 
     public KatanaBack() {
-        super(Item.KATANA.name(), Katana.NAME, CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name()), p -> Katana.ITEM.get());
+        super(Item.KATANA.name(),
+                Katana.NAME,
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name()),
+                p -> Katana.ITEM.get());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -27,21 +29,6 @@ public class ItemMenu extends CosmeticSubMenu {
 
 
     public ItemMenu(Player player) {
-        super(CosmeticCategory.ITEM, player, List.of(
-                // Explorer items
-                Item.EXPLORER_PICKAXE,
-                Item.EXPLORER_SWORD,
-                Item.EXPLORER_SPYGLASS,
-                // Autumn Items
-                Item.FALL_22_AXE,
-                Item.FALL_22_PICKAXE,
-                Item.FALL_22_SHIELD,
-                Item.FALL_22_SHOVEL,
-                Item.FALL_22_SWORD,
-                //  Halloween
-                Item.GRAVE_SHOVEL,
-                // Special
-                Item.KATANA
-        ));
+        super(CosmeticCategory.ITEM, player, List.of(Item.values()), ClickHandler.HANDED);
     }
 }

@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.shield;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.Model;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -24,7 +25,7 @@ public class Fall2022Shield extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Autumn 2022").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                    CosmeticCollection.FALL_22.tag(),
                     Component.empty()
             )
             .modelData(Model.Item.SHIELD.FALL_2022)
@@ -34,21 +35,13 @@ public class Fall2022Shield extends ItemCosmetic {
         super(
                 Item.FALL_22_SHIELD.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name()),
-                ITEM
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name())
         );
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
-    }
-
-    @Override
-    public ItemStack menuIcon() {
-        return ItemBuilder.of(ITEM.get())
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .build();
     }
 }
 

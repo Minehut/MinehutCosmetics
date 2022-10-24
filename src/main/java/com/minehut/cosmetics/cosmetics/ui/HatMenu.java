@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -8,6 +10,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,6 +30,6 @@ public class HatMenu extends CosmeticSubMenu {
             .build();
 
     public HatMenu(Player player) {
-        super(CosmeticCategory.HAT, player, List.of(Hat.values()));
+        super(CosmeticCategory.HAT, player, List.of(Hat.values()), ClickHandler.slot(CosmeticSlot.HEAD));
     }
 }

@@ -1,7 +1,12 @@
 package com.minehut.cosmetics.cosmetics.groups.companion;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
-import com.minehut.cosmetics.cosmetics.groups.companion.implementation.*;
+import com.minehut.cosmetics.cosmetics.groups.companion.implementation.CompieCompanion;
+import com.minehut.cosmetics.cosmetics.groups.companion.implementation.LatteCompanion;
+import com.minehut.cosmetics.cosmetics.groups.companion.implementation.MeFollower;
+import com.minehut.cosmetics.cosmetics.groups.companion.implementation.GhostCompanion;
+import com.minehut.cosmetics.cosmetics.groups.companion.implementation.WendellAndWildCompanion;
+
 import com.minehut.cosmetics.cosmetics.groups.follower.FollowerCosmetic;
 
 import java.util.function.Supplier;

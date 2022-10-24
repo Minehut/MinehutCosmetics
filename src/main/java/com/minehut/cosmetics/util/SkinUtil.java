@@ -82,7 +82,7 @@ public class SkinUtil {
         if (stack == null) return Optional.empty();
         return Key.COSMETIC_CATEGORY.read(stack.getItemMeta()).flatMap(category ->
                 Key.COSMETIC_ID.read(stack.getItemMeta()).flatMap(id ->
-                        CosmeticCategory.cosmetic(category, id)
+                        Cosmetic.fromCategoryId(category, id)
                 )
         );
     }

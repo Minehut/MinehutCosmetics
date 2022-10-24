@@ -1,47 +1,45 @@
-package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
+package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.Model;
-import com.minehut.cosmetics.cosmetics.groups.item.Item;
-import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
+import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
+import com.minehut.cosmetics.cosmetics.groups.wing.WingCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Fall2022Sword extends ItemCosmetic {
+public class BatWings extends WingCosmetic {
 
-    private static final Component NAME = Component.text("Blade of Autumn")
+    private static final Component NAME = Component.text("Bat Wings")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
+
+    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    CosmeticCollection.SPOOKY_22.tag(),
                     Component.empty()
             )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.AUTUMN)
+            .modelData(Model.WING.BAT)
             .supplier();
 
-    public Fall2022Sword() {
-        super(
-                Item.FALL_22_SWORD.name(),
+    public BatWings() {
+        super(Wing.BAT.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name())
-        );
+                CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.BAT.name()),
+                p -> ITEM.get());
     }
 
     @Override
-    public ItemStack item() {
+    public ItemStack menuIcon() {
         return ITEM.get();
     }
 }
