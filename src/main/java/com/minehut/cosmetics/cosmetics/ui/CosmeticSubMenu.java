@@ -11,17 +11,18 @@ import com.minehut.cosmetics.menu.Menu;
 import com.minehut.cosmetics.menu.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 public abstract class CosmeticSubMenu extends Menu {
 
@@ -84,7 +85,15 @@ public abstract class CosmeticSubMenu extends Menu {
 
                 Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().cosmeticManager().setCosmetic(uuid, slot, cosmetic, true));
             } else {
-                player.sendMessage(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.RED));
+
+
+                player.sendMessage(
+                        Component.text()
+                                .append(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.YELLOW))
+                                .append(Component.newline())
+                                .append(Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
+                                )
+                );
             }
 
             Bukkit.getScheduler().runTask(Cosmetics.get(), () -> player.closeInventory());
