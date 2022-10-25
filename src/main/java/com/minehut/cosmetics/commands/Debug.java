@@ -3,7 +3,6 @@ package com.minehut.cosmetics.commands;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
-import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
