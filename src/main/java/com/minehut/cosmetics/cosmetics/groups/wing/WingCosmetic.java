@@ -26,7 +26,7 @@ import java.util.function.Function;
 
 public abstract class WingCosmetic extends Cosmetic implements Equippable, Tickable {
 
-    private static final Set<Pose> blacklisted = Set.of(Pose.SWIMMING, Pose.SLEEPING, Pose.DYING);
+    private static final Set<Pose> blacklisted = Set.of(Pose.SWIMMING, Pose.SLEEPING, Pose.DYING, Pose.FALL_FLYING, Pose.SPIN_ATTACK);
 
     private final Function<Player, ItemStack> wingSupplier;
     private ArmorStand wings;
