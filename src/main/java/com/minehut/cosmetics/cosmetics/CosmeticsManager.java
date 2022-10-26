@@ -12,6 +12,7 @@ import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
+import com.minehut.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.util.EnumUtil;
 import org.bukkit.Bukkit;
@@ -105,6 +106,7 @@ public class CosmeticsManager {
 
         if (updateMeta) {
             sendEquipmentUpdate(uuid, slot, cosmetic.getQualifiedId());
+            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, cosmetic));
         }
     }
 
@@ -140,18 +142,9 @@ public class CosmeticsManager {
      * @param id   of the cosmetic in COSMETIC:CATEGORY format
      */
     private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
-        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> cosmetics.api().equipCosmetic(uuid, slot.name(), id));
-    }
-
-    /**
-     * Updates this users equipment meta synchronously
-     *
-     * @param uuid     of the user to update data for
-     * @param category of equipment to update
-     * @param id       id for the cosmetic to equip
-     */
-    private void sendEquipmentUpdateSync(UUID uuid, CosmeticCategory category, String id) {
-        cosmetics.api().equipCosmetic(uuid, category.name(), id);
+        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
+            cosmetics.api().equipCosmetic(uuid, slot.name(), id);
+        });
     }
 
     /**

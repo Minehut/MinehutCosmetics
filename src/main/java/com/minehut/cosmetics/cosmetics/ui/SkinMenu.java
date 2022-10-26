@@ -67,7 +67,7 @@ public class SkinMenu extends Menu {
 
         this.cosmetics.addAll(new HashSet<>(maybeBinds.get().getCosmetics()));
         cosmetics.removeIf(cosmetic -> !cosmetic.get().canUse(player).join());
-        
+
         int rows = Math.max(1, (int) Math.ceil(this.cosmetics.size() / 9f));
         setProxy(new ProxyInventory(rows));
     }
