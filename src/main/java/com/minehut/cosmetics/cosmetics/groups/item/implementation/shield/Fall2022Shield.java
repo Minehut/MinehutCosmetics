@@ -11,7 +11,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
@@ -28,7 +27,7 @@ public class Fall2022Shield extends ItemCosmetic {
                     CosmeticCollection.FALL_22.tag(),
                     Component.empty()
             )
-            .modelData(Model.Item.SHIELD.FALL_2022)
+            .modelData(Model.Item.Shield.FALL_2022)
             .supplier();
 
     public Fall2022Shield() {

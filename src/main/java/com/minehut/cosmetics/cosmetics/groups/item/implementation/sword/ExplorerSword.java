@@ -28,7 +28,7 @@ public class ExplorerSword extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.EXPLORER)
+            .modelData(Model.Item.Sword.EXPLORER)
             .supplier();
 
     public ExplorerSword() {

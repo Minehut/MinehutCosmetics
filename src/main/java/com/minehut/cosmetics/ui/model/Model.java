@@ -31,39 +31,42 @@ public final class Model {
 
     public static class Item {
 
-        public static class SWORD {
+        public static class Sword {
             public static final int EXPLORER = 1_000_001;
             public static final int AUTUMN = 1_000_002;
             public static final int KATANA = 1_000_003;
             public static final int HALLO_22_SCYTHE = 1_000_004;
         }
 
-        public static class PICKAXE {
+        public static class Pickaxe {
             public static final int EXPLORER = 1_000_001;
             public static final int FALL_2022 = 1_000_002;
         }
 
-        public static class SHOVEL {
+        public static class Shovel {
             public static final int FALL_2022 = 1_000_001;
             public static final int GRAVE = 1_000_002;
 
         }
 
-        public static class AXE {
+        public static class Axe {
             public static final int FALL_2022 = 1_000_001;
         }
 
-        public static class SPYGLASS {
+        public static class Spyglass {
             public static final int EXPLORER = 1_000_001;
         }
 
-        public static class SHIELD {
+        public static class Shield {
             public static final int FALL_2022 = 1_000_001;
-        }
-
-        public static class TRINKET {
-            public static final int BOOMBOX = 1_005_001;
         }
     }
 
+    public static class Trinket {
+        public static final int BOOMBOX = 1_005_001;
+    }
+
+    public static class Ui {
+        public static final int SHOP_ICON = 1_000_001;
+    }
 }

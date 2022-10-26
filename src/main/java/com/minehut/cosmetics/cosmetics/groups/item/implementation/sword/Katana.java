@@ -30,7 +30,7 @@ public class Katana extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.KATANA)
+            .modelData(Model.Item.Sword.KATANA)
             .supplier();
 
     public Katana() {

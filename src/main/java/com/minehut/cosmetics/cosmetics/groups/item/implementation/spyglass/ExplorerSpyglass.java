@@ -27,7 +27,7 @@ public class ExplorerSpyglass extends ItemCosmetic {
                     CosmeticCollection.BETA.tag(),
                     Component.empty()
             )
-            .modelData(Model.Item.SPYGLASS.EXPLORER)
+            .modelData(Model.Item.Spyglass.EXPLORER)
             .supplier();
 
     public ExplorerSpyglass() {

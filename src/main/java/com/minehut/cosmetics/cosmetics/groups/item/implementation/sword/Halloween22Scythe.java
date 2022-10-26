@@ -30,7 +30,7 @@ public class Halloween22Scythe extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.HALLO_22_SCYTHE)
+            .modelData(Model.Item.Sword.HALLO_22_SCYTHE)
             .supplier();
 
     public Halloween22Scythe() {

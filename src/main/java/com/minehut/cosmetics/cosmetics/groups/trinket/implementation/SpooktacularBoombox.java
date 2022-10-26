@@ -6,7 +6,6 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.Model;
 import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
-import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
@@ -33,16 +32,16 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
                     Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                     Component.empty()
             )
-            .modelData(Model.Item.TRINKET.BOOMBOX)
+            .modelData(Model.Trinket.BOOMBOX)
             .supplier();
 
     private CosmeticSlot slot = null;
 
     public SpooktacularBoombox() {
         super(
-                Trinket.SPOOKTACULAR_BOOMBOX.name(),
+                com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.TRINKET.name(), Trinket.SPOOKTACULAR_BOOMBOX.name())
+                CosmeticPermission.hasPurchased(CosmeticCategory.TRINKET.name(), com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name())
         );
     }
 

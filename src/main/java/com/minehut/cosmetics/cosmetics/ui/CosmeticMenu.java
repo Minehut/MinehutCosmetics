@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
+import com.minehut.cosmetics.cosmetics.Model;
 import com.minehut.cosmetics.menu.Menu;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;
@@ -46,6 +47,7 @@ public class CosmeticMenu extends Menu {
     private static final Supplier<ItemStack> SHOP_ICON = ItemBuilder.of(Material.GOLD_INGOT)
             .display(Component.text("Open Shop", NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
             .flags(ItemFlag.HIDE_POTION_EFFECTS)
+            .modelData(Model.Ui.SHOP_ICON)
             .supplier();
 
     private static final Supplier<ItemStack> FILLER_ICON = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)

@@ -27,7 +27,7 @@ public class Fall2022Pickaxe extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.PICKAXE.FALL_2022)
+            .modelData(Model.Item.Pickaxe.FALL_2022)
             .supplier();
 
     public Fall2022Pickaxe() {

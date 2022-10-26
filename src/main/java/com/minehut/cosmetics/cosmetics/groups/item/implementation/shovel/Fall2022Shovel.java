@@ -29,7 +29,7 @@ public class Fall2022Shovel extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SHOVEL.FALL_2022)
+            .modelData(Model.Item.Shovel.FALL_2022)
             .supplier();
 
     public Fall2022Shovel() {

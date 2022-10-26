@@ -29,7 +29,7 @@ public class GraveShovel extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SHOVEL.GRAVE)
+            .modelData(Model.Item.Shovel.GRAVE)
             .supplier();
 
     public GraveShovel() {

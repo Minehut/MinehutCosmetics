@@ -27,7 +27,7 @@ public class ExplorerPickaxe extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.PICKAXE.EXPLORER)
+            .modelData(Model.Item.Pickaxe.EXPLORER)
             .supplier();
 
     public ExplorerPickaxe() {

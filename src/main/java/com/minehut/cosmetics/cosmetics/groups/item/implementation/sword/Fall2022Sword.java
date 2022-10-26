@@ -29,7 +29,7 @@ public class Fall2022Sword extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.SWORD.AUTUMN)
+            .modelData(Model.Item.Sword.AUTUMN)
             .supplier();
 
     public Fall2022Sword() {
