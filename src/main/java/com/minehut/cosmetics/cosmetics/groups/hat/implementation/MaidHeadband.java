@@ -36,7 +36,7 @@ public class MaidHeadband extends HatCosmetic {
 
     public MaidHeadband() {
         super(
-                Hat.WITCH.name(),
+                Hat.MAID.name(),
                 NAME,
                 CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MAID.name()),
                 ITEM
