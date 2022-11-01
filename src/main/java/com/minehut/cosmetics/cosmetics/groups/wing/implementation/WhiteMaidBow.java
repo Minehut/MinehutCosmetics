@@ -16,27 +16,27 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class BatWings extends WingCosmetic {
+public class WhiteMaidBow extends WingCosmetic {
 
-    private static final Component NAME = Component.text("Bat Wings")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
+    private static final Component NAME = Component.text("Maid's White Bow")
+    .color(NamedTextColor.AQUA)
+    .decoration(TextDecoration.ITALIC, false);
 
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    CosmeticCollection.SPOOKY_22.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.WING.BAT)
-            .supplier();
+    .display(NAME)
+    .lore(
+            Component.empty(),
+            CosmeticCollection.MAID.tag(),
+            Component.empty()
+    )
+    .modelData(Model.WING.BOW_WHITE)
+    .supplier();
 
-    public BatWings() {
-        super(Wing.BAT.name(),
-                NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.BAT.name()),
-                p -> ITEM.get());
+    public WhiteMaidBow() {
+        super(Wing.BOW_WHITE.name(),
+              NAME,
+              CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_WHITE.name()),
+              p -> ITEM.get());
     }
 
     @Override

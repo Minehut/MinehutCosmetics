@@ -47,8 +47,6 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
     public void equip() {
         if (equipped) return;
         equipped = true;
-
-        Bukkit.getLogger().info("shown here");
         show();
     }
 
@@ -101,7 +99,7 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
         player().ifPresent(player -> {
 
             final boolean shouldHide = blacklisted.contains(player.getPose());
-            
+
             if (shouldHide) {
                 hide();
                 player.sendActionBar(Component.text("Your wings have been hidden.").color(NamedTextColor.GRAY));

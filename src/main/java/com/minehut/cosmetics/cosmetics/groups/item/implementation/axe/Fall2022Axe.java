@@ -3,9 +3,9 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.axe;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
-import com.minehut.cosmetics.cosmetics.Model;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -27,7 +27,7 @@ public class Fall2022Axe extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Axe.FALL_2022)
+            .modelData(Model.Item.Axe.FALL_22)
             .supplier();
 
     public Fall2022Axe() {

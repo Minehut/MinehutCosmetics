@@ -4,7 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;

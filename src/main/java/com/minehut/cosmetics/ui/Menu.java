@@ -1,7 +1,6 @@
-package com.minehut.cosmetics.menu;
+package com.minehut.cosmetics.ui;
 
-import com.minehut.cosmetics.menu.icon.ActionHandler;
-import io.papermc.paper.text.PaperComponents;
+import com.minehut.cosmetics.ui.icon.ActionHandler;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;

@@ -2,7 +2,8 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
-import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.ui.model.Model;
+
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.companion.CompanionCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;

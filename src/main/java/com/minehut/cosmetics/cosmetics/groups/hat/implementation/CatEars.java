@@ -6,7 +6,8 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
-import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.ui.model.Model;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;

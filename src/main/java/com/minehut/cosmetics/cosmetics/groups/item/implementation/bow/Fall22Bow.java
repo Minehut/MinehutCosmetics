@@ -1,6 +1,7 @@
-package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
+package com.minehut.cosmetics.cosmetics.groups.item.implementation.bow;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -16,29 +17,28 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Katana extends ItemCosmetic {
+public class Fall22Bow extends ItemCosmetic {
 
-    public static final Component NAME = Component.text("Katana's Katana")
+    public static final Component NAME = Component.text("Bow of Autumn")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
-    
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
+
+    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.BOW)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("A Katana forged from the finest metals").color(NamedTextColor.GOLD),
-                    Component.text("to be held by the true 'Block Game Legend'").color(NamedTextColor.GOLD),
+                    CosmeticCollection.FALL_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.KATANA)
+            .modelData(Model.Item.Bow.FALL_22)
             .supplier();
 
-    public Katana() {
+    public Fall22Bow() {
         super(
-                Item.KATANA.name(),
+                Item.FALL_22_BOW.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name())
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_BOW.name())
         );
     }
 

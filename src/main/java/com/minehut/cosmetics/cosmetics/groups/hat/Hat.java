@@ -4,10 +4,12 @@ package com.minehut.cosmetics.cosmetics.groups.hat;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.groups.hat.implementation.CatEars;
 import com.minehut.cosmetics.cosmetics.groups.hat.implementation.DevilHorns;
-import com.minehut.cosmetics.cosmetics.groups.hat.implementation.ExplorerHat;
+import com.minehut.cosmetics.cosmetics.groups.hat.implementation.Fall22Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.implementation.FoxEars;
 import com.minehut.cosmetics.cosmetics.groups.hat.implementation.WitchHat;
-import com.minehut.cosmetics.cosmetics.groups.hat.implementation.spooktacular2022.MouseEars;
+import com.minehut.cosmetics.cosmetics.groups.hat.implementation.MouseEars;
+import com.minehut.cosmetics.cosmetics.groups.hat.implementation.MaidHeadband;
+import com.minehut.cosmetics.cosmetics.groups.hat.implementation.ExplorerHat;
 
 import java.util.function.Supplier;
 
@@ -19,7 +21,10 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     CAT_EARS(CatEars::new, true),
     DEVIL_HORNS(DevilHorns::new, true),
     FOX_EARS(FoxEars::new, true),
-    MOUSE_EARS(MouseEars::new, true);
+    MOUSE_EARS(MouseEars::new, true),
+    MAID(MaidHeadband::new, false),
+    FALL_22(Fall22Hat::new, true),
+    ;
 
     private final Supplier<HatCosmetic> supplier;
     private final boolean visible;

@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.menu.icon;
+package com.minehut.cosmetics.ui.icon;
 
 import org.bukkit.inventory.ItemStack;
 

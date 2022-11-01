@@ -5,7 +5,8 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
-import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.ui.model.Model;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -15,9 +16,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class FoxEars extends HatCosmetic {
+public class MouseEars extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Foxy Ears")
+    private static final Component NAME = Component.text("I'm a Mouse, duh.")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
@@ -28,15 +29,15 @@ public class FoxEars extends HatCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.HAT.FOX_EARS)
+            .modelData(Model.HAT.MOUSE_EARS)
             .supplier();
 
 
-    public FoxEars() {
+    public MouseEars() {
         super(
-                Hat.FOX_EARS.name(),
+                Hat.MOUSE_EARS.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FOX_EARS.name()),
+                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MOUSE_EARS.name()),
                 ITEM
         );
     }

@@ -1,9 +1,10 @@
-package com.minehut.cosmetics.cosmetics.groups.item.implementation.pickaxe;
+package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
-import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.ui.model.Model;
+
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -16,25 +17,28 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Fall2022Pickaxe extends ItemCosmetic {
+public class MaidDuster extends ItemCosmetic {
 
-    private static final Component DISPLAY_NAME = Component.text("Autumn's Pickaxe").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_PICKAXE)
-            .display(DISPLAY_NAME)
+    public static final Component NAME = Component.text("Maid's Duster")
+            .color(NamedTextColor.GOLD)
+            .decoration(TextDecoration.ITALIC, false);
+
+    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
+            .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    CosmeticCollection.MAID.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Pickaxe.FALL_2022)
+            .modelData(Model.Item.Sword.MAID_DUSTER)
             .supplier();
 
-    public Fall2022Pickaxe() {
+    public MaidDuster() {
         super(
-                Item.FALL_22_PICKAXE.name(),
-                DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name())
+                Item.MAID_DUSTER.name(),
+                NAME,
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name())
         );
     }
 

@@ -1,6 +1,7 @@
-package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
+package com.minehut.cosmetics.cosmetics.groups.item.implementation.pickaxe;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -16,29 +17,25 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Katana extends ItemCosmetic {
+public class Fall22Pickaxe extends ItemCosmetic {
 
-    public static final Component NAME = Component.text("Katana's Katana")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(NAME)
+    private static final Component DISPLAY_NAME = Component.text("Autumn's Pickaxe").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false);
+    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_PICKAXE)
+            .display(DISPLAY_NAME)
             .lore(
                     Component.empty(),
-                    Component.text("A Katana forged from the finest metals").color(NamedTextColor.GOLD),
-                    Component.text("to be held by the true 'Block Game Legend'").color(NamedTextColor.GOLD),
+                    CosmeticCollection.FALL_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.KATANA)
+            .modelData(Model.Item.Pickaxe.FALL_22)
             .supplier();
 
-    public Katana() {
+    public Fall22Pickaxe() {
         super(
-                Item.KATANA.name(),
-                NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name())
+                Item.FALL_22_PICKAXE.name(),
+                DISPLAY_NAME,
+                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name())
         );
     }
 

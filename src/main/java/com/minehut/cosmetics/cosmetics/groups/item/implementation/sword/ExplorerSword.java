@@ -2,7 +2,8 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
-import com.minehut.cosmetics.cosmetics.Model;
+import com.minehut.cosmetics.ui.model.Model;
+
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;

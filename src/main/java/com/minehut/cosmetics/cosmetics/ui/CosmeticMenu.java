@@ -2,8 +2,9 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
-import com.minehut.cosmetics.cosmetics.Model;
-import com.minehut.cosmetics.menu.Menu;
+import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
@@ -54,11 +55,39 @@ public class CosmeticMenu extends Menu {
             .display(Component.text(" ").decoration(TextDecoration.ITALIC, false))
             .supplier();
 
+    private static final Component EQUIPMENT_SKIN_MESSAGE = Component.text()
+            .append(Component.newline())
+            .append(Component.text("How to apply equipment skins:"))
+            .append(Component.newline())
+            .append(Component.text("Hold the item you'd like to skin and type ").color(NamedTextColor.AQUA).append(Component.text("/skin").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD)))
+            .append(Component.newline())
+            .build();
+
+    private static final Component HAT_SKIN_MESSAGE = Component.text()
+            .append(Component.newline())
+            .append(Component.text("How to apply hat skins:"))
+            .append(Component.newline())
+            .append(Component.text("Hold the helmet you'd like to skin and type ").color(NamedTextColor.AQUA)
+                    .append(Component.text("/skin")
+                            .color(NamedTextColor.GOLD)
+                            .decorate(TextDecoration.BOLD)
+                            .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/skin"))))
+            .append(Component.newline())
+            .build();
+
+    private static final Supplier<ItemStack> AURA_MENU_ICON = ItemBuilder.of(Material.NETHER_STAR)
+            .display(Component.text("Aura Menu").color(NamedTextColor.AQUA))
+            .lore(
+                    Component.empty(),
+                    Component.text("Let it glow!").color(NamedTextColor.LIGHT_PURPLE),
+                    Component.empty()
+            )
+            .supplier();
+
     public CosmeticMenu(Player user) {
         super(Cosmetics.get(), 6, "Cosmetics");
 
-
-        final Mode mode = Cosmetics.get().config().mode();
+        final Mode mode = Cosmetics.mode();
 
         //Top menu
         getProxy().setItem(0, EXIT_ICON.get(), (player, ignored) -> {
@@ -77,51 +106,55 @@ public class CosmeticMenu extends Menu {
             ));
         });
 
+
         //Filler
         for (int i = 9; i <= 17; i++) {
             getProxy().setItem(i, FILLER_ICON.get());
         }
 
-        addMenu(ParticleMenu.ICON, () -> new ParticleMenu(user), 49);
+        // bottom group
+        addMenu(TrinketMenu.ICON, () -> new CompanionMenu(user), 47);
         addMenu(CompanionMenu.ICON, () -> new CompanionMenu(user), 48);
+        addMenu(ParticleMenu.ICON, () -> new ParticleMenu(user), 49);
         addMenu(BalloonMenu.ICON, () -> new BalloonMenu(user), 50);
-        addMenu(TrinketMenu.ICON, () -> new TrinketMenu(user), 30);
 
+        // armor pieces
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
 
         // menus that are only visible when in lobby mode
-        if (Mode.LOBBY == mode) {
-            addMenu(HatMenu.ICON, () -> new HatMenu(user), 22);
-            addMenu(ItemMenu.ICON, () -> new ItemMenu(user), 32);
-        } else {
-            getProxy().setItem(8, SKIN_INFO.get());
-            getProxy().setItem(22, HatMenu.ICON, (player, ignored) -> {
-                player.closeInventory();
-                player.sendMessage(Component.text());
-                player.sendMessage(Component.text("How to apply hat skins:"));
-                player.sendMessage(Component.text("Hold the helmet you'd like to skin and type ")
-                        .color(NamedTextColor.AQUA)
-                        .append(Component.text("/skin")
-                                .color(NamedTextColor.GOLD)
-                                .decorate(TextDecoration.BOLD)
-                                .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/skin"))
-                        )
-                );
-                player.sendMessage(Component.text());
-            });
-            getProxy().setItem(32, ItemMenu.ICON, (player, ignored) -> {
-                player.closeInventory();
-                player.sendMessage(Component.text());
-                player.sendMessage(Component.text("How to apply equipment skins:"));
-                player.sendMessage(Component.text("Hold the item you'd like to skin and type ")
-                        .color(NamedTextColor.AQUA)
-                        .append(Component.text("/skin")
-                                .color(NamedTextColor.GOLD)
-                                .decorate(TextDecoration.BOLD))
-                );
-                player.sendMessage(Component.text());
-            });
+        switch (mode) {
+            case LOBBY -> {
+                addMenu(ItemMenu.OFF_HAND_ICON, () -> new ItemMenu(user, CosmeticSlot.OFF_HAND), 30);
+                addMenu(ItemMenu.MAIN_HAND_ICON, () -> new ItemMenu(user, CosmeticSlot.MAIN_HAND), 32);
+                addMenu(HatMenu.ICON, () -> new HatMenu(user), 22);
+                getProxy().setItem(51, AURA_MENU_ICON.get(), (player, ignored) -> player.performCommand("aura"));
+
+            }
+            case PLAYER_SERVER -> {
+                // skin cta
+                getProxy().setItem(8, SKIN_INFO.get());
+
+                // hat icon
+                getProxy().setItem(22, HatMenu.ICON, (player, ignored) -> {
+                    player.sendMessage(HAT_SKIN_MESSAGE);
+                    player.closeInventory();
+                });
+
+                // equipment icons
+                getProxy().setItem(30, ItemMenu.OFF_HAND_ICON, (player, ignored) -> {
+                    player.sendMessage(EQUIPMENT_SKIN_MESSAGE);
+                    player.closeInventory();
+                });
+                getProxy().setItem(32, ItemMenu.MAIN_HAND_ICON, (player, ignored) -> {
+                    player.sendMessage(EQUIPMENT_SKIN_MESSAGE);
+                    player.closeInventory();
+                });
+
+                getProxy().setItem(51, AURA_MENU_ICON.get(), (player, ignored) -> {
+                    player.sendMessage(Component.text("You cannot use auras on player servers!").color(NamedTextColor.RED));
+                });
+            }
         }
     }
 

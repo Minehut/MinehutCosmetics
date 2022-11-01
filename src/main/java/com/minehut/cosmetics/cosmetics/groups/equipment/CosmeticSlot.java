@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.equipment;
+package com.minehut.cosmetics.cosmetics.groups.equipment;
 
 public enum CosmeticSlot {
     HEAD,

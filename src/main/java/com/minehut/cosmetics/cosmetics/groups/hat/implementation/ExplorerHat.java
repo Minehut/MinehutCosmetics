@@ -1,11 +1,10 @@
-package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
+package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
+import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
-
-import com.minehut.cosmetics.cosmetics.groups.item.Item;
-import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -16,34 +15,39 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Katana extends ItemCosmetic {
+public class ExplorerHat extends HatCosmetic {
 
-    public static final Component NAME = Component.text("Katana's Katana")
+    private static final Component NAME = Component.text("Explorer’s Hat")
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
-    
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
+    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("A Katana forged from the finest metals").color(NamedTextColor.GOLD),
-                    Component.text("to be held by the true 'Block Game Legend'").color(NamedTextColor.GOLD),
+                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.KATANA)
+            .modelData(Model.HAT.EXPLORER)
             .supplier();
 
-    public Katana() {
+
+    public ExplorerHat() {
         super(
-                Item.KATANA.name(),
+                Hat.EXPLORER.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.KATANA.name())
+                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.EXPLORER.name()),
+                ITEM
         );
     }
 
     @Override
-    public ItemStack item() {
+    public Component name() {
+        return NAME;
+    }
+
+    @Override
+    public ItemStack menuIcon() {
         return ITEM.get();
     }
 }

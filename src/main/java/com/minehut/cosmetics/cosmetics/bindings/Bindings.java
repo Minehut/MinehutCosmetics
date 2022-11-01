@@ -20,8 +20,10 @@ public class Bindings {
             .registerCosmetics(List.of(
                     Item.EXPLORER_SWORD,
                     Item.FALL_22_SWORD,
+                    Item.FALL_22_LEAF_SWORD,
                     Item.KATANA,
-                    Item.HALLO_22_SCYTHE
+                    Item.HALLO_22_SCYTHE,
+                    Item.MAID_DUSTER
             ));
 
     // bindings for pickaxe items
@@ -95,7 +97,11 @@ public class Bindings {
                     Hat.CAT_EARS,
                     Hat.DEVIL_HORNS,
                     Hat.FOX_EARS,
-                    Hat.FOX_EARS
+                    Hat.FOX_EARS,
+                    // Maid
+                    Hat.MAID,
+                    // Fall 2022
+                    Hat.FALL_22
             ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()
@@ -106,6 +112,22 @@ public class Bindings {
                     Item.FALL_22_SHIELD
             ));
 
+    public static MaterialBinding ARROW = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.ARROW
+            ))
+            .registerCosmetics(List.of(
+                    Item.FALL_22_ARROW
+            ));
+
+    public static MaterialBinding BOW = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.BOW
+            ))
+            .registerCosmetics(List.of(
+                    Item.FALL_22_BOW
+            ));
+
 
     public static List<MaterialBinding> ALL = List.of(
             SWORD,
@@ -114,6 +136,8 @@ public class Bindings {
             AXE,
             SPYGLASS,
             HAT,
-            SHIELD
+            SHIELD,
+            ARROW,
+            BOW
     );
 }

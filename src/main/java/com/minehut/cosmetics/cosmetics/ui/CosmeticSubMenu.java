@@ -5,10 +5,10 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticPermission;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
-import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
-import com.minehut.cosmetics.menu.Menu;
-import com.minehut.cosmetics.menu.icon.MenuItem;
+import com.minehut.cosmetics.cosmetics.groups.equipment.ClickHandler;
+import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -30,6 +30,10 @@ public abstract class CosmeticSubMenu extends Menu {
             ItemBuilder.of(Material.BARRIER)
                     .display(Component.text("Clear Item").color(NamedTextColor.RED))
                     .build();
+    private static final ItemStack BACK_ITEM =
+            ItemBuilder.of(Material.DARK_OAK_DOOR)
+                    .display(Component.text("Go Back").color(NamedTextColor.RED))
+                    .build();
 
     private final ClickHandler clickHandler;
 
@@ -47,18 +51,20 @@ public abstract class CosmeticSubMenu extends Menu {
             items.add(menuItem(supplier));
         }
 
-        int size = (int) Math.max(1, Math.ceil((items.size() + 1) / 9f));
+        int size = (int) Math.max(1, Math.ceil((items.size() + 2) / 9f));
         setRows(size);
 
-        getProxy().setItem(size * 9 - 1, MenuItem.of(CLEAR_ITEM, (whoClicked, click) -> {
-            final UUID uuid = whoClicked.getUniqueId();
+        getProxy().setItem(size * 9 - 2, MenuItem.of(CLEAR_ITEM, (who, click) -> {
+            final UUID uuid = who.getUniqueId();
 
             final CosmeticSlot slot = this.clickHandler.apply(click);
             Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
 
-            whoClicked.sendMessage(Component.text("Item removed.").color(NamedTextColor.AQUA));
-            whoClicked.closeInventory();
+            who.sendMessage(Component.text("Item removed.").color(NamedTextColor.AQUA));
+            who.closeInventory();
         }));
+
+        getProxy().setItem(size * 9 - 1, MenuItem.of(BACK_ITEM, (who, click) -> new CosmeticMenu(who).openTo(who)));
 
         items.forEach(getProxy()::addItem);
 
@@ -85,8 +91,6 @@ public abstract class CosmeticSubMenu extends Menu {
 
                 Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().cosmeticManager().setCosmetic(uuid, slot, cosmetic, true));
             } else {
-
-
                 player.sendMessage(
                         Component.text()
                                 .append(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.YELLOW))
@@ -95,7 +99,6 @@ public abstract class CosmeticSubMenu extends Menu {
                                 )
                 );
             }
-
             Bukkit.getScheduler().runTask(Cosmetics.get(), () -> player.closeInventory());
         }));
     }
