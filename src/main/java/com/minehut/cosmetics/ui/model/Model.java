@@ -41,6 +41,8 @@ public final class Model {
             public static final int HALLO_22_SCYTHE = 1_000_004;
             public static final int MAID_DUSTER = 1_000_005;
             public static final int FALL_22_LEAF_SWORD = 1_000_006;
+            public static final int CRUSADER_SWORD = 1_000_007;
+
 
 
         }

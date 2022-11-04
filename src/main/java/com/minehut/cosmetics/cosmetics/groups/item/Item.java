@@ -10,6 +10,7 @@ import com.minehut.cosmetics.cosmetics.groups.item.implementation.shield.Fall202
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.shovel.Fall22Shovel;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.shovel.GraveShovel;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.spyglass.ExplorerSpyglass;
+import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.CrusaderSword;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.ExplorerSword;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.Fall22LeafSword;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.Fall22Sword;
@@ -42,8 +43,10 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     KATANA(Katana::new, false),
     // maid
     MAID_DUSTER(MaidDuster::new, false),
-
+    // Crusader Collection
+    CRUSADER_SWORD(CrusaderSword::new, true),
     ;
+
     private final Supplier<ItemCosmetic> supplier;
     private final boolean visible;
 

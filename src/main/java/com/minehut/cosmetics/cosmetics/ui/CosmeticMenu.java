@@ -113,7 +113,7 @@ public class CosmeticMenu extends Menu {
         }
 
         // bottom group
-        addMenu(TrinketMenu.ICON, () -> new CompanionMenu(user), 47);
+        addMenu(TrinketMenu.ICON, () -> new TrinketMenu(user), 47);
         addMenu(CompanionMenu.ICON, () -> new CompanionMenu(user), 48);
         addMenu(ParticleMenu.ICON, () -> new ParticleMenu(user), 49);
         addMenu(BalloonMenu.ICON, () -> new BalloonMenu(user), 50);

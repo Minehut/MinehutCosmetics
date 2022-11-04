@@ -23,7 +23,8 @@ public class Bindings {
                     Item.FALL_22_LEAF_SWORD,
                     Item.KATANA,
                     Item.HALLO_22_SCYTHE,
-                    Item.MAID_DUSTER
+                    Item.MAID_DUSTER,
+                    Item.CRUSADER_SWORD
             ));
 
     // bindings for pickaxe items
