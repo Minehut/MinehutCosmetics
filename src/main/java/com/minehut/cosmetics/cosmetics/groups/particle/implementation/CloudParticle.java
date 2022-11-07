@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -26,7 +26,11 @@ public class CloudParticle extends ParticleCosmetic {
     private final List<Location> locations = new ArrayList<>();
 
     public CloudParticle() {
-        super(Particle.CLOUD.name(), Component.text("Cloud Particles"), CosmeticPermission.none(), 1);
+        super(Particle.CLOUD.name(),
+                Component.text("Cloud Particles"),
+                Permission.none(),
+                Permission.none(),
+                1);
     }
 
     @Override

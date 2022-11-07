@@ -6,23 +6,15 @@ import com.minehut.cosmetics.cosmetics.groups.balloon.implementation.JackOLanter
 import java.util.function.Supplier;
 
 public enum Balloon implements CosmeticSupplier<BalloonCosmetic> {
-    JACK_O_LANTERN(JackOLanternBalloon::new, true)
-    ;
+    JACK_O_LANTERN(JackOLanternBalloon::new);
     private final Supplier<BalloonCosmetic> supplier;
-    private final boolean visible;
 
-    Balloon(final Supplier<BalloonCosmetic> supplier, boolean visible) {
+    Balloon(final Supplier<BalloonCosmetic> supplier) {
         this.supplier = supplier;
-        this.visible = visible;
     }
 
     @Override
     public BalloonCosmetic get() {
         return supplier.get();
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
     }
 }

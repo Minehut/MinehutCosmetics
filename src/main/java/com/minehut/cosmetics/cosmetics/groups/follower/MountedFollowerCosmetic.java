@@ -1,23 +1,20 @@
 package com.minehut.cosmetics.cosmetics.groups.follower;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.util.EntityUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
@@ -35,6 +32,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * @param category          the category belongs to
      * @param name              of this companion
      * @param permission        required to equip this companion
+     * @param visibility        permission to see this item
      * @param companionSupplier build the itemstack for this companion
      * @param offset            to spawn the cosmetic at
      * @param small             whether to use a mini armor stand
@@ -45,28 +43,30 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final Function<Player, ItemStack> companionSupplier,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        this(id, category, name, permission, List.of(companionSupplier), offset, small, lookX, lookY);
+        this(id, category, name, permission, visibility, List.of(companionSupplier), offset, small, lookX, lookY);
     }
 
     public MountedFollowerCosmetic(
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final List<Function<Player, ItemStack>> companionSuppliers,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        super(id, category, name, permission, companionSuppliers, offset);
+        super(id, category, name, permission, visibility, companionSuppliers, offset);
         this.small = small;
         this.lookX = lookX;
         this.lookY = lookY;

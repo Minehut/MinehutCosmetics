@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -14,13 +14,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Fall22LeafSword extends ItemCosmetic {
@@ -40,24 +37,27 @@ public class Fall22LeafSword extends ItemCosmetic {
             .modelData(Model.Item.Sword.FALL_22_LEAF_SWORD)
             .supplier();
 
-    public static final Function<Player, CompletableFuture<Boolean>> PERMISSION = CosmeticPermission.all(List.of(
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_AXE.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHOVEL.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_ARROW.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_BOW.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FALL_22.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
-            CosmeticPermission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name())
+    public static final Permission PERMISSION = Permission.all(List.of(
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_AXE.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHOVEL.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_ARROW.name()),
+            Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_BOW.name()),
+            Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FALL_22.name()),
+            Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
+            Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name())
     ));
+
+    public static final Permission VISIBILITY = Permission.collectionIsActive(CosmeticCollection.FALL_22);
 
     public Fall22LeafSword() {
         super(
                 Item.FALL_22_LEAF_SWORD.name(),
                 NAME,
-                PERMISSION
+                PERMISSION,
+                VISIBILITY
         );
     }
 

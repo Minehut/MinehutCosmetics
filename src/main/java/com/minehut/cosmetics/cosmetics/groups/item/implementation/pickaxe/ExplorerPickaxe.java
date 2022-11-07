@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.pickaxe;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -35,7 +35,8 @@ public class ExplorerPickaxe extends ItemCosmetic {
         super(
                 Item.EXPLORER_PICKAXE.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_PICKAXE.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_PICKAXE.name()),
+                Permission.deny()
         );
     }
 

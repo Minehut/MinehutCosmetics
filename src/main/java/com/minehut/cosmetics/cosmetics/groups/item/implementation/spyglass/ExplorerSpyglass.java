@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.spyglass;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -34,7 +34,8 @@ public class ExplorerSpyglass extends ItemCosmetic {
         super(
                 Item.EXPLORER_SPYGLASS.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SPYGLASS.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SPYGLASS.name()),
+                Permission.deny()
         );
     }
 

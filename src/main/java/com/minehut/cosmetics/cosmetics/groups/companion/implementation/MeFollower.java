@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.companion.CompanionCosmetic;
 import net.kyori.adventure.text.Component;
@@ -14,7 +14,8 @@ public class MeFollower extends CompanionCosmetic {
         super(
                 Companion.ME_BUDDY.name(),
                 Component.text("Me!"),
-                CosmeticPermission.isStaff(),
+                Permission.staff(),
+                Permission.deny(),
                 player -> {
                     ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
 

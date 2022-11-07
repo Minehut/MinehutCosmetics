@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -24,7 +24,11 @@ public class FlameParticle extends ParticleCosmetic {
     private Location location;
 
     public FlameParticle() {
-        super(Particle.FLAME.name(), Component.text("Flame Particles"), CosmeticPermission.hasRank(REQUIRED_RANK), 1);
+        super(Particle.FLAME.name(),
+                Component.text("Flame Particles"),
+                Permission.hasRank(REQUIRED_RANK),
+                Permission.none(),
+                1);
     }
 
     @Override

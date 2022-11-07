@@ -11,9 +11,11 @@ import com.minehut.cosmetics.ui.ProxyInventory;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.SkinUtil;
+import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,26 +27,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class SkinMenu extends Menu {
-
-    private static final Component CTA_TEXT = Component.text()
-            .append(Component.text("[Click Here]").decorate(TextDecoration.BOLD).color(NamedTextColor.GOLD))
-            .append(Component.space())
-            .append(Component.text("to buy cosmetics!").color(NamedTextColor.AQUA))
-            .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://bit.ly/3EnE1hq"))
-            .build();
-
+    private static final Book CTA_BOOK = Book.book(
+            Component.text("Minehut"),
+            Component.text("Minehut"),
+            Component.text()
+                    .append(Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi")))
+                    .build()
+    );
 
     private static final ItemStack CTA_HEAD = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)
-            .display(Component.text("Click to buy skins @ cosmetics.minehut.com")
-                    .decoration(TextDecoration.ITALIC, false).color(NamedTextColor.AQUA)).build();
+            .display(Component.text("Click to buy skins!")
+                    .decoration(TextDecoration.ITALIC, false)
+                    .color(NamedTextColor.AQUA))
+            .build();
 
-    private static final MenuItem CTA_MENU_ITEM = MenuItem.of(CTA_HEAD, (player, ignored) -> {
-        player.closeInventory();
-        player.sendMessage(CTA_TEXT);
-    });
+    private static final MenuItem CTA_MENU_ITEM = MenuItem.of(CTA_HEAD, (player, ignored) -> player.openBook(CTA_BOOK));
 
     private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Remove Skin").color(NamedTextColor.RED)).build();
     private final HashSet<CosmeticSupplier<? extends Cosmetic>> cosmetics = new HashSet<>();
@@ -65,8 +66,10 @@ public class SkinMenu extends Menu {
             return;
         }
 
-        this.cosmetics.addAll(new HashSet<>(maybeBinds.get().getCosmetics()));
-        cosmetics.removeIf(cosmetic -> !cosmetic.get().canUse(player).join());
+        for (final CosmeticSupplier<? extends Cosmetic> cosmetic : Set.copyOf(maybeBinds.get().getCosmetics())) {
+            if (!cosmetic.get().permission().hasAccess(player).join()) continue;
+            cosmetics.add(cosmetic);
+        }
 
         int rows = Math.max(1, (int) Math.ceil(this.cosmetics.size() / 9f));
         setProxy(new ProxyInventory(rows));

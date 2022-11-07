@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -38,7 +38,8 @@ public class CrusaderSword extends ItemCosmetic {
         super(
                 Item.CRUSADER_SWORD.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.CRUSADER_SWORD.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.CRUSADER_SWORD.name()),
+                Permission.deny()
         );
     }
 

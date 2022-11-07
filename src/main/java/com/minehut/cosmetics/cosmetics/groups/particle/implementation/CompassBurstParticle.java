@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.particle.base.AnimatedPixelArtParticle;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -18,7 +18,7 @@ public class CompassBurstParticle extends AnimatedPixelArtParticle {
             .build();
 
     public CompassBurstParticle() {
-        super(Particle.COMPASS_BURST.name(), Component.text("Placeholder"), CosmeticPermission.isStaff(), 1, "compassburst", 1, 3, 20);
+        super(Particle.COMPASS_BURST.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "compassburst", 1, 3, 20);
     }
 
     @Override

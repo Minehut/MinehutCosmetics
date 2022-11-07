@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.base;
 
+import com.minehut.cosmetics.cosmetics.Permission;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -9,8 +10,6 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class AnimatedPixelArtParticle extends PixelArtParticle {
     private final List<Location> locations = new ArrayList<>();
@@ -24,14 +23,15 @@ public abstract class AnimatedPixelArtParticle extends PixelArtParticle {
     protected AnimatedPixelArtParticle(
             final String id,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final int delay,
             final String art,
             final int frames,
             final int frameLength,
             final int interval
     ) {
-        super(id, name, permission, delay, art, frames);
+        super(id, name, permission, visibility, delay, art, frames);
         this.frameLength = frameLength;
         this.interval = interval;
         this.intervalTick = interval;

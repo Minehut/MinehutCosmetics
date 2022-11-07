@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.arrow.Fall22Arrow;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.axe.Fall2022Axe;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.bow.Fall22Bow;
@@ -22,46 +23,39 @@ import java.util.function.Supplier;
 
 public enum Item implements CosmeticSupplier<ItemCosmetic> {
     // Explorer Set
-    EXPLORER_SPYGLASS(ExplorerSpyglass::new, true),
-    EXPLORER_PICKAXE(ExplorerPickaxe::new, true),
-    EXPLORER_SWORD(ExplorerSword::new, true),
+    EXPLORER_SPYGLASS(ExplorerSpyglass::new),
+    EXPLORER_PICKAXE(ExplorerPickaxe::new),
+    EXPLORER_SWORD(ExplorerSword::new),
     // Fall Set
-    FALL_22_PICKAXE(Fall22Pickaxe::new, true),
-    FALL_22_SHOVEL(Fall22Shovel::new, true),
-    FALL_22_SWORD(Fall22Sword::new, true),
-    FALL_22_LEAF_SWORD(Fall22LeafSword::new, true),
+    FALL_22_PICKAXE(Fall22Pickaxe::new),
+    FALL_22_SHOVEL(Fall22Shovel::new),
+    FALL_22_SWORD(Fall22Sword::new),
+    FALL_22_LEAF_SWORD(Fall22LeafSword::new),
 
-    FALL_22_AXE(Fall2022Axe::new, true),
-    FALL_22_ARROW(Fall22Arrow::new, true),
-    FALL_22_BOW(Fall22Bow::new, true),
+    FALL_22_AXE(Fall2022Axe::new),
+    FALL_22_ARROW(Fall22Arrow::new),
+    FALL_22_BOW(Fall22Bow::new),
     // shields
-    FALL_22_SHIELD(Fall2022Shield::new, true),
+    FALL_22_SHIELD(Fall2022Shield::new),
     // Spooktacular
-    GRAVE_SHOVEL(GraveShovel::new, true),
-    HALLO_22_SCYTHE(Halloween22Scythe::new, true),
+    GRAVE_SHOVEL(GraveShovel::new),
+    HALLO_22_SCYTHE(Halloween22Scythe::new),
     // special
-    KATANA(Katana::new, false),
+    KATANA(Katana::new),
     // maid
-    MAID_DUSTER(MaidDuster::new, false),
+    MAID_DUSTER(MaidDuster::new),
     // Crusader Collection
-    CRUSADER_SWORD(CrusaderSword::new, true),
+    CRUSADER_SWORD(CrusaderSword::new),
     ;
 
     private final Supplier<ItemCosmetic> supplier;
-    private final boolean visible;
 
-    Item(final Supplier<ItemCosmetic> supplier, boolean visible) {
+    Item(final Supplier<ItemCosmetic> supplier) {
         this.supplier = supplier;
-        this.visible = visible;
     }
 
     @Override
     public ItemCosmetic get() {
         return supplier.get();
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
     }
 }

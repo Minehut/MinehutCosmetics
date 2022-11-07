@@ -15,36 +15,28 @@ import java.util.function.Supplier;
 
 public enum Hat implements CosmeticSupplier<HatCosmetic> {
     // explorer
-    EXPLORER(ExplorerHat::new, true),
+    EXPLORER(ExplorerHat::new),
     // halloween
-    WITCH(WitchHat::new, true),
-    CAT_EARS(CatEars::new, true),
-    DEVIL_HORNS(DevilHorns::new, true),
-    FOX_EARS(FoxEars::new, true),
-    MOUSE_EARS(MouseEars::new, true),
-    MAID(MaidHeadband::new, false),
-    FALL_22(Fall22Hat::new, true),
+    WITCH(WitchHat::new),
+    CAT_EARS(CatEars::new),
+    DEVIL_HORNS(DevilHorns::new),
+    FOX_EARS(FoxEars::new),
+    MOUSE_EARS(MouseEars::new),
+    MAID(MaidHeadband::new),
+    FALL_22(Fall22Hat::new),
     ;
 
     private final Supplier<HatCosmetic> supplier;
-    private final boolean visible;
 
     /**
      * @param supplier supplier for cosmetic
-     * @param visible  whether the cosmetic is visible
      */
-    Hat(final Supplier<HatCosmetic> supplier, boolean visible) {
+    Hat(final Supplier<HatCosmetic> supplier) {
         this.supplier = supplier;
-        this.visible = visible;
     }
 
     @Override
     public HatCosmetic get() {
         return supplier.get();
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
     }
 }

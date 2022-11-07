@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.groups.trinket.implementation;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
@@ -41,7 +41,8 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
         super(
                 com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.TRINKET.name(), com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name())
+                Permission.hasPurchased(CosmeticCategory.TRINKET.name(), com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name()),
+                Permission.deny()
         );
     }
 

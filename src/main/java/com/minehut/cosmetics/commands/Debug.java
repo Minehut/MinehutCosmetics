@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -33,7 +33,7 @@ public class Debug implements CommandExecutor {
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            if (!CosmeticPermission.isStaff().apply(player).join()) return;
+            if (!Permission.staff().hasAccess(player).join()) return;
 
             sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
             final Optional<CosmeticProfileResponse> profile = plugin.cosmeticManager().getProfile(player.getUniqueId()).join();

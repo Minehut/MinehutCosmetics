@@ -1,8 +1,8 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.base;
 
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
 import net.kyori.adventure.text.Component;
-import org.bukkit.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class PixelArtParticle extends ParticleCosmetic {
     protected final List<boolean[][]> pixels = new ArrayList<>();
@@ -24,12 +22,13 @@ public abstract class PixelArtParticle extends ParticleCosmetic {
     protected PixelArtParticle(
             final String id,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final int delay,
             final String art,
             final int frames
     ) {
-        super(id, name, permission, delay);
+        super(id, name, permission, visibility, delay);
         this.frames = frames;
         if (frames == 1) {
             final String resourceLocation = "cosmetics/particle/%s.png".formatted(art);
@@ -45,11 +44,12 @@ public abstract class PixelArtParticle extends ParticleCosmetic {
     protected PixelArtParticle(
             final String id,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final int delay,
             final String art
     ) {
-        this(id, name, permission, delay, art, 1);
+        this(id, name, permission, visibility, delay, art, 1);
     }
 
     private void processFrame(final int frame, final String resourceLocation) {

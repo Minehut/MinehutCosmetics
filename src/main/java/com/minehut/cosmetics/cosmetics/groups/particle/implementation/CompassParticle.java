@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.particle.base.AmbientPixelArtParticle;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -18,7 +18,7 @@ public class CompassParticle extends AmbientPixelArtParticle {
             .build();
 
     public CompassParticle() {
-        super(Particle.COMPASS.name(), Component.text("Placeholder"), CosmeticPermission.isStaff(), 1, "compass", 3);
+        super(Particle.COMPASS.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "compass", 3);
     }
 
     @Override

@@ -1,8 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
-import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -26,7 +25,11 @@ public class NetherParticle extends ParticleCosmetic {
     private Location location;
 
     public NetherParticle() {
-        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.NETHER.name(), Component.text("Nether Particles"), CosmeticPermission.hasRank(REQUIRED_RANK), 2);
+        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.NETHER.name(),
+                Component.text("Nether Particles"),
+                Permission.hasRank(REQUIRED_RANK),
+                Permission.none(),
+                2);
     }
 
     @Override

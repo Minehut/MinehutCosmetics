@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
@@ -53,7 +53,8 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
         super(
                 Companion.WENDELL_AND_WILD.name(),
                 Component.text("Wendell & Wild").color(NamedTextColor.GOLD),
-                CosmeticPermission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.WENDELL_AND_WILD.name()),
+                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.WENDELL_AND_WILD.name()),
+                Permission.deny(),
                 List.of(
                         player -> WENDELL.get(),
                         player -> WILD.get()

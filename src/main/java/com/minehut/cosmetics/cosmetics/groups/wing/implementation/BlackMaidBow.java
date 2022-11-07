@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
@@ -35,8 +35,8 @@ public class BlackMaidBow extends WingCosmetic {
     public BlackMaidBow() {
         super(Wing.BOW_BLACK.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_BLACK.name()),
-                p -> ITEM.get());
+                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_BLACK.name()),
+                Permission.deny());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.base;
 
+import com.minehut.cosmetics.cosmetics.Permission;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -9,9 +10,7 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Function;
 
 public abstract class AmbientPixelArtParticle extends PixelArtParticle {
     private final int lifespan;
@@ -22,12 +21,13 @@ public abstract class AmbientPixelArtParticle extends PixelArtParticle {
     protected AmbientPixelArtParticle(
             final String id,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final int delay,
             final String art,
             final int lifespan
     ) {
-        super(id, name, permission, delay, art, 1);
+        super(id, name, permission, visibility, delay, art, 1);
         this.lifespan = lifespan;
     }
 

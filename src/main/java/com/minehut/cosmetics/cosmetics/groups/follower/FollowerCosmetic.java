@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.follower;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
@@ -17,7 +18,6 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public abstract class FollowerCosmetic extends Cosmetic implements Equippable, Tickable {
@@ -33,11 +33,12 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
             String id,
             CosmeticCategory category,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             List<Function<Player, ItemStack>> companionSuppliers,
             Vector offset
     ) {
-        super(id, name, permission, category);
+        super(id, category, name, permission, visibility);
         this.companionSuppliers = companionSuppliers;
         this.offset = offset;
         entityUUIDs = new ArrayList<>();
@@ -137,8 +138,9 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
      * y = -0.0625x + 0.25
      * This locks the output speed (y) between 0.25 (the max move towards player speed) and 0,
      * between the distance (x) ranges of 0 and 4.
-     *
+     * <p>
      * https://www.desmos.com/calculator/hrkyyewmzc
+     *
      * @param distanceSquared the distance between the two entities, squared
      * @return the speed to move away at
      */

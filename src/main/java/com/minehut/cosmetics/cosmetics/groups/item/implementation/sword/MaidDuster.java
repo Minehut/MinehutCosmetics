@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -38,7 +38,8 @@ public class MaidDuster extends ItemCosmetic {
         super(
                 Item.MAID_DUSTER.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name()),
+                Permission.deny()
         );
     }
 

@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -38,7 +38,8 @@ public class Halloween22Scythe extends ItemCosmetic {
         super(
                 Item.HALLO_22_SCYTHE.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name()),
+                Permission.deny()
         );
     }
 

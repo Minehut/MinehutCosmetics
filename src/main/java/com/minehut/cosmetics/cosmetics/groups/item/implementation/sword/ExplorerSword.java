@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
@@ -36,7 +36,8 @@ public class ExplorerSword extends ItemCosmetic {
         super(
                 Item.EXPLORER_SWORD.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SWORD.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SWORD.name()),
+                Permission.deny()
         );
     }
 

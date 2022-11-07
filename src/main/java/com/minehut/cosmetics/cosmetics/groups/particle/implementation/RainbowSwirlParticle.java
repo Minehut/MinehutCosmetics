@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -35,7 +35,11 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     private Color color;
 
     public RainbowSwirlParticle() {
-        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAINBOW_SWIRL.name(), Component.text("Rainbow Swirl Particles"), CosmeticPermission.hasRank(REQUIRED_RANK), 0);
+        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAINBOW_SWIRL.name(),
+                Component.text("Rainbow Swirl Particles"),
+                Permission.hasRank(REQUIRED_RANK),
+                Permission.none(),
+                0);
     }
 
     @Override

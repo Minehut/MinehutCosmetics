@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
 import com.minehut.cosmetics.cosmetics.groups.wing.WingCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -17,11 +17,11 @@ import java.util.function.Supplier;
 
 public class Fall22Wings extends WingCosmetic {
 
-    private static final Component NAME = Component.text("Wings of Autumn")
+    public static final Component NAME = Component.text("Wings of Autumn")
             .color(NamedTextColor.AQUA)
             .decoration(TextDecoration.ITALIC, false);
 
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
+    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
             .display(NAME)
             .lore(
                     Component.empty(),
@@ -34,8 +34,8 @@ public class Fall22Wings extends WingCosmetic {
     public Fall22Wings() {
         super(Wing.FALL_22.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
-                p -> ITEM.get());
+                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
+                Permission.collectionIsActive(CosmeticCollection.FALL_22));
     }
 
     @Override

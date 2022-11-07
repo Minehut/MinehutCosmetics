@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.particle.base.AmbientPixelArtParticle;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -18,7 +18,7 @@ public class StarParticle extends AmbientPixelArtParticle {
             .build();
 
     public StarParticle() {
-        super(Particle.STAR.name(), Component.text("Placeholder"), CosmeticPermission.isStaff(), 1, "star", 3);
+        super(Particle.STAR.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "star", 3);
     }
 
     @Override

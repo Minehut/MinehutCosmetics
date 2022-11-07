@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
@@ -37,7 +37,8 @@ public class GhostCompanion extends CompanionCosmetic {
         super(
                 Companion.GHOST.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.GHOST.name()),
+                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.GHOST.name()),
+                Permission.deny(),
                 player -> ITEM.get(),
                 new Vector(0, .25, 0),
                 true,

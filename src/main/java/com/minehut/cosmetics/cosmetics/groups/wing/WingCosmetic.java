@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.wing;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
@@ -27,8 +28,6 @@ import java.util.function.Function;
 public abstract class WingCosmetic extends Cosmetic implements Equippable, Tickable {
 
     private static final Set<Pose> blacklisted = Set.of(Pose.SWIMMING, Pose.SLEEPING, Pose.DYING, Pose.FALL_FLYING, Pose.SPIN_ATTACK);
-
-    private final Function<Player, ItemStack> wingSupplier;
     private ArmorStand wings;
     private Entity base;
 
@@ -37,10 +36,9 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
 
     protected WingCosmetic(String id,
                            Component name,
-                           Function<Player, CompletableFuture<Boolean>> permission,
-                           Function<Player, ItemStack> wingSupplier) {
-        super(id, name, permission, CosmeticCategory.WING);
-        this.wingSupplier = wingSupplier;
+                           Permission permission,
+                           Permission visibility) {
+        super(id, CosmeticCategory.WING, name, permission, visibility);
     }
 
     @Override
@@ -55,6 +53,16 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
         if (!equipped) return;
         equipped = false;
         hide();
+    }
+
+
+    /**
+     * Get the item to be used for the wings
+     *
+     * @return the wing item
+     */
+    public ItemStack getWingItem() {
+        return menuIcon();
     }
 
     public void hide() {
@@ -73,7 +81,7 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
             spawn.setYaw(0);
             spawn.setPitch(0);
             this.wings = EntityUtil.spawnModelStand(player.getLocation(), wings -> {
-                wings.setItem(EquipmentSlot.HEAD, wingSupplier.apply(player));
+                wings.setItem(EquipmentSlot.HEAD, menuIcon());
                 wings.setVisible(true);
             });
 

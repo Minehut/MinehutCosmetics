@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.balloon;
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.follower.MountedFollowerCosmetic;
 import com.minehut.cosmetics.util.EntityUtil;
 import com.minehut.cosmetics.util.data.Key;
@@ -11,11 +11,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Parrot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
@@ -34,8 +32,21 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
      * @param permission      required to equip this companion
      * @param balloonSupplier build the itemstack for this companion
      */
-    public BalloonCosmetic(String id, Component name, Function<Player, CompletableFuture<Boolean>> permission, Function<Player, ItemStack> balloonSupplier) {
-        super(id, CosmeticCategory.BALLOON, name, permission, balloonSupplier, new Vector(0, 2, 0), true, true, false);
+    public BalloonCosmetic(String id,
+                           Component name,
+                           Permission permission,
+                           Permission visibility,
+                           Function<Player, ItemStack> balloonSupplier) {
+        super(id,
+                CosmeticCategory.BALLOON,
+                name,
+                permission,
+                visibility,
+                balloonSupplier,
+                new Vector(0, 2, 0),
+                true,
+                true,
+                false);
     }
 
     @Override

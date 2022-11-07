@@ -1,7 +1,8 @@
 package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
@@ -15,12 +16,14 @@ import org.bukkit.util.Vector;
 
 import java.util.List;
 
+// TODO: Refactor to modern style
 public class CompieCompanion extends CompanionCosmetic {
     public CompieCompanion() {
         super(
                 Companion.EXPLORER.name(),
                 Component.text("Compie-chan").color(NamedTextColor.GOLD),
-                CosmeticPermission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.EXPLORER.name()),
+                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.EXPLORER.name()),
+                Permission.collectionIsActive(CosmeticCollection.BETA),
                 player -> {
                     ItemStack stack = new ItemStack(Material.SCUTE);
                     stack.editMeta(meta -> {

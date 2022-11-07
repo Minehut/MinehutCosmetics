@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.hat;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.util.SkinUtil;
@@ -9,15 +10,12 @@ import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinnable {
@@ -28,8 +26,12 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
     @Nullable
     private final ArmorStand entity;
 
-    protected HatCosmetic(String id, final Component name, final Function<Player, CompletableFuture<Boolean>> permission, Supplier<ItemStack> itemSupplier) {
-        super(id, name, permission, CosmeticCategory.HAT);
+    protected HatCosmetic(String id,
+                          final Component name,
+                          final Permission permission,
+                          final Permission visibility,
+                          Supplier<ItemStack> itemSupplier) {
+        super(id, CosmeticCategory.HAT, name, permission, visibility);
         this.itemSupplier = itemSupplier;
         this.entity = null;
     }
@@ -75,7 +77,7 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
 
         item.editMeta(meta -> {
             SkinUtil.writeCosmeticKeys(meta, this);
-            
+
             Key.EQUIPMENT_SLOT.writeIfAbsent(meta, EquipmentSlot.HEAD.name());
             Key.MATERIAL.writeIfAbsent(meta, type.name());
 

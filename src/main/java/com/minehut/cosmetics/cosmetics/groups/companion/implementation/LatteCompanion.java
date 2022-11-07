@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
@@ -38,7 +38,8 @@ public class LatteCompanion extends CompanionCosmetic {
         super(
                 Companion.LATTE_KUN.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name()),
+                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name()),
+                Permission.none(),
                 player -> ITEM.get(),
                 new Vector(0, -1.5, 0),
                 true,

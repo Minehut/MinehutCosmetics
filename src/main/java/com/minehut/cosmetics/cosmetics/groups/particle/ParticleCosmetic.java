@@ -2,13 +2,11 @@ package com.minehut.cosmetics.cosmetics.groups.particle;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.Constants;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class ParticleCosmetic extends Cosmetic implements Tickable {
     protected final int delay;
@@ -17,16 +15,12 @@ public abstract class ParticleCosmetic extends Cosmetic implements Tickable {
     protected ParticleCosmetic(
             final String id,
             final Component name,
-            final Function<Player, CompletableFuture<Boolean>> permission,
+            final Permission permission,
+            final Permission visibility,
             final int delay
     ) {
-        super(id, name, permission, CosmeticCategory.PARTICLE);
+        super(id, CosmeticCategory.PARTICLE, name, permission, visibility);
         this.delay = delay;
-    }
-
-    @Override
-    public CompletableFuture<Boolean> canUse(final Player player) {
-        return permission.apply(player);
     }
 
     public final void tick() {

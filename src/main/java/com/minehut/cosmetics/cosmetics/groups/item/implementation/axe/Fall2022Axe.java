@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.axe;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -34,7 +34,8 @@ public class Fall2022Axe extends ItemCosmetic {
         super(
                 Item.FALL_22_AXE.name(),
                 DISPLAY_NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_AXE.name())
+                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_AXE.name()),
+                Permission.none()
         );
     }
 

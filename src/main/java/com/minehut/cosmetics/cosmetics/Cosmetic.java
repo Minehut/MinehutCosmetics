@@ -8,40 +8,33 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class Cosmetic {
-    protected final Component name;
-    protected final Function<Player, CompletableFuture<Boolean>> permission;
+    private final Component name;
+    private final Permission permission;
+    private final Permission visibility;
     protected UUID owner;
     private final CosmeticCategory type;
     private final String id;
 
     protected Cosmetic(final String id,
+                       final CosmeticCategory type,
                        final Component name,
-                       final Function<Player, CompletableFuture<Boolean>> permission,
-                       final CosmeticCategory type
-    ) {
+                       final Permission permission,
+                       final Permission visibility) {
         this.id = id;
         this.name = name;
         this.permission = permission;
+        this.visibility = visibility;
         this.type = type;
     }
 
-    public Component name() {
-        return name;
+    public Permission permission() {
+        return permission;
     }
 
-    public CompletableFuture<Boolean> canUse(final Player player) {
-        return CompletableFuture.supplyAsync(() -> {
-            // bypass for staff players
-            if (CosmeticPermission.isStaff().apply(player).join()) {
-                return true;
-            }
-
-            return permission.apply(player).join();
-        });
+    public Permission visibility() {
+        return visibility;
     }
 
     public Optional<UUID> owner() {
@@ -62,6 +55,10 @@ public abstract class Cosmetic {
 
     public String id() {
         return id;
+    }
+
+    public Component name() {
+        return name;
     }
 
     /**

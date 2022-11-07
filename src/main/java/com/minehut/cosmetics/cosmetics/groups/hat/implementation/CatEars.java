@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -38,7 +38,8 @@ public class CatEars extends HatCosmetic {
         super(
                 Hat.CAT_EARS.name(),
                 NAME,
-                CosmeticPermission.hasPurchased(CosmeticCategory.HAT.name(), Hat.CAT_EARS.name()),
+                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.CAT_EARS.name()),
+                Permission.deny(),
                 ITEM
         );
     }

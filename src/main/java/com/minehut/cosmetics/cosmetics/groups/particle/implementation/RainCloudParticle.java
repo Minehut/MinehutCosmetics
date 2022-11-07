@@ -1,8 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.ParticleCosmetic;
-import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -28,7 +27,8 @@ public class RainCloudParticle extends ParticleCosmetic {
         super(
                 com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAIN_CLOUD.name(),
                 Component.text("Rain Cloud Particles"),
-                CosmeticPermission.hasRank(REQUIRED_RANK),
+                Permission.hasRank(REQUIRED_RANK),
+                Permission.none(),
                 1
         );
     }

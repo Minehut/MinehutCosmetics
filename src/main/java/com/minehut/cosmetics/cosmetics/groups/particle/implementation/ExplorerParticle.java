@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticPermission;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.particle.base.AmbientPixelArtParticle;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -23,7 +23,8 @@ public class ExplorerParticle extends AmbientPixelArtParticle {
         super(
                 Particle.EXPLORER.name(),
                 Component.text("Explorer’s Particle Burst"),
-                CosmeticPermission.hasPurchased(CosmeticCategory.PARTICLE.name(), Particle.EXPLORER.name()),
+                Permission.hasPurchased(CosmeticCategory.PARTICLE.name(), Particle.EXPLORER.name()),
+                Permission.deny(),
                 1,
                 "ExplorerBurst",
                 6

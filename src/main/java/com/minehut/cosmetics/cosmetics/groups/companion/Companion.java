@@ -12,27 +12,20 @@ import com.minehut.cosmetics.cosmetics.groups.follower.FollowerCosmetic;
 import java.util.function.Supplier;
 
 public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
-    EXPLORER(CompieCompanion::new, true),
-    LATTE_KUN(LatteCompanion::new, true),
-    ME_BUDDY(MeFollower::new, false),
-    WENDELL_AND_WILD(WendellAndWildCompanion::new, true),
-    GHOST(GhostCompanion::new, true);
+    EXPLORER(CompieCompanion::new),
+    LATTE_KUN(LatteCompanion::new),
+    ME_BUDDY(MeFollower::new),
+    WENDELL_AND_WILD(WendellAndWildCompanion::new),
+    GHOST(GhostCompanion::new);
 
     private final Supplier<FollowerCosmetic> supplier;
-    private final boolean visible;
 
-    Companion(final Supplier<FollowerCosmetic> supplier, boolean visible) {
+    Companion(final Supplier<FollowerCosmetic> supplier) {
         this.supplier = supplier;
-        this.visible = visible;
     }
 
     @Override
     public FollowerCosmetic get() {
         return supplier.get();
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
     }
 }

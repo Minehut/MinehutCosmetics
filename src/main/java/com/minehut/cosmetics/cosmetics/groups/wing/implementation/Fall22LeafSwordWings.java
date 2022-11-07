@@ -11,7 +11,7 @@ public class Fall22LeafSwordWings extends WingCosmetic {
         super(Wing.FALL_22_LEAF_SWORD.name(),
                 Fall22LeafSword.NAME,
                 Fall22LeafSword.PERMISSION,
-                p -> Fall22LeafSword.ITEM.get());
+                Fall22LeafSword.VISIBILITY);
     }
 
     @Override

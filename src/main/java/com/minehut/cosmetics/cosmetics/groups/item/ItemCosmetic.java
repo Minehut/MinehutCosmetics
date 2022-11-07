@@ -4,6 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
@@ -13,22 +14,26 @@ import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinnable, SlotHandler {
     private boolean equipped = false;
 
     private @Nullable CosmeticSlot slot = null;
 
-    protected ItemCosmetic(String id, final Component name, final Function<Player, CompletableFuture<Boolean>> permission) {
-        super(id, name, permission, CosmeticCategory.ITEM);
+    protected ItemCosmetic(String id,
+                           final Component name,
+                           final Permission permission,
+                           final Permission visibility) {
+        super(id,
+                CosmeticCategory.ITEM,
+                name,
+                permission,
+                visibility);
     }
 
     @Override
