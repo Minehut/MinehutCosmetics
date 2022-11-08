@@ -30,10 +30,6 @@ public class EmojiHandler implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEmoji(AsyncChatEvent event) {
         if (!event.isAsynchronous()) return;
-
-        final TextReplacementConfig config = generateConfig(event.getPlayer());
-        event.getPlayer().sendMessage(event.originalMessage());
-        event.renderer((source, sourceDisplayName, message, viewer) -> sourceDisplayName.append(message.replaceText(config)));
     }
 
 
