@@ -6,13 +6,13 @@ import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiCosmetic;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,17 +31,14 @@ public class EmojiHandler implements Listener {
     public void onEmoji(AsyncChatEvent event) {
         if (!event.isAsynchronous()) return;
 
-        final WeakReference<TextReplacementConfig> configRef = generateConfig(event.getPlayer());
-
-        final TextReplacementConfig config = configRef.get();
-        if (config != null) {
-            event.message(event.message().replaceText(config));
-        }
+        final TextReplacementConfig config = generateConfig(event.getPlayer());
+        event.getPlayer().sendMessage(event.originalMessage());
+        event.renderer((source, sourceDisplayName, message, viewer) -> sourceDisplayName.append(message.replaceText(config)));
     }
 
 
-    private WeakReference<TextReplacementConfig> generateConfig(Player player) {
-        return new WeakReference<>(TextReplacementConfig.builder()
+    private TextReplacementConfig generateConfig(Player player) {
+        return TextReplacementConfig.builder()
                 .match("\\:[a-z_]*\\:")
                 .replacement((match, ignored) -> {
                     final String input = match.group();
@@ -51,6 +48,6 @@ public class EmojiHandler implements Listener {
                     }
                     return cosmetic.component();
                 })
-                .build());
+                .build();
     }
 }
