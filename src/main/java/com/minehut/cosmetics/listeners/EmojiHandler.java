@@ -5,6 +5,8 @@ import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiCosmetic;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentIteratorType;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -27,9 +29,17 @@ public class EmojiHandler implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEmoji(AsyncChatEvent event) {
         if (!event.isAsynchronous()) return;
+
+        final Component old = event.message();
+        final Component fresh = event.message().replaceText(generateConfig(event.getPlayer()));
+
+        if (old.equals(event.message())) return;
+        Bukkit.getLogger().info("Got here");
+
+        event.message(fresh);
     }
 
 
