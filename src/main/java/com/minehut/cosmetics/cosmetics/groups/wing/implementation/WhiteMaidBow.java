@@ -33,10 +33,17 @@ public class WhiteMaidBow extends WingCosmetic {
             .supplier();
 
     public WhiteMaidBow() {
-        super(Wing.BOW_WHITE.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_WHITE.name()),
-                Permission.deny());
+        super(Wing.BOW_WHITE.name(), NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_WHITE.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.MAID);
     }
 
     @Override

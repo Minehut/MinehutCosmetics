@@ -11,10 +11,17 @@ import java.util.UUID;
 public class KatanaBack extends WingCosmetic {
 
     public KatanaBack() {
-        super(Item.KATANA.name(),
-                Katana.NAME,
-                Permission.uuid(UUID.fromString("0cab222b-63ce-46c0-ada3-a56365f2dc8a")),
-                Permission.deny());
+        super(Item.KATANA.name(), Katana.NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.uuid(UUID.fromString("0cab222b-63ce-46c0-ada3-a56365f2dc8a"));
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

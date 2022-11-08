@@ -22,13 +22,11 @@ public abstract class PixelArtParticle extends ParticleCosmetic {
     protected PixelArtParticle(
             final String id,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final int delay,
             final String art,
             final int frames
     ) {
-        super(id, name, permission, visibility, delay);
+        super(id, name, delay);
         this.frames = frames;
         if (frames == 1) {
             final String resourceLocation = "cosmetics/particle/%s.png".formatted(art);
@@ -44,12 +42,10 @@ public abstract class PixelArtParticle extends ParticleCosmetic {
     protected PixelArtParticle(
             final String id,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final int delay,
             final String art
     ) {
-        this(id, name, permission, visibility, delay, art, 1);
+        this(id, name, delay, art, 1);
     }
 
     private void processFrame(final int frame, final String resourceLocation) {

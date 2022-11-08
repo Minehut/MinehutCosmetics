@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
@@ -34,13 +35,17 @@ public class DevilHorns extends HatCosmetic {
 
 
     public DevilHorns() {
-        super(
-                Hat.DEVIL_HORNS.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.DEVIL_HORNS.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.DEVIL_HORNS.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.DEVIL_HORNS.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
     }
 
     @Override

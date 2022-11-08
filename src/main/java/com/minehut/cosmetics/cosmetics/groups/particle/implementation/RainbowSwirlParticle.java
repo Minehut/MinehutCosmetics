@@ -35,11 +35,17 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     private Color color;
 
     public RainbowSwirlParticle() {
-        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAINBOW_SWIRL.name(),
-                Component.text("Rainbow Swirl Particles"),
-                Permission.hasRank(REQUIRED_RANK),
-                Permission.none(),
-                0);
+        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAINBOW_SWIRL.name(), Component.text("Rainbow Swirl Particles"), 0);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasRank(REQUIRED_RANK);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

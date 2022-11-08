@@ -4,7 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
@@ -38,12 +38,17 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
     private CosmeticSlot slot = null;
 
     public SpooktacularBoombox() {
-        super(
-                com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.TRINKET.name(), com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name()),
-                Permission.deny()
-        );
+        super(com.minehut.cosmetics.cosmetics.groups.trinket.Trinket.SPOOKTACULAR_BOOMBOX.name(), DISPLAY_NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(category(), id());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

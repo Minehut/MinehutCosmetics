@@ -35,16 +35,21 @@ public class MaidDuster extends ItemCosmetic {
             .supplier();
 
     public MaidDuster() {
-        super(
-                Item.MAID_DUSTER.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name()),
-                Permission.deny()
-        );
+        super(Item.MAID_DUSTER.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.MAID);
     }
 }

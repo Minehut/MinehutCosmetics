@@ -98,6 +98,17 @@ public interface Permission {
     }
 
     /**
+     * Check if a given player has purchased the given item.
+     *
+     * @param category of the item to check purchases for
+     * @param id       of the purchased item.
+     * @return a permission for whether a player has purhcased the given item.
+     */
+    static Permission hasPurchased(final CosmeticCategory category, final String id) {
+        return hasPurchased(category.name(), id);
+    }
+
+    /**
      * Compound permisison for checking if *all* passed {@link Permission} are true.
      *
      * @param permissions to check

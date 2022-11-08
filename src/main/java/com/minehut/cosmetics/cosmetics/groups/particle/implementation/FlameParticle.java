@@ -24,11 +24,17 @@ public class FlameParticle extends ParticleCosmetic {
     private Location location;
 
     public FlameParticle() {
-        super(Particle.FLAME.name(),
-                Component.text("Flame Particles"),
-                Permission.hasRank(REQUIRED_RANK),
-                Permission.none(),
-                1);
+        super(Particle.FLAME.name(), Component.text("Flame Particles"), 1);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasRank(REQUIRED_RANK);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

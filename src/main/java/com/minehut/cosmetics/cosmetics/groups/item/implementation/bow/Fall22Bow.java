@@ -35,16 +35,21 @@ public class Fall22Bow extends ItemCosmetic {
             .supplier();
 
     public Fall22Bow() {
-        super(
-                Item.FALL_22_BOW.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_BOW.name()),
-                Permission.none()
-        );
+        super(Item.FALL_22_BOW.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_BOW.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 }

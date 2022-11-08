@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.modules;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.model.profile.LocalCosmeticProfile;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;

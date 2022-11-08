@@ -33,13 +33,17 @@ public class JackOLanternBalloon extends BalloonCosmetic {
             .supplier();
 
     public JackOLanternBalloon() {
-        super(
-                Balloon.JACK_O_LANTERN.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.BALLOON.name(), Balloon.JACK_O_LANTERN.name()),
-                Permission.collectionIsActive(CosmeticCollection.SPOOKY_22),
-                p -> ITEM.get()
-        );
+        super(Balloon.JACK_O_LANTERN.name(), NAME, p -> ITEM.get());
+    }
+
+    @Override
+    public Permission permission() {
+        return                 Permission.hasPurchased(CosmeticCategory.BALLOON.name(), Balloon.JACK_O_LANTERN.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
     }
 
     @Override

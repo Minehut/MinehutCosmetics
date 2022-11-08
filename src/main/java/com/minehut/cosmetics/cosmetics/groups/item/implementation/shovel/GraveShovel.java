@@ -33,16 +33,21 @@ public class GraveShovel extends ItemCosmetic {
             .supplier();
 
     public GraveShovel() {
-        super(
-                Item.GRAVE_SHOVEL.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.GRAVE_SHOVEL.name()),
-                Permission.deny()
-        );
+        super(Item.GRAVE_SHOVEL.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.GRAVE_SHOVEL.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 }

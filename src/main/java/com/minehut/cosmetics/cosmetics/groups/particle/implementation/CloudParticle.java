@@ -26,11 +26,17 @@ public class CloudParticle extends ParticleCosmetic {
     private final List<Location> locations = new ArrayList<>();
 
     public CloudParticle() {
-        super(Particle.CLOUD.name(),
-                Component.text("Cloud Particles"),
-                Permission.none(),
-                Permission.none(),
-                1);
+        super(Particle.CLOUD.name(), Component.text("Cloud Particles"), 1);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.none();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

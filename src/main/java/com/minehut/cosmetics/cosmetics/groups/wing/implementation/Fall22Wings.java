@@ -32,10 +32,17 @@ public class Fall22Wings extends WingCosmetic {
             .supplier();
 
     public Fall22Wings() {
-        super(Wing.FALL_22.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
-                Permission.collectionIsActive(CosmeticCollection.FALL_22));
+        super(Wing.FALL_22.name(), NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 
     @Override

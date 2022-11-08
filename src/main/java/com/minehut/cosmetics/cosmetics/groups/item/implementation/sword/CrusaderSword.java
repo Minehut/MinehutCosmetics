@@ -35,16 +35,21 @@ public class CrusaderSword extends ItemCosmetic {
             .supplier();
 
     public CrusaderSword() {
-        super(
-                Item.CRUSADER_SWORD.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.CRUSADER_SWORD.name()),
-                Permission.deny()
-        );
+        super(Item.CRUSADER_SWORD.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.CRUSADER_SWORD.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 }

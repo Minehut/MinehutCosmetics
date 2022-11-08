@@ -14,8 +14,6 @@ public class MeFollower extends CompanionCosmetic {
         super(
                 Companion.ME_BUDDY.name(),
                 Component.text("Me!"),
-                Permission.staff(),
-                Permission.deny(),
                 player -> {
                     ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
 
@@ -27,6 +25,16 @@ public class MeFollower extends CompanionCosmetic {
                 true,
                 true
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

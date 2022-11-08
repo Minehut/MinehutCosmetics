@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.ui.Menu;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;

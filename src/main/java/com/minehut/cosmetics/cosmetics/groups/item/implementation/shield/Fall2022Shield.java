@@ -32,17 +32,22 @@ public class Fall2022Shield extends ItemCosmetic {
             .supplier();
 
     public Fall2022Shield() {
-        super(
-                Item.FALL_22_SHIELD.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name()),
-                Permission.none()
-        );
+        super(Item.FALL_22_SHIELD.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 }
 

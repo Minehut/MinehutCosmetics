@@ -33,12 +33,10 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
             String id,
             CosmeticCategory category,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             List<Function<Player, ItemStack>> companionSuppliers,
             Vector offset
     ) {
-        super(id, category, name, permission, visibility);
+        super(id, category, name);
         this.companionSuppliers = companionSuppliers;
         this.offset = offset;
         entityUUIDs = new ArrayList<>();

@@ -35,13 +35,17 @@ public class CatEars extends HatCosmetic {
 
 
     public CatEars() {
-        super(
-                Hat.CAT_EARS.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.CAT_EARS.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.CAT_EARS.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.CAT_EARS.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
     }
 
     @Override

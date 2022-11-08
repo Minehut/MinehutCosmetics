@@ -14,6 +14,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -35,16 +36,21 @@ public class Halloween22Scythe extends ItemCosmetic {
             .supplier();
 
     public Halloween22Scythe() {
-        super(
-                Item.HALLO_22_SCYTHE.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name()),
-                Permission.deny()
-        );
+        super(Item.HALLO_22_SCYTHE.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
     }
 }

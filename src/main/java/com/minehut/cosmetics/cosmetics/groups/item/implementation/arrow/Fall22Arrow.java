@@ -35,16 +35,21 @@ public class Fall22Arrow extends ItemCosmetic {
             .supplier();
 
     public Fall22Arrow() {
-        super(
-                Item.FALL_22_ARROW.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_ARROW.name()),
-                Permission.none()
-        );
+        super(Item.FALL_22_ARROW.name(),NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_ARROW.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 }

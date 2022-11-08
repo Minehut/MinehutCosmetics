@@ -35,13 +35,17 @@ public class MaidHeadband extends HatCosmetic {
 
 
     public MaidHeadband() {
-        super(
-                Hat.MAID.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MAID.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.MAID.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MAID.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.MAID);
     }
 
     @Override

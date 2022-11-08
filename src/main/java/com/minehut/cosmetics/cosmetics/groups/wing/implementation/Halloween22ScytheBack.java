@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.implementation.sword.Halloween22Scythe;
@@ -12,9 +13,17 @@ public class Halloween22ScytheBack extends WingCosmetic {
 
     public Halloween22ScytheBack() {
         super(Wing.HALLO_22_SCYTHE.name(),
-                Halloween22Scythe.NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name()),
-                Permission.deny());
+              Halloween22Scythe.NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 
     @Override

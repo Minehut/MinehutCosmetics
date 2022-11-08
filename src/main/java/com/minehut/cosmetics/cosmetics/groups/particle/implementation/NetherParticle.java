@@ -25,11 +25,17 @@ public class NetherParticle extends ParticleCosmetic {
     private Location location;
 
     public NetherParticle() {
-        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.NETHER.name(),
-                Component.text("Nether Particles"),
-                Permission.hasRank(REQUIRED_RANK),
-                Permission.none(),
-                2);
+        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.NETHER.name(), Component.text("Nether Particles"), 2);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasRank(REQUIRED_RANK);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

@@ -33,10 +33,17 @@ public class BatWings extends WingCosmetic {
             .supplier();
 
     public BatWings() {
-        super(Wing.BAT.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BAT.name()),
-                Permission.deny());
+        super(Wing.BAT.name(), NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BAT.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
     }
 
     @Override

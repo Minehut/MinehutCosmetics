@@ -22,8 +22,6 @@ public class CompieCompanion extends CompanionCosmetic {
         super(
                 Companion.EXPLORER.name(),
                 Component.text("Compie-chan").color(NamedTextColor.GOLD),
-                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.EXPLORER.name()),
-                Permission.collectionIsActive(CosmeticCollection.BETA),
                 player -> {
                     ItemStack stack = new ItemStack(Material.SCUTE);
                     stack.editMeta(meta -> {
@@ -41,6 +39,16 @@ public class CompieCompanion extends CompanionCosmetic {
                 true,
                 false
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.EXPLORER.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.BETA);
     }
 
     @Override

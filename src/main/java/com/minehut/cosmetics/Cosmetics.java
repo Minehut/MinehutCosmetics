@@ -18,7 +18,7 @@ import com.minehut.cosmetics.events.skins.SkinDurabilityListener;
 import com.minehut.cosmetics.events.skins.SkinEquipListener;
 import com.minehut.cosmetics.events.skins.SkinModifyListener;
 import com.minehut.cosmetics.events.skins.SkinTriggerListener;
-import com.minehut.cosmetics.listeners.EmojiListener;
+import com.minehut.cosmetics.listeners.EmojiHandler;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
@@ -94,7 +94,7 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticsTeleportListener(this));
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
-        registerEvents(new EmojiListener());
+        registerEvents(new EmojiHandler());
 
         // register commands
         setExecutor("cosmetics", new MenuCommand());

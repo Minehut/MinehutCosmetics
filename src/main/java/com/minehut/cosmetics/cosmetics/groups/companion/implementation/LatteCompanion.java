@@ -38,14 +38,22 @@ public class LatteCompanion extends CompanionCosmetic {
         super(
                 Companion.LATTE_KUN.name(),
                 NAME,
-                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name()),
-                Permission.none(),
                 player -> ITEM.get(),
                 new Vector(0, -1.5, 0),
                 true,
                 true,
                 false
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(category(), id());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 
     @Override

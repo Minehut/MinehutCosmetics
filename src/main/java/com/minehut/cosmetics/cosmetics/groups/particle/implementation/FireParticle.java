@@ -18,7 +18,17 @@ public class FireParticle extends AmbientPixelArtParticle {
             .build();
 
     public FireParticle() {
-        super(Particle.FIRE.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "fire", 3);
+        super(Particle.FIRE.name(), Component.text("Placeholder"), 1, "fire", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

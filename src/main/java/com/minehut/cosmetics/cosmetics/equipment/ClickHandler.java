@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.groups.equipment;
+package com.minehut.cosmetics.cosmetics.equipment;
 
 import org.bukkit.event.inventory.ClickType;
 

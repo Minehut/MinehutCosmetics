@@ -34,16 +34,21 @@ public class Katana extends ItemCosmetic {
             .supplier();
 
     public Katana() {
-        super(
-                Item.KATANA.name(),
-                NAME,
-                Permission.uuid(UUID.fromString("0cab222b-63ce-46c0-ada3-a56365f2dc8a")),
-                Permission.deny()
-        );
+        super(Item.KATANA.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.uuid(UUID.fromString("0cab222b-63ce-46c0-ada3-a56365f2dc8a"));
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 }

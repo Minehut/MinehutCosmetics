@@ -31,16 +31,21 @@ public class ExplorerSpyglass extends ItemCosmetic {
             .supplier();
 
     public ExplorerSpyglass() {
-        super(
-                Item.EXPLORER_SPYGLASS.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SPYGLASS.name()),
-                Permission.deny()
-        );
+        super(Item.EXPLORER_SPYGLASS.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SPYGLASS.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.BETA);
     }
 }

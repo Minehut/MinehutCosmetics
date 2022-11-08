@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.CosmeticCollection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -25,7 +27,7 @@ public class ExplorerSword extends ItemCosmetic {
             .display(DISPLAY_NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Collection.BETA.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -33,16 +35,21 @@ public class ExplorerSword extends ItemCosmetic {
             .supplier();
 
     public ExplorerSword() {
-        super(
-                Item.EXPLORER_SWORD.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SWORD.name()),
-                Permission.deny()
-        );
+        super(Item.EXPLORER_SWORD.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(category(), id());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.BETA);
     }
 }

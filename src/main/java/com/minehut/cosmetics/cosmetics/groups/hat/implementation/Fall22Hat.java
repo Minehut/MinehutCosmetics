@@ -38,10 +38,18 @@ public class Fall22Hat extends HatCosmetic {
         super(
                 Hat.FALL_22.name(),
                 NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FALL_22.name()),
-                Permission.none(),
                 ITEM
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FALL_22.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 
     @Override

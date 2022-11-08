@@ -18,7 +18,17 @@ public class CompassBurstParticle extends AnimatedPixelArtParticle {
             .build();
 
     public CompassBurstParticle() {
-        super(Particle.COMPASS_BURST.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "compassburst", 1, 3, 20);
+        super(Particle.COMPASS_BURST.name(), Component.text("Placeholder"), 1, "compassburst", 1, 3, 20);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

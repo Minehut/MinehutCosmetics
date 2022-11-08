@@ -23,15 +23,13 @@ public abstract class AnimatedPixelArtParticle extends PixelArtParticle {
     protected AnimatedPixelArtParticle(
             final String id,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final int delay,
             final String art,
             final int frames,
             final int frameLength,
             final int interval
     ) {
-        super(id, name, permission, visibility, delay, art, frames);
+        super(id, name, delay, art, frames);
         this.frameLength = frameLength;
         this.interval = interval;
         this.intervalTick = interval;

@@ -34,16 +34,21 @@ public class Fall22Sword extends ItemCosmetic {
             .supplier();
 
     public Fall22Sword() {
-        super(
-                Item.FALL_22_SWORD.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name()),
-                Permission.none()
-        );
+        super(Item.FALL_22_SWORD.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
     }
 }

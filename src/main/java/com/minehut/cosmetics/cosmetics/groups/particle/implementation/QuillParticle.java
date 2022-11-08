@@ -9,7 +9,17 @@ import org.bukkit.inventory.ItemStack;
 
 public class QuillParticle extends AmbientPixelArtParticle {
     public QuillParticle() {
-        super(Particle.QUILL.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "quill", 3);
+        super(Particle.QUILL.name(), Component.text("Placeholder"), 1, "quill", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

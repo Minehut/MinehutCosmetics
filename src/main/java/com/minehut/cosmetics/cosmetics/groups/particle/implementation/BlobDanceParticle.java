@@ -18,7 +18,17 @@ public class BlobDanceParticle extends AnimatedPixelArtParticle {
             .build();
 
     public BlobDanceParticle() {
-        super(Particle.BLOB_DANCE.name(), Component.text("Blob Dance"), Permission.staff(), Permission.deny(), 1, "blobdance", 10, 1, 1);
+        super(Particle.BLOB_DANCE.name(), Component.text("Blob Dance"),  1, "blobdance", 10, 1, 1);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

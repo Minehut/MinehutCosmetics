@@ -31,8 +31,6 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * @param id                of the cosmetic
      * @param category          the category belongs to
      * @param name              of this companion
-     * @param permission        required to equip this companion
-     * @param visibility        permission to see this item
      * @param companionSupplier build the itemstack for this companion
      * @param offset            to spawn the cosmetic at
      * @param small             whether to use a mini armor stand
@@ -43,30 +41,26 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final Function<Player, ItemStack> companionSupplier,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        this(id, category, name, permission, visibility, List.of(companionSupplier), offset, small, lookX, lookY);
+        this(id, category, name, List.of(companionSupplier), offset, small, lookX, lookY);
     }
 
     public MountedFollowerCosmetic(
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final List<Function<Player, ItemStack>> companionSuppliers,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        super(id, category, name, permission, visibility, companionSuppliers, offset);
+        super(id, category, name, companionSuppliers, offset);
         this.small = small;
         this.lookX = lookX;
         this.lookY = lookY;

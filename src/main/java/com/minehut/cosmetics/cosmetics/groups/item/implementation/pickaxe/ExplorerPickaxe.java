@@ -32,16 +32,21 @@ public class ExplorerPickaxe extends ItemCosmetic {
             .supplier();
 
     public ExplorerPickaxe() {
-        super(
-                Item.EXPLORER_PICKAXE.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_PICKAXE.name()),
-                Permission.deny()
-        );
+        super(Item.EXPLORER_PICKAXE.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_PICKAXE.name());
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(CosmeticCollection.BETA);
     }
 }

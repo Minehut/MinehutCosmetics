@@ -18,7 +18,17 @@ public class StarParticle extends AmbientPixelArtParticle {
             .build();
 
     public StarParticle() {
-        super(Particle.STAR.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "star", 3);
+        super(Particle.STAR.name(), Component.text("Placeholder"), 1, "star", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

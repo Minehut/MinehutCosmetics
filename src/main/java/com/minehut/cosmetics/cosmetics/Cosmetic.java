@@ -11,31 +11,21 @@ import java.util.UUID;
 
 public abstract class Cosmetic {
     private final Component name;
-    private final Permission permission;
-    private final Permission visibility;
     protected UUID owner;
     private final CosmeticCategory type;
     private final String id;
 
     protected Cosmetic(final String id,
                        final CosmeticCategory type,
-                       final Component name,
-                       final Permission permission,
-                       final Permission visibility) {
+                       final Component name) {
         this.id = id;
         this.name = name;
-        this.permission = permission;
-        this.visibility = visibility;
         this.type = type;
     }
 
-    public Permission permission() {
-        return permission;
-    }
+    public abstract Permission permission();
 
-    public Permission visibility() {
-        return visibility;
-    }
+    public abstract Permission visibility();
 
     public Optional<UUID> owner() {
         return Optional.ofNullable(owner);

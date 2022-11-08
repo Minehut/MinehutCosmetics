@@ -30,13 +30,17 @@ public class HaloParticle extends ParticleCosmetic {
     private final List<Location> locations = new ArrayList<>();
 
     public HaloParticle() {
-        super(
-                com.minehut.cosmetics.cosmetics.groups.particle.Particle.HALO.name(),
-                Component.text("Halo Particles"),
-                Permission.hasRank(REQUIRED_RANK),
-                Permission.none(),
-                2
-        );
+        super(com.minehut.cosmetics.cosmetics.groups.particle.Particle.HALO.name(), Component.text("Halo Particles"), 2);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasRank(REQUIRED_RANK);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

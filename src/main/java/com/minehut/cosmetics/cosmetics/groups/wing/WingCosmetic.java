@@ -34,11 +34,8 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
     private boolean equipped = false;
     private boolean hidden = true;
 
-    protected WingCosmetic(String id,
-                           Component name,
-                           Permission permission,
-                           Permission visibility) {
-        super(id, CosmeticCategory.WING, name, permission, visibility);
+    protected WingCosmetic(String id, Component name) {
+        super(id, CosmeticCategory.WING, name);
     }
 
     @Override
