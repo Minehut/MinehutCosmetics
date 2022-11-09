@@ -3,7 +3,9 @@ package com.minehut.cosmetics.cosmetics.ui;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiDisplay;
 import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;
@@ -121,6 +123,9 @@ public class CosmeticMenu extends Menu {
         // armor pieces
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
+
+        getProxy().setItem(34, MenuItem.of(ItemBuilder.of(Material.PAPER).build(), (player, ignored) -> EmojiDisplay.open(player)));
+
 
         // menus that are only visible when in lobby mode
         switch (mode) {

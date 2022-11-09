@@ -63,16 +63,6 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
     @Override
     public ItemStack menuIcon() {
         final ItemBuilder item = ItemBuilder.of(item());
-
-        if (Mode.LOBBY == Cosmetics.mode()) {
-            item.appendLore(
-                    List.of(
-                            Component.keybind("key.attack").color(NamedTextColor.YELLOW).append(Component.text(" to apply to main hand.").color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false),
-                            Component.keybind("key.use").color(NamedTextColor.YELLOW).append(Component.text(" to apply to off-hand.").color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false)
-                    )
-            );
-        }
-
         return item.build();
     }
 
