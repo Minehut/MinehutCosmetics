@@ -27,7 +27,7 @@ public enum Collection {
         return tag;
     }
 
-    private static Set<Collection> ACTIVE = Set.of(FALL_22);
+    private static final Set<Collection> ACTIVE = Set.of(FALL_22, GENERAL, MAID);
 
     public static boolean isActive(Collection collection) {
         return ACTIVE.contains(collection);
