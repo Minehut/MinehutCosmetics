@@ -35,7 +35,7 @@ public class CompieCompanion extends CompanionCosmetic {
                     });
                     return stack;
                 },
-                new Vector(0, -1.5, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false

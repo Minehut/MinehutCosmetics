@@ -57,8 +57,8 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
                         player -> WENDELL.get(),
                         player -> WILD.get()
                 ),
-                new Vector(0, -1, 0),
-                false,
+                new Vector(0, -1.01, 0),
+                true,
                 true,
                 false
         );

@@ -82,7 +82,7 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     public void tick() {
         // process if the player is present
         player().ifPresentOrElse(player -> entities().forEach(entity -> {
-            Location target = player.getEyeLocation().clone().subtract(0, 0.5, 0);
+            Location target = player.getEyeLocation().clone();
             // if the entity is too far away teleport them to the player
             if (entity.getLocation().distanceSquared(target) < 144) {
                 entity.setVelocity(moveTowards(entity, target, 0.25, 1));

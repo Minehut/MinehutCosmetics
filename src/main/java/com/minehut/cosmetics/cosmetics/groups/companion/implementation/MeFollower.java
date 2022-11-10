@@ -20,7 +20,7 @@ public class MeFollower extends CompanionCosmetic {
                     stack.editMeta(meta -> ((SkullMeta) meta).setPlayerProfile(player.getPlayerProfile()));
                     return stack;
                 },
-                new Vector(0f, -.5f, 0f),
+                new Vector(0f, -1f, 0f),
                 true,
                 true,
                 true

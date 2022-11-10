@@ -99,6 +99,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
 
             double eulerX = lookY ? -(Math.PI - Math.atan2(Math.hypot(x, z), y)) + Math.PI / 2 : 0f;
             double eulerY = lookX ? -(Math.PI - Math.atan2(z, x)) + Math.PI / 2 : 0f;
+            
             EulerAngle angle = new EulerAngle(
                     eulerX,
                     eulerY,

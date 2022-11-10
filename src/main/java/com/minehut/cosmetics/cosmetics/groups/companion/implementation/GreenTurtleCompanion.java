@@ -37,7 +37,7 @@ public class GreenTurtleCompanion extends CompanionCosmetic {
                 Companion.GREEN_TURTLE.name(),
                 NAME,
                 player -> ITEM.get(),
-                new Vector(0, .25, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false

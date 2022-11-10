@@ -39,7 +39,7 @@ public class LatteCompanion extends CompanionCosmetic {
                 Companion.LATTE_KUN.name(),
                 NAME,
                 player -> ITEM.get(),
-                new Vector(0, -1.5, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false

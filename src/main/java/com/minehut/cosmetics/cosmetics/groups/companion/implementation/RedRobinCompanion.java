@@ -56,7 +56,7 @@ public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
                 Companion.RED_ROBIN.name(),
                 NAME,
                 player -> ITEM.get(),
-                new Vector(0, .25, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false
