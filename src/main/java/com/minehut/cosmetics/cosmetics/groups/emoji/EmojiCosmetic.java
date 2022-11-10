@@ -16,9 +16,10 @@ public abstract class EmojiCosmetic extends Cosmetic {
 
     @Override
     public ItemStack menuIcon() {
-        return ItemBuilder.of(Material.PAPER).build();
+        return ItemBuilder.of(Material.PAPER).display(component()).build();
     }
 
     public abstract @NotNull String keyword();
+
     public abstract @NotNull Component component();
 }

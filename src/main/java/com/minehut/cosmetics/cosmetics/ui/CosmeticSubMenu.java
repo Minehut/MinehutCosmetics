@@ -59,7 +59,7 @@ public abstract class CosmeticSubMenu extends Menu {
         for (final CosmeticSupplier<? extends Cosmetic> supplier : cosmetics) {
             final Cosmetic cosmetic = supplier.get();
 
-            final boolean owns = cosmetic.permission().hasAccess(player).join() || Permission.staff().hasAccess(player).join();
+            final boolean owns = Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).join();
 
             // check if the player can see it, has access to it, or if they're staff
             if (!owns && !cosmetic.visibility().hasAccess(player).join()) {
@@ -103,7 +103,7 @@ public abstract class CosmeticSubMenu extends Menu {
     }
 
     private MenuItem menuItem(ItemStack icon, Cosmetic cosmetic) {
-        return MenuItem.of(icon, (player, click) -> cosmetic.permission().hasAccess(player).whenComplete((canUse, err) -> {
+        return MenuItem.of(icon, (player, click) -> Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).whenComplete((canUse, err) -> {
             if (err != null) {
                 err.printStackTrace();
             }

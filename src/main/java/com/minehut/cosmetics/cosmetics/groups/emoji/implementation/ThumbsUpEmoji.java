@@ -24,7 +24,7 @@ public class ThumbsUpEmoji extends EmojiCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(category(), id());
+        return Permission.hasPurchased(this);
     }
 
     @Override

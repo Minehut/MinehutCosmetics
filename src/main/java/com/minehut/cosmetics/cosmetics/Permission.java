@@ -45,8 +45,8 @@ public interface Permission {
     }
 
 
-    static Permission collectionIsActive(CosmeticCollection collection) {
-        return player -> CompletableFuture.completedFuture(CosmeticCollection.isActive(collection));
+    static Permission collectionIsActive(Collection collection) {
+        return player -> CompletableFuture.completedFuture(Collection.isActive(collection));
     }
 
     /**
@@ -106,6 +106,10 @@ public interface Permission {
      */
     static Permission hasPurchased(final CosmeticCategory category, final String id) {
         return hasPurchased(category.name(), id);
+    }
+
+    static Permission hasPurchased(final Cosmetic cosmetic) {
+        return hasPurchased(cosmetic.category(), cosmetic.id());
     }
 
     /**

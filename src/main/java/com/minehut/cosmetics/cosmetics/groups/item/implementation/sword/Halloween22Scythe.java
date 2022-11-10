@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -28,7 +28,7 @@ public class Halloween22Scythe extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.SPOOKY_22.tag(),
+                    Collection.SPOOKY_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -46,11 +46,11 @@ public class Halloween22Scythe extends ItemCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 }

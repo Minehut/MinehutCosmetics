@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -26,7 +26,7 @@ public class BlackMaidBow extends WingCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.MAID.tag(),
+                    Collection.MAID.tag(),
                     Component.empty()
             )
             .modelData(Model.WING.BOW_BLACk)
@@ -38,12 +38,12 @@ public class BlackMaidBow extends WingCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.BOW_BLACK.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.MAID);
+        return Permission.collectionIsActive(Collection.MAID);
     }
 
     @Override

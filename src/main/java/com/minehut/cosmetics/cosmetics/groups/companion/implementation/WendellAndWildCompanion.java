@@ -66,7 +66,7 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.WENDELL_AND_WILD.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -27,7 +27,7 @@ public class MaidDuster extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.MAID.tag(),
+                    Collection.MAID.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -45,11 +45,11 @@ public class MaidDuster extends ItemCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.MAID_DUSTER.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.MAID);
+        return Permission.collectionIsActive(Collection.MAID);
     }
 }

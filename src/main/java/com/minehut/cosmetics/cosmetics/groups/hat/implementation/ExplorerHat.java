@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
@@ -39,12 +39,12 @@ public class ExplorerHat extends HatCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.EXPLORER.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.BETA);
+        return Permission.collectionIsActive(Collection.BETA);
     }
 
     @Override

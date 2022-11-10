@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.particle.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.particle.base.AmbientPixelArtParticle;
@@ -26,12 +26,12 @@ public class ExplorerParticle extends AmbientPixelArtParticle {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.PARTICLE.name(), Particle.EXPLORER.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.BETA);
+        return Permission.collectionIsActive(Collection.BETA);
     }
 
     @Override

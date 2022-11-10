@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.shovel;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
@@ -25,7 +25,7 @@ public class GraveShovel extends ItemCosmetic {
             .display(DISPLAY_NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.SPOOKY_22.tag(),
+                    Collection.SPOOKY_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -43,7 +43,7 @@ public class GraveShovel extends ItemCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.GRAVE_SHOVEL.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override

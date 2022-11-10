@@ -43,7 +43,7 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(category(), id());
+        return Permission.hasPurchased(this);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.shield;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -25,7 +25,7 @@ public class Fall2022Shield extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    Collection.FALL_22.tag(),
                     Component.empty()
             )
             .modelData(Model.Item.Shield.FALL_22)
@@ -42,12 +42,12 @@ public class Fall2022Shield extends ItemCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SHIELD.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.FALL_22);
+        return Permission.collectionIsActive(Collection.FALL_22);
     }
 }
 

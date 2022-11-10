@@ -1,39 +1,47 @@
-package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
+package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
+import com.minehut.cosmetics.cosmetics.groups.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
-
-import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
-import com.minehut.cosmetics.cosmetics.groups.wing.WingCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.function.Supplier;
 
-public class WhiteMaidBow extends WingCosmetic {
+public class GreenTurtleCompanion extends CompanionCosmetic {
 
-    private static final Component NAME = Component.text("Maid's White Bow")
-            .color(NamedTextColor.AQUA)
-            .decoration(TextDecoration.ITALIC, false);
+    private static final Component NAME = Component.text("Molasses")
+            .decoration(TextDecoration.ITALIC, false)
+            .color(NamedTextColor.GOLD);
 
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Collection.MAID.tag(),
+                    Collection.GENERAL.tag(),
                     Component.empty()
             )
-            .modelData(Model.WING.BOW_WHITE)
+            .modelData(Model.COMPANION.GREEN_TURTLE)
             .supplier();
 
-    public WhiteMaidBow() {
-        super(Wing.BOW_WHITE.name(), NAME);
+    public GreenTurtleCompanion() {
+        super(
+                Companion.GREEN_TURTLE.name(),
+                NAME,
+                player -> ITEM.get(),
+                new Vector(0, .25, 0),
+                true,
+                true,
+                false
+        );
     }
 
     @Override
@@ -43,7 +51,7 @@ public class WhiteMaidBow extends WingCosmetic {
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MAID);
+        return Permission.collectionIsActive(Collection.GENERAL);
     }
 
     @Override

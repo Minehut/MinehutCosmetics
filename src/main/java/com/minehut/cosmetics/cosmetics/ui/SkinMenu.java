@@ -4,6 +4,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.bindings.MaterialBinding;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.ui.Menu;
@@ -67,7 +68,9 @@ public class SkinMenu extends Menu {
         }
 
         for (final CosmeticSupplier<? extends Cosmetic> cosmetic : Set.copyOf(maybeBinds.get().getCosmetics())) {
-            if (!cosmetic.get().permission().hasAccess(player).join()) continue;
+            if (!(cosmetic.get().permission().hasAccess(player).join() || Permission.staff().hasAccess(player).join())) {
+                continue;
+            }
             cosmetics.add(cosmetic);
         }
 

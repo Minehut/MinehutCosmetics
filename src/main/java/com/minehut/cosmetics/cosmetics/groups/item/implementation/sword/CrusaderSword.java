@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
@@ -27,7 +27,7 @@ public class CrusaderSword extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.CRUSADER.tag(),
+                    Collection.CRUSADER.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -45,7 +45,7 @@ public class CrusaderSword extends ItemCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.CRUSADER_SWORD.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override

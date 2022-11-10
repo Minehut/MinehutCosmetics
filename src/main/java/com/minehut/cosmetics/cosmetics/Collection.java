@@ -13,6 +13,7 @@ public enum Collection {
     SPOOKY_22(Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
     MAID(Component.text("Maids of Minehut").color(TextColor.color(255, 182, 193)).decoration(TextDecoration.ITALIC, false)),
     CRUSADER(Component.text("Crusader Collection").color(TextColor.color(238, 232, 170)).decoration(TextDecoration.ITALIC, false)),
+    GENERAL(Component.text("Minehut General Store").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)),
     ;
 
 

@@ -1,13 +1,11 @@
 package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.ui.model.Model;
-
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.companion.CompanionCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -20,7 +18,7 @@ import java.util.function.Supplier;
 
 public class GhostCompanion extends CompanionCosmetic {
 
-    private static final Component NAME = Component.text("Ghosty-sama")
+    private static final Component NAME = Component.text("Yumm")
             .decoration(TextDecoration.ITALIC, false)
             .color(NamedTextColor.GOLD);
 
@@ -28,7 +26,7 @@ public class GhostCompanion extends CompanionCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Collection.GENERAL.tag(),
                     Component.empty()
             )
             .modelData(Model.COMPANION.GHOST)
@@ -48,12 +46,12 @@ public class GhostCompanion extends CompanionCosmetic {
 
     @Override
     public Permission permission() {
-        return Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.GHOST.name());
+        return Permission.hasPurchased(this);
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(CosmeticCollection.SPOOKY_22);
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 
     @Override
