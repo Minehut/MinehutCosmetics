@@ -37,9 +37,7 @@ public class EmojiHandler implements Listener {
         if (!event.isAsynchronous()) return;
 
         final Component old = event.message();
-        final Component replaced = event.message().replaceText(generateConfig(event.getPlayer()));
 
-        if (old.equals(replaced)) return;
 
         switch (Cosmetics.mode()) {
 
@@ -51,22 +49,29 @@ public class EmojiHandler implements Listener {
 
                 final TextColor color = rank.getId().equals("DEFAULT") ? NamedTextColor.GRAY : NamedTextColor.WHITE;
 
+                final Component replaced = event.message().color(color).replaceText(generateConfig(event.getPlayer(), color));
+                if (old.equals(replaced)) return;
+
 
                 event.renderer((source, sourceDisplayName, message, viewer) ->
                         Component.text()
                                 .append(sourceDisplayName)
                                 .append(Component.text(": ").color(color))
-                                .append(replaced.color(color))
+                                .append(replaced)
                                 .build()
                 );
             }
-            case PLAYER_SERVER -> event.message(replaced);
+            case PLAYER_SERVER -> {
+                final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
+                if (old.equals(replaced)) return;
+                event.message(replaced);
+            }
         }
 
     }
 
 
-    private TextReplacementConfig generateConfig(Player player) {
+    private TextReplacementConfig generateConfig(Player player, TextColor color) {
         return TextReplacementConfig.builder()
                 .match("\\:[a-z_]*\\:")
                 .replacement((match, ignored) -> {
@@ -75,7 +80,12 @@ public class EmojiHandler implements Listener {
                     if (cosmetic == null || !Permission.staff().hasAccess(player).join() && !cosmetic.permission().hasAccess(player).join()) {
                         return Component.text(input);
                     }
-                    return cosmetic.component().hoverEvent(HoverEvent.showText(Component.text(cosmetic.keyword())));
+
+                    return Component.text()
+                            .append(cosmetic.component().color(NamedTextColor.WHITE))
+                            .hoverEvent(HoverEvent.showText(Component.text(cosmetic.keyword())))
+                            .append(Component.empty().color(color))
+                            .build();
                 })
                 .build();
     }
