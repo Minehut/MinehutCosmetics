@@ -1,11 +1,15 @@
 package com.minehut.cosmetics.listeners;
 
+import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiCosmetic;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.event.HoverEventSource;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,13 +39,18 @@ public class EmojiHandler implements Listener {
 
         if (old.equals(replaced)) return;
 
-        event.renderer((source, sourceDisplayName, message, viewer) ->
-                Component.text()
-                        .append(sourceDisplayName)
-                        .append(Component.text(": ").color(NamedTextColor.WHITE))
-                        .append(replaced)
-                        .build()
-        );
+        switch (Cosmetics.mode()) {
+
+            case LOBBY -> event.renderer((source, sourceDisplayName, message, viewer) ->
+                    Component.text()
+                            .append(sourceDisplayName)
+                            .append(Component.text(": ").color(NamedTextColor.WHITE))
+                            .append(replaced)
+                            .build()
+            );
+            case PLAYER_SERVER -> event.message(replaced);
+        }
+
     }
 
 
@@ -54,7 +63,7 @@ public class EmojiHandler implements Listener {
                     if (cosmetic == null || !Permission.staff().hasAccess(player).join() && !cosmetic.permission().hasAccess(player).join()) {
                         return Component.text(input);
                     }
-                    return cosmetic.component();
+                    return cosmetic.component().hoverEvent(HoverEvent.showText(Component.text(cosmetic.keyword())));
                 })
                 .build();
     }
