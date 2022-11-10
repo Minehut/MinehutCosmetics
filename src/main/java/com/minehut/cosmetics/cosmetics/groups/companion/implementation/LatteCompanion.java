@@ -2,7 +2,7 @@ package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -28,7 +28,7 @@ public class LatteCompanion extends CompanionCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    Collection.FALL_22.tag(),
                     Component.empty()
             )
             .modelData(Model.COMPANION.LATTE_KUN)
@@ -38,14 +38,22 @@ public class LatteCompanion extends CompanionCosmetic {
         super(
                 Companion.LATTE_KUN.name(),
                 NAME,
-                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name()),
-                Permission.none(),
                 player -> ITEM.get(),
-                new Vector(0, -1.5, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.FALL_22);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.util.EntityUtil;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -14,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
@@ -31,8 +34,6 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * @param id                of the cosmetic
      * @param category          the category belongs to
      * @param name              of this companion
-     * @param permission        required to equip this companion
-     * @param visibility        permission to see this item
      * @param companionSupplier build the itemstack for this companion
      * @param offset            to spawn the cosmetic at
      * @param small             whether to use a mini armor stand
@@ -43,30 +44,26 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final Function<Player, ItemStack> companionSupplier,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        this(id, category, name, permission, visibility, List.of(companionSupplier), offset, small, lookX, lookY);
+        this(id, category, name, List.of(companionSupplier), offset, small, lookX, lookY);
     }
 
     public MountedFollowerCosmetic(
             final String id,
             final CosmeticCategory category,
             final Component name,
-            final Permission permission,
-            final Permission visibility,
             final List<Function<Player, ItemStack>> companionSuppliers,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        super(id, category, name, permission, visibility, companionSuppliers, offset);
+        super(id, category, name, companionSuppliers, offset);
         this.small = small;
         this.lookX = lookX;
         this.lookY = lookY;
@@ -77,9 +74,8 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
         Location spawnLocation = location.clone();
         spawnLocation.setYaw(0);
         spawnLocation.setPitch(0);
-        spawnLocation.subtract(0, 1.5, 0);
 
-        return EntityUtil.spawnModelStand(spawnLocation, stand -> {
+        return EntityUtil.spawnModelStand(spawnLocation.add(getOffset()), stand -> {
             stand.setItem(EquipmentSlot.HEAD, companionSupplier.apply(player));
             stand.setSmall(small);
         });
@@ -103,6 +99,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
 
             double eulerX = lookY ? -(Math.PI - Math.atan2(Math.hypot(x, z), y)) + Math.PI / 2 : 0f;
             double eulerY = lookX ? -(Math.PI - Math.atan2(z, x)) + Math.PI / 2 : 0f;
+            
             EulerAngle angle = new EulerAngle(
                     eulerX,
                     eulerY,
@@ -114,6 +111,14 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
 
     @Override
     public List<LivingEntity> entities() {
-        return super.entities().stream().filter(LivingEntity.class::isInstance).map(LivingEntity.class::cast).toList();
+        List<LivingEntity> entities = new ArrayList<>(entityUUIDs.size());
+
+        for (final UUID uuid : entityUUIDs) {
+            final Entity entity = Bukkit.getEntity(uuid);
+            if (!(entity instanceof LivingEntity livingEntity)) continue;
+            entities.add(livingEntity);
+        }
+
+        return entities;
     }
 }

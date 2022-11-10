@@ -8,6 +8,20 @@ public final class Model {
         public static final int WENDELL = 1_002_003;
         public static final int WILD = 1_002_004;
         public static final int GHOST = 1_002_005;
+        public static final int GREEN_TURTLE = 1_002_006;
+        public static final int BEAR = 1_002_007;
+        public static final int GOLD_FISH = 1_002_008;
+        public static final int KITTEN = 1_002_009;
+
+        public static final class RED_ROBIN {
+            public static final int FRAME_1 = 1_002_010;
+            public static final int FRAME_2 = 1_002_011;
+            public static final int FRAME_3 = 1_002_012;
+            public static final int FRAME_4 = 1_002_013;
+            public static final int FRAME_5 = 1_002_014;
+            public static final int FRAME_6 = 1_002_015;
+        }
+
     }
 
     public static class HAT {
@@ -42,9 +56,6 @@ public final class Model {
             public static final int MAID_DUSTER = 1_000_005;
             public static final int FALL_22_LEAF_SWORD = 1_000_006;
             public static final int CRUSADER_SWORD = 1_000_007;
-
-
-
         }
 
         public static class Pickaxe {

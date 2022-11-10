@@ -18,7 +18,17 @@ public class FancyCompassParticle extends AmbientPixelArtParticle {
             .build();
 
     public FancyCompassParticle() {
-        super(Particle.FANCY_COMPASS.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "fancy_compass", 3);
+        super(Particle.FANCY_COMPASS.name(), Component.text("Placeholder"), 1, "fancy_compass", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

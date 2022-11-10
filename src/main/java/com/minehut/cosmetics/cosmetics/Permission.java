@@ -45,8 +45,8 @@ public interface Permission {
     }
 
 
-    static Permission collectionIsActive(CosmeticCollection collection) {
-        return player -> CompletableFuture.completedFuture(CosmeticCollection.isActive(collection));
+    static Permission collectionIsActive(Collection collection) {
+        return player -> CompletableFuture.completedFuture(Collection.isActive(collection));
     }
 
     /**
@@ -95,6 +95,21 @@ public interface Permission {
                                 .map((cosmeticCategory) -> cosmeticCategory.containsKey(id))
                                 .orElse(false)
                 );
+    }
+
+    /**
+     * Check if a given player has purchased the given item.
+     *
+     * @param category of the item to check purchases for
+     * @param id       of the purchased item.
+     * @return a permission for whether a player has purhcased the given item.
+     */
+    static Permission hasPurchased(final CosmeticCategory category, final String id) {
+        return hasPurchased(category.name(), id);
+    }
+
+    static Permission hasPurchased(final Cosmetic cosmetic) {
+        return hasPurchased(cosmetic.category(), cosmetic.id());
     }
 
     /**

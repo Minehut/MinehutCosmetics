@@ -14,19 +14,27 @@ public class MeFollower extends CompanionCosmetic {
         super(
                 Companion.ME_BUDDY.name(),
                 Component.text("Me!"),
-                Permission.staff(),
-                Permission.deny(),
                 player -> {
                     ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
 
                     stack.editMeta(meta -> ((SkullMeta) meta).setPlayerProfile(player.getPlayerProfile()));
                     return stack;
                 },
-                new Vector(0f, -.5f, 0f),
+                new Vector(0f, -1f, 0f),
                 true,
                 true,
                 true
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

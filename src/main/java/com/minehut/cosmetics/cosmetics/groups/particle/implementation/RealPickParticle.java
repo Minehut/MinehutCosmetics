@@ -20,7 +20,17 @@ public class RealPickParticle extends AmbientPixelArtParticle {
             .build();
 
     public RealPickParticle() {
-        super(Particle.REAL_PICK.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "realpick", 3);
+        super(Particle.REAL_PICK.name(), Component.text("Placeholder"), 1, "realpick", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

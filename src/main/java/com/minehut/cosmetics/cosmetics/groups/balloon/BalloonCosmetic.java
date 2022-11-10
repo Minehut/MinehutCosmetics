@@ -29,19 +29,14 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
      *
      * @param id              of the cosmetic
      * @param name            of this companion
-     * @param permission      required to equip this companion
      * @param balloonSupplier build the itemstack for this companion
      */
     public BalloonCosmetic(String id,
                            Component name,
-                           Permission permission,
-                           Permission visibility,
                            Function<Player, ItemStack> balloonSupplier) {
         super(id,
                 CosmeticCategory.BALLOON,
                 name,
-                permission,
-                visibility,
                 balloonSupplier,
                 new Vector(0, 2, 0),
                 true,

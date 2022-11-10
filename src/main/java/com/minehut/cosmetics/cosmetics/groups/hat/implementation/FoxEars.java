@@ -1,12 +1,11 @@
 package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
-import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
-
+import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -34,13 +33,17 @@ public class FoxEars extends HatCosmetic {
 
 
     public FoxEars() {
-        super(
-                Hat.FOX_EARS.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.FOX_EARS.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.FOX_EARS.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 
     @Override

@@ -53,17 +53,25 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
         super(
                 Companion.WENDELL_AND_WILD.name(),
                 Component.text("Wendell & Wild").color(NamedTextColor.GOLD),
-                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.WENDELL_AND_WILD.name()),
-                Permission.deny(),
                 List.of(
                         player -> WENDELL.get(),
                         player -> WILD.get()
                 ),
-                new Vector(0, -1, 0),
-                false,
+                new Vector(0, -1.01, 0),
+                true,
                 true,
                 false
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

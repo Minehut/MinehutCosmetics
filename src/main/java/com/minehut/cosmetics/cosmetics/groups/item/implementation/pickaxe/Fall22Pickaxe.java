@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.pickaxe;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -14,6 +14,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -24,7 +25,7 @@ public class Fall22Pickaxe extends ItemCosmetic {
             .display(DISPLAY_NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    Collection.FALL_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -32,16 +33,21 @@ public class Fall22Pickaxe extends ItemCosmetic {
             .supplier();
 
     public Fall22Pickaxe() {
-        super(
-                Item.FALL_22_PICKAXE.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_PICKAXE.name()),
-                Permission.none()
-        );
+        super(Item.FALL_22_PICKAXE.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.FALL_22);
     }
 }

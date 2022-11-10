@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
@@ -16,6 +16,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -30,7 +31,7 @@ public class Fall22LeafSword extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    Collection.FALL_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -50,19 +51,24 @@ public class Fall22LeafSword extends ItemCosmetic {
             Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.LATTE_KUN.name())
     ));
 
-    public static final Permission VISIBILITY = Permission.collectionIsActive(CosmeticCollection.FALL_22);
+    public static final Permission VISIBILITY = Permission.collectionIsActive(Collection.FALL_22);
 
     public Fall22LeafSword() {
-        super(
-                Item.FALL_22_LEAF_SWORD.name(),
-                NAME,
-                PERMISSION,
-                VISIBILITY
-        );
+        super(Item.FALL_22_LEAF_SWORD.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return PERMISSION;
+    }
+
+    @Override
+    public Permission visibility() {
+        return VISIBILITY;
     }
 }

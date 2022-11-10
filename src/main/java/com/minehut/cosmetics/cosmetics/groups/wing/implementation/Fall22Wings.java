@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.wing.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
 import com.minehut.cosmetics.cosmetics.groups.wing.WingCosmetic;
@@ -25,17 +25,24 @@ public class Fall22Wings extends WingCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.FALL_22.tag(),
+                    Collection.FALL_22.tag(),
                     Component.empty()
             )
             .modelData(Model.WING.FALL_22)
             .supplier();
 
     public Fall22Wings() {
-        super(Wing.FALL_22.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.WING.name(), Wing.FALL_22.name()),
-                Permission.collectionIsActive(CosmeticCollection.FALL_22));
+        super(Wing.FALL_22.name(), NAME);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.FALL_22);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
@@ -25,15 +25,8 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
 
     private @Nullable CosmeticSlot slot = null;
 
-    protected ItemCosmetic(String id,
-                           final Component name,
-                           final Permission permission,
-                           final Permission visibility) {
-        super(id,
-                CosmeticCategory.ITEM,
-                name,
-                permission,
-                visibility);
+    protected ItemCosmetic(String id, final Component name) {
+        super(id, CosmeticCategory.ITEM, name);
     }
 
     @Override
@@ -70,16 +63,6 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
     @Override
     public ItemStack menuIcon() {
         final ItemBuilder item = ItemBuilder.of(item());
-
-        if (Mode.LOBBY == Cosmetics.mode()) {
-            item.appendLore(
-                    List.of(
-                            Component.keybind("key.attack").color(NamedTextColor.YELLOW).append(Component.text(" to apply to main hand.").color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false),
-                            Component.keybind("key.use").color(NamedTextColor.YELLOW).append(Component.text(" to apply to off-hand.").color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false)
-                    )
-            );
-        }
-
         return item.build();
     }
 

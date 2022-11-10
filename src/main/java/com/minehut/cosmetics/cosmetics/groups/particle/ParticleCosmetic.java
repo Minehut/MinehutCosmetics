@@ -2,7 +2,6 @@ package com.minehut.cosmetics.cosmetics.groups.particle;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.Constants;
 import net.kyori.adventure.text.Component;
@@ -12,14 +11,8 @@ public abstract class ParticleCosmetic extends Cosmetic implements Tickable {
     protected final int delay;
     protected int tick;
 
-    protected ParticleCosmetic(
-            final String id,
-            final Component name,
-            final Permission permission,
-            final Permission visibility,
-            final int delay
-    ) {
-        super(id, CosmeticCategory.PARTICLE, name, permission, visibility);
+    protected ParticleCosmetic(final String id, final Component name, final int delay) {
+        super(id, CosmeticCategory.PARTICLE, name);
         this.delay = delay;
     }
 

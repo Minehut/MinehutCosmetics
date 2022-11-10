@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
@@ -34,13 +35,17 @@ public class MouseEars extends HatCosmetic {
 
 
     public MouseEars() {
-        super(
-                Hat.MOUSE_EARS.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MOUSE_EARS.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.MOUSE_EARS.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 
     @Override

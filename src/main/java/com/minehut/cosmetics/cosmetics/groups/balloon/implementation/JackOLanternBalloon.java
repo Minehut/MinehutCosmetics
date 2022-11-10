@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.balloon.implementation;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -33,13 +33,17 @@ public class JackOLanternBalloon extends BalloonCosmetic {
             .supplier();
 
     public JackOLanternBalloon() {
-        super(
-                Balloon.JACK_O_LANTERN.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.BALLOON.name(), Balloon.JACK_O_LANTERN.name()),
-                Permission.collectionIsActive(CosmeticCollection.SPOOKY_22),
-                p -> ITEM.get()
-        );
+        super(Balloon.JACK_O_LANTERN.name(), NAME, p -> ITEM.get());
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 
     @Override

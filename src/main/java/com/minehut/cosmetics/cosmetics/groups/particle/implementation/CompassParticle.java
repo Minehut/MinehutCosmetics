@@ -18,7 +18,17 @@ public class CompassParticle extends AmbientPixelArtParticle {
             .build();
 
     public CompassParticle() {
-        super(Particle.COMPASS.name(), Component.text("Placeholder"), Permission.staff(), Permission.deny(), 1, "compass", 3);
+        super(Particle.COMPASS.name(), Component.text("Placeholder"), 1, "compass", 3);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.staff();
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.deny();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics;
 
 import com.minehut.cosmetics.cosmetics.groups.balloon.Balloon;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
+import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
@@ -19,7 +20,8 @@ public enum CosmeticCategory {
     ITEM("Items", query -> EnumUtil.valueOfSafe(Item.class, query).map(Item::get), false),
     BALLOON("Balloons", query -> EnumUtil.valueOfSafe(Balloon.class, query).map(Balloon::get), true),
     WING("Backpieces", query -> EnumUtil.valueOfSafe(Wing.class, query).map(Wing::get), true),
-    TRINKET("Trinkets", query -> EnumUtil.valueOfSafe(Trinket.class, query).map(Trinket::get), false);
+    TRINKET("Trinkets", query -> EnumUtil.valueOfSafe(Trinket.class, query).map(Trinket::get), false),
+    EMOJI("Emojis", query -> EnumUtil.valueOfSafe(Emoji.class, query).map(Emoji::get), false);
 
     private final String categoryName;
     private final Function<String, Optional<Cosmetic>> getCosmetic;

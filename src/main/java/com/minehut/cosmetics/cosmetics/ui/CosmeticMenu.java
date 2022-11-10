@@ -2,8 +2,10 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiDisplay;
 import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;
@@ -53,6 +55,11 @@ public class CosmeticMenu extends Menu {
 
     private static final Supplier<ItemStack> FILLER_ICON = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)
             .display(Component.text(" ").decoration(TextDecoration.ITALIC, false))
+            .supplier();
+
+    private static final Supplier<ItemStack> EMOJI_ICON = ItemBuilder.of(Material.PLAYER_HEAD)
+            .display(Component.text("Emojis").decoration(TextDecoration.ITALIC, false))
+            .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDgxN2E3OTA5ODBhZDAwMmIzMTlmZWI2OTU2N2EwNmEwMjE1NGJhOWFjNDY5OTNkNWNmZDYyMDEwZTBmODNjYiJ9fX0=")
             .supplier();
 
     private static final Component EQUIPMENT_SKIN_MESSAGE = Component.text()
@@ -121,6 +128,9 @@ public class CosmeticMenu extends Menu {
         // armor pieces
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
+
+        getProxy().setItem(34, EMOJI_ICON.get(), (player, ignored) -> EmojiDisplay.open(player));
+
 
         // menus that are only visible when in lobby mode
         switch (mode) {

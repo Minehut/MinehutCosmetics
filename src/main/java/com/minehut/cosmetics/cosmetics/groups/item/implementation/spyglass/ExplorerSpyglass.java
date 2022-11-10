@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.spyglass;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
@@ -24,23 +24,28 @@ public class ExplorerSpyglass extends ItemCosmetic {
             .display(DISPLAY_NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.BETA.tag(),
+                    Collection.BETA.tag(),
                     Component.empty()
             )
             .modelData(Model.Item.Spyglass.EXPLORER)
             .supplier();
 
     public ExplorerSpyglass() {
-        super(
-                Item.EXPLORER_SPYGLASS.name(),
-                DISPLAY_NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.EXPLORER_SPYGLASS.name()),
-                Permission.deny()
-        );
+        super(Item.EXPLORER_SPYGLASS.name(), DISPLAY_NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.BETA);
     }
 }

@@ -1,12 +1,10 @@
 package com.minehut.cosmetics.cosmetics.groups.item.implementation.sword;
 
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.ui.model.Model;
-
 import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.item.ItemCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -27,7 +25,7 @@ public class Halloween22Scythe extends ItemCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.SPOOKY_22.tag(),
+                    Collection.SPOOKY_22.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -35,16 +33,21 @@ public class Halloween22Scythe extends ItemCosmetic {
             .supplier();
 
     public Halloween22Scythe() {
-        super(
-                Item.HALLO_22_SCYTHE.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.HALLO_22_SCYTHE.name()),
-                Permission.deny()
-        );
+        super(Item.HALLO_22_SCYTHE.name(), NAME);
     }
 
     @Override
     public ItemStack item() {
         return ITEM.get();
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 }

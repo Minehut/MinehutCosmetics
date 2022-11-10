@@ -26,12 +26,8 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
     @Nullable
     private final ArmorStand entity;
 
-    protected HatCosmetic(String id,
-                          final Component name,
-                          final Permission permission,
-                          final Permission visibility,
-                          Supplier<ItemStack> itemSupplier) {
-        super(id, CosmeticCategory.HAT, name, permission, visibility);
+    protected HatCosmetic(String id, final Component name, Supplier<ItemStack> itemSupplier) {
+        super(id, CosmeticCategory.HAT, name);
         this.itemSupplier = itemSupplier;
         this.entity = null;
     }

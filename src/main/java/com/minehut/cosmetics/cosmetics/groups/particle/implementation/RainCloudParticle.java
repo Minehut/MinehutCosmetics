@@ -27,10 +27,18 @@ public class RainCloudParticle extends ParticleCosmetic {
         super(
                 com.minehut.cosmetics.cosmetics.groups.particle.Particle.RAIN_CLOUD.name(),
                 Component.text("Rain Cloud Particles"),
-                Permission.hasRank(REQUIRED_RANK),
-                Permission.none(),
                 1
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasRank(REQUIRED_RANK);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.none();
     }
 
     @Override

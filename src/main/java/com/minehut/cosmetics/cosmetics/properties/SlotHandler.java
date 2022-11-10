@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.properties;
 
-import com.minehut.cosmetics.cosmetics.groups.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;

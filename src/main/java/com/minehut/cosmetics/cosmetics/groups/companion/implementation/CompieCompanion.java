@@ -1,7 +1,8 @@
 package com.minehut.cosmetics.cosmetics.groups.companion.implementation;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.ui.model.Model;
 
@@ -22,25 +23,33 @@ public class CompieCompanion extends CompanionCosmetic {
         super(
                 Companion.EXPLORER.name(),
                 Component.text("Compie-chan").color(NamedTextColor.GOLD),
-                Permission.hasPurchased(CosmeticCategory.COMPANION.name(), Companion.EXPLORER.name()),
-                Permission.collectionIsActive(CosmeticCollection.BETA),
                 player -> {
                     ItemStack stack = new ItemStack(Material.SCUTE);
                     stack.editMeta(meta -> {
                         meta.lore(List.of(
                                 Component.empty(),
-                                Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                                Collection.BETA.tag(),
                                 Component.empty()
                         ));
                         meta.setCustomModelData(Model.COMPANION.COMPIE_CHAN);
                     });
                     return stack;
                 },
-                new Vector(0, -1.5, 0),
+                new Vector(0, -1, 0),
                 true,
                 true,
                 false
         );
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.BETA);
     }
 
     @Override
@@ -50,7 +59,7 @@ public class CompieCompanion extends CompanionCosmetic {
             meta.displayName(Component.text("Compie-chan").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
             meta.lore(List.of(
                     Component.empty(),
-                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    Collection.BETA.tag(),
                     Component.empty()
             ));
         });

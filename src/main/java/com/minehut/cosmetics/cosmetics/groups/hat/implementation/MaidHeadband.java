@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.groups.hat.implementation;
 
-import com.minehut.cosmetics.cosmetics.CosmeticCollection;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
@@ -26,7 +26,7 @@ public class MaidHeadband extends HatCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    CosmeticCollection.MAID.tag(),
+                    Collection.MAID.tag(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
@@ -35,13 +35,17 @@ public class MaidHeadband extends HatCosmetic {
 
 
     public MaidHeadband() {
-        super(
-                Hat.MAID.name(),
-                NAME,
-                Permission.hasPurchased(CosmeticCategory.HAT.name(), Hat.MAID.name()),
-                Permission.deny(),
-                ITEM
-        );
+        super(Hat.MAID.name(), NAME, ITEM);
+    }
+
+    @Override
+    public Permission permission() {
+        return Permission.hasPurchased(this);
+    }
+
+    @Override
+    public Permission visibility() {
+        return Permission.collectionIsActive(Collection.MAID);
     }
 
     @Override
