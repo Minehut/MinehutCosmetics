@@ -43,7 +43,7 @@ public class WhiteMaidBow extends WingCosmetic {
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MAID);
+        return Permission.deny();
     }
 
     @Override
