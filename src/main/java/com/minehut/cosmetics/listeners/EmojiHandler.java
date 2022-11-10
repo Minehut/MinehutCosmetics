@@ -56,7 +56,7 @@ public class EmojiHandler implements Listener {
                         Component.text()
                                 .append(sourceDisplayName)
                                 .append(Component.text(": ").color(color))
-                                .append(replaced)
+                                .append(replaced.color(color))
                                 .build()
                 );
             }
