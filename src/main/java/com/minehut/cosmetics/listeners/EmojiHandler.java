@@ -49,7 +49,7 @@ public class EmojiHandler implements Listener {
                         .flatMap(PlayerRank::getBackingRank)
                         .orElse(PlayerRank.DEFAULT);
 
-                final TextColor color = rank.equals(PlayerRank.DEFAULT) ? NamedTextColor.GRAY : NamedTextColor.WHITE;
+                final TextColor color = rank.getId().equals("DEFAULT") ? NamedTextColor.GRAY : NamedTextColor.WHITE;
 
 
                 event.renderer((source, sourceDisplayName, message, viewer) ->
