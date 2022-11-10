@@ -12,8 +12,7 @@ import org.bukkit.inventory.ItemStack;
 public class Halloween22ScytheBack extends WingCosmetic {
 
     public Halloween22ScytheBack() {
-        super(Wing.HALLO_22_SCYTHE.name(),
-              Halloween22Scythe.NAME);
+        super(Wing.HALLO_22_SCYTHE.name(), Halloween22Scythe.NAME);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class Halloween22ScytheBack extends WingCosmetic {
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(Collection.FALL_22);
+        return Permission.collectionIsActive(Collection.SPOOKY_22);
     }
 
     @Override

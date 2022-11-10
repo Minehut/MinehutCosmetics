@@ -28,7 +28,7 @@ public class StarParticle extends AmbientPixelArtParticle {
 
     @Override
     public Permission visibility() {
-        return Permission.none();
+        return Permission.staff();
     }
 
     @Override

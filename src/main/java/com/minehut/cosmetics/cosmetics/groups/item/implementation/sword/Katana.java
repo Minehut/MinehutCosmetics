@@ -49,6 +49,6 @@ public class Katana extends ItemCosmetic {
 
     @Override
     public Permission visibility() {
-        return Permission.none();
+        return Permission.deny();
     }
 }
