@@ -44,7 +44,7 @@ public class EmojiHandler implements Listener {
             case LOBBY -> event.renderer((source, sourceDisplayName, message, viewer) ->
                     Component.text()
                             .append(sourceDisplayName)
-                            .append(Component.text(": ").color(NamedTextColor.WHITE))
+                            .append(Component.text(": "))
                             .append(replaced)
                             .build()
             );
