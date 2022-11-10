@@ -1,16 +1,17 @@
 package com.minehut.cosmetics.listeners;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiCosmetic;
+import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.rank.PlayerRank;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.event.HoverEventSource;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,7 @@ import org.bukkit.event.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class EmojiHandler implements Listener {
 
@@ -41,13 +43,23 @@ public class EmojiHandler implements Listener {
 
         switch (Cosmetics.mode()) {
 
-            case LOBBY -> event.renderer((source, sourceDisplayName, message, viewer) ->
-                    Component.text()
-                            .append(sourceDisplayName)
-                            .append(Component.text(": "))
-                            .append(replaced)
-                            .build()
-            );
+            case LOBBY -> {
+                final PlayerRank rank = Cosmetics.get().cosmeticManager().getProfile(event.getPlayer().getUniqueId()).join()
+                        .map(CosmeticProfileResponse::getRank)
+                        .flatMap(PlayerRank::getBackingRank)
+                        .orElse(PlayerRank.DEFAULT);
+
+                final TextColor color = rank.equals(PlayerRank.DEFAULT) ? NamedTextColor.GRAY : NamedTextColor.WHITE;
+
+
+                event.renderer((source, sourceDisplayName, message, viewer) ->
+                        Component.text()
+                                .append(sourceDisplayName)
+                                .append(Component.text(": ").color(color))
+                                .append(replaced)
+                                .build()
+                );
+            }
             case PLAYER_SERVER -> event.message(replaced);
         }
 
