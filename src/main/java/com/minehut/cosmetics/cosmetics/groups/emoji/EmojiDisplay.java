@@ -56,7 +56,10 @@ public class EmojiDisplay {
             );
 
 
-            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> player.openBook(emojiBook));
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> {
+                player.closeInventory();
+                player.openBook(emojiBook);
+            });
         });
 
     }

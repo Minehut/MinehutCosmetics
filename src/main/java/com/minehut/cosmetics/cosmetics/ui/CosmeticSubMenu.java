@@ -118,6 +118,7 @@ public abstract class CosmeticSubMenu extends Menu {
                 return;
             }
 
+            player.closeInventory();
             player.openBook(CTA_BOOK);
         }));
     }

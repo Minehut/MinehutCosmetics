@@ -9,9 +9,11 @@ import com.minehut.cosmetics.model.rank.PlayerRank;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -55,10 +57,14 @@ public class EmojiHandler implements Listener {
 
                 event.renderer((source, sourceDisplayName, message, viewer) ->
                         Component.text()
-                                .append(sourceDisplayName)
+                                .append(sourceDisplayName
+                                        .hoverEvent(HoverEvent.showText(Component.text("Click to Punish").color(NamedTextColor.RED).decorate(TextDecoration.BOLD)))
+                                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "punish %s".formatted(event.getPlayer().getName())))
+                                )
                                 .append(Component.text(": ").color(color))
                                 .append(replaced)
                                 .build()
+
                 );
             }
             case PLAYER_SERVER -> {
