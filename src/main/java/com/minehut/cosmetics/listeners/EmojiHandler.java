@@ -55,17 +55,25 @@ public class EmojiHandler implements Listener {
                 if (old.equals(replaced)) return;
 
 
-                event.renderer((source, sourceDisplayName, message, viewer) ->
-                        Component.text()
-                                .append(sourceDisplayName
-                                        .hoverEvent(HoverEvent.showText(Component.text("Click to Punish").color(NamedTextColor.RED).decorate(TextDecoration.BOLD)))
-                                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "punish %s".formatted(event.getPlayer().getName())))
-                                )
-                                .append(Component.text(": ").color(color))
-                                .append(replaced)
-                                .build()
+                event.renderer((source, sourceDisplayName, message, viewer) -> {
+                    Component output = Component.empty();
 
-                );
+                    Component displayName = sourceDisplayName;
+
+                    if (viewer instanceof Player player && Permission.staff().hasAccess(player).join()) {
+                        displayName = displayName
+                                .hoverEvent(HoverEvent.showText(Component.text("Clikc to Punish").color(NamedTextColor.RED).decorate(TextDecoration.BOLD)))
+                                .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/punish %s".formatted(event.getPlayer().getName())));
+                    }
+
+                    output = output
+                            .append(displayName)
+                            .append(Component.text(": ").color(color))
+                            .append(replaced);
+
+                    return output;
+                });
+
             }
             case PLAYER_SERVER -> {
                 final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));

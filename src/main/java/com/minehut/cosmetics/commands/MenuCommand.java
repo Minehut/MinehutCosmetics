@@ -1,6 +1,5 @@
 package com.minehut.cosmetics.commands;
 
-import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;

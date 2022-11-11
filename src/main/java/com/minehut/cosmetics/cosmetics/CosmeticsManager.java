@@ -12,6 +12,7 @@ import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.util.EnumUtil;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
@@ -248,6 +249,21 @@ public class CosmeticsManager {
      */
     public Optional<Cosmetic> getCosmeticForUser(final UUID uuid, CosmeticSlot type) {
         return Optional.ofNullable(getEquippedForUser(uuid).get(type));
+    }
+
+
+    /**
+     * Get a future containing the players rank, defaults to DEFAULT if a rank was not found.
+     *
+     * @param uuid of the player to get the rank for
+     * @return the players rank
+     */
+    public CompletableFuture<PlayerRank> getRank(UUID uuid) {
+        return CompletableFuture.supplyAsync(() -> getProfile(uuid)
+                .join()
+                .map(CosmeticProfileResponse::getRank)
+                .flatMap(PlayerRank::getBackingRank)
+                .orElse(PlayerRank.DEFAULT));
     }
 
     public CosmeticBindings getBindings() {
