@@ -14,6 +14,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,7 +22,6 @@ import org.bukkit.event.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class EmojiHandler implements Listener {
 
@@ -34,53 +34,47 @@ public class EmojiHandler implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onEmoji(AsyncChatEvent event) {
         if (!event.isAsynchronous()) return;
 
         final Component old = event.message();
 
+        final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
+        if (old.equals(replaced)) return;
+        event.message(replaced);
 
-        switch (Cosmetics.mode()) {
-
-            case LOBBY -> {
-                final PlayerRank rank = Cosmetics.get().cosmeticManager().getProfile(event.getPlayer().getUniqueId()).join()
-                        .map(CosmeticProfileResponse::getRank)
-                        .flatMap(PlayerRank::getBackingRank)
-                        .orElse(PlayerRank.DEFAULT);
-
-                final TextColor color = rank.getId().equals("DEFAULT") ? NamedTextColor.GRAY : NamedTextColor.WHITE;
-
-                final Component replaced = event.message().color(color).replaceText(generateConfig(event.getPlayer(), color));
-                if (old.equals(replaced)) return;
-
-
-                event.renderer((source, sourceDisplayName, message, viewer) -> {
-                    Component output = Component.empty();
-
-                    Component displayName = sourceDisplayName;
-
-                    if (viewer instanceof Player player && Permission.staff().hasAccess(player).join()) {
-                        displayName = displayName
-                                .hoverEvent(HoverEvent.showText(Component.text("Clikc to Punish").color(NamedTextColor.RED).decorate(TextDecoration.BOLD)))
-                                .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/punish %s".formatted(event.getPlayer().getName())));
-                    }
-
-                    output = output
-                            .append(displayName)
-                            .append(Component.text(": ").color(color))
-                            .append(replaced);
-
-                    return output;
-                });
-
-            }
-            case PLAYER_SERVER -> {
-                final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
-                if (old.equals(replaced)) return;
-                event.message(replaced);
-            }
-        }
+        //switch (Cosmetics.mode()) {
+        //
+        //    case LOBBY -> {
+        //        final PlayerRank rank = Cosmetics.get().cosmeticManager().getProfile(event.getPlayer().getUniqueId()).join()
+        //                .map(CosmeticProfileResponse::getRank)
+        //                .flatMap(PlayerRank::getBackingRank)
+        //                .orElse(PlayerRank.DEFAULT);
+        //
+        //        final TextColor color = rank.getId().equals("DEFAULT") ? NamedTextColor.GRAY : NamedTextColor.WHITE;
+        //
+        //
+        //        event.renderer((source, sourceDisplayName, message, viewer) -> {
+        //            Component output = Component.empty();
+        //
+        //            final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
+        //
+        //            output = output
+        //                    .append(sourceDisplayName)
+        //                    .append(Component.text(": ").color(color))
+        //                    .append(replaced);
+        //
+        //            return output;
+        //        });
+        //
+        //    }
+        //    case PLAYER_SERVER -> {
+        //        final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
+        //        if (old.equals(replaced)) return;
+        //        event.message(replaced);
+        //    }
+        //}
 
     }
 

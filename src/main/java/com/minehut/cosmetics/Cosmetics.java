@@ -19,7 +19,6 @@ import com.minehut.cosmetics.events.skins.SkinEquipListener;
 import com.minehut.cosmetics.events.skins.SkinModifyListener;
 import com.minehut.cosmetics.events.skins.SkinTriggerListener;
 import com.minehut.cosmetics.listeners.EmojiHandler;
-import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
@@ -30,14 +29,11 @@ import com.minehut.cosmetics.util.EntityUtil;
 import com.minehut.cosmetics.util.data.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public final class Cosmetics extends JavaPlugin {
 
