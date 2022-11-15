@@ -1,8 +1,8 @@
 package com.minehut.cosmetics.model.profile;
 
 public class SimpleResponse {
-    private boolean error;
-    private LocalizedMessage message;
+    private final boolean error;
+    private final LocalizedMessage message;
 
     public SimpleResponse(final boolean error, final LocalizedMessage message) {
         this.error = error;

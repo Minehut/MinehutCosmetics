@@ -2,22 +2,26 @@ package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import net.kyori.adventure.text.Component;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class MenuCommand implements CommandExecutor {
+import java.util.List;
+
+public class MenuCommand extends Command {
+    public MenuCommand() {
+        super("cosmetics");
+
+        setDescription("Opens the cosmetics menu.");
+    }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(Component.text("You must be a player to use this command."));
-            return true;
+            return;
         }
 
         new CosmeticMenu(player).openTo(player);
-        return true;
     }
 }

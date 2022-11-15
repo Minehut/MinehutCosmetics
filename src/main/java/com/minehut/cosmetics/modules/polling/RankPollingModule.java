@@ -2,6 +2,7 @@ package com.minehut.cosmetics.modules.polling;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.model.rank.PlayerRank;
+import kong.unirest.HttpResponse;
 import org.bukkit.Bukkit;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
 
     @Override
     public Optional<List<PlayerRank>> poll() {
-        final List<PlayerRank> ranks = cosmetics.api().getRanks();
+        final HttpResponse<PlayerRank[]> response = cosmetics.api().getRanks().join();
+        final List<PlayerRank> ranks = List.of(response.getBody());
         if (ranks.isEmpty()) return Optional.empty();
         return Optional.of(ranks);
     }

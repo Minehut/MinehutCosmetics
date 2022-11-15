@@ -1,35 +1,32 @@
 package com.minehut.cosmetics.commands;
 
-import com.minehut.cosmetics.cosmetics.CosmeticsManager;
+import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.ui.SkinMenu;
 import net.kyori.adventure.text.Component;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class SkinCommand implements CommandExecutor {
+import java.util.List;
 
-    private final CosmeticsManager manager;
-    private final Plugin plugin;
+public class SkinCommand extends Command {
 
-    public SkinCommand(Plugin plugin, CosmeticsManager manager) {
-        this.plugin = plugin;
-        this.manager = manager;
+    private final Cosmetics cosmetics;
+
+    public SkinCommand(Cosmetics cosmetics) {
+        super("skin");
+        this.cosmetics = cosmetics;
+
+        setDescription("Opens the skin menu for the held item");
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(Component.text("You must be a player to use this command."));
-            return true;
+            return;
         }
 
-
-        SkinMenu.open(plugin, manager, player, player.getInventory().getItemInMainHand());
-
-        return true;
+        SkinMenu.open(cosmetics, cosmetics.cosmeticManager(), player, player.getInventory().getItemInMainHand());
     }
 }

@@ -1,5 +1,8 @@
 package com.minehut.cosmetics;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.minehut.cosmetics.commands.Debug;
 import com.minehut.cosmetics.commands.MenuCommand;
 import com.minehut.cosmetics.commands.SkinCommand;
@@ -27,20 +30,23 @@ import com.minehut.cosmetics.network.ExternalAPI;
 import com.minehut.cosmetics.network.InternalAPI;
 import com.minehut.cosmetics.util.EntityUtil;
 import com.minehut.cosmetics.util.data.Key;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
+import java.util.Locale;
 
 public final class Cosmetics extends JavaPlugin {
 
     private static Cosmetics INSTANCE;
 
-    // Managers
+    // utilities
     private Config config;
+    private Gson gson;
+
     private CosmeticsManager manager;
     // Local storage only for use on player servers
     private @Nullable LocalStorageManager localStorage;
@@ -54,17 +60,18 @@ public final class Cosmetics extends JavaPlugin {
         Cosmetics.INSTANCE = this;
         Key.init(this);
 
+        this.gson = buildGson();
         this.config = new Config(this);
         this.manager = new CosmeticsManager(this);
 
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
             case LOBBY -> {
-                this.api = new InternalAPI(config);
+                this.api = new InternalAPI(config, gson);
             }
             case PLAYER_SERVER -> {
                 this.localStorage = new LocalStorageManager(this);
-                this.api = new ExternalAPI(config);
+                this.api = new ExternalAPI(config, gson);
                 // register listeners
                 registerEvents(new SkinTriggerListener(this, manager));
                 registerEvents(new SkinEquipListener());
@@ -72,11 +79,10 @@ public final class Cosmetics extends JavaPlugin {
                 registerEvents(new SkinModifyListener());
 
                 // commands
-                setExecutor("skin", new SkinCommand(this, manager));
-                setExecutor("unskin", new UnSkinCommand());
+                new SkinCommand(this).register(this);
+                new UnSkinCommand().register(this);
             }
         }
-
         removeCosmeticEntities();
 
         // setup polling containers
@@ -97,16 +103,25 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new EmojiHandler());
 
         // register commands
-        setExecutor("cosmetics", new MenuCommand());
-        setExecutor("cosmeticsdebug", new Debug(this));
-    }
-
-    private void setExecutor(String name, CommandExecutor exec) {
-        Optional.ofNullable(getCommand(name)).ifPresent((cmd) -> cmd.setExecutor(exec));
+        new MenuCommand().register(this);
+        new Debug(this).register(this);
     }
 
     private void registerEvents(Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
+    }
+
+    private Gson buildGson() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(TextColor.class, (JsonDeserializer<TextColor>) (element, type, context) -> {
+            try {
+                return NamedTextColor.NAMES.value(element.getAsJsonPrimitive().getAsString().toLowerCase(Locale.ROOT));
+            } catch (IllegalArgumentException ex) {
+                return NamedTextColor.WHITE;
+            }
+        });
+
+        return builder.create();
     }
 
     public CosmeticsManager cosmeticManager() {
@@ -147,4 +162,7 @@ public final class Cosmetics extends JavaPlugin {
         return INSTANCE;
     }
 
+    public Gson gson() {
+        return gson;
+    }
 }

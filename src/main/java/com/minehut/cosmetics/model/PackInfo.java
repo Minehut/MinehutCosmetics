@@ -1,8 +1,8 @@
 package com.minehut.cosmetics.model;
 
 public class PackInfo {
-    private String url;
-    private String sha1;
+    private final String url;
+    private final String sha1;
 
     public PackInfo(String url, String sha1) {
         this.url = url;

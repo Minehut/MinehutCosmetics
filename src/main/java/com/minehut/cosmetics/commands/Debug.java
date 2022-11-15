@@ -8,35 +8,35 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
-public class Debug implements CommandExecutor {
+public class Debug extends Command {
 
-    private final Cosmetics plugin;
+    private final Cosmetics cosmetics;
 
-    public Debug(Cosmetics plugin) {
-        this.plugin = plugin;
+    public Debug(Cosmetics cosmetics) {
+        super("debugcosmetics");
+        this.cosmetics = cosmetics;
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(Component.text("You must be a player to use this command."));
-            return true;
+            return;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             if (!Permission.staff().hasAccess(player).join()) return;
 
             sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
-            final Optional<CosmeticProfileResponse> profile = plugin.cosmeticManager().getProfile(player.getUniqueId()).join();
+            final Optional<CosmeticProfileResponse> profile = cosmetics.cosmeticManager().getProfile(player.getUniqueId()).join();
 
             if (profile.isEmpty()) {
                 player.sendMessage(Component.text("No profile found."));
@@ -60,7 +60,5 @@ public class Debug implements CommandExecutor {
 
             player.sendMessage(keylist);
         });
-
-        return true;
     }
 }

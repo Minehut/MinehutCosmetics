@@ -14,6 +14,7 @@ import com.minehut.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.util.EnumUtil;
+import kong.unirest.HttpResponse;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
@@ -67,13 +68,14 @@ public class CosmeticsManager {
         }
 
         return CompletableFuture.supplyAsync(() -> {
-            final Optional<CosmeticProfileResponse> response = cosmetics.api().getProfile(uuid);
+            final HttpResponse<CosmeticProfileResponse> response = cosmetics.api().getProfile(uuid).join();
+            final CosmeticProfileResponse profile = response.getBody();
 
-            if (Cosmetics.mode() != Mode.LOBBY) {
-                response.ifPresent(res -> this.cache.put(uuid, res));
+            if (Cosmetics.mode() != Mode.LOBBY && profile != null) {
+                this.cache.put(uuid, profile);
             }
 
-            return response;
+            return Optional.ofNullable(profile);
         });
     }
 
