@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticProfile;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
@@ -91,8 +92,10 @@ public interface Permission {
                 .thenApplyAsync((maybeResponse) ->
                         maybeResponse.map(CosmeticProfileResponse::getProfile)
                                 .map(CosmeticProfile::getPurchased)
-                                .map((purchased) -> purchased.get(category))
-                                .map((cosmeticCategory) -> cosmeticCategory.containsKey(id))
+                                .map(purchased -> purchased.get(category))
+                                .map(cosmeticCategory -> cosmeticCategory.get(id))
+                                .map(CosmeticData::getMeta)
+                                .map(meta -> meta.getQuantity() > 0)
                                 .orElse(false)
                 );
     }

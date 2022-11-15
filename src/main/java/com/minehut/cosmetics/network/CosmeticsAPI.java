@@ -63,7 +63,6 @@ public abstract class CosmeticsAPI {
 
     protected CompletableFuture<HttpResponse<String>> requestString(HttpMethod method, String endpoint, Function<HttpRequestWithBody, HttpRequestWithBody> req) {
         return generateRequest(method, endpoint, req).asStringAsync();
-
     }
 
     protected CompletableFuture<HttpResponse<String>> requestString(HttpMethod method, String endpoint) {

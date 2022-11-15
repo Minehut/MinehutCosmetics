@@ -30,6 +30,10 @@ public class CosmeticData {
         this.id = id;
     }
 
+    public CosmeticMeta getMeta() {
+        return meta;
+    }
+
     @Override
     public String toString() {
         return "CosmeticData{" +
