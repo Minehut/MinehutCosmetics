@@ -12,6 +12,7 @@ import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -63,9 +64,10 @@ public class InternalAPI extends CosmeticsAPI {
 
     @Override
     public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request) {
-        return Unirest.post(config().apiUrl() + "/v1/cosmetics/unlock")
-                .body(request)
-                .header("x-access-token", config().apiSecret())
+        final var test = Unirest.post(config().apiUrl() + "/v1/cosmetics/unlock")
+                .contentType("application/json")
+                .body(request);
+        return test.header("x-access-token", config().apiSecret())
                 .asObjectAsync(Void.class);
     }
 }

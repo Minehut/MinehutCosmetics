@@ -43,15 +43,6 @@ public class Debug extends Command {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             if (!Permission.staff().hasAccess(player).join()) return;
 
-            HttpResponse<ConsumeResponse> response = Cosmetics.get().api().consumeCosmetic(player.getUniqueId(), CosmeticCategory.CRATE, "TEST", 1).join();
-            switch (response.getStatus()) {
-                case 200 -> {
-                    Cosmetics.get().api().unlockCosmetic(new UnlockCosmeticRequest(player.getUniqueId(), new CosmeticData("HAT", "CAT_EARS", new CosmeticMeta(1))));
-                }
-                default -> player.sendMessage("Error " + response.getStatus() + " : " + response.getStatusText());
-            }
-
-
             sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
             final Optional<CosmeticProfileResponse> profile = cosmetics.cosmeticManager().getProfile(player.getUniqueId()).join();
 
@@ -61,9 +52,9 @@ public class Debug extends Command {
             }
 
             player.sendMessage(Component.text()
-                .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
-                .append(Component.newline())
-                .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
+                    .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
+                    .append(Component.newline())
+                    .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
             );
 
             final ItemStack item = player.getInventory().getItemInMainHand();
