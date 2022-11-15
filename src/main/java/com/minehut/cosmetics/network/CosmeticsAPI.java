@@ -8,6 +8,7 @@ import com.minehut.cosmetics.model.profile.ConsumeResponse;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
+import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.GenericType;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequestWithBody;
@@ -59,36 +60,18 @@ public abstract class CosmeticsAPI {
 
     public abstract CompletableFuture<HttpResponse<ConsumeResponse>> consumeCosmetic(UUID uuid, CosmeticCategory category, String id, int quantity);
 
-    private HttpRequestWithBody generateRequest(HttpMethod method, String endpoint, Function<HttpRequestWithBody, HttpRequestWithBody> req) {
-        final String url = config.apiUrl() + endpoint;
-        return req.apply(Unirest.request(method.name(), url).headers(Map.of("x-access-token", config.apiSecret())));
-    }
+    public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request);
 
-    protected CompletableFuture<HttpResponse<String>> requestString(HttpMethod method, String endpoint, Function<HttpRequestWithBody, HttpRequestWithBody> req) {
-        return generateRequest(method, endpoint, req).asStringAsync();
-    }
-
-    protected CompletableFuture<HttpResponse<String>> requestString(HttpMethod method, String endpoint) {
-        return requestString(method, endpoint, (req) -> req);
-    }
-
-    protected <T> CompletableFuture<HttpResponse<T>> requestType(HttpMethod method, String endpoint, Class<T> type, Function<HttpRequestWithBody, HttpRequestWithBody> req) {
-        return generateRequest(method, endpoint, req).asObjectAsync(type);
-    }
-
-    protected <T> CompletableFuture<HttpResponse<T>> requestType(HttpMethod method, String endpoint, GenericType<T> type, Function<HttpRequestWithBody, HttpRequestWithBody> req) {
-        return generateRequest(method, endpoint, req).asObjectAsync(type);
-    }
-
-    protected <T> CompletableFuture<HttpResponse<T>> requestType(HttpMethod method, String endpoint, GenericType<T> type) {
-        return requestType(method, endpoint, type, (req) -> req);
-    }
-
-    protected <T> CompletableFuture<HttpResponse<T>> requestType(HttpMethod method, String endpoint, Class<T> type) {
-        return requestType(method, endpoint, type, (req) -> req);
+    protected void request(HttpMethod method, String endpoint) {
+        return Unirest.request(method.name(), config().apiUrl() + endpoint)
+                .header("");
     }
 
     protected Gson gson() {
         return gson;
+    }
+
+    public Config config() {
+        return config;
     }
 }

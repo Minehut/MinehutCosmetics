@@ -8,9 +8,10 @@ import com.minehut.cosmetics.model.profile.ConsumeResponse;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
-import kong.unirest.GenericType;
+import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -55,5 +56,12 @@ public class InternalAPI extends CosmeticsAPI {
                 .routeParam("id", id)
                 .queryString("qty", quantity)
         );
+    }
+
+    @Override
+    public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request) {
+        return Unirest.request("POST", config().apiUrl() + "/v1/cosmetics/unlock")
+            .body(request)
+            .asObjectAsync(Void.class);
     }
 }

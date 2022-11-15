@@ -5,9 +5,6 @@ public class CosmeticData {
     private String id;
     private CosmeticMeta meta;
 
-    public CosmeticData() {
-    }
-
     public CosmeticData(String category, String id, CosmeticMeta meta) {
         this.category = category;
         this.id = id;
@@ -37,9 +34,9 @@ public class CosmeticData {
     @Override
     public String toString() {
         return "CosmeticData{" +
-                "category='" + category + '\'' +
-                ", id='" + id + '\'' +
-                ", meta=" + meta +
-                '}';
+            "category='" + category + '\'' +
+            ", id='" + id + '\'' +
+            ", meta=" + meta +
+            '}';
     }
 }
