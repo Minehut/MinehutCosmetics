@@ -61,8 +61,7 @@ public abstract class CosmeticsAPI {
     public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request);
 
     protected HttpRequestWithBody request(HttpMethod method, String endpoint) {
-        return Unirest.request(method.name(), config().apiUrl() + endpoint)
-                .headers(Map.of("x-access-token", config.apiSecret()));
+        return Unirest.request(method.name(), config().apiUrl() + endpoint).headers(Map.of("x-access-token", config.apiSecret()));
     }
 
     protected Gson gson() {

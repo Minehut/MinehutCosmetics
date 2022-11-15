@@ -11,6 +11,7 @@ import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -62,8 +63,9 @@ public class InternalAPI extends CosmeticsAPI {
 
     @Override
     public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request) {
-        return request(HttpMethod.POST, "/v1/cosmetics/unlock")
+        return Unirest.post(config().apiUrl() + "/v1/cosmetics/unlock")
                 .body(request)
+                .header("x-access-token", config().apiSecret())
                 .asObjectAsync(Void.class);
     }
 }
