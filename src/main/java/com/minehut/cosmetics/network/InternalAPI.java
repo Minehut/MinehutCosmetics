@@ -29,31 +29,31 @@ public class InternalAPI extends CosmeticsAPI {
     @Override
     public CompletableFuture<HttpResponse<CosmeticProfileResponse>> getProfile(UUID uuid) {
         return requestType(HttpMethod.GET, "/v1/cosmetics/profile/{uuid}", CosmeticProfileResponse.class, (req) ->
-                req.routeParam("uuid", uuid.toString())
+            req.routeParam("uuid", uuid.toString())
         );
     }
 
     @Override
     public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(UUID uuid, String category, String id) {
         return requestType(HttpMethod.POST, "/v1/cosmetics/equip/{uuid}/{category}/{id}", SimpleResponse.class, (req) ->
-                req.routeParam("uuid", uuid.toString())
-                        .routeParam("category", category)
-                        .routeParam("id", id)
+            req.routeParam("uuid", uuid.toString())
+                .routeParam("category", category)
+                .routeParam("id", id)
         );
     }
 
     @Override
-    public CompletableFuture<HttpResponse<PlayerRank[]>> getRanks() {
-        return requestType(HttpMethod.GET, "/v1/ranks", new GenericType<>() {});
+    public CompletableFuture<PlayerRank[]> getRanks() {
+        return requestString(HttpMethod.GET, "/v1/ranks").thenApplyAsync(response -> gson().fromJson(response.getBody(), PlayerRank[].class));
     }
 
     @Override
     public CompletableFuture<HttpResponse<ConsumeResponse>> consumeCosmetic(UUID uuid, CosmeticCategory category, String id, int quantity) {
         return requestType(HttpMethod.POST, "/v1/cosmetics/consume/{uuid}/{category}/{id}", ConsumeResponse.class, req ->
-                req.routeParam("uuid", uuid.toString())
-                        .routeParam("category", category.name())
-                        .routeParam("id", id)
-                        .queryString("qty", quantity)
+            req.routeParam("uuid", uuid.toString())
+                .routeParam("category", category.name())
+                .routeParam("id", id)
+                .queryString("qty", quantity)
         );
     }
 }

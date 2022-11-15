@@ -21,10 +21,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public abstract class CosmeticsAPI {
-    private Config config;
+
+    private final Gson gson;
+    private final Config config;
 
     public CosmeticsAPI(Config config, Gson gson) {
         this.config = config;
+        this.gson = gson;
         Unirest.config().setObjectMapper(new ObjectMapper() {
             @Override
             public <T> T readValue(String value, Class<T> valueType) {
@@ -52,7 +55,7 @@ public abstract class CosmeticsAPI {
 
     public abstract CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(UUID uuid, String category, String id);
 
-    public abstract CompletableFuture<HttpResponse<PlayerRank[]>> getRanks();
+    public abstract CompletableFuture<PlayerRank[]> getRanks();
 
     public abstract CompletableFuture<HttpResponse<ConsumeResponse>> consumeCosmetic(UUID uuid, CosmeticCategory category, String id, int quantity);
 
@@ -85,5 +88,7 @@ public abstract class CosmeticsAPI {
         return requestType(method, endpoint, type, (req) -> req);
     }
 
-
+    protected Gson gson() {
+        return gson;
+    }
 }

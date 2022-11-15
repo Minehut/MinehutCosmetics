@@ -52,9 +52,9 @@ public class Debug extends Command {
             }
 
             player.sendMessage(Component.text()
-                    .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
-                    .append(Component.newline())
-                    .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
+                .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
+                .append(Component.newline())
+                .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
             );
 
             final ItemStack item = player.getInventory().getItemInMainHand();

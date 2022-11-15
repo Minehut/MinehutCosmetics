@@ -29,7 +29,7 @@ public class ExternalAPI extends CosmeticsAPI {
     @Override
     public CompletableFuture<HttpResponse<CosmeticProfileResponse>> getProfile(UUID uuid) {
         return requestType(HttpMethod.GET, "/cosmetics/profile/{uuid}", CosmeticProfileResponse.class, (req) ->
-                req.routeParam("uuid", uuid.toString())
+            req.routeParam("uuid", uuid.toString())
         );
     }
 
@@ -40,8 +40,8 @@ public class ExternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<PlayerRank[]>> getRanks() {
-        return requestType(HttpMethod.GET, "/network/ranks", PlayerRank[].class);
+    public CompletableFuture<PlayerRank[]> getRanks() {
+        return requestString(HttpMethod.GET, "/network/ranks").thenApplyAsync(response -> gson().fromJson(response.getBody(), PlayerRank[].class));
     }
 
     @Override
