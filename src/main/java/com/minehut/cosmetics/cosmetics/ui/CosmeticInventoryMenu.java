@@ -6,6 +6,7 @@ import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
                     // grab the cosmetic from its id
                     Cosmetic.fromCategoryId(category, id).ifPresent(cosmetic -> {
                         final ItemStack item = ItemBuilder.of(cosmetic.menuIcon())
-                                .appendLore(Component.text("x" + data.getMeta().getQuantity()))
+                                .appendLore(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY))
                                 .build();
                         items.add(MenuItem.of(item));
                     });

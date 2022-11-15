@@ -16,13 +16,15 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
 public class TestCrate extends Crate {
 
     private static final Component NAME = Component.text("Test Chest").color(NamedTextColor.RED);
 
-    private static final ItemStack ICON = ItemBuilder.of(Material.CHEST)
+    private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.CHEST)
             .display(NAME)
-            .build();
+            .supplier();
 
     private static final WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table = new WeightedTable<>();
 
@@ -39,6 +41,6 @@ public class TestCrate extends Crate {
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ICON;
+        return ICON.get();
     }
 }
