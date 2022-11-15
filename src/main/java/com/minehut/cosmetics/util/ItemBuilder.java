@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -117,6 +118,19 @@ public class ItemBuilder {
             profileProperties.add(new ProfileProperty("textures", texture));
             profile.setProperties(profileProperties);
             skullMeta.setPlayerProfile(profile);
+        });
+    }
+
+    /**
+     * Set the player head to a given player profile
+     *
+     * @param player to set the head to
+     * @return the builder with the head for this player
+     */
+    public ItemBuilder playerHead(Player player) {
+        return editMeta(meta -> {
+            if (!(meta instanceof SkullMeta skullMeta)) return;
+            skullMeta.setPlayerProfile(player.getPlayerProfile());
         });
     }
 

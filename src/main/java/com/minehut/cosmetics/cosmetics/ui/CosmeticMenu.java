@@ -134,9 +134,14 @@ public class CosmeticMenu extends Menu {
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
 
-        getProxy().setItem(34, EMOJI_ICON.get(), (player, ignored) -> EmojiDisplay.open(player));
-        getProxy().setItem(43, CRATE_ICON.get(), (player, ignored) -> new CrateMenu().openTo(player));
-        getProxy().setItem(52, CRATE_ICON.get(), (player, ignored) -> CosmeticInventoryMenu.open(player);
+        getProxy().setItem(25, EMOJI_ICON.get(), (player, ignored) -> EmojiDisplay.open(player));
+        getProxy().setItem(34, CRATE_ICON.get(), (player, ignored) -> new CrateMenu().openTo(player));
+        getProxy().setItem(43, ItemBuilder.of(Material.PLAYER_HEAD)
+                        .display(Component.text("Inventory").color(NamedTextColor.GOLD))
+                        .playerHead(user)
+                        .build(),
+                (player, ignored) -> CosmeticInventoryMenu.open(player)
+        );
 
         // menus that are only visible when in lobby mode
         switch (mode) {
