@@ -32,7 +32,7 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
                 response.getProfile().getPurchased().forEach((category, map) -> map.forEach((id, data) -> {
                     // grab the cosmetic from its id
                     Cosmetic.fromCategoryId(category, id).ifPresent(cosmetic -> {
-                        final ItemStack item = ItemBuilder.of(cosmetic.menuIcon())
+                        final ItemStack item = ItemBuilder.of(cosmetic.menuIcon().clone())
                                 .appendLore(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY))
                                 .build();
                         items.add(MenuItem.of(item));
