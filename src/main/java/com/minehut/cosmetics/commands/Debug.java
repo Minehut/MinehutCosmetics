@@ -1,8 +1,11 @@
 package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.model.profile.ConsumeResponse;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -32,8 +35,13 @@ public class Debug extends Command {
             return;
         }
 
+
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             if (!Permission.staff().hasAccess(player).join()) return;
+
+            HttpResponse<ConsumeResponse> response = Cosmetics.get().api().consumeCosmetic(player.getUniqueId(), CosmeticCategory.CRATE, "TEST", 1).join();
+            player.sendMessage("" + response.getStatus() + " " + response.getStatusText());
+
 
             sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
             final Optional<CosmeticProfileResponse> profile = cosmetics.cosmeticManager().getProfile(player.getUniqueId()).join();

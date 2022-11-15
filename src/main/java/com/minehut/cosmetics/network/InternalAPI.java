@@ -44,8 +44,7 @@ public class InternalAPI extends CosmeticsAPI {
 
     @Override
     public CompletableFuture<HttpResponse<PlayerRank[]>> getRanks() {
-        return requestType(HttpMethod.GET, "/v1/ranks", new GenericType<>() {
-        });
+        return requestType(HttpMethod.GET, "/v1/ranks", new GenericType<>() {});
     }
 
     @Override
