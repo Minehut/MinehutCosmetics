@@ -5,7 +5,6 @@ import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.ConsumeResponse;
-import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
@@ -25,15 +24,27 @@ public class ExternalAPI extends CosmeticsAPI {
 
     @Override
     public CompletableFuture<HttpResponse<PackInfo>> getPackInfo() {
-        return requestType(HttpMethod.GET, "/network/resourcepacks/info", PackInfo.class);
+        return request(HttpMethod.GET, "/network/resourcepacks/info")
+                .asObjectAsync(PackInfo.class);
     }
 
     @Override
     public CompletableFuture<HttpResponse<CosmeticProfileResponse>> getProfile(UUID uuid) {
-        return requestType(HttpMethod.GET, "/cosmetics/profile/{uuid}", CosmeticProfileResponse.class, (req) ->
-            req.routeParam("uuid", uuid.toString())
-        );
+        return request(HttpMethod.GET, "/cosmetics/profile/{uuid}")
+                .routeParam("uuid", uuid.toString())
+                .asObjectAsync(CosmeticProfileResponse.class);
     }
+
+    @Override
+    public CompletableFuture<PlayerRank[]> getRanks() {
+        return request(HttpMethod.GET, "/network/ranks")
+                .asStringAsync()
+                .thenApplyAsync(response -> gson().fromJson(response.getBody(), PlayerRank[].class));
+    }
+
+    /*
+     *  Stubbed out methods because they do not have external access
+     */
 
     @Override
     public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(UUID uuid, String category, String id) {
@@ -41,10 +52,6 @@ public class ExternalAPI extends CosmeticsAPI {
         return CompletableFuture.completedFuture(null);
     }
 
-    @Override
-    public CompletableFuture<PlayerRank[]> getRanks() {
-        return requestString(HttpMethod.GET, "/network/ranks").thenApplyAsync(response -> gson().fromJson(response.getBody(), PlayerRank[].class));
-    }
 
     @Override
     public CompletableFuture<HttpResponse<ConsumeResponse>> consumeCosmetic(UUID uuid, CosmeticCategory category, String id, int quantity) {

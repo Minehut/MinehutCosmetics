@@ -12,4 +12,12 @@ public class UnlockCosmeticRequest {
         this.uuid = uuid;
         this.cosmetic = cosmetic;
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public CosmeticData getCosmetic() {
+        return cosmetic;
+    }
 }
