@@ -8,6 +8,7 @@ import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,6 +18,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
+
+    private static final ItemStack BACK_DOOR = ItemBuilder.of(Material.DARK_OAK_DOOR)
+            .display(Component.text("Go Back").color(NamedTextColor.RED))
+            .build();
+
     private final List<MenuItem> items = new ArrayList<>();
 
     /**
@@ -41,6 +47,14 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
         );
     }
 
+    @Override
+    public void render() {
+        super.render();
+        getProxy().setItem(46, MenuItem.of(BACK_DOOR, (player, click) -> {
+            player.closeInventory();
+            new CosmeticMenu(player).openTo(player);
+        }));
+    }
 
     @Override
     public List<MenuItem> getItemList() {
@@ -49,12 +63,12 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
 
     @Override
     public int getItemsPerPage() {
-        return 36;
+        return 45;
     }
 
     @Override
     public Set<Integer> getRestrictedSlots() {
-        return Set.of();
+        return Set.of(46);
     }
 
     public static void open(Player player) {
