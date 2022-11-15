@@ -15,6 +15,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
@@ -22,8 +23,8 @@ public abstract class Crate extends Cosmetic {
 
     private final WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table;
 
-    protected Crate(String id, CosmeticCategory type, Component name, WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table) {
-        super(id, type, name);
+    protected Crate(String id, Component name, WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table) {
+        super(id, CosmeticCategory.CRATE, name);
         this.table = table;
     }
 
@@ -67,7 +68,7 @@ public abstract class Crate extends Cosmetic {
 
                     }, () -> {
                         // let player know if edge case occurs
-                        player().ifPresent(player -> player.sendMessage(Component.text("An error occured, please contact an administrator").color(NamedTextColor.RED)))
+                        player().ifPresent(player -> player.sendMessage(Component.text("An error occured, please contact an administrator").color(NamedTextColor.RED)));
                     });
                 }
                 // handle error cases

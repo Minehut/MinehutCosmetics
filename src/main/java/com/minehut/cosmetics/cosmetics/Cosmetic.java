@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -61,7 +62,7 @@ public abstract class Cosmetic {
         return category().name() + ":" + id();
     }
 
-    public abstract ItemStack menuIcon();
+    public abstract @NotNull ItemStack menuIcon();
 
 
     /**
