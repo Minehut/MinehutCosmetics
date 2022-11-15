@@ -33,7 +33,7 @@ public class TestCrate extends Crate {
         table.registerItem(Pair.of(Item.FALL_22_LEAF_SWORD, 1), 2);
     }
 
-    protected TestCrate() {
+    public TestCrate() {
         super(CrateType.TEST.name(), NAME, table);
     }
 

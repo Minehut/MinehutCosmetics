@@ -5,7 +5,6 @@ import com.minehut.cosmetics.crates.Crate;
 import com.minehut.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.ui.Menu;
 import net.kyori.adventure.text.Component;
-import org.bukkit.plugin.Plugin;
 
 public class CrateMenu extends Menu {
     public CrateMenu() {
