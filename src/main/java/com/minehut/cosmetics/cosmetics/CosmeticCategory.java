@@ -24,18 +24,16 @@ public enum CosmeticCategory {
     WING("Backpieces", query -> EnumUtil.valueOfSafe(Wing.class, query).map(Wing::get), true),
     TRINKET("Trinkets", query -> EnumUtil.valueOfSafe(Trinket.class, query).map(Trinket::get), false),
     EMOJI("Emojis", query -> EnumUtil.valueOfSafe(Emoji.class, query).map(Emoji::get), false),
-    CRATE("Crates", query -> EnumUtil.valueOfSafe(CrateType.class, query).map(CrateType::get), false),
-
-    ;
+    CRATE("Crates", query -> EnumUtil.valueOfSafe(CrateType.class, query).map(CrateType::get), false);
 
     private final String categoryName;
     private final Function<String, Optional<Cosmetic>> getCosmetic;
     private final boolean saveLocal;
 
     /**
-     * @param categoryName name for this category
+     * @param categoryName name for this slot
      * @param getCosmetic  method to grab a cosmetic from a given query
-     * @param saveLocal    whether or not to save local equip for this category
+     * @param saveLocal    whether or not to save local equip for this slot
      */
     CosmeticCategory(String categoryName, Function<String, Optional<Cosmetic>> getCosmetic, boolean saveLocal) {
         this.categoryName = categoryName;

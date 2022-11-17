@@ -4,20 +4,4 @@ import com.minehut.cosmetics.model.profile.CosmeticData;
 
 import java.util.UUID;
 
-public class UnlockCosmeticRequest {
-    private final UUID uuid;
-    private final CosmeticData cosmetic;
-
-    public UnlockCosmeticRequest(UUID uuid, CosmeticData cosmetic) {
-        this.uuid = uuid;
-        this.cosmetic = cosmetic;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public CosmeticData getCosmetic() {
-        return cosmetic;
-    }
-}
+public record UnlockCosmeticRequest(UUID uuid, CosmeticData cosmetic) {}

@@ -54,7 +54,7 @@ public abstract class Cosmetic {
 
     /**
      * Gets the ID of the cosmetic used for deserializing, combines the
-     * category and id in the format CATEGORY:ID,
+     * slot and id in the format CATEGORY:ID,
      * the cosmetic can be retrieved from this string using
      * {@link CosmeticCategory#cosmetic(String)}
      */
@@ -66,13 +66,13 @@ public abstract class Cosmetic {
 
 
     /**
-     * Get a cosmetic using a category string and id string,
+     * Get a cosmetic using a slot string and id string,
      * this is primarily useful for grabbing cosmetic values in game
      * from the "equipped" field of the cosmetic profile
      *
      * @param category of the cosmetic
      * @param id       of the cosmetic
-     * @return a possible cosmetic for the given category and id
+     * @return a possible cosmetic for the given slot and id
      */
     public static Optional<Cosmetic> fromCategoryId(String category, String id) {
         return EnumUtil

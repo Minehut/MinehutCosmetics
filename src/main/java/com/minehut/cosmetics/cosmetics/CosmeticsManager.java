@@ -12,10 +12,15 @@ import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
+import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.util.EnumUtil;
 import kong.unirest.HttpResponse;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -144,7 +149,22 @@ public class CosmeticsManager {
      */
     private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-            cosmetics.api().equipCosmetic(uuid, slot.name(), id);
+            final HttpResponse<SimpleResponse> res = cosmetics.api().equipCosmetic(new EquipCosmeticRequest(uuid, slot.name(), id)).join();
+
+            final Player player = Bukkit.getPlayer(uuid);
+            if (player == null) return;
+
+            switch (res.getStatus()) {
+                case 200 -> {
+                    player.sendMessage(Component.text("Equipped cosmetic!").color(NamedTextColor.GREEN));
+                }
+                case 429 -> {
+                    player.sendMessage(Component.text("Please wait a moment and try again...").color(NamedTextColor.RED));
+                }
+                default -> {
+                    player.sendMessage(Component.text("An unknown error occured while trying to equip your cosmetic...").color(NamedTextColor.RED));
+                }
+            }
         });
     }
 
@@ -243,7 +263,7 @@ public class CosmeticsManager {
     }
 
     /**
-     * Get the cosmetic for this user from the given category
+     * Get the cosmetic for this user from the given slot
      *
      * @param uuid of the user to get cosmetics for
      * @param type of cosmetic to get

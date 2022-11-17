@@ -50,7 +50,7 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
     @Override
     public void render() {
         super.render();
-        getProxy().setItem(46, MenuItem.of(BACK_DOOR, (player, click) -> {
+        getProxy().setItem(45, MenuItem.of(BACK_DOOR, (player, click) -> {
             player.closeInventory();
             new CosmeticMenu(player).openTo(player);
         }));
@@ -68,7 +68,7 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
 
     @Override
     public Set<Integer> getRestrictedSlots() {
-        return Set.of(46);
+        return Set.of(45);
     }
 
     public static void open(Player player) {

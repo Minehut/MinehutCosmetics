@@ -1,15 +1,8 @@
 package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.model.profile.ConsumeResponse;
-import com.minehut.cosmetics.model.profile.CosmeticData;
-import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
-import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
-import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

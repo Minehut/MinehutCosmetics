@@ -5,17 +5,15 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.model.profile.ConsumeResponse;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
+import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import com.minehut.cosmetics.util.structures.Pair;
 import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
@@ -43,7 +41,11 @@ public abstract class Crate extends Cosmetic {
 
         Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
             // try to consume the item
-            final HttpResponse<ConsumeResponse> response = Cosmetics.get().api().consumeCosmetic(uuid, category(), id(), amount).join();
+            final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(uuid, category().name(), id(), amount);
+            final HttpResponse<Void> response = Cosmetics.get()
+                    .api()
+                    .modifyCosmeticQuantity(req)
+                    .join();
 
             // handle consuming response
             switch (response.getStatus()) {
@@ -60,6 +62,7 @@ public abstract class Crate extends Cosmetic {
                                 .append(Component.text("Received"))
                                 .append(Component.space())
                                 .append(cosmetic.name())
+                                .append(Component.space())
                                 .append(Component.text("x" + quantity))
                                 .append(Component.text("!"))
                                 .color(NamedTextColor.DARK_GREEN)

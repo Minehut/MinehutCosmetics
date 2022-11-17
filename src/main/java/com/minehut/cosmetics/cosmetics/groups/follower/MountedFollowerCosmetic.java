@@ -32,7 +32,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * and always face the player
      *
      * @param id                of the cosmetic
-     * @param category          the category belongs to
+     * @param category          the slot belongs to
      * @param name              of this companion
      * @param companionSupplier build the itemstack for this companion
      * @param offset            to spawn the cosmetic at

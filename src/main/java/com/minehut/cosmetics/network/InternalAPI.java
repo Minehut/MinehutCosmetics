@@ -2,17 +2,15 @@ package com.minehut.cosmetics.network;
 
 import com.google.gson.Gson;
 import com.minehut.cosmetics.config.Config;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.model.PackInfo;
-import com.minehut.cosmetics.model.profile.ConsumeResponse;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
+import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
+import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
-import org.bukkit.Bukkit;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -37,11 +35,9 @@ public class InternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(UUID uuid, String category, String id) {
-        return request(HttpMethod.POST, "/v1/cosmetics/equip/{uuid}/{category}/{id}")
-                .routeParam("uuid", uuid.toString())
-                .routeParam("category", category)
-                .routeParam("id", id)
+    public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req) {
+        return postJSON("/v1/cosmetics/equip")
+                .body(req)
                 .asObjectAsync(SimpleResponse.class);
     }
 
@@ -53,21 +49,16 @@ public class InternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<ConsumeResponse>> consumeCosmetic(UUID uuid, CosmeticCategory category, String id, int quantity) {
-        return request(HttpMethod.POST, "/v1/cosmetics/consume/{uuid}/{category}/{id}")
-                .routeParam("uuid", uuid.toString())
-                .routeParam("category", category.name())
-                .routeParam("id", id)
-                .queryString("qty", quantity)
-                .asObjectAsync(ConsumeResponse.class);
+    public CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req) {
+        return postJSON("/v1/cosmetics/modifyQuantity")
+                .body(req)
+                .asObjectAsync(Void.class);
     }
 
     @Override
-    public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest request) {
-        final var test = Unirest.post(config().apiUrl() + "/v1/cosmetics/unlock")
-                .contentType("application/json")
-                .body(request);
-        return test.header("x-access-token", config().apiSecret())
+    public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req) {
+        return postJSON("/v1/cosmetics/unlock")
+                .body(req)
                 .asObjectAsync(Void.class);
     }
 }

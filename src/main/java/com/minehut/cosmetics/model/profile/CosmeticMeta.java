@@ -3,9 +3,6 @@ package com.minehut.cosmetics.model.profile;
 public class CosmeticMeta {
     private int quantity;
 
-    public CosmeticMeta() {
-    }
-
     public CosmeticMeta(int quantity) {
         this.quantity = quantity;
     }

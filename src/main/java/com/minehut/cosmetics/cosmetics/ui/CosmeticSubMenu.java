@@ -84,8 +84,6 @@ public abstract class CosmeticSubMenu extends Menu {
 
             final CosmeticSlot slot = this.clickHandler.apply(click);
             Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
-
-            who.sendMessage(Component.text("Item removed.").color(NamedTextColor.AQUA));
             who.closeInventory();
         }));
 

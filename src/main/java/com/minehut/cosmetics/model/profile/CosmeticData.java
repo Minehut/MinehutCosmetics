@@ -34,7 +34,7 @@ public class CosmeticData {
     @Override
     public String toString() {
         return "CosmeticData{" +
-            "category='" + category + '\'' +
+            "slot='" + category + '\'' +
             ", id='" + id + '\'' +
             ", meta=" + meta +
             '}';

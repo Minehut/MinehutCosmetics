@@ -9,7 +9,7 @@ public class Key {
     public static DataKey<String, String> EQUIPMENT_SLOT;
     public static DataKey<String, String> MATERIAL;
 
-    // cosmetic category and id
+    // cosmetic slot and id
     public static DataKey<String, String> COSMETIC_CATEGORY;
     public static DataKey<String, String> COSMETIC_ID;
 
