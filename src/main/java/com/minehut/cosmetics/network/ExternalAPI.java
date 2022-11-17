@@ -8,6 +8,7 @@ import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
+import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
@@ -56,6 +57,11 @@ public class ExternalAPI extends CosmeticsAPI {
     @Override
     public CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req) {
         // cannot be called from player servers so we stub this
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<HttpResponse<Void>> salvageCosmetic(SalvageCosmeticRequest req) {
         return CompletableFuture.completedFuture(null);
     }
 

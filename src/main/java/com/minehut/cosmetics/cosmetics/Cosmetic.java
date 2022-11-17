@@ -64,6 +64,14 @@ public abstract class Cosmetic {
 
     public abstract @NotNull ItemStack menuIcon();
 
+    public Rarity rarity() {
+        return Rarity.UNCOMMON;
+    }
+
+    public int salvageAmount() {
+        return rarity().salvageValue();
+    }
+
 
     /**
      * Get a cosmetic using a slot string and id string,

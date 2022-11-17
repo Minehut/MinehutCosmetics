@@ -79,7 +79,7 @@ public abstract class Crate extends Cosmetic {
                     // if they ratelimit
                     player().ifPresent(player -> player.sendMessage(Component.text("Please wait a moment and try again.").color(NamedTextColor.RED)));
                 }
-                case 403 -> {
+                case 412 -> {
                     // let them know they have insufficient resources
                     player().ifPresent(player -> player.sendMessage(Component.text("You do not own enough crates!").color(NamedTextColor.RED)));
                 }

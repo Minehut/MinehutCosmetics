@@ -8,6 +8,7 @@ import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
+import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequestWithBody;
@@ -56,9 +57,12 @@ public abstract class CosmeticsAPI {
 
     public abstract CompletableFuture<PlayerRank[]> getRanks();
 
-    public abstract CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req);
 
     public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req);
+
+    public abstract CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req);
+
+    public abstract CompletableFuture<HttpResponse<Void>> salvageCosmetic(SalvageCosmeticRequest req);
 
     protected HttpRequestWithBody request(HttpMethod method, String endpoint) {
         return Unirest.request(method.name(), config().apiUrl() + endpoint)

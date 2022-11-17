@@ -8,6 +8,7 @@ import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
+import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
@@ -49,6 +50,13 @@ public class InternalAPI extends CosmeticsAPI {
     }
 
     @Override
+    public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req) {
+        return postJSON("/v1/cosmetics/unlock")
+                .body(req)
+                .asObjectAsync(Void.class);
+    }
+
+    @Override
     public CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req) {
         return postJSON("/v1/cosmetics/modifyQuantity")
                 .body(req)
@@ -56,8 +64,8 @@ public class InternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req) {
-        return postJSON("/v1/cosmetics/unlock")
+    public CompletableFuture<HttpResponse<Void>> salvageCosmetic(SalvageCosmeticRequest req) {
+        return postJSON("/v1/cosmetics/salvage")
                 .body(req)
                 .asObjectAsync(Void.class);
     }

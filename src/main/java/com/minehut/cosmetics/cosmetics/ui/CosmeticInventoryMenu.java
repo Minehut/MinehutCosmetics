@@ -2,13 +2,13 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -18,10 +18,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
-
-    private static final ItemStack BACK_DOOR = ItemBuilder.of(Material.DARK_OAK_DOOR)
-            .display(Component.text("Go Back").color(NamedTextColor.RED))
-            .build();
 
     private final List<MenuItem> items = new ArrayList<>();
 
@@ -50,7 +46,7 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
     @Override
     public void render() {
         super.render();
-        getProxy().setItem(45, MenuItem.of(BACK_DOOR, (player, click) -> {
+        getProxy().setItem(45, MenuItem.of(ItemIcon.GO_BACK.get(), (player, click) -> {
             player.closeInventory();
             new CosmeticMenu(player).openTo(player);
         }));
