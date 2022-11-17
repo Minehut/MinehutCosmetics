@@ -41,6 +41,15 @@ public class CosmeticProfileResponse {
         this.rank = rank;
     }
 
+    public int getGems() {
+        final CosmeticProfile purchases = profile;
+        final Map<String, CosmeticData> currencyMap = purchases.getPurchased().get("CURRENCY");
+        if (currencyMap == null) return 0;
+        final CosmeticData data = currencyMap.get("GEM");
+        if (data == null) return 0;
+        return data.getMeta().getQuantity();
+    }
+
     @Override
     public String toString() {
         return "CosmeticResponse{" +
