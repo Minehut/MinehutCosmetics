@@ -8,6 +8,7 @@ import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +20,11 @@ import java.util.UUID;
 
 public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
 
+    private static final Component SALVAGE_CTA = Component.text()
+            .append(Component.keybind("key.use").color(NamedTextColor.YELLOW))
+            .append(Component.text(" to salvage.").color(NamedTextColor.GRAY))
+            .decoration(TextDecoration.ITALIC, false)
+            .build();
     private final List<MenuItem> items = new ArrayList<>();
 
     /**
@@ -34,10 +40,22 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
                 response.getProfile().getPurchased().forEach((category, map) -> map.forEach((id, data) -> {
                     // grab the cosmetic from its id
                     Cosmetic.fromCategoryId(category, id).ifPresent(cosmetic -> {
-                        final ItemStack item = ItemBuilder.of(cosmetic.menuIcon().clone())
-                                .appendLore(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY))
+                        final ItemStack base = cosmetic.menuIcon().clone();
+                        final Component display = base.displayName()
+                                .append(Component.space())
+                                .append(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY));
+
+                        final ItemStack item = ItemBuilder.of(base)
+                                .display(display)
+                                .appendLore(SALVAGE_CTA)
                                 .build();
-                        items.add(MenuItem.of(item));
+
+                        final MenuItem menuItem = MenuItem.of(item, (who, click) -> {
+                            if (!click.isRightClick()) return;
+                            new SalvageConfirmMenu(who.getUniqueId(), cosmetic).openTo(who);
+                        });
+
+                        items.add(menuItem);
                     });
                 }))
         );
