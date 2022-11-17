@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
+import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -36,29 +37,40 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
     private CosmeticInventoryMenu(UUID uuid) {
         super(Cosmetics.get(), 6, Component.text("Inventory"));
 
-        Cosmetics.get().cosmeticManager().getProfile(uuid).join().ifPresent(response ->
-                response.getProfile().getPurchased().forEach((category, map) -> map.forEach((id, data) -> {
-                    // grab the cosmetic from its id
-                    Cosmetic.fromCategoryId(category, id).ifPresent(cosmetic -> {
-                        final ItemStack base = cosmetic.menuIcon().clone();
-                        final Component display = base.displayName()
-                                .append(Component.space())
-                                .append(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY));
+        final var maybeProfile = Cosmetics.get().cosmeticManager().getProfile(uuid).join();
+        if (maybeProfile.isEmpty()) return;
 
-                        final ItemStack item = ItemBuilder.of(base)
-                                .display(display)
-                                .appendLore(SALVAGE_CTA)
-                                .build();
+        final CosmeticProfileResponse response = maybeProfile.get();
 
-                        final MenuItem menuItem = MenuItem.of(item, (who, click) -> {
-                            if (!click.isRightClick()) return;
-                            new SalvageConfirmMenu(who.getUniqueId(), cosmetic).openTo(who);
-                        });
 
-                        items.add(menuItem);
-                    });
-                }))
-        );
+        response.getProfile().getPurchased().forEach((category, map) -> map.forEach((id, data) -> {
+            // grab the cosmetic from its id
+            Cosmetic.fromCategoryId(category, id).ifPresent(cosmetic -> {
+                final ItemStack base = cosmetic.menuIcon().clone();
+                final Component display = Component.text()
+                        .append(cosmetic.name())
+                        .append(Component.space())
+                        .append(Component.text("x" + data.getMeta().getQuantity()).color(NamedTextColor.GRAY))
+                        .build();
+
+                final ItemBuilder builder = ItemBuilder.of(base).display(display);
+
+                final boolean salvagable = cosmetic.salvageAmount() > 0;
+
+                // only show salvage cta on items that can be salvaged
+                if (salvagable) {
+                    builder.appendLore(SALVAGE_CTA);
+                }
+
+                final MenuItem menuItem = MenuItem.of(builder.build(), (who, click) -> {
+                    if (!click.isRightClick()) return;
+                    if (!salvagable) return;
+                    new SalvageConfirmMenu(who.getUniqueId(), cosmetic).openTo(who);
+                });
+
+                items.add(menuItem);
+            });
+        }));
     }
 
     @Override

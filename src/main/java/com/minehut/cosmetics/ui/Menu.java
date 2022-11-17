@@ -53,6 +53,10 @@ public abstract class Menu implements Listener {
         HandlerList.unregisterAll(this);
     }
 
+    public void setTitle(Component component) {
+
+    }
+
     /**
      * Opens the {@link #inventory} to the given {@link Player}.
      *

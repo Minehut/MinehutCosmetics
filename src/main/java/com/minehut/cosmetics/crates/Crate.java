@@ -41,7 +41,7 @@ public abstract class Crate extends Cosmetic {
 
         Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
             // try to consume the item
-            final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(uuid, category().name(), id(), amount);
+            final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(uuid, category().name(), id(), -amount);
             final HttpResponse<Void> response = Cosmetics.get()
                     .api()
                     .modifyCosmeticQuantity(req)
@@ -85,5 +85,10 @@ public abstract class Crate extends Cosmetic {
                 }
             }
         });
+    }
+
+    @Override
+    public int salvageAmount() {
+        return 0;
     }
 }

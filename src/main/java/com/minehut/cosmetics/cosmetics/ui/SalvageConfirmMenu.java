@@ -20,11 +20,11 @@ import java.util.UUID;
 public class SalvageConfirmMenu extends Menu {
 
     private static final ItemStack CONFIRM = ItemBuilder.of(Material.LIME_STAINED_GLASS_PANE)
-            .display(Component.text("Confirm?").color(NamedTextColor.DARK_GREEN))
+            .display(Component.text("Confirm").color(NamedTextColor.DARK_GREEN))
             .build();
 
     private static final ItemStack DENY = ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
-            .display(Component.text("Deny?").color(NamedTextColor.RED))
+            .display(Component.text("Cancel").color(NamedTextColor.RED))
             .build();
 
     private final UUID uuid;
@@ -40,8 +40,8 @@ public class SalvageConfirmMenu extends Menu {
         this.uuid = uuid;
         this.cosmetic = cosmetic;
 
-        getProxy().setItem(3, MenuItem.of(CONFIRM, (who, click) -> {
-            final SalvageCosmeticRequest req = new SalvageCosmeticRequest(who.getUniqueId(), cosmetic.category().name(), cosmetic.id(), 1, cosmetic.salvageAmount());
+        final MenuItem confirmItem = MenuItem.of(CONFIRM, (who, click) -> {
+            final SalvageCosmeticRequest req = new SalvageCosmeticRequest(who.getUniqueId(), cosmetic.category().name(), cosmetic.id(), -1, cosmetic.salvageAmount());
             final Player player = Bukkit.getPlayer(uuid);
 
             Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
@@ -58,16 +58,24 @@ public class SalvageConfirmMenu extends Menu {
                                 .append(cosmetic.name())
                                 .append(Component.text(" for "))
                                 .append(Component.text(cosmetic.salvageAmount()))
+                                .color(NamedTextColor.DARK_GREEN)
                         );
                     }
                 }
             });
+        });
 
-        }));
+        // fill left side w/ confirm
+        for (int idx = 0; idx <= 3; idx++) {
+            getProxy().setItem(idx, confirmItem);
+        }
 
         getProxy().setItem(4, cosmetic.menuIcon());
 
-        getProxy().setItem(5, MenuItem.of(CONFIRM, (who, click) -> CosmeticInventoryMenu.open(who)));
+        final MenuItem cancelItem = MenuItem.of(DENY, (who, click) -> CosmeticInventoryMenu.open(who));
+        for (int idx = 5; idx <= 8; idx++) {
+            getProxy().setItem(idx, cancelItem);
+        }
     }
 
     @Override
