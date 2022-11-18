@@ -66,6 +66,8 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
                 case 412 -> // let them know they have insufficient resources
                         player.sendMessage(Component.text("You don't have enough gems!").color(NamedTextColor.RED));
             }
+
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> new GemShopMenu().openTo(player));
         });
     }
 

@@ -34,8 +34,6 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
 
             Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
                 final HttpResponse<Void> res = Cosmetics.get().api().salvageCosmetic(req).join();
-                SalvageMenu.open(player);
-
                 switch (res.getStatus()) {
                     case 412 ->
                             player.sendMessage(Component.text("You do not own enough of this cosmetic!").color(NamedTextColor.RED));
@@ -46,6 +44,8 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
                             .color(NamedTextColor.DARK_GREEN)
                     );
                 }
+
+                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> SalvageMenu.open(player));
             });
         };
     }

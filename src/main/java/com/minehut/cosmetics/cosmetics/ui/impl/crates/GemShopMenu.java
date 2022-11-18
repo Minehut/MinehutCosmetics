@@ -41,7 +41,7 @@ public class GemShopMenu extends SubMenu {
         final Component costComponent =
                 Component.text()
                         .append(Component.text("Price: ").color(NamedTextColor.GRAY))
-                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
+                        .append(Component.text(price).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
                         .build();
 
         final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
