@@ -1,6 +1,9 @@
 package com.minehut.cosmetics.crates;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.commands.crates.CrateCommand;
+import com.minehut.cosmetics.commands.crates.GemShopCommand;
+import com.minehut.cosmetics.commands.crates.SalvageCommand;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 
 /**
@@ -16,9 +19,11 @@ public class CratesModule {
         this.cosmetics = cosmetics;
         registerCommands();
     }
-    
+
 
     private void registerCommands() {
-
+        new CrateCommand().register(cosmetics);
+        new SalvageCommand().register(cosmetics);
+        new GemShopCommand().register(cosmetics);
     }
 }

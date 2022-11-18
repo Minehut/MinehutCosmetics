@@ -11,6 +11,7 @@ import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.groups.trinket.listener.TrinketListener;
+import com.minehut.cosmetics.crates.CratesModule;
 import com.minehut.cosmetics.events.CosmeticsListener;
 import com.minehut.cosmetics.events.CosmeticsTeleportListener;
 import com.minehut.cosmetics.events.DeathListener;
@@ -68,6 +69,7 @@ public final class Cosmetics extends JavaPlugin {
         switch (config().mode()) {
             case LOBBY -> {
                 this.api = new InternalAPI(config, gson);
+                new CratesModule(this);
             }
             case PLAYER_SERVER -> {
                 this.localStorage = new LocalStorageManager(this);

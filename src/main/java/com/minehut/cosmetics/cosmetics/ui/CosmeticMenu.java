@@ -120,9 +120,11 @@ public class CosmeticMenu extends Menu {
                     Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
             ));
         });
-        getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> new GemShopMenu().openTo(player));
-        getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
 
+        if (Cosmetics.mode() == Mode.LOBBY) {
+            getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> GemShopMenu.open(player));
+            getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
+        }
 
         //Filler
         for (int i = 9; i <= 17; i++) {

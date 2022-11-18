@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ExplorerParticle extends AmbientPixelArtParticle {
     public static final ItemStack ITEM = ItemBuilder.of(Material.COMPASS)
@@ -35,7 +36,12 @@ public class ExplorerParticle extends AmbientPixelArtParticle {
     }
 
     @Override
-    public ItemStack menuIcon() {
+    public @NotNull ItemStack menuIcon() {
         return ITEM;
+    }
+
+    @Override
+    public int salvageAmount() {
+        return 0;
     }
 }

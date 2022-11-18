@@ -26,10 +26,11 @@ public abstract class Menu implements Listener {
     private final Plugin plugin;
     private ProxyInventory proxyInventory;
     private Inventory inventory;
-    private final Component title;
+    private Component title;
     private Map<Integer, ActionHandler> actionHandlers;
     private BukkitTask renderTask;
     private Player player;
+    private int rows;
 
     public Menu(Plugin plugin, int rows, Component title) {
         Validate.isTrue(rows <= 6 && rows > 0, "The amount of rows in a menu must be between 1 and 6.");
@@ -51,10 +52,6 @@ public abstract class Menu implements Listener {
             this.renderTask.cancel();
         }
         HandlerList.unregisterAll(this);
-    }
-
-    public void setTitle(Component component) {
-
     }
 
     /**
@@ -156,9 +153,15 @@ public abstract class Menu implements Listener {
     }
 
     public void setRows(int rows) {
+        this.rows = rows;
         this.proxyInventory = new ProxyInventory(rows);
         this.inventory = Bukkit.createInventory(null, rows * 9, title);
         this.actionHandlers = new HashMap<>(rows * 9);
+    }
+
+    public void setTitle(Component component) {
+        this.title = component;
+        setRows(this.rows);
     }
 
     /**

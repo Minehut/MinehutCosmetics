@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.GemShopMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.SalvageMenu;
 import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
@@ -44,8 +45,11 @@ public abstract class SubMenu extends MenuItemMultiPageMenu<MenuItem> {
                             .clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
             ));
         }));
-        getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> new GemShopMenu().openTo(player));
-        getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
+
+        if (Cosmetics.mode() == Mode.LOBBY) {
+            getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> GemShopMenu.open(player));
+            getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
+        }
 
         for (int idx = 9; idx < 18; idx++) {
             getProxy().setItem(idx, ItemIcon.FILLER_ICON.get());

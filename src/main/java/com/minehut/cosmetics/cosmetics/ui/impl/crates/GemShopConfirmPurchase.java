@@ -67,13 +67,13 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
                         player.sendMessage(Component.text("You don't have enough gems!").color(NamedTextColor.RED));
             }
 
-            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> new GemShopMenu().openTo(player));
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> GemShopMenu.open(player));
         });
     }
 
     @Override
     public ActionHandler onDeny() {
-        return (player, type) -> new GemShopMenu().openTo(player);
+        return (player, type) -> GemShopMenu.open(player);
     }
 
     @Override

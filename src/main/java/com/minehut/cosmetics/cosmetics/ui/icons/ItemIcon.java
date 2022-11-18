@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.ui.icons;
 
+import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -35,7 +36,16 @@ public class ItemIcon {
             .supplier();
 
     public static final Supplier<ItemStack> SALVAGE_ICON = ItemBuilder.of(Material.CHIPPED_ANVIL)
-            .display(Component.text("Salvage").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
+            .display(Component.text("Salvage Menu").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
+            .lore(
+                    Component.empty(),
+                    Component.text()
+                            .append(Component.text("Salvage your cosmetics for gems").color(NamedTextColor.AQUA))
+                            .append(Currency.GEM.display().color(NamedTextColor.WHITE))
+                            .decoration(TextDecoration.ITALIC, false)
+                            .build(),
+                    Component.empty()
+            )
             .supplier();
 
     public static final Supplier<ItemStack> GEM_SHOP_ICON = ItemBuilder.of(Material.DIAMOND)

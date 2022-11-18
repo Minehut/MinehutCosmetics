@@ -35,12 +35,21 @@ public class SalvageMenu extends SubMenu {
      * @param uuid of the user to build the menu for
      */
     private SalvageMenu(UUID uuid) {
-        super(Component.text("Salvage"), (player, ignored) -> new CosmeticMenu(player).openTo(player));
+        super(Component.text("Salvage Menu"), (player, ignored) -> new CosmeticMenu(player).openTo(player));
 
         final var maybeProfile = Cosmetics.get().cosmeticManager().getProfile(uuid).join();
         if (maybeProfile.isEmpty()) return;
 
         final CosmeticProfileResponse response = maybeProfile.get();
+
+
+        setTitle(Component.text()
+                .append(Component.text("Salvage "))
+                .append(Component.text("- Gems: ").color(NamedTextColor.BLACK))
+                .append(Component.text(response.getGems()).color(NamedTextColor.BLACK))
+                .append(Currency.GEM.display().color(NamedTextColor.WHITE))
+                .build()
+        );
 
 
         response.getProfile().getPurchased().forEach((category, map) -> map.forEach((id, data) -> {
@@ -93,5 +102,4 @@ public class SalvageMenu extends SubMenu {
             Bukkit.getScheduler().runTask(Cosmetics.get(), () -> menu.openTo(player));
         });
     }
-
 }
