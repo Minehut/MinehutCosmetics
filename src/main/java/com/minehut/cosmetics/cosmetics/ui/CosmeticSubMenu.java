@@ -7,7 +7,7 @@ import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
 import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
-import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.structures.Pair;
@@ -26,15 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class CosmeticSubMenu extends Menu {
+public abstract class CosmeticSubMenu extends SubMenu {
 
     private static final ItemStack CLEAR_ITEM =
             ItemBuilder.of(Material.BARRIER)
                     .display(Component.text("Un-Equip").color(NamedTextColor.RED))
-                    .build();
-    private static final ItemStack BACK_ITEM =
-            ItemBuilder.of(Material.DARK_OAK_DOOR)
-                    .display(Component.text("Go Back").color(NamedTextColor.RED))
                     .build();
 
     private static final Book CTA_BOOK = Book.book(Component.text("Minehut"), Component.text("Minehut"),
@@ -45,13 +41,16 @@ public abstract class CosmeticSubMenu extends Menu {
                     )
                     .build()
     );
+
+    private final List<MenuItem> items = new ArrayList<>();
+
     private final ClickHandler clickHandler;
 
     public CosmeticSubMenu(CosmeticCategory category,
                            Player player,
                            List<CosmeticSupplier<? extends Cosmetic>> cosmetics,
                            ClickHandler clickHandler) {
-        super(Cosmetics.get(), 1, category.categoryName());
+        super(Component.text(category.categoryName()), (who, ignored) -> new CosmeticMenu(who).openTo(who));
         this.clickHandler = clickHandler;
 
         final List<Pair<ItemStack, Cosmetic>> items = new ArrayList<>();
@@ -75,29 +74,26 @@ public abstract class CosmeticSubMenu extends Menu {
             items.add(Pair.of(icon, cosmetic));
         }
 
-        int rows = (int) Math.max(1, Math.ceil((items.size() + 2) / 9f));
-        setRows(rows);
+        // add all the cosmetic items
+        items.forEach(entry -> this.items.add(menuItem(entry.left(), entry.right())));
+    }
 
+    @Override
+    public void render() {
+        super.render();
         // Add the UI items
-        getProxy().setItem(getProxy().getSize() - 1, MenuItem.of(CLEAR_ITEM, (who, click) -> {
+        getProxy().setItem(8, MenuItem.of(CLEAR_ITEM, (who, click) -> {
             final UUID uuid = who.getUniqueId();
 
             final CosmeticSlot slot = this.clickHandler.apply(click);
             Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
             who.closeInventory();
         }));
-
-        getProxy().setItem(0, MenuItem.of(BACK_ITEM, (who, click) -> new CosmeticMenu(who).openTo(who)));
-
-        // add all of the cosmetic items
-        items.forEach(entry -> getProxy().addItem(menuItem(entry.left(), entry.right())));
-
-        setupRenderTask(0, 10);
     }
 
     @Override
-    public void render() {
-
+    public List<MenuItem> getItemList() {
+        return items;
     }
 
     private MenuItem menuItem(ItemStack icon, Cosmetic cosmetic) {

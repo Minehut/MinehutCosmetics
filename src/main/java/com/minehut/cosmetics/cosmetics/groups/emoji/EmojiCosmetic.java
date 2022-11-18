@@ -22,4 +22,9 @@ public abstract class EmojiCosmetic extends Cosmetic {
     public abstract @NotNull String keyword();
 
     public abstract @NotNull Component component();
+
+    @Override
+    public int salvageAmount() {
+        return 0;
+    }
 }

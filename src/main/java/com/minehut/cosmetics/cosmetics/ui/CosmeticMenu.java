@@ -4,8 +4,18 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiDisplay;
+import com.minehut.cosmetics.cosmetics.ui.impl.crates.CrateMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.crates.GemShopMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.crates.SalvageMenu;
+import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.BackpieceMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.BalloonMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.CompanionMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.HatMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.ItemMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.ParticleMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.TrinketMenu;
 import com.minehut.cosmetics.ui.Menu;
-import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
@@ -44,12 +54,6 @@ public class CosmeticMenu extends Menu {
 
     private static final Supplier<ItemStack> EXIT_ICON = ItemBuilder.of(Material.DARK_OAK_DOOR)
             .display(Component.text("Back", NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
-            .supplier();
-
-    private static final Supplier<ItemStack> SHOP_ICON = ItemBuilder.of(Material.GOLD_INGOT)
-            .display(Component.text("Open Shop", NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
-            .flags(ItemFlag.HIDE_POTION_EFFECTS)
-            .modelData(Model.Ui.SHOP_ICON)
             .supplier();
 
     private static final Supplier<ItemStack> FILLER_ICON = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)
@@ -108,7 +112,7 @@ public class CosmeticMenu extends Menu {
             }
         });
 
-        getProxy().setItem(1, SHOP_ICON.get(), (player, ignored) -> {
+        getProxy().setItem(1, ItemIcon.SHOP_ICON.get(), (player, ignored) -> {
             player.closeInventory();
             player.openBook(Book.book(
                     Component.text("Cosmetics"),
@@ -116,6 +120,8 @@ public class CosmeticMenu extends Menu {
                     Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
             ));
         });
+        getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> new GemShopMenu().openTo(player));
+        getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
 
 
         //Filler
@@ -124,6 +130,7 @@ public class CosmeticMenu extends Menu {
         }
 
         // bottom group
+        getProxy().setItem(46, EMOJI_ICON.get(), (player, ignored) -> EmojiDisplay.open(player));
         addMenu(TrinketMenu.ICON, () -> new TrinketMenu(user), 47);
         addMenu(CompanionMenu.ICON, () -> new CompanionMenu(user), 48);
         addMenu(ParticleMenu.ICON, () -> new ParticleMenu(user), 49);
@@ -133,14 +140,7 @@ public class CosmeticMenu extends Menu {
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
 
-        getProxy().setItem(25, EMOJI_ICON.get(), (player, ignored) -> EmojiDisplay.open(player));
         getProxy().setItem(34, CRATE_ICON.get(), (player, ignored) -> new CrateMenu().openTo(player));
-        getProxy().setItem(43, ItemBuilder.of(Material.PLAYER_HEAD)
-                        .display(Component.text("Inventory").color(NamedTextColor.GOLD))
-                        .playerHead(user)
-                        .build(),
-                (player, ignored) -> CosmeticInventoryMenu.open(player)
-        );
 
         // menus that are only visible when in lobby mode
         switch (mode) {

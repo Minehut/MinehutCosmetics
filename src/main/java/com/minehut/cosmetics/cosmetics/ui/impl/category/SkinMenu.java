@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.ui;
+package com.minehut.cosmetics.cosmetics.ui.impl.category;
 
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;

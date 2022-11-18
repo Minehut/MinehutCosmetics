@@ -2,7 +2,7 @@ package com.minehut.cosmetics.events.skins;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.cosmetics.ui.SkinMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.SkinMenu;
 import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.ui.SkinMenu;
+import com.minehut.cosmetics.cosmetics.ui.impl.category.SkinMenu;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
