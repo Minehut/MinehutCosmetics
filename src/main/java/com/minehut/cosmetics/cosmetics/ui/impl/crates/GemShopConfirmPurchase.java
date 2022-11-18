@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
@@ -43,9 +44,9 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
         return (player, type) -> Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
             // try to take the amount of gems that we need
             final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(player.getUniqueId(),
-                    cosmetic.category().name(),
-                    cosmetic.id(),
-                    price
+                    "CURRENCY",
+                    Currency.GEM.id(),
+                    -price
             );
 
             final HttpResponse<Void> response = Cosmetics.get()
