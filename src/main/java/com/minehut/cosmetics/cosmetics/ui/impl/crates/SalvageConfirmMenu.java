@@ -17,15 +17,14 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
 
     public SalvageConfirmMenu(Cosmetic cosmetic) {
         super(Component.text("Salvage for ")
-                .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
-                .append(Component.text("?").color(NamedTextColor.BLACK))
+                .append(Component.text()
+                        .append(Component.text(cosmetic.salvageAmount()))
+                        .append(Currency.GEM.display())
+                        .append(Component.text("?").color(NamedTextColor.BLACK))
+                        .build()
+                )
         );
         this.cosmetic = cosmetic;
-    }
-
-    @Override
-    public void render() {
-
     }
 
     @Override
@@ -38,7 +37,8 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
                 SalvageMenu.open(player);
 
                 switch (res.getStatus()) {
-                    case 412 -> player.sendMessage(Component.text("You do not own enough of this cosmetic!").color(NamedTextColor.RED));
+                    case 412 ->
+                            player.sendMessage(Component.text("You do not own enough of this cosmetic!").color(NamedTextColor.RED));
                     case 200 -> player.sendMessage(Component.text("Salvaged ")
                             .append(cosmetic.name())
                             .append(Component.text(" for "))

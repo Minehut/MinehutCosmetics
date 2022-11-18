@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
+import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.ui.SubMenu;
@@ -23,7 +24,9 @@ public class GemShopMenu extends SubMenu {
         super(Component.text("Gem Shop"), (player, click) -> new CosmeticMenu(player).openTo(player));
 
         item.addAll(List.of(
-                shopItem(Companion.RED_ROBIN, 500)
+                shopItem(Companion.RED_ROBIN, 500),
+                shopItem(Item.FALL_22_LEAF_SWORD, 500)
+
         ));
     }
 
@@ -35,15 +38,16 @@ public class GemShopMenu extends SubMenu {
     private MenuItem shopItem(CosmeticSupplier<? extends Cosmetic> supplier, int price) {
         final Cosmetic cosmetic = supplier.get();
 
-        final Component costComponent = Component.text()
-                .append(Component.text("Cost: ").color(NamedTextColor.WHITE))
-                .append(Component.text(price).append(Currency.GEM.display()))
-                .build();
+        final Component costComponent =
+                Component.text()
+                        .append(Component.text("Price: ").color(NamedTextColor.GRAY))
+                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
+                        .build();
 
         final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
                 .appendLore(costComponent)
                 .build();
 
-        return MenuItem.of(icon, (who, click) -> new GemShopConfirmPurchase(cosmetic, price));
+        return MenuItem.of(icon, (who, click) -> new GemShopConfirmPurchase(cosmetic, price).openTo(who));
     }
 }

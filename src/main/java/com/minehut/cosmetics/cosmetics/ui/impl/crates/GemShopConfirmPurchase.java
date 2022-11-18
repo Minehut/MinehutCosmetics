@@ -22,12 +22,20 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
     public GemShopConfirmPurchase(Cosmetic cosmetic, int price) {
         super(Component.text()
                 .append(Component.text("Confirm purchase for "))
-                .append(Component.text(price).append(Currency.GEM.display()))
-                .append(Component.text("?"))
-                .build());
-
+                .append(Component.text()
+                        .append(Component.text(price).color(NamedTextColor.BLACK))
+                        .append(Currency.GEM.display().color(NamedTextColor.WHITE))
+                        .append(Component.text("?").color(NamedTextColor.BLACK))
+                        .build()
+                ).build()
+        );
         this.cosmetic = cosmetic;
         this.price = price;
+    }
+
+    @Override
+    public void render() {
+        super.render();
     }
 
     @Override
