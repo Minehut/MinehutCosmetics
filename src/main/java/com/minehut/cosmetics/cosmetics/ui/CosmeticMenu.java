@@ -5,7 +5,6 @@ import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiDisplay;
 import com.minehut.cosmetics.ui.Menu;
-import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.inventory.Book;

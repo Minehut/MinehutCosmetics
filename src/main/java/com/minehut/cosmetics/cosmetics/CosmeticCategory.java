@@ -8,7 +8,6 @@ import com.minehut.cosmetics.cosmetics.groups.item.Item;
 import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
 import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
-import com.minehut.cosmetics.crates.Crate;
 import com.minehut.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.util.EnumUtil;
 

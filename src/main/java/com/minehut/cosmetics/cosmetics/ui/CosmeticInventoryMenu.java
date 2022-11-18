@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
+import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;
@@ -55,16 +56,23 @@ public class CosmeticInventoryMenu extends MenuItemMultiPageMenu<MenuItem> {
 
                 final ItemBuilder builder = ItemBuilder.of(base).display(display);
 
-                final boolean salvagable = cosmetic.salvageAmount() > 0;
+                final boolean salvageable = cosmetic.salvageAmount() > 0;
 
                 // only show salvage cta on items that can be salvaged
-                if (salvagable) {
-                    builder.appendLore(SALVAGE_CTA);
+                if (salvageable) {
+                    builder.appendLore(
+                            Component.text()
+                                    .append(Component.text("Salvages for ").color(NamedTextColor.GRAY))
+                                    .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
+                                    .build(),
+                            Component.empty(),
+                            SALVAGE_CTA
+                    );
                 }
 
                 final MenuItem menuItem = MenuItem.of(builder.build(), (who, click) -> {
                     if (!click.isRightClick()) return;
-                    if (!salvagable) return;
+                    if (!salvageable) return;
                     new SalvageConfirmMenu(who.getUniqueId(), cosmetic).openTo(who);
                 });
 

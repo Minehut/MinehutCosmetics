@@ -1,10 +1,10 @@
 package com.minehut.cosmetics.currency;
 
+import com.minehut.cosmetics.ui.font.Fonts;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 public enum Currency {
-    GEM("GEM", Component.text("gems").color(NamedTextColor.AQUA));
+    GEM("GEM", Fonts.Emoji.MINEHUT_LOGO);
 
     private final String id;
     private final Component display;

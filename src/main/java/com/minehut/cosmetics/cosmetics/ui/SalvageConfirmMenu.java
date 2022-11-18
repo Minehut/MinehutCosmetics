@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.ui.Menu;
@@ -32,8 +33,8 @@ public class SalvageConfirmMenu extends Menu {
 
     public SalvageConfirmMenu(UUID uuid, Cosmetic cosmetic) {
         super(Cosmetics.get(), 1,
-                Component.text("Salvage ")
-                        .append(cosmetic.name())
+                Component.text("Salvage for ")
+                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
                         .append(Component.text("?").color(NamedTextColor.BLACK))
         );
 
