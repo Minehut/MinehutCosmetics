@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public class DragonCrate extends Crate {
 
-    private static final Component NAME = Component.text("Dragon Crate").color(NamedTextColor.RED);
+    private static final Component NAME = Component.text("Legendary Crate").color(NamedTextColor.RED);
 
     private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.CHEST)
             .display(NAME)

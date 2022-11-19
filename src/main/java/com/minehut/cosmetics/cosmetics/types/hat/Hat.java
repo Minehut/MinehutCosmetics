@@ -5,6 +5,7 @@ import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.DragonHat;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.GamerHeadset;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.SteampunkHat;
+import com.minehut.cosmetics.cosmetics.collections.betacrate.TechnicalVisor;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.TurtleHat;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.CatEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.DevilHorns;
@@ -31,7 +32,8 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     GAMER_HEADSET(GamerHeadset::new),
     DRAGON(DragonHat::new),
     TURTLE(TurtleHat::new),
-    STEAMPUNK(SteampunkHat::new);
+    STEAMPUNK(SteampunkHat::new),
+    TECHNICAL_VISOR(TechnicalVisor::new);
 
     private final Supplier<HatCosmetic> supplier;
 

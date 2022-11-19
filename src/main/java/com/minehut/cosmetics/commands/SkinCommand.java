@@ -27,6 +27,6 @@ public class SkinCommand extends Command {
             return;
         }
 
-        SkinMenu.open(cosmetics, cosmetics.cosmeticManager(), player, player.getInventory().getItemInMainHand());
+        SkinMenu.open(player, player.getInventory().getItemInMainHand());
     }
 }

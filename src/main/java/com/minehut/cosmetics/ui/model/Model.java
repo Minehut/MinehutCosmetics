@@ -42,8 +42,7 @@ public final class Model {
         public static final int STEAMPUNK = 1_001_010;
         public static final int TURTLE = 1_001_011;
         public static final int GAMER_HEADSET = 1_001_012;
-
-
+        public static final int TECHNICAL_VISOR = 1_001_013;
     }
 
     public static class Wing {
@@ -75,9 +74,10 @@ public final class Model {
             public static final int MAID_DUSTER = 1_000_005;
             public static final int FALL_22_LEAF_SWORD = 1_000_006;
             public static final int CRUSADER_SWORD = 1_000_007;
-            public static final int FISH_SWORD = 1_000_007;
-            public static final int FANCY_SHORT_SWORD = 1_000_008;
-            public static final int DRAGON_SWORD = 1_000_009;
+            public static final int FISH_SWORD = 1_000_008;
+            public static final int FANCY_SHORT_SWORD = 1_000_009;
+            public static final int DRAGON_SWORD = 1_000_010;
+            public static final int BAN_HAMMER = 1_000_011;
         }
 
         public static class Pickaxe {
@@ -95,7 +95,7 @@ public final class Model {
 
         public static class Axe {
             public static final int FALL_22 = 1_000_001;
-            public static final int BAN_HAMMER = 1_000_002;        }
+        }
 
         public static class Spyglass {
             public static final int EXPLORER = 1_000_001;

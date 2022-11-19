@@ -27,7 +27,8 @@ public class Bindings {
                     Item.CRUSADER_SWORD,
                     Item.DRAGON_SWORD,
                     Item.FANCY_SHORT_SWORD,
-                    Item.FISH_SWORD
+                    Item.FISH_SWORD,
+                    Item.BAN_HAMMER
             ));
 
     // bindings for pickaxe items
@@ -72,8 +73,7 @@ public class Bindings {
                     Material.NETHERITE_AXE
             ))
             .registerCosmetics(List.of(
-                    Item.FALL_22_AXE,
-                    Item.BAN_HAMMER
+                    Item.FALL_22_AXE
             ));
 
     // bindings for spyglass items
@@ -112,7 +112,8 @@ public class Bindings {
                     Hat.GAMER_HEADSET,
                     Hat.DRAGON,
                     Hat.STEAMPUNK,
-                    Hat.TURTLE
+                    Hat.TURTLE,
+                    Hat.TECHNICAL_VISOR
             ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()

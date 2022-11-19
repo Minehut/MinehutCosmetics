@@ -41,7 +41,7 @@ public class SkinTriggerListener implements Listener {
         if (!(Material.CRAFTING_TABLE == block.getType() && player.isSneaking())) return;
         event.setCancelled(true);
 
-        SkinMenu.open(cosmetics, manager, player, player.getInventory().getItemInMainHand());
+        SkinMenu.open(player, player.getInventory().getItemInMainHand());
     }
 
     private void startSkinNotification() {

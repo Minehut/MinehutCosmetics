@@ -23,6 +23,7 @@ public class DragonHat extends HatCosmetic {
 
     private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
             .modelData(Model.Hat.DRAGON)
+            .display(NAME)
             .lore(
                     Component.empty(),
                     Collection.MINEHUT_LEGENDARY_CRATE.tag(),

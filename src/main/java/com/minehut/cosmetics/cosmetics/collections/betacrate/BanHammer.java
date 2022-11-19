@@ -21,7 +21,7 @@ public class BanHammer extends ItemCosmetic {
             .color(NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false);
 
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_AXE)
+    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
             .display(NAME)
             .lore(
                     Component.empty(),
@@ -29,7 +29,7 @@ public class BanHammer extends ItemCosmetic {
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Axe.BAN_HAMMER)
+            .modelData(Model.Item.Sword.BAN_HAMMER)
             .supplier();
 
     public BanHammer() {

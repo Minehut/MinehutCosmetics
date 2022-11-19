@@ -58,8 +58,11 @@ public class SkinMenu extends SubMenu {
 
     private List<MenuItem> items = new ArrayList<>();
 
+    private final ItemStack item;
+
     private SkinMenu(Player player, @NotNull ItemStack item) {
         super(Component.text("Skin an item."), (who, click) -> new CosmeticMenu(who).openTo(who));
+        this.item = item;
 
         final Material type = SkinUtil.getBaseType(item);
 
@@ -86,6 +89,22 @@ public class SkinMenu extends SubMenu {
             });
 
             this.items.add(menu);
+        });
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        getProxy().setItem(8, CLEAR_ITEM, (player, click) -> {
+            SkinUtil.getCosmetic(item).ifPresent(cosmetic -> {
+                if (!(cosmetic instanceof Skinnable skinnable)) return;
+                cosmetic.owner(player.getUniqueId());
+                skinnable.removeSkin(item);
+            });
+
+            player.sendMessage(Component.text("Removed item skin.").color(NamedTextColor.RED));
+            player.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
         });
     }
 
