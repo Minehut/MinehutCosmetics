@@ -31,11 +31,6 @@ public abstract class Crate extends Cosmetic {
         return Permission.none();
     }
 
-    @Override
-    public Permission visibility() {
-        return Permission.none();
-    }
-
     public void open(UUID uuid, int amount) {
         owner(uuid);
 

@@ -10,7 +10,7 @@ import com.minehut.cosmetics.commands.UnSkinCommand;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.cosmetics.groups.trinket.listener.TrinketListener;
+import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.crates.CratesModule;
 import com.minehut.cosmetics.events.CosmeticsListener;
 import com.minehut.cosmetics.events.CosmeticsTeleportListener;

@@ -1,14 +1,17 @@
 package com.minehut.cosmetics.cosmetics.ui.impl.category;
 
 
+import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.bindings.MaterialBinding;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
+import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.ui.Menu;
 import com.minehut.cosmetics.ui.ProxyInventory;
+import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.SkinUtil;
@@ -26,12 +29,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class SkinMenu extends Menu {
+public class SkinMenu extends SubMenu {
     private static final Book CTA_BOOK = Book.book(
             Component.text("Minehut"),
             Component.text("Minehut"),
@@ -51,84 +56,49 @@ public class SkinMenu extends Menu {
     private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Remove Skin").color(NamedTextColor.RED)).build();
     private final HashSet<CosmeticSupplier<? extends Cosmetic>> cosmetics = new HashSet<>();
 
-    @NotNull
-    private final ItemStack item;
-    private boolean noBindings = false;
+    private List<MenuItem> items = new ArrayList<>();
 
-    private SkinMenu(Plugin plugin, CosmeticsManager manager, Player player, @NotNull ItemStack item) {
-        super(plugin, 1, "Skinning Menu");
-        this.item = item;
+    private SkinMenu(Player player, @NotNull ItemStack item) {
+        super(Component.text("Skin an item."), (who, click) -> new CosmeticMenu(who).openTo(who));
 
         final Material type = SkinUtil.getBaseType(item);
 
-        final Optional<MaterialBinding> maybeBinds = manager.getBindings().getBinding(type);
+        final Optional<MaterialBinding> maybeBinds = Cosmetics.get().cosmeticManager().getBindings().getBinding(type);
         if (maybeBinds.isEmpty()) {
-            noBindings = true;
+            player.sendMessage(Component.text("Cannot skin this item."));
             return;
         }
 
-        for (final CosmeticSupplier<? extends Cosmetic> cosmetic : Set.copyOf(maybeBinds.get().getCosmetics())) {
-            if (!(cosmetic.get().permission().hasAccess(player).join() || Permission.staff().hasAccess(player).join())) {
-                continue;
-            }
-            cosmetics.add(cosmetic);
-        }
+        final MaterialBinding binds = maybeBinds.get();
 
-        int rows = Math.max(1, (int) Math.ceil(this.cosmetics.size() / 9f));
-        setProxy(new ProxyInventory(rows));
-    }
-
-    @Override
-    public void render() {
-        int slot = 0;
-        for (CosmeticSupplier<? extends Cosmetic> supplier : cosmetics) {
-            Cosmetic cosmetic = supplier.get();
+        binds.getCosmetics().forEach(supplier -> {
+            final Cosmetic cosmetic = supplier.get();
+            if (!(Permission.any(cosmetic.permission(), Permission.staff()).hasAccess(player).join())) return;
             if (!(cosmetic instanceof Skinnable skinnable)) return;
-            getProxy().setItem(slot, MenuItem.of(cosmetic.menuIcon(), (player, ignored) -> {
+
+            final MenuItem menu = MenuItem.of(cosmetic.menuIcon(), (who, click) -> {
 
                 cosmetic.owner(player.getUniqueId());
                 skinnable.applySkin(item);
 
                 player.sendMessage(Component.text().append(Component.text("Applied item skin")).append(Component.space()).append(cosmetic.name()).color(NamedTextColor.GREEN).build());
                 player.getInventory().close();
-            }));
-
-            slot++;
-        }
-
-        // fill the rest with the menu w/ the cta
-        for (int idx = slot; idx < getProxy().getSize() - 1; idx++) {
-            getProxy().setItem(idx, CTA_MENU_ITEM);
-        }
-
-        getProxy().setItem(getProxy().getSize() - 1, CLEAR_ITEM, (player, click) -> {
-            SkinUtil.getCosmetic(item).ifPresent(cosmetic -> {
-                if (!(cosmetic instanceof Skinnable skinnable)) return;
-                cosmetic.owner(player.getUniqueId());
-                skinnable.removeSkin(item);
             });
 
-            player.sendMessage(Component.text("Removed item skin.").color(NamedTextColor.RED));
-            player.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
+            this.items.add(menu);
         });
     }
 
     @Override
-    public void openTo(Player player) {
-        if (noBindings) {
-            player.sendMessage(Component.text("This item cannot be skinned!").color(NamedTextColor.RED));
-            return;
-        }
-
-        super.openTo(player);
+    public List<MenuItem> getItemList() {
+        return items;
     }
 
-    public static CompletableFuture<SkinMenu> create(Plugin plugin, CosmeticsManager manager, Player player, ItemStack item) {
-        return CompletableFuture.supplyAsync(() -> new SkinMenu(plugin, manager, player, item));
-    }
-
-    public static void open(Plugin plugin, CosmeticsManager manager, Player player, ItemStack item) {
-        create(plugin, manager, player, item).thenAccept((menu) -> Bukkit.getScheduler().runTask(plugin, () -> menu.openTo(player)));
+    public static void open(Player player, ItemStack item) {
+        Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
+            final SkinMenu menu = new SkinMenu(player, item);
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> menu.openTo(player));
+        });
     }
 }
 

@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.model.profile;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;

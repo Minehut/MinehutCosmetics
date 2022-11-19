@@ -24,7 +24,9 @@ public abstract class Cosmetic {
         this.type = type;
     }
 
-    public abstract Permission permission();
+    public Permission permission() {
+        return Permission.hasPurchased(category(), id());
+    }
 
     public abstract Permission visibility();
 

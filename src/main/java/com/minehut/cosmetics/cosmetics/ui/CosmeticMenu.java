@@ -2,8 +2,8 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
-import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiDisplay;
+import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.types.emoji.EmojiDisplay;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.CrateMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.GemShopMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.SalvageMenu;

@@ -1,13 +1,13 @@
 package com.minehut.cosmetics.cosmetics;
 
-import com.minehut.cosmetics.cosmetics.groups.balloon.Balloon;
-import com.minehut.cosmetics.cosmetics.groups.companion.Companion;
-import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
-import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
-import com.minehut.cosmetics.cosmetics.groups.item.Item;
-import com.minehut.cosmetics.cosmetics.groups.particle.Particle;
-import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
-import com.minehut.cosmetics.cosmetics.groups.wing.Wing;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
+import com.minehut.cosmetics.cosmetics.types.companion.Companion;
+import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
+import com.minehut.cosmetics.cosmetics.types.particle.Particle;
+import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
+import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.util.EnumUtil;
 

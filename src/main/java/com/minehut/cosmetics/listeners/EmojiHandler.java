@@ -1,20 +1,14 @@
 package com.minehut.cosmetics.listeners;
 
-import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.groups.emoji.Emoji;
-import com.minehut.cosmetics.cosmetics.groups.emoji.EmojiCosmetic;
-import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
-import com.minehut.cosmetics.model.rank.PlayerRank;
+import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
+import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
-import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.events;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

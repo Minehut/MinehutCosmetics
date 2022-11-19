@@ -14,7 +14,7 @@ public enum Collection {
     MAID(Component.text("Maids of Minehut").color(TextColor.color(255, 182, 193)).decoration(TextDecoration.ITALIC, false)),
     CRUSADER(Component.text("Crusader Collection").color(TextColor.color(238, 232, 170)).decoration(TextDecoration.ITALIC, false)),
     GENERAL(Component.text("Minehut General Store").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)),
-    ;
+    MINEHUT_LEGENDARY_CRATE(Component.text("Minehut Legendary Crate").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
 
 
     private final Component tag;
@@ -27,7 +27,7 @@ public enum Collection {
         return tag;
     }
 
-    private static final Set<Collection> ACTIVE = Set.of(FALL_22, GENERAL, MAID);
+    private static final Set<Collection> ACTIVE = Set.of(FALL_22, GENERAL, MAID, MINEHUT_LEGENDARY_CRATE);
 
     public static boolean isActive(Collection collection) {
         return ACTIVE.contains(collection);

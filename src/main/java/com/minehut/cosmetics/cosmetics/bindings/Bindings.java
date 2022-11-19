@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.cosmetics.bindings;
 
-import com.minehut.cosmetics.cosmetics.groups.hat.Hat;
-import com.minehut.cosmetics.cosmetics.groups.item.Item;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
 import org.bukkit.Material;
 
 import java.util.List;
@@ -24,7 +24,10 @@ public class Bindings {
                     Item.KATANA,
                     Item.HALLO_22_SCYTHE,
                     Item.MAID_DUSTER,
-                    Item.CRUSADER_SWORD
+                    Item.CRUSADER_SWORD,
+                    Item.DRAGON_SWORD,
+                    Item.FANCY_SHORT_SWORD,
+                    Item.FISH_SWORD
             ));
 
     // bindings for pickaxe items
@@ -39,7 +42,8 @@ public class Bindings {
             ))
             .registerCosmetics(List.of(
                     Item.EXPLORER_PICKAXE,
-                    Item.FALL_22_PICKAXE
+                    Item.FALL_22_PICKAXE,
+                    Item.MOLTEN_PICKAXE
             ));
 
     // bindings for shovel items
@@ -68,7 +72,8 @@ public class Bindings {
                     Material.NETHERITE_AXE
             ))
             .registerCosmetics(List.of(
-                    Item.FALL_22_AXE
+                    Item.FALL_22_AXE,
+                    Item.BAN_HAMMER
             ));
 
     // bindings for spyglass items
@@ -102,7 +107,12 @@ public class Bindings {
                     // Maid
                     Hat.MAID,
                     // Fall 2022
-                    Hat.FALL_22
+                    Hat.FALL_22,
+                    // crates
+                    Hat.GAMER_HEADSET,
+                    Hat.DRAGON,
+                    Hat.STEAMPUNK,
+                    Hat.TURTLE
             ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()
@@ -111,6 +121,14 @@ public class Bindings {
             ))
             .registerCosmetics(List.of(
                     Item.FALL_22_SHIELD
+            ));
+
+    public static MaterialBinding FISHING_ROD = new MaterialBinding()
+            .registerMaterials(List.of(
+                    Material.FISHING_ROD
+            ))
+            .registerCosmetics(List.of(
+                    Item.FANCY_FISHING_ROD
             ));
 
     public static MaterialBinding ARROW = new MaterialBinding()
@@ -139,6 +157,7 @@ public class Bindings {
             HAT,
             SHIELD,
             ARROW,
-            BOW
+            BOW,
+            FISHING_ROD
     );
 }

@@ -6,7 +6,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.bindings.Bindings;
 import com.minehut.cosmetics.cosmetics.bindings.CosmeticBindings;
-import com.minehut.cosmetics.cosmetics.equipment.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
@@ -150,7 +150,7 @@ public class CosmeticsManager {
     private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             final HttpResponse<SimpleResponse> res = cosmetics.api().equipCosmetic(new EquipCosmeticRequest(uuid, slot.name(), id)).join();
-
+            if (res == null) return;
             final Player player = Bukkit.getPlayer(uuid);
             if (player == null) return;
 

@@ -1,8 +1,8 @@
 package com.minehut.cosmetics.cosmetics.ui.impl.category;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.equipment.ClickHandler;
-import com.minehut.cosmetics.cosmetics.groups.trinket.Trinket;
+import com.minehut.cosmetics.cosmetics.properties.ClickHandler;
+import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticSubMenu;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;

@@ -1,13 +1,13 @@
 package com.minehut.cosmetics.crates;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
-import com.minehut.cosmetics.crates.impl.TestCrate;
+import com.minehut.cosmetics.crates.impl.DragonCrate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public enum CrateType implements CosmeticSupplier<Crate> {
-    TEST(TestCrate::new);
+    TEST(DragonCrate::new);
 
     private final Supplier<Crate> supplier;
 

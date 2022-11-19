@@ -40,7 +40,7 @@ public class ItemIcon {
             .lore(
                     Component.empty(),
                     Component.text()
-                            .append(Component.text("Salvage your cosmetics for gems").color(NamedTextColor.AQUA))
+                            .append(Component.text("Salvage your cosmetics for gems").color(NamedTextColor.WHITE))
                             .append(Currency.GEM.display().color(NamedTextColor.WHITE))
                             .decoration(TextDecoration.ITALIC, false)
                             .build(),
