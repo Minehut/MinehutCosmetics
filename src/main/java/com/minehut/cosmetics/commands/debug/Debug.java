@@ -1,6 +1,7 @@
-package com.minehut.cosmetics.commands;
+package com.minehut.cosmetics.commands.debug;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.commands.Command;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import net.kyori.adventure.text.Component;

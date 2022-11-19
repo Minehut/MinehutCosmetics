@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -52,5 +53,10 @@ public class UfoCowCompanion extends CompanionCosmetic {
     @Override
     public @NotNull ItemStack menuIcon() {
         return ICON.get();
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.RARE;
     }
 }

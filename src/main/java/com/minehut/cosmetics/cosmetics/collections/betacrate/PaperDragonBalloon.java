@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
 import com.minehut.cosmetics.cosmetics.types.balloon.BalloonCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -43,5 +44,10 @@ public class PaperDragonBalloon extends BalloonCosmetic {
     @Override
     public @NotNull ItemStack menuIcon() {
         return ITEM.get();
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.EPIC;
     }
 }

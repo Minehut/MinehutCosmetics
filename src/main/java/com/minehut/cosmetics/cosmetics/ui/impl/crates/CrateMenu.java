@@ -16,7 +16,7 @@ public class CrateMenu extends SubMenu {
 
     public CrateMenu() {
         super(Component.text("Crates Menu"), (player, click) -> new CosmeticMenu(player).openTo(player));
-        addCrateItem(CrateType.TEST);
+        addCrateItem(CrateType.LEGENDARY);
     }
 
     @Override

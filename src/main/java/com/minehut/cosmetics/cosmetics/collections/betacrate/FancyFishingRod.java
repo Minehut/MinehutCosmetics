@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -44,5 +45,10 @@ public class FancyFishingRod extends ItemCosmetic {
     @Override
     public Permission visibility() {
         return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.EPIC;
     }
 }

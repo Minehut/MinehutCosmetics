@@ -3,10 +3,11 @@ package com.minehut.cosmetics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
-import com.minehut.cosmetics.commands.Debug;
+import com.minehut.cosmetics.commands.debug.Debug;
 import com.minehut.cosmetics.commands.MenuCommand;
 import com.minehut.cosmetics.commands.SkinCommand;
 import com.minehut.cosmetics.commands.UnSkinCommand;
+import com.minehut.cosmetics.commands.debug.GiveCosmetic;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
@@ -70,6 +71,7 @@ public final class Cosmetics extends JavaPlugin {
             case LOBBY -> {
                 this.api = new InternalAPI(config, gson);
                 new CratesModule(this);
+                new GiveCosmetic().register(this);
             }
             case PLAYER_SERVER -> {
                 this.localStorage = new LocalStorageManager(this);

@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -42,5 +43,10 @@ public class LargePegasusWings extends WingCosmetic {
     @Override
     public @NotNull ItemStack menuIcon() {
         return ITEM.get();
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.LEGENDARY;
     }
 }
