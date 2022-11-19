@@ -67,6 +67,7 @@ public class SalvageMenu extends SubMenu {
                 final ItemBuilder builder = ItemBuilder.of(base)
                         .display(display)
                         .appendLore(
+                                cosmetic.rarity().display(),
                                 Component.text()
                                         .append(Component.text("Salvages for ").color(NamedTextColor.GRAY))
                                         .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
