@@ -4,7 +4,9 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
@@ -41,9 +43,10 @@ public class GemShopMenu extends SubMenu {
         );
 
         item.addAll(List.of(
-                shopItem(Companion.RED_ROBIN, 500),
-                shopItem(Item.FALL_22_LEAF_SWORD, 500)
-
+                shopItem(Item.DRAGON_SWORD, 500),
+                shopItem(Companion.YOUNG_DRAGON, 500),
+                shopItem(Hat.DRAGON, 500),
+                shopItem(Wing.DRAGON, 500)
         ));
     }
 
