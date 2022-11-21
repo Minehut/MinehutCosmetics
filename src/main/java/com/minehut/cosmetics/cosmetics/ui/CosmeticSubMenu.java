@@ -37,8 +37,7 @@ public abstract class CosmeticSubMenu extends SubMenu {
             Component.text()
                     .append(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.BLACK))
                     .append(Component.newline())
-                    .append(Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
-                    )
+                    .append(Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi")))
                     .build()
     );
 

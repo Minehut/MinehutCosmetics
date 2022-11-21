@@ -136,6 +136,7 @@ public class CosmeticsManager {
 
         if (updateMeta) {
             sendEquipmentUpdate(uuid, slot, "EMPTY");
+            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
         }
     }
 

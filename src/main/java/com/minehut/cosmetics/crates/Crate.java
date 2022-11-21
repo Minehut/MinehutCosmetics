@@ -5,11 +5,13 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.messaging.Message;
 import com.minehut.cosmetics.util.structures.Pair;
 import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
@@ -160,16 +162,22 @@ public abstract class Crate extends Cosmetic {
                         playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
                             if (!success.get()) return;
 
-                            final Component message = Component.text()
-                                    .append(Component.text("Received"))
+                            final Component content = Component.text()
+                                    .append(Component.text("Opened Crate").color(NamedTextColor.GREEN))
+                                    .append(Component.newline())
+                                    .append(Component.newline())
+                                    .append(Component.text("You received").color(NamedTextColor.WHITE))
                                     .append(Component.space())
                                     .append(cosmetic.name())
                                     .append(Component.space())
-                                    .append(Component.text("x" + quantity))
-                                    .append(Component.text("!"))
-                                    .color(NamedTextColor.DARK_GREEN)
+                                    .append(Component.text("x" + quantity).color(NamedTextColor.WHITE))
+                                    .append(Component.newline())
+                                    .append(Component.newline())
+                                    .append(Component.text("Type"))
+                                    .append(Component.space())
+                                    .append(Component.text("/cosmetics").color(NamedTextColor.YELLOW))
                                     .build();
-                            player.sendMessage(message);
+                            player.sendMessage(Message.announcement(content));
                         });
                     });
 

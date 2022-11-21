@@ -5,6 +5,7 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.ui.icon.ActionHandler;
+import com.minehut.cosmetics.util.messaging.Message;
 import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -37,12 +38,28 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
                 switch (res.getStatus()) {
                     case 412 ->
                             player.sendMessage(Component.text("You do not own enough of this cosmetic!").color(NamedTextColor.RED));
-                    case 200 -> player.sendMessage(Component.text("Salvaged ")
-                            .append(cosmetic.name())
-                            .append(Component.text(" for "))
-                            .append(Component.text(cosmetic.salvageAmount()))
-                            .color(NamedTextColor.DARK_GREEN)
-                    );
+                    case 200 -> {
+                        final Component content = Component.text()
+                                .append(Component.text("Salvaged Cosmetic").color(NamedTextColor.GREEN))
+                                .append(Component.newline())
+                                .append(Component.newline())
+                                .append(Component.text("You salvaged").color(NamedTextColor.WHITE))
+                                .append(Component.space())
+                                .append(cosmetic.name())
+                                .append(Component.space())
+                                .append(Component.text("for").color(NamedTextColor.WHITE))
+                                .append(Component.space())
+                                .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.LIGHT_PURPLE))
+                                .append(Currency.GEM.display())
+                                .append(Component.newline())
+                                .append(Component.newline())
+                                .append(Component.text("Type"))
+                                .append(Component.space())
+                                .append(Component.text("/cosmetics").color(NamedTextColor.YELLOW))
+                                .build();
+
+                        player.sendMessage(Message.announcement(content));
+                    }
                 }
 
                 Bukkit.getScheduler().runTask(Cosmetics.get(), () -> SalvageMenu.open(player));
