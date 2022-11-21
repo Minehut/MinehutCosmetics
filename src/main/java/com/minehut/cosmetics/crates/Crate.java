@@ -141,22 +141,7 @@ public abstract class Crate extends Cosmetic {
         final int quantity = result.right();
 
         final AtomicBoolean success = new AtomicBoolean(false);
-        player().ifPresent(player -> playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
-            if (!success.get()) return;
-
-            final Component message = Component.text()
-                    .append(Component.text("Received"))
-                    .append(Component.space())
-                    .append(cosmetic.name())
-                    .append(Component.space())
-                    .append(Component.text("x" + quantity))
-                    .append(Component.text("!"))
-                    .color(NamedTextColor.DARK_GREEN)
-                    .build();
-            player.sendMessage(message);
-        }));
-
-        Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
+        player().ifPresent(player -> Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
             // try to consume the item
             final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(uuid, category().name(), id(), -amount);
             final HttpResponse<Void> response = Cosmetics.get()
@@ -167,6 +152,21 @@ public abstract class Crate extends Cosmetic {
             // handle consuming response
             switch (response.getStatus()) {
                 case 200 -> {
+                    playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
+                        if (!success.get()) return;
+
+                        final Component message = Component.text()
+                                .append(Component.text("Received"))
+                                .append(Component.space())
+                                .append(cosmetic.name())
+                                .append(Component.space())
+                                .append(Component.text("x" + quantity))
+                                .append(Component.text("!"))
+                                .color(NamedTextColor.DARK_GREEN)
+                                .build();
+                        player.sendMessage(message);
+                    });
+
                     final CosmeticData data = new CosmeticData(cosmetic.category().name(), cosmetic.id(), new CosmeticMeta(quantity));
                     Cosmetics.get().api().unlockCosmetic(new UnlockCosmeticRequest(uuid, data));
                     success.set(true);
@@ -174,14 +174,14 @@ public abstract class Crate extends Cosmetic {
                 // handle error cases
                 case 429 -> {
                     // if they ratelimit
-                    player().ifPresent(player -> player.sendMessage(Component.text("Please wait a moment and try again.").color(NamedTextColor.RED)));
+                    player.sendMessage(Component.text("Please wait a moment and try again.").color(NamedTextColor.RED));
                 }
                 case 412 -> {
                     // let them know they have insufficient resources
-                    player().ifPresent(player -> player.sendMessage(Component.text("You do not own enough crates!").color(NamedTextColor.RED)));
+                    player.sendMessage(Component.text("You do not own enough crates!").color(NamedTextColor.RED));
                 }
             }
-        });
+        }));
     }
 
     public WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> getTable() {

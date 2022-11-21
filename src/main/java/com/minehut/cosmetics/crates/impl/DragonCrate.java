@@ -3,7 +3,6 @@ package com.minehut.cosmetics.crates.impl;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
@@ -22,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class LegendaryCrate extends Crate {
+public class DragonCrate extends Crate {
 
-    private static final Component NAME = Component.text("Legendary Crate").color(NamedTextColor.RED);
+    private static final Component NAME = Component.text("Minehut Dragon Crate").color(NamedTextColor.RED);
 
     private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.CHEST)
             .display(NAME)
@@ -58,8 +57,8 @@ public class LegendaryCrate extends Crate {
         table.registerItem(Pair.of(Wing.PEGASUS_LARGE, 1), 1);
     }
 
-    public LegendaryCrate() {
-        super(CrateType.LEGENDARY.name(), NAME, table);
+    public DragonCrate() {
+        super(CrateType.DRAGON_CRATE.name(), NAME, table);
     }
 
     @Override
