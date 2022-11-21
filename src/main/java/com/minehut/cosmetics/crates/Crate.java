@@ -46,27 +46,33 @@ public abstract class Crate extends Cosmetic {
     }
 
 
-    public void playOpenAnimation(Player player, Location location, ItemStack resultStack, Runnable after) {
-        final Entity base = location.getWorld().spawn(location, ArmorStand.class, (entity) -> {
+    public void playOpenAnimation(Player player, Location crateLoc, ItemStack resultStack, Runnable after) {
+        // We use 1.19 features during the animation so if we aren't 1.19 we return
+        // TODO: Remove whenever we move above 1.19 or whenever we only support cosmetics on 1.19+ servers
+        if (!Bukkit.getVersion().contains("1.19")) return;
+
+        player.teleport(crateLoc.clone().subtract(2, 0, 0), true);
+
+        final Entity base = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
             entity.setGravity(false);
             entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(1_000_001).build());
         });
 
-        final ArmorStand lid = location.getWorld().spawn(location, ArmorStand.class, (entity) -> {
+        final ArmorStand lid = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
             entity.setGravity(false);
             entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(1_000_002).build());
         });
 
-        final AreaEffectCloud displayCloud = location.getWorld().spawn(location.clone().add(0, 1.5, 0), AreaEffectCloud.class, (entity) -> {
+        final AreaEffectCloud displayCloud = crateLoc.getWorld().spawn(crateLoc.clone().add(0, 1.5, 0), AreaEffectCloud.class, (entity) -> {
             entity.setGravity(false);
             entity.setRadius(2);
             entity.setTicksLived(Integer.MAX_VALUE);
             entity.setParticle(Particle.BLOCK_CRACK, Bukkit.createBlockData(Material.AIR));
         });
 
-        final Item displayItem = location.getWorld().spawn(location.clone().add(0, .25, 0), Item.class, (entity) -> {
+        final Item displayItem = crateLoc.getWorld().spawn(crateLoc.clone().add(0, .25, 0), Item.class, (entity) -> {
             entity.setGravity(false);
             entity.setCanMobPickup(false);
             entity.setCanPlayerPickup(false);
@@ -117,6 +123,9 @@ public abstract class Crate extends Cosmetic {
             displayCloud.remove();
             displayItem.remove();
             after.run();
+
+            // return to spawn if possible
+            player.performCommand("spawn");
         }, totalOpenTicks + totalRollTicks + idleTicks);
     }
 
@@ -129,8 +138,7 @@ public abstract class Crate extends Cosmetic {
         final int quantity = result.right();
 
         final AtomicBoolean success = new AtomicBoolean(false);
-
-        player().ifPresent(player -> playOpenAnimation(player, player.getLocation(), cosmetic.menuIcon(), () -> {
+        player().ifPresent(player -> playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
             if (!success.get()) return;
 
             final Component message = Component.text()

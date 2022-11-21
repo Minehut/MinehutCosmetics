@@ -1,6 +1,9 @@
 package com.minehut.cosmetics.config;
 
 import com.minehut.cosmetics.util.EnumUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -13,6 +16,7 @@ public class Config {
     private String apiUrl = "https://api.minehut.com";
     private String apiSecret = "";
     private Mode mode = Mode.PLAYER_SERVER;
+    private Location crateLocation = null;
 
     private final CompanionConfig companion;
 
@@ -38,6 +42,14 @@ public class Config {
                 final YamlConfiguration lobbyConfig = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder().getParent(), "Lobby/socketauth.yml"));
                 Optional.ofNullable(lobbyConfig.getString("api.url")).ifPresent(url -> this.apiUrl = url);
                 Optional.ofNullable(lobbyConfig.getString("api.auth")).ifPresent(secret -> this.apiSecret = secret);
+
+                String worldName = pluginConfig.getString("crateLocation.name", "lobby");
+                double x = pluginConfig.getDouble("crateLocation.x", 0);
+                double y = pluginConfig.getDouble("crateLocation.y", 0);
+                double z = pluginConfig.getDouble("crateLocation.z", 0);
+
+                final World world = Bukkit.getWorld(worldName);
+                this.crateLocation = new Location(world, x, y, z);
             }
             case PLAYER_SERVER -> {
                 Optional.ofNullable(pluginConfig.getString("apiUrl")).ifPresent(newUrl -> this.apiUrl = newUrl);
@@ -68,12 +80,12 @@ public class Config {
         return apiUrl;
     }
 
-    public String endpoint(String route) {
-        return apiUrl() + route;
-    }
-
     public String apiSecret() {
         return apiSecret;
+    }
+
+    public Location crateLocation() {
+        return crateLocation;
     }
 
     public void reload() {
