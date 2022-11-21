@@ -51,7 +51,10 @@ public abstract class Crate extends Cosmetic {
         // TODO: Remove whenever we move above 1.19 or whenever we only support cosmetics on 1.19+ servers
         if (!Bukkit.getVersion().contains("1.19")) return;
 
-        player.teleport(crateLoc.clone().subtract(2, 0, 0), true);
+        final Location playerLocation = crateLoc.clone().subtract(0, 0, 1.5);
+        playerLocation.setYaw(0);
+
+        player.teleport(playerLocation, true);
 
         final Entity base = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);

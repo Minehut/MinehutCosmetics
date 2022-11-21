@@ -47,9 +47,11 @@ public class Config {
                 double x = pluginConfig.getDouble("crateLocation.x", 0);
                 double y = pluginConfig.getDouble("crateLocation.y", 0);
                 double z = pluginConfig.getDouble("crateLocation.z", 0);
+                float yaw = (float) pluginConfig.getDouble("crateLocation.yaw", 0);
+
 
                 final World world = Bukkit.getWorld(worldName);
-                this.crateLocation = new Location(world, x, y, z);
+                this.crateLocation = new Location(world, x, y, z, yaw, 0);
             }
             case PLAYER_SERVER -> {
                 Optional.ofNullable(pluginConfig.getString("apiUrl")).ifPresent(newUrl -> this.apiUrl = newUrl);
