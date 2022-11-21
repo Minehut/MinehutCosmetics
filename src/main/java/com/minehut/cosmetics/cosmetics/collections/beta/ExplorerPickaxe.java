@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.beta;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.types.item.Item;
@@ -47,5 +48,10 @@ public class ExplorerPickaxe extends ItemCosmetic {
     @Override
     public Permission visibility() {
         return Permission.collectionIsActive(Collection.BETA);
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.RARE;
     }
 }

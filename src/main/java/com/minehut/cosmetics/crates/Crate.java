@@ -15,6 +15,7 @@ import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -51,10 +52,11 @@ public abstract class Crate extends Cosmetic {
         // TODO: Remove whenever we move above 1.19 or whenever we only support cosmetics on 1.19+ servers
         if (!Bukkit.getVersion().contains("1.19")) return;
 
-        final Location playerLocation = crateLoc.clone().subtract(0, 0, 1.5);
+        final Location playerLocation = crateLoc.clone().subtract(0, 0, 3.5);
         playerLocation.setYaw(0);
 
         player.teleport(playerLocation, true);
+        player.setInvisible(true);
 
         final Entity base = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
@@ -129,6 +131,7 @@ public abstract class Crate extends Cosmetic {
 
             // return to spawn if possible
             player.performCommand("spawn");
+            player.setInvisible(false);
         }, totalOpenTicks + totalRollTicks + idleTicks);
     }
 

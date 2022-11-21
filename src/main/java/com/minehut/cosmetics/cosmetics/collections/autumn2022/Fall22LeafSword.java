@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.collections.autumn2022;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
@@ -69,5 +70,10 @@ public class Fall22LeafSword extends ItemCosmetic {
     @Override
     public Permission visibility() {
         return VISIBILITY;
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.EPIC;
     }
 }

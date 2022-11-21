@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.maid;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
@@ -31,7 +32,7 @@ public class BlackMaidBow extends WingCosmetic {
             .supplier();
 
     public BlackMaidBow() {
-        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.BOW_BLACK.name(), NAME);
+        super(Wing.BOW_BLACK.name(), NAME);
     }
 
     @Override

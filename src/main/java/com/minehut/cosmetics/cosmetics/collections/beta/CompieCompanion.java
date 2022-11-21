@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.beta;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
@@ -61,5 +62,10 @@ public class CompieCompanion extends CompanionCosmetic {
             ));
         });
         return stack;
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.RARE;
     }
 }

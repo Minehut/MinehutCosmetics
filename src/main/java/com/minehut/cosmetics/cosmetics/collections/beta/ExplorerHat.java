@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.beta;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -53,5 +54,10 @@ public class ExplorerHat extends HatCosmetic {
     @Override
     public ItemStack menuIcon() {
         return ITEM.get();
+    }
+
+    @Override
+    public Rarity rarity() {
+        return Rarity.RARE;
     }
 }
