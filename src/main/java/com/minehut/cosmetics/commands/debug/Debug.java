@@ -33,7 +33,6 @@ public class Debug extends Command {
             return;
         }
 
-
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             if (!Permission.staff().hasAccess(player).join()) return;
 

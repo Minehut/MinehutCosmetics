@@ -1,8 +1,8 @@
 package com.minehut.cosmetics.ui;
 
 import com.minehut.cosmetics.ui.icon.ActionHandler;
+import com.minehut.cosmetics.util.Validate;
 import net.kyori.adventure.text.Component;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;

@@ -4,7 +4,7 @@ import com.minehut.cosmetics.ui.icon.ActionHandler;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.RenderableService;
 import com.minehut.cosmetics.ui.icon.SelfRenderableItem;
-import org.apache.commons.lang.Validate;
+import com.minehut.cosmetics.util.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;

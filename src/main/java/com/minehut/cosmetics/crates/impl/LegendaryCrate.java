@@ -52,7 +52,7 @@ public class LegendaryCrate extends Crate {
         table.registerItem(Pair.of(Wing.ARCADE, 1), 5);
 
         // legendary
-        table.registerItem(Pair.of(Companion.YOUNG_DRAGON, 1), 2);
+        table.registerItem(Pair.of(Companion.DRAGON_EGG, 1), 2);
         table.registerItem(Pair.of(Hat.TECHNICAL_VISOR, 1), 1);
         table.registerItem(Pair.of(Item.MOLTEN_PICKAXE, 1), 1);
         table.registerItem(Pair.of(Wing.PEGASUS_LARGE, 1), 1);
