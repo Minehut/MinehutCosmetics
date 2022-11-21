@@ -152,19 +152,22 @@ public abstract class Crate extends Cosmetic {
             // handle consuming response
             switch (response.getStatus()) {
                 case 200 -> {
-                    playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
-                        if (!success.get()) return;
 
-                        final Component message = Component.text()
-                                .append(Component.text("Received"))
-                                .append(Component.space())
-                                .append(cosmetic.name())
-                                .append(Component.space())
-                                .append(Component.text("x" + quantity))
-                                .append(Component.text("!"))
-                                .color(NamedTextColor.DARK_GREEN)
-                                .build();
-                        player.sendMessage(message);
+                    Bukkit.getScheduler().runTask(Cosmetics.get(), () -> {
+                        playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
+                            if (!success.get()) return;
+
+                            final Component message = Component.text()
+                                    .append(Component.text("Received"))
+                                    .append(Component.space())
+                                    .append(cosmetic.name())
+                                    .append(Component.space())
+                                    .append(Component.text("x" + quantity))
+                                    .append(Component.text("!"))
+                                    .color(NamedTextColor.DARK_GREEN)
+                                    .build();
+                            player.sendMessage(message);
+                        });
                     });
 
                     final CosmeticData data = new CosmeticData(cosmetic.category().name(), cosmetic.id(), new CosmeticMeta(quantity));
