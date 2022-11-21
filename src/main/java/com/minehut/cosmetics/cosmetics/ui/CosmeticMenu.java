@@ -142,7 +142,7 @@ public class CosmeticMenu extends Menu {
         addMenu(BackpieceMenu.ICON, () -> new BackpieceMenu(user), 31);
         getProxy().setItem(40, BLANK_LEGGINGS.get());
 
-        getProxy().setItem(34, CRATE_ICON.get(), (player, ignored) -> new CrateMenu().openTo(player));
+        getProxy().setItem(34, CRATE_ICON.get(), (player, ignored) -> CrateMenu.open(player));
 
         // menus that are only visible when in lobby mode
         switch (mode) {

@@ -11,12 +11,13 @@ public class Fonts {
 
     public static class Font {
         public static final Key EMOJI = Key.key("minehut", "emoji");
+        public static final Key UI = Key.key("minehut", "ui");
     }
 
     public static class Icon {
         public static final Component COSMETICS_CTA = text("\ue003").color(WHITE);
         public static final Component COSMETICS_CTA_PREFIX = text("\uF82C\uF82A\uF828\uF822").append(COSMETICS_CTA).append(text("\uF80D\uF809"));
-
+        public static final Component GEM = text("\ue001").color(WHITE).style(Style.style().font(Font.UI));
     }
 
     public static class Emoji {

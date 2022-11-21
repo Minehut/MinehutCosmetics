@@ -1,7 +1,11 @@
 package com.minehut.cosmetics.model.profile;
 
+import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class CosmeticProfileResponse {
     private Map<String, String> equipped = new HashMap<>();
@@ -39,6 +43,18 @@ public class CosmeticProfileResponse {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public int getQuantity(String category, String id) {
+        return Optional.ofNullable(profile.getPurchased().get(category))
+                .map(idMap -> idMap.get(id))
+                .map(CosmeticData::getMeta)
+                .map(CosmeticMeta::getQuantity)
+                .orElse(0);
+    }
+
+    public int getQuantity(Cosmetic cosmetic) {
+        return getQuantity(cosmetic.category().name(), cosmetic.id());
     }
 
     public int getGems() {

@@ -124,5 +124,7 @@ public final class Model {
 
     public static class Ui {
         public static final int SHOP_ICON = 1_000_001;
+        public static final int GEM_SHOP = 1_000_001;
+
     }
 }

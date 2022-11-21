@@ -49,6 +49,7 @@ public class ItemIcon {
             .supplier();
 
     public static final Supplier<ItemStack> GEM_SHOP_ICON = ItemBuilder.of(Material.DIAMOND)
-            .display(Component.text("Gem Store").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
+            .modelData(Model.Ui.GEM_SHOP)
+            .display(Component.text("Gem Shop").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
             .supplier();
 }

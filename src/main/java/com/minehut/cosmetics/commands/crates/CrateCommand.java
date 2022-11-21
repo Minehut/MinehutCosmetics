@@ -16,6 +16,6 @@ public class CrateCommand extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) return;
-        new CrateMenu().openTo(player);
+        CrateMenu.open(player);
     }
 }

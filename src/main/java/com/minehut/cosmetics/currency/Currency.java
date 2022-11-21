@@ -4,7 +4,7 @@ import com.minehut.cosmetics.ui.font.Fonts;
 import net.kyori.adventure.text.Component;
 
 public enum Currency {
-    GEM("GEM", Fonts.Emoji.MINEHUT_LOGO);
+    GEM("GEM", Fonts.Icon.GEM);
 
     private final String id;
     private final Component display;
