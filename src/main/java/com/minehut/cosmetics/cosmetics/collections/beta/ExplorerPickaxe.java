@@ -32,7 +32,7 @@ public class ExplorerPickaxe extends ItemCosmetic {
                 .display(name())
                 .lore(
                         Component.empty(),
-                        Collection.BETA.tag(),
+                        Collection.BETA.display(),
                         Component.empty()
                 )
                 .flags(ItemFlag.HIDE_ATTRIBUTES)

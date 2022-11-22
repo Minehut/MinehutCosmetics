@@ -14,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
 public class GhostCompanion extends CompanionCosmetic {
     public GhostCompanion() {
         super(
@@ -49,7 +47,7 @@ public class GhostCompanion extends CompanionCosmetic {
         return ItemBuilder.of(Material.SCUTE)
                 .lore(
                         Component.empty(),
-                        Collection.GENERAL.tag(),
+                        Collection.GENERAL.display(),
                         Component.empty()
                 )
                 .modelData(Model.Companion.GHOST)

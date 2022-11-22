@@ -47,15 +47,15 @@ public abstract class CosmeticSubMenu extends SubMenu {
                 continue;
             }
 
-            final Component ownText = owns ?
+            final Component ownershipText = owns ?
                     Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
                     : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
 
             final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
                     .appendLore(
-                            cosmetic.collection().tag(),
-                            Component.newline(),
-                            ownText
+                            cosmetic.collection().display(),
+                            Component.empty(),
+                            ownershipText
                     )
                     .build();
 

@@ -67,10 +67,13 @@ public class SalvageMenu extends SubMenu {
                 final ItemBuilder builder = ItemBuilder.of(base)
                         .display(display)
                         .appendLore(
-                                cosmetic.rarity().display(),
+                                cosmetic.collection().display(),
+                                Component.empty(),
                                 Component.text()
-                                        .append(Component.text("Salvages for ").color(NamedTextColor.GRAY))
-                                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
+                                        .append(Component.text("Salvage for").color(NamedTextColor.GRAY))
+                                        .append(Component.space())
+                                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.LIGHT_PURPLE).append(Currency.GEM.display()))
+                                        .decoration(TextDecoration.ITALIC, false)
                                         .build(),
                                 Component.empty(),
                                 SALVAGE_CTA

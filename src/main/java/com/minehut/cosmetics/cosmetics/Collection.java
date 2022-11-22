@@ -25,7 +25,7 @@ public enum Collection {
         this.tag = tag;
     }
 
-    public Component tag() {
+    public Component display() {
         return tag;
     }
 

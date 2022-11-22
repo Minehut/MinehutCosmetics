@@ -25,7 +25,7 @@ public class CatEars extends HatCosmetic {
             .display(NAME)
             .lore(
                     Component.empty(),
-                    Collection.SPOOKY_22.tag(),
+                    Collection.SPOOKY_22.display(),
                     Component.empty()
             )
             .flags(ItemFlag.HIDE_ATTRIBUTES)
