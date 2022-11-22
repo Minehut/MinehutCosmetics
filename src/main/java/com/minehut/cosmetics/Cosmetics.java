@@ -52,6 +52,7 @@ public final class Cosmetics extends JavaPlugin {
     private CosmeticsManager manager;
     // Local storage only for use on player servers
     private @Nullable LocalStorageManager localStorage;
+    private @Nullable CratesModule crates;
 
     // api for accessing remote services
     private CosmeticsAPI api;
@@ -70,7 +71,7 @@ public final class Cosmetics extends JavaPlugin {
         switch (config().mode()) {
             case LOBBY -> {
                 this.api = new InternalAPI(config, gson);
-                new CratesModule(this);
+                this.crates = new CratesModule(this);
                 new GiveCosmetic().register(this);
             }
             case PLAYER_SERVER -> {
@@ -145,6 +146,10 @@ public final class Cosmetics extends JavaPlugin {
 
     public CosmeticsAPI api() {
         return api;
+    }
+
+    public CratesModule crates() {
+        return crates;
     }
 
     public static Mode mode() {

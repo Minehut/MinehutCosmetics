@@ -11,6 +11,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +45,7 @@ public class TurtleHat extends HatCosmetic {
         return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
                 .display(name())
                 .modelData(Model.Hat.TURTLE)
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
                 .build();
     }
 }

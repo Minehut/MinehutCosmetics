@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +33,7 @@ public class DragonHat extends HatCosmetic {
         return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
                 .modelData(Model.Hat.DRAGON)
                 .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
                 .build();
     }
 

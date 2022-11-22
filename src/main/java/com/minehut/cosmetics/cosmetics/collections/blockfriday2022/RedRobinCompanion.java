@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.collections.blockfriday2022;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.properties.Animation;
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.ui.model.Model;
@@ -21,22 +22,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
-
-    private static final List<Integer> FRAMES = List.of(
-            Model.Companion.RED_ROBIN.FRAME_1,
-            Model.Companion.RED_ROBIN.FRAME_2,
-            Model.Companion.RED_ROBIN.FRAME_3,
-            Model.Companion.RED_ROBIN.FRAME_4,
-            Model.Companion.RED_ROBIN.FRAME_5,
-            Model.Companion.RED_ROBIN.FRAME_6,
-            Model.Companion.RED_ROBIN.FRAME_5,
-            Model.Companion.RED_ROBIN.FRAME_4,
-            Model.Companion.RED_ROBIN.FRAME_3,
-            Model.Companion.RED_ROBIN.FRAME_2
-    );
-    private int currentFrame = 0;
-    private long lastTick = 0;
-
     public RedRobinCompanion() {
         super(
                 com.minehut.cosmetics.cosmetics.types.companion.Companion.RED_ROBIN.name(),
@@ -47,22 +32,35 @@ public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
         );
     }
 
+    private final Animation animation = new Animation(
+            List.of(
+                    Model.Companion.RED_ROBIN.FRAME_1,
+                    Model.Companion.RED_ROBIN.FRAME_2,
+                    Model.Companion.RED_ROBIN.FRAME_3,
+                    Model.Companion.RED_ROBIN.FRAME_4,
+                    Model.Companion.RED_ROBIN.FRAME_5,
+                    Model.Companion.RED_ROBIN.FRAME_6,
+                    Model.Companion.RED_ROBIN.FRAME_5,
+                    Model.Companion.RED_ROBIN.FRAME_4,
+                    Model.Companion.RED_ROBIN.FRAME_3,
+                    Model.Companion.RED_ROBIN.FRAME_2
+            )
+    );
+
+    private long lastTick = 0;
+
     @Override
     public void tick() {
         super.tick();
         long currentTick = Bukkit.getCurrentTick();
         if ((currentTick - lastTick) < 2) return;
-        currentFrame++;
-        if (currentFrame >= FRAMES.size()) {
-            currentFrame = 0;
-        }
 
         for (LivingEntity entity : entities()) {
             final var equipment = entity.getEquipment();
             if (equipment == null) continue;
             final ItemStack helmet = equipment.getHelmet();
             if (helmet == null) continue;
-            helmet.editMeta(meta -> meta.setCustomModelData(FRAMES.get(currentFrame)));
+            helmet.editMeta(meta -> meta.setCustomModelData(animation.getNextFrame()));
             equipment.setHelmet(helmet);
         }
 

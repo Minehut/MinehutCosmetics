@@ -15,6 +15,7 @@ import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -61,11 +62,17 @@ public class GemShopMenu extends SubMenu {
         final Component costComponent =
                 Component.text()
                         .append(Component.text("Price: ").color(NamedTextColor.GRAY))
-                        .append(Component.text(price).color(NamedTextColor.AQUA).append(Currency.GEM.display()))
+                        .append(Component.text(price).color(NamedTextColor.AQUA))
+                        .append(Currency.GEM.display())
+                        .decoration(TextDecoration.ITALIC, false)
                         .build();
 
         final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
-                .appendLore(costComponent)
+                .appendLore(
+                        cosmetic.collection().display(),
+                        Component.empty(),
+                        costComponent
+                )
                 .build();
 
         return MenuItem.of(icon, (who, click) -> new GemShopConfirmPurchase(cosmetic, price).openTo(who));

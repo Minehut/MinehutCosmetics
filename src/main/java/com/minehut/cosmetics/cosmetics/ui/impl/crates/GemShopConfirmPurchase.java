@@ -9,6 +9,7 @@ import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import com.minehut.cosmetics.ui.icon.ActionHandler;
+import com.minehut.cosmetics.util.messaging.Message;
 import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -59,12 +60,28 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
                 case 200 -> {
                     final CosmeticData data = new CosmeticData(cosmetic.category().name(), cosmetic.id(), new CosmeticMeta(1));
                     Cosmetics.get().api().unlockCosmetic(new UnlockCosmeticRequest(player.getUniqueId(), data));
+
+                    final Component content = Component.text()
+                            .append(Component.text("Gem Shop").color(NamedTextColor.GREEN))
+                            .append(Component.newline())
+                            .append(Component.newline())
+                            .append(Component.text("Purchased ").color(NamedTextColor.WHITE))
+                            .append(cosmetic.name())
+                            .append(Component.text(" for "))
+                            .append(Component.text(price))
+                            .append(Currency.GEM.display())
+                            .append(Component.newline())
+                            .append(Component.newline())
+                            .append(Component.text("Type "))
+                            .append(Component.text("/cosmetics").color(NamedTextColor.YELLOW))
+                            .build();
+                    player.sendMessage(Message.announcement(content));
                 }
                 // handle error cases
                 case 429 -> // if they ratelimit
-                        player.sendMessage(Component.text("Please wait a moment and try again.").color(NamedTextColor.RED));
+                        player.sendMessage(Message.error("Please wait a moment and try again."));
                 case 412 -> // let them know they have insufficient resources
-                        player.sendMessage(Component.text("You don't have enough gems!").color(NamedTextColor.RED));
+                        player.sendMessage(Message.error("You don't have enough gems!"));
             }
 
             Bukkit.getScheduler().runTask(Cosmetics.get(), () -> GemShopMenu.open(player));

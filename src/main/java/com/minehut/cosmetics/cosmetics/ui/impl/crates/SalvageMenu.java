@@ -72,7 +72,8 @@ public class SalvageMenu extends SubMenu {
                                 Component.text()
                                         .append(Component.text("Salvage for").color(NamedTextColor.GRAY))
                                         .append(Component.space())
-                                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.LIGHT_PURPLE).append(Currency.GEM.display()))
+                                        .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.LIGHT_PURPLE))
+                                        .append(Currency.GEM.display())
                                         .decoration(TextDecoration.ITALIC, false)
                                         .build(),
                                 Component.empty(),

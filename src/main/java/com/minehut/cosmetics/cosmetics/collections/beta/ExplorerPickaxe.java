@@ -30,11 +30,6 @@ public class ExplorerPickaxe extends ItemCosmetic {
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.DIAMOND_PICKAXE)
                 .display(name())
-                .lore(
-                        Component.empty(),
-                        Collection.BETA.display(),
-                        Component.empty()
-                )
                 .flags(ItemFlag.HIDE_ATTRIBUTES)
                 .modelData(Model.Item.Pickaxe.EXPLORER)
                 .build();

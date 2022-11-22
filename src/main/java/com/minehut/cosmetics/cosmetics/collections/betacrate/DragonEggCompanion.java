@@ -35,11 +35,7 @@ public class DragonEggCompanion extends CompanionCosmetic {
         return ItemBuilder.of(Material.SCUTE)
                 .display(name())
                 .modelData(Model.Companion.DRAGON_EGG)
-                .lore(
-                        Component.empty(),
-                        Collection.DRAGON_CRATE.display(),
-                        Component.empty()
-                ).build();
+                .build();
     }
 
     @Override

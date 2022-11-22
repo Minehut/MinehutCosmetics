@@ -191,7 +191,7 @@ public class CosmeticsManager {
             Bukkit.getScheduler().runTask(cosmetics, () -> finalEquipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
                 // grab the slot this cosmetic belongs to
                 EnumUtil.valueOfSafe(CosmeticSlot.class, slotName).ifPresent(slot -> {
-                    // grab the cosmetic from it's id
+                    // grab the cosmetic from its id
                     Cosmetic.fromQualifiedId(qualifiedId).ifPresent(cosmetic -> {
                         // this is here for legacy cosmetic profiles, probably want to invalidate those at some point
                         if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal()) return;

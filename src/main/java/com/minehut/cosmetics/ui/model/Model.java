@@ -14,7 +14,12 @@ public final class Model {
         public static final int KITTEN = 1_002_009;
         public static final int DRAGON_EGG = 1_002_016;
         public static final int UFO_COW = 1_002_017;
-        public static final int YOUNG_DRAGON = 1_002_018;
+        public static final class YOUNG_DRAGON {
+            public static final int FRAME_1 = 1_002_018;
+            public static final int FRAME_2 = 1_002_019;
+            public static final int FRAME_3 = 1_002_020;
+            public static final int FRAME_4 = 1_002_021;
+        }
 
 
         public static final class RED_ROBIN {

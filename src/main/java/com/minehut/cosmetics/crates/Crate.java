@@ -16,6 +16,7 @@ import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -55,7 +56,7 @@ public abstract class Crate extends Cosmetic {
         playerLocation.setYaw(0);
 
         player.teleport(playerLocation, true);
-        player.setInvisible(true);
+        player.setGameMode(GameMode.SPECTATOR);
 
         final Entity base = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
@@ -130,12 +131,20 @@ public abstract class Crate extends Cosmetic {
 
             // return to spawn if possible
             player.performCommand("spawn");
-            player.setInvisible(false);
+
+            if (player.getPreviousGameMode() != null) {
+                player.setGameMode(player.getPreviousGameMode());
+            }
         }, totalOpenTicks + totalRollTicks + idleTicks);
     }
 
     public void open(UUID uuid, int amount) {
         owner(uuid);
+
+        if (Cosmetics.get().crates().isOpening(uuid)) {
+            player().ifPresent(player -> player.sendMessage(Message.error("You're already opening a crate!")));
+            return;
+        }
 
         // roll for the item reward
         final var result = table.roll();
@@ -156,7 +165,9 @@ public abstract class Crate extends Cosmetic {
                 case 200 -> {
 
                     Bukkit.getScheduler().runTask(Cosmetics.get(), () -> {
+                        Cosmetics.get().crates().opening().add(uuid);
                         playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic.menuIcon(), () -> {
+                            Cosmetics.get().crates().opening().remove(uuid);
                             if (!success.get()) return;
 
                             final Component content = Component.text()
@@ -183,14 +194,10 @@ public abstract class Crate extends Cosmetic {
                     success.set(true);
                 }
                 // handle error cases
-                case 429 -> {
-                    // if they ratelimit
-                    player.sendMessage(Component.text("Please wait a moment and try again.").color(NamedTextColor.RED));
-                }
-                case 412 -> {
-                    // let them know they have insufficient resources
-                    player.sendMessage(Component.text("You do not own enough crates!").color(NamedTextColor.RED));
-                }
+                case 429 -> // if they ratelimit
+                        player.sendMessage(Message.error("Please wait a moment and try again."));
+                case 412 -> // let them know they have insufficient resources
+                        player.sendMessage(Message.error("You do not own enough crates!"));
             }
         }));
     }

@@ -57,7 +57,6 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
                                 .append(Component.space())
                                 .append(Component.text("/cosmetics").color(NamedTextColor.YELLOW))
                                 .build();
-
                         player.sendMessage(Message.announcement(content));
                     }
                 }
@@ -69,7 +68,7 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
 
     @Override
     public ActionHandler onDeny() {
-        return null;
+        return (who, click) -> SalvageMenu.open(who);
     }
 
     @Override

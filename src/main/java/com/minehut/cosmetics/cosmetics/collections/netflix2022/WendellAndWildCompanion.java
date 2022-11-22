@@ -24,31 +24,16 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
 
     private static final Supplier<ItemStack> WENDELL = ItemBuilder.of(Material.SCUTE)
             .display(Component.text("Wendell").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
-            .lore(
-                    Component.empty(),
-                    Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
             .modelData(Model.Companion.WENDELL)
             .supplier();
 
     private static final Supplier<ItemStack> WILD = ItemBuilder.of(Material.SCUTE)
             .display(Component.text("Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
-            .lore(
-                    Component.empty(),
-                    Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
             .modelData(Model.Companion.WILD)
             .supplier();
 
     private static final Supplier<ItemStack> WENDELL_AND_WILD = ItemBuilder.of(Material.SCUTE)
             .display(Component.text("Wendell & Wild").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
-            .lore(
-                    Component.empty(),
-                    Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
             .modelData(Model.Companion.WILD)
             .supplier();
 
