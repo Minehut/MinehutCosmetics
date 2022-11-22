@@ -132,9 +132,7 @@ public abstract class Crate extends Cosmetic {
             // return to spawn if possible
             player.performCommand("spawn");
 
-            if (player.getPreviousGameMode() != null) {
-                player.setGameMode(player.getPreviousGameMode());
-            }
+            player.setGameMode(GameMode.ADVENTURE);
         }, totalOpenTicks + totalRollTicks + idleTicks);
     }
 
