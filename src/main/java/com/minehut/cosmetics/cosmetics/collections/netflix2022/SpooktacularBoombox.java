@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.netflix2022;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.types.trinket.TrinketCosmetic;
@@ -16,29 +17,16 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
 public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, SlotHandler {
-
-    private static final Component DISPLAY_NAME = Component.text("Kat's Boombox")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(DISPLAY_NAME)
-            .lore(
-                    Component.empty(),
-                    Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
-            .modelData(Model.Trinket.BOOMBOX)
-            .supplier();
-
     private CosmeticSlot slot = null;
 
     public SpooktacularBoombox() {
-        super(Trinket.SPOOKTACULAR_BOOMBOX.name(), DISPLAY_NAME);
+        super(Trinket.SPOOKTACULAR_BOOMBOX.name());
     }
 
     @Override
@@ -52,15 +40,30 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Kat's Boombox")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Trinket.BOOMBOX)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.WENDELL_AND_WILD;
     }
 
     @Override
     public void equip() {
         player().ifPresent(player -> slot().ifPresent(slot -> {
 
-            final ItemStack item = ITEM.get();
+            final ItemStack item = menuIcon();
             item.editMeta(meta -> SkinUtil.writeCosmeticKeys(meta, this));
 
             switch (Cosmetics.mode()) {
@@ -101,4 +104,5 @@ public class SpooktacularBoombox extends TrinketCosmetic implements Equippable, 
     public void setSlot(CosmeticSlot slot) {
         this.slot = slot;
     }
+
 }

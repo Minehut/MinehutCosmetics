@@ -33,8 +33,6 @@ public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
     YOUNG_DRAGON(YoungDragonCompanion::new),
     UFO_COW(UfoCowCompanion::new);
 
-    ;
-
     private final Supplier<FollowerCosmetic> supplier;
 
     Companion(final Supplier<FollowerCosmetic> supplier) {

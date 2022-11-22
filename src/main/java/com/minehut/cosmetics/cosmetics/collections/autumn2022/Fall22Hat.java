@@ -1,62 +1,39 @@
 package com.minehut.cosmetics.cosmetics.collections.autumn2022;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
-
+import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.function.Supplier;
+import org.jetbrains.annotations.NotNull;
 
 public class Fall22Hat extends HatCosmetic {
-
-    private static final Component NAME = Component.text("Helmet of Autumn")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Hat.FALL_22)
-            .supplier();
-
-
     public Fall22Hat() {
-        super(
-                com.minehut.cosmetics.cosmetics.types.hat.Hat.FALL_22.name(),
-                NAME,
-                ITEM
-        );
-    }
-
-    @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.FALL_22);
+        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.FALL_22.name());
     }
 
     @Override
     public Component name() {
-        return NAME;
+        return Component.text("Helmet of Autumn")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Hat.FALL_22)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 }

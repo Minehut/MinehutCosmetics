@@ -19,12 +19,11 @@ public abstract class AmbientPixelArtParticle extends PixelArtParticle {
 
     protected AmbientPixelArtParticle(
             final String id,
-            final Component name,
             final int delay,
             final String art,
             final int lifespan
     ) {
-        super(id, name, delay, art, 1);
+        super(id, delay, art, 1);
         this.lifespan = lifespan;
     }
 

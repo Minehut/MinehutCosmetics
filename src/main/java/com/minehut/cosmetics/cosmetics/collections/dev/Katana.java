@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.dev;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
@@ -11,35 +12,14 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
 public class Katana extends ItemCosmetic {
-
-    public static final Component NAME = Component.text("Katana's Katana")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Component.text("A Katana forged from the finest metals").color(NamedTextColor.GOLD),
-                    Component.text("to be held by the true 'Block Game Legend'").color(NamedTextColor.GOLD),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.KATANA)
-            .supplier();
-
     public Katana() {
-        super(Item.KATANA.name(), NAME);
-    }
-
-    @Override
-    public ItemStack item() {
-        return ITEM.get();
+        super(Item.KATANA.name());
     }
 
     @Override
@@ -50,5 +30,32 @@ public class Katana extends ItemCosmetic {
     @Override
     public Permission visibility() {
         return Permission.deny();
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Katana's Katana")
+                .color(NamedTextColor.GOLD)
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
+                .display(name())
+                .lore(
+                        Component.empty(),
+                        Component.text("A Katana forged from the finest metals").color(NamedTextColor.GOLD),
+                        Component.text("to be held by the true 'Block Game Legend'").color(NamedTextColor.GOLD),
+                        Component.empty()
+                )
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Sword.KATANA)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DEV;
     }
 }

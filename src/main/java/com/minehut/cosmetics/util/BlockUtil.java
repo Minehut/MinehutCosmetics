@@ -50,9 +50,9 @@ public class BlockUtil {
         ));
 
         // Misc
-        INTERACTABLE.addAll(Set.of(
+        INTERACTABLE.add(
                 Material.COMPOSTER
-        ));
+        );
     }
 
     public static boolean canInteract(Material material) {

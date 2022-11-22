@@ -10,32 +10,35 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class SteampunkHat extends HatCosmetic {
-
-    private static final Component NAME = Component.text("Steampunk Hat")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .modelData(Model.Hat.STEAMPUNK)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public SteampunkHat() {
-        super(Hat.STEAMPUNK.name(), NAME, ITEM);
+        super(Hat.STEAMPUNK.name());
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Steampunk Hat")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .modelData(Model.Hat.STEAMPUNK)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
     }
 }

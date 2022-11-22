@@ -7,18 +7,15 @@ import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.ClickHandler;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.structures.Pair;
-import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,20 +24,6 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class CosmeticSubMenu extends SubMenu {
-
-    private static final ItemStack CLEAR_ITEM =
-            ItemBuilder.of(Material.BARRIER)
-                    .display(Component.text("Un-Equip").color(NamedTextColor.RED))
-                    .build();
-
-    private static final Book CTA_BOOK = Book.book(Component.text("Minehut"), Component.text("Minehut"),
-            Component.text()
-                    .append(Component.text("You don't own this cosmetic yet!").color(NamedTextColor.BLACK))
-                    .append(Component.newline())
-                    .append(Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi")))
-                    .build()
-    );
-
     private final List<MenuItem> items = new ArrayList<>();
 
     private final ClickHandler clickHandler;
@@ -65,10 +48,16 @@ public abstract class CosmeticSubMenu extends SubMenu {
             }
 
             final Component ownText = owns ?
-                    Component.text("Owned").color(NamedTextColor.GREEN).decoration(TextDecoration.BOLD, true).decoration(TextDecoration.ITALIC, false)
-                    : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.BOLD, true).decoration(TextDecoration.ITALIC, false);
+                    Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
+                    : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
 
-            final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone()).appendLore(ownText).build();
+            final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
+                    .appendLore(
+                            cosmetic.collection().tag(),
+                            Component.newline(),
+                            ownText
+                    )
+                    .build();
 
             items.add(Pair.of(icon, cosmetic));
         }
@@ -81,12 +70,11 @@ public abstract class CosmeticSubMenu extends SubMenu {
     public void render() {
         super.render();
         // Add the UI items
-        getProxy().setItem(8, MenuItem.of(CLEAR_ITEM, (who, click) -> {
+        getProxy().setItem(8, MenuItem.of(ItemIcon.UNEQUIP.get(), (who, click) -> {
             final UUID uuid = who.getUniqueId();
 
             final CosmeticSlot slot = this.clickHandler.apply(click);
             Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
-            who.closeInventory();
         }));
     }
 
@@ -112,7 +100,7 @@ public abstract class CosmeticSubMenu extends SubMenu {
             }
 
             player.closeInventory();
-            player.openBook(CTA_BOOK);
+            player.openBook(BookUI.UNOWNED_CTA);
         }));
     }
 }

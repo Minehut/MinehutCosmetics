@@ -13,9 +13,9 @@ public enum Rarity {
     private final Component display;
     private final int slavageValue;
 
-    Rarity(Component display, int slavageValue) {
+    Rarity(Component display, int salvageValue) {
         this.display = display;
-        this.slavageValue = slavageValue;
+        this.slavageValue = salvageValue;
     }
 
     public Component display() {

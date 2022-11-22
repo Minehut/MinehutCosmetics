@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -33,7 +34,7 @@ public class CatEars extends HatCosmetic {
 
 
     public CatEars() {
-        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.CAT_EARS.name(), NAME, ITEM);
+        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.CAT_EARS.name());
     }
 
     @Override
@@ -52,7 +53,12 @@ public class CatEars extends HatCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
+    public @NotNull ItemStack menuIcon() {
         return ITEM.get();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.SPOOKY_22;
     }
 }

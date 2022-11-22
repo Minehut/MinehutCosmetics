@@ -2,7 +2,6 @@ package com.minehut.cosmetics.cosmetics.types.wing;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
@@ -15,15 +14,12 @@ import org.bukkit.Particle;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Pose;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public abstract class WingCosmetic extends Cosmetic implements Equippable, Tickable {
 
@@ -34,8 +30,8 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
     private boolean equipped = false;
     private boolean hidden = true;
 
-    protected WingCosmetic(String id, Component name) {
-        super(id, CosmeticCategory.WING, name);
+    protected WingCosmetic(String id) {
+        super(id, CosmeticCategory.WING);
     }
 
     @Override

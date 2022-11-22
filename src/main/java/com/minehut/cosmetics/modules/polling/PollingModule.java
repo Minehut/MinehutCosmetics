@@ -10,10 +10,10 @@ import java.util.Optional;
 public abstract class PollingModule<T> {
 
     private @NotNull T state;
-    private long pollRate;
+    private final long pollRate;
     private BukkitTask task = null;
 
-    private Plugin plugin;
+    private final Plugin plugin;
 
 
     public PollingModule(Plugin plugin, @NotNull T base, long pollRate) {

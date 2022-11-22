@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -10,22 +11,14 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class NetherParticle extends ParticleCosmetic {
     public static final String REQUIRED_RANK = "VIP";
-    private static final ItemStack ITEM = ItemBuilder.of(Material.NETHER_STAR)
-            .display(Component.text("Nether Particles").color(NamedTextColor.DARK_PURPLE))
-            .lore(Component.empty(),
-                    Component.text("Join the dark side, we have cookies...").color(NamedTextColor.WHITE),
-                    Component.text("and also cool purple particles.").color(NamedTextColor.WHITE),
-                    Component.empty(),
-                    Component.text("Requires ").color(NamedTextColor.GRAY).append(Component.text(REQUIRED_RANK)),
-                    Component.empty())
-            .build();
     private Location location;
 
     public NetherParticle() {
-        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.NETHER.name(), Component.text("Nether Particles"), 2);
+        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.NETHER.name(), 2);
     }
 
     @Override
@@ -39,8 +32,25 @@ public class NetherParticle extends ParticleCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM;
+    public Component name() {
+        return Component.text("Nether Particles").color(NamedTextColor.DARK_PURPLE);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.NETHER_STAR)
+                .lore(Component.empty(),
+                        Component.text("Join the dark side, we have cookies...").color(NamedTextColor.WHITE),
+                        Component.text("and also cool purple particles.").color(NamedTextColor.WHITE),
+                        Component.empty(),
+                        Component.text("Requires ").color(NamedTextColor.GRAY).append(Component.text(REQUIRED_RANK)),
+                        Component.empty())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.dev;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.Particle;
 import com.minehut.cosmetics.cosmetics.types.particle.base.AmbientPixelArtParticle;
@@ -8,17 +9,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class FireParticle extends AmbientPixelArtParticle {
-    public static final ItemStack ITEM = ItemBuilder.of(Material.TORCH)
-            .display(Component.text("Placeholder").color(NamedTextColor.GRAY))
-            .lore(Component.empty(),
-                    Component.text("Just another particle").color(NamedTextColor.WHITE),
-                    Component.empty())
-            .build();
 
     public FireParticle() {
-        super(Particle.FIRE.name(), Component.text("Placeholder"), 1, "fire", 3);
+        super(Particle.FIRE.name(), 1, "fire", 3);
     }
 
     @Override
@@ -32,7 +28,22 @@ public class FireParticle extends AmbientPixelArtParticle {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM;
+    public Component name() {
+        return Component.text("Fire Particle").color(NamedTextColor.GRAY);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.TORCH)
+                .display(name())
+                .lore(Component.empty(),
+                        Component.text("Just another particle").color(NamedTextColor.WHITE),
+                        Component.empty())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DEV;
     }
 }

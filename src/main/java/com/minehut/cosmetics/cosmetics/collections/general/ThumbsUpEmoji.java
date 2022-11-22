@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ThumbsUpEmoji extends EmojiCosmetic {
     public ThumbsUpEmoji() {
-        super(Emoji.THUMBS_UP.name(), Component.text("Thumbs Up Emoji"));
+        super(Emoji.THUMBS_UP.name());
     }
 
     @Override
@@ -30,5 +31,15 @@ public class ThumbsUpEmoji extends EmojiCosmetic {
     @Override
     public Permission visibility() {
         return Permission.none();
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Thumbs Up Emoji");
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

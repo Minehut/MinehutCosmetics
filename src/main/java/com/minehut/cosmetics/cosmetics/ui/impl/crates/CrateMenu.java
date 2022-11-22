@@ -1,11 +1,10 @@
 package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 
 import com.minehut.cosmetics.Cosmetics;
-import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.ui.BookUI;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.crates.Crate;
 import com.minehut.cosmetics.crates.CrateType;
-import com.minehut.cosmetics.model.profile.CosmeticProfile;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
@@ -18,10 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public class CrateMenu extends SubMenu {
 
@@ -40,16 +36,39 @@ public class CrateMenu extends SubMenu {
         // get their cosmetics profile
         for (final CrateType type : CrateType.values()) {
             final Crate crate = type.get();
-            // if they don't own, can't see, and aren't staff
-            if (!Permission.any(crate.permission(), crate.visibility(), Permission.staff()).hasAccess(player).join()) {
-                continue;
-            }
 
-            final ItemStack icon = ItemBuilder.of(crate.menuIcon())
-                    .appendLore(Component.text("Owned: " + response.getQuantity(crate)).color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))
+            final boolean visible = crate.visibility().hasAccess(player).join();
+            if (!visible) continue;
+
+            int qtyOwned = response.getQuantity(crate);
+            final boolean openable = qtyOwned > 0;
+
+
+            final Component openCTA = openable ?
+                    Component.text("Click to open").color(NamedTextColor.GREEN)
+                    : Component.text("Click to buy").color(NamedTextColor.GREEN);
+
+            final Component display = openable ? crate.name() : crate.name().color(NamedTextColor.GRAY);
+
+            final ItemStack builder = ItemBuilder.of(crate.menuIcon().clone())
+                    .display(display)
+                    .appendLore(
+                            Component.empty(),
+                            openCTA.decoration(TextDecoration.ITALIC, false),
+                            Component.text("" + qtyOwned + " Available").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+                    )
                     .build();
 
-            final MenuItem menuItem = MenuItem.of(icon, (who, click) -> crate.open(who.getUniqueId(), 1));
+            final MenuItem menuItem = MenuItem.of(builder, (who, click) -> {
+                if (!openable) {
+                    player.closeInventory();
+                    player.openBook(BookUI.COSMETICS_STORE_URL);
+                    return;
+                }
+
+                crate.open(player.getUniqueId(), 1);
+            });
+
             crateItems.add(menuItem);
         }
     }

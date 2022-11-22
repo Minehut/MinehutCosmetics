@@ -13,6 +13,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -21,14 +22,11 @@ import java.util.function.Supplier;
 public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinnable {
 
     private boolean equipped = false;
-
-    protected Supplier<ItemStack> itemSupplier;
     @Nullable
     private final ArmorStand entity;
 
-    protected HatCosmetic(String id, final Component name, Supplier<ItemStack> itemSupplier) {
-        super(id, CosmeticCategory.HAT, name);
-        this.itemSupplier = itemSupplier;
+    protected HatCosmetic(String id) {
+        super(id, CosmeticCategory.HAT);
         this.entity = null;
     }
 
@@ -53,13 +51,11 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
     }
 
     public ItemStack item() {
-        return itemSupplier.get();
+        return menuIcon();
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return item();
-    }
+    public abstract @NotNull ItemStack menuIcon();
 
     @Override
     public void applySkin(ItemStack item) {

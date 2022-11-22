@@ -30,39 +30,22 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * just itemstacks that are equipped on an armor stands head
      * and always face the player
      *
-     * @param id                of the cosmetic
-     * @param category          the slot belongs to
-     * @param name              of this companion
-     * @param companionSupplier build the itemstack for this companion
-     * @param offset            to spawn the cosmetic at
-     * @param small             whether to use a mini armor stand
-     * @param lookX             whether to track rotation on the x axis
-     * @param lookY             whether to track rotation on the y axis
+     * @param id       of the cosmetic
+     * @param category the slot belongs to
+     * @param offset   to spawn the cosmetic at
+     * @param small    whether to use a mini armor stand
+     * @param lookX    whether to track rotation on the x-axis
+     * @param lookY    whether to track rotation on the y-axis
      */
     public MountedFollowerCosmetic(
             final String id,
             final CosmeticCategory category,
-            final Component name,
-            final Function<Player, ItemStack> companionSupplier,
             final Vector offset,
             final boolean small,
             final boolean lookX,
             final boolean lookY
     ) {
-        this(id, category, name, List.of(companionSupplier), offset, small, lookX, lookY);
-    }
-
-    public MountedFollowerCosmetic(
-            final String id,
-            final CosmeticCategory category,
-            final Component name,
-            final List<Function<Player, ItemStack>> companionSuppliers,
-            final Vector offset,
-            final boolean small,
-            final boolean lookX,
-            final boolean lookY
-    ) {
-        super(id, category, name, companionSuppliers, offset);
+        super(id, category, offset);
         this.small = small;
         this.lookX = lookX;
         this.lookY = lookY;
@@ -98,7 +81,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
 
             double eulerX = lookY ? -(Math.PI - Math.atan2(Math.hypot(x, z), y)) + Math.PI / 2 : 0f;
             double eulerY = lookX ? -(Math.PI - Math.atan2(z, x)) + Math.PI / 2 : 0f;
-            
+
             EulerAngle angle = new EulerAngle(
                     eulerX,
                     eulerY,

@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.crates.impl;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
@@ -15,6 +16,7 @@ import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.structures.Pair;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -22,12 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class DragonCrate extends Crate {
-
-    private static final Component NAME = Component.text("Minehut Dragon Crate").color(NamedTextColor.RED);
-
-    private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.CHEST)
-            .display(NAME)
-            .supplier();
 
     private static final WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table = new WeightedTable<>();
 
@@ -58,7 +54,7 @@ public class DragonCrate extends Crate {
     }
 
     public DragonCrate() {
-        super(CrateType.DRAGON_CRATE.name(), NAME, table);
+        super(CrateType.DRAGON_CRATE.name(), table);
     }
 
     @Override
@@ -67,7 +63,21 @@ public class DragonCrate extends Crate {
     }
 
     @Override
+    public Component name() {
+        return Component.text("Minehut Dragon Crate")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
     public @NotNull ItemStack menuIcon() {
-        return ICON.get();
+        return ItemBuilder.of(Material.CHEST)
+                .display(name())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
     }
 }

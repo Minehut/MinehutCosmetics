@@ -56,7 +56,6 @@ public class CosmeticsTeleportListener implements Listener {
         if (shouldRemove) {
             cosmetics.cosmeticManager().unEquipAll(uuid);
             portalFlag.add(uuid);
-            return;
         }
     }
 

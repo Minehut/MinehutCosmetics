@@ -10,38 +10,36 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class PaperLanternBalloon extends BalloonCosmetic {
-
-    private static final Component NAME = Component.text("Paper Lantern")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .modelData(Model.Balloon.PAPER_LANTERN)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public PaperLanternBalloon() {
-        super(Balloon.PAPER_LANTERN.name(), NAME, (p) -> ITEM.get());
+        super(Balloon.PAPER_LANTERN.name());
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Paper Lantern")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ITEM.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Balloon.PAPER_LANTERN)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
     }
 }

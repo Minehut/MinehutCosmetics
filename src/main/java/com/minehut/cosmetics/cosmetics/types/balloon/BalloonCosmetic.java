@@ -4,21 +4,15 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.types.follower.MountedFollowerCosmetic;
 import com.minehut.cosmetics.util.EntityUtil;
 import com.minehut.cosmetics.util.data.Key;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Function;
 
 public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
 
@@ -30,21 +24,16 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
      * just itemstacks that are equipped on an armor stands head
      * and always face the player
      *
-     * @param id              of the cosmetic
-     * @param name            of this companion
-     * @param balloonSupplier build the itemstack for this companion
+     * @param id of the cosmetic
      */
-    public BalloonCosmetic(String id,
-                           Component name,
-                           Function<Player, ItemStack> balloonSupplier) {
+    public BalloonCosmetic(String id) {
         super(id,
                 CosmeticCategory.BALLOON,
-                name,
-                balloonSupplier,
                 new Vector(0, 1.5, 0),
                 true,
                 true,
-                false);
+                false
+        );
     }
 
     @Override
@@ -96,5 +85,4 @@ public abstract class BalloonCosmetic extends MountedFollowerCosmetic {
 
         return leashes;
     }
-
 }

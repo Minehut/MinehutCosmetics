@@ -19,25 +19,8 @@ import java.util.function.Supplier;
 
 public class UfoCowCompanion extends CompanionCosmetic {
 
-
-    private static final Component NAME = Component.text("Mooon Cow")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .modelData(Model.Companion.UFO_COW)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            ).supplier();
-
-
     public UfoCowCompanion() {
         super(Companion.UFO_COW.name(),
-                NAME,
-                (p) -> ICON.get(),
                 new Vector(0, -1, 0),
                 true,
                 true,
@@ -46,17 +29,27 @@ public class UfoCowCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Mooon Cow")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ICON.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.UFO_COW)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }

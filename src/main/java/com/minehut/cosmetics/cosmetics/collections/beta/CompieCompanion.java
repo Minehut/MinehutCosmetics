@@ -3,36 +3,20 @@ package com.minehut.cosmetics.cosmetics.collections.beta;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.ui.model.Model;
-
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
+import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 // TODO: Refactor to modern style
 public class CompieCompanion extends CompanionCosmetic {
     public CompieCompanion() {
         super(
                 com.minehut.cosmetics.cosmetics.types.companion.Companion.EXPLORER.name(),
-                Component.text("Compie-chan").color(NamedTextColor.GOLD),
-                player -> {
-                    ItemStack stack = new ItemStack(Material.SCUTE);
-                    stack.editMeta(meta -> {
-                        meta.lore(List.of(
-                                Component.empty(),
-                                Collection.BETA.tag(),
-                                Component.empty()
-                        ));
-                        meta.setCustomModelData(Model.Companion.COMPIE_CHAN);
-                    });
-                    return stack;
-                },
                 new Vector(0, -1, 0),
                 true,
                 true,
@@ -51,21 +35,25 @@ public class CompieCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        ItemStack stack = new ItemStack(Material.COMPASS);
-        stack.editMeta(meta -> {
-            meta.displayName(Component.text("Compie-chan").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
-            meta.lore(List.of(
-                    Component.empty(),
-                    Collection.BETA.tag(),
-                    Component.empty()
-            ));
-        });
-        return stack;
+    public Component name() {
+        return Component.text("Compie-chan").color(rarity().display().color());
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.COMPIE_CHAN)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.BETA;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }

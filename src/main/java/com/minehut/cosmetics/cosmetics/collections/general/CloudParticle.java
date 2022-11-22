@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -10,23 +11,17 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CloudParticle extends ParticleCosmetic {
-    private static final ItemStack ITEM = ItemBuilder.of(Material.LIGHT_GRAY_DYE)
-            .display(Component.text("Cloud Particles").color(NamedTextColor.GRAY))
-            .lore(Component.empty(),
-                    Component.text("Believe it or not, I'm walking on air!").color(NamedTextColor.WHITE),
-                    Component.text("(and water vapor)").color(NamedTextColor.WHITE),
-                    Component.empty())
-            .build();
     private final List<Location> locations = new ArrayList<>();
 
     public CloudParticle() {
-        super(Particle.CLOUD.name(), Component.text("Cloud Particles"), 1);
+        super(Particle.CLOUD.name(), 1);
     }
 
     @Override
@@ -40,8 +35,24 @@ public class CloudParticle extends ParticleCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM;
+    public Component name() {
+        return Component.text("Cloud Particles").color(NamedTextColor.GRAY);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.LIGHT_GRAY_DYE)
+                .display(name())
+                .lore(Component.empty(),
+                        Component.text("Believe it or not, I'm walking on air!").color(NamedTextColor.WHITE),
+                        Component.text("(and water vapor)").color(NamedTextColor.WHITE),
+                        Component.empty())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 
     @Override

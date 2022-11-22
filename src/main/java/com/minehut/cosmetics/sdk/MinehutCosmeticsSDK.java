@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class MinehutCosmeticsSDK implements CosmeticsSDK {
 
-    private Cosmetics cosmetics;
+    private final Cosmetics cosmetics;
 
     public MinehutCosmeticsSDK(Cosmetics cosmetics) {
         this.cosmetics = cosmetics;

@@ -12,41 +12,34 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class Fall2022Shield extends ItemCosmetic {
 
-    private static final Component NAME = Component.text("Shield of Autumn")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SHIELD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Item.Shield.FALL_22)
-            .supplier();
-
     public Fall2022Shield() {
-        super(Item.FALL_22_SHIELD.name(), NAME);
+        super(Item.FALL_22_SHIELD.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Shield of Autumn")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SHIELD)
+                .display(name())
+                .modelData(Model.Item.Shield.FALL_22)
+                .build();
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.FALL_22);
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 }
 

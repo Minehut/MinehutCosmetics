@@ -12,36 +12,38 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class TurtleHat extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Turtle Hat")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .modelData(Model.Hat.TURTLE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public TurtleHat() {
-        super(Hat.TURTLE.name(), NAME, ITEM);
+        super(Hat.TURTLE.name());
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Turtle Hat")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .display(name())
+                .modelData(Model.Hat.TURTLE)
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics.collections.maid;
 
 import com.minehut.cosmetics.cosmetics.Collection;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
@@ -12,28 +13,14 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class MaidHeadband extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Maid's Headband")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MAID.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Hat.MAID)
-            .supplier();
-
-
     public MaidHeadband() {
-        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.MAID.name(), NAME, ITEM);
+        super(Hat.MAID.name());
     }
 
     @Override
@@ -48,11 +35,22 @@ public class MaidHeadband extends HatCosmetic {
 
     @Override
     public Component name() {
-        return NAME;
+        return Component.text("Maid's Headband")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Hat.MAID)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.MAID;
     }
 }

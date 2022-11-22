@@ -12,30 +12,14 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class BearCompanion extends CompanionCosmetic {
-
-    private static final Component NAME = Component.text("Teddy")
-            .decoration(TextDecoration.ITALIC, false)
-            .color(NamedTextColor.GOLD);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.GENERAL.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Companion.BEAR)
-            .supplier();
-
     public BearCompanion() {
         super(
                 com.minehut.cosmetics.cosmetics.types.companion.Companion.BEAR.name(),
-                NAME,
-                player -> ITEM.get(),
                 new Vector(0, -1, 0),
                 true,
                 true,
@@ -54,7 +38,22 @@ public class BearCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Teddy")
+                .decoration(TextDecoration.ITALIC, false)
+                .color(NamedTextColor.GOLD);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.BEAR)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

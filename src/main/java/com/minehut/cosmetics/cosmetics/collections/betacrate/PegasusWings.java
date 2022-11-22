@@ -17,36 +17,37 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PegasusWings extends WingCosmetic {
-    private static final Component NAME = Component.text("Pegasus Wings")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .modelData(Model.Wing.PEGASUS)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public PegasusWings() {
-        super(Wing.PEGASUS.name(), NAME);
+        super(Wing.PEGASUS.name());
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+        return Permission.collectionIsActive(Collection.DRAGON_CRATE);
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Pegasus Wings")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ITEM.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .modelData(Model.Wing.PEGASUS)
+                .display(name())
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }

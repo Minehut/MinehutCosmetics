@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.expressive;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FireEmoji extends EmojiCosmetic {
     public FireEmoji() {
-        super(Emoji.FIRE.name(), Component.text("Fire Emoji"));
+        super(Emoji.FIRE.name());
     }
 
     @Override
@@ -30,5 +31,15 @@ public class FireEmoji extends EmojiCosmetic {
     @Override
     public Permission visibility() {
         return Permission.none();
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Fire Emoji");
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

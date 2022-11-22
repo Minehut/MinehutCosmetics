@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HeartEmoji extends EmojiCosmetic {
     public HeartEmoji() {
-        super(Emoji.HEART.name(), Component.text("Heart Emoji"));
+        super(Emoji.HEART.name());
     }
 
     @Override
@@ -30,5 +31,15 @@ public class HeartEmoji extends EmojiCosmetic {
     @Override
     public Permission visibility() {
         return Permission.none();
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Heart Emoji");
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

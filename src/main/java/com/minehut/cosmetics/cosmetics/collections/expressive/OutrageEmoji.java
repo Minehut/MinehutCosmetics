@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.expressive;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class OutrageEmoji extends EmojiCosmetic {
     public OutrageEmoji() {
-        super(Emoji.OUTRAGE.name(), Component.text("Outrage Emoji"));
+        super(Emoji.OUTRAGE.name());
     }
 
     @Override
@@ -30,5 +31,15 @@ public class OutrageEmoji extends EmojiCosmetic {
     @Override
     public Permission visibility() {
         return Permission.none();
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Outrage Emoji");
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

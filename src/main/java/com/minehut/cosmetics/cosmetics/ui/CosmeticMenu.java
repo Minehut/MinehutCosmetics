@@ -114,11 +114,7 @@ public class CosmeticMenu extends Menu {
 
         getProxy().setItem(1, ItemIcon.SHOP_ICON.get(), (player, ignored) -> {
             player.closeInventory();
-            player.openBook(Book.book(
-                    Component.text("Cosmetics"),
-                    Component.text("Minehut"),
-                    Component.text("Open Cosmetics Shop ⬈").style(Style.style(NamedTextColor.BLUE, TextDecoration.UNDERLINED)).clickEvent(ClickEvent.openUrl("https://bit.ly/3TGDqMi"))
-            ));
+            player.openBook(BookUI.COSMETICS_STORE_URL);
         });
 
         if (Cosmetics.mode() == Mode.LOBBY) {

@@ -13,42 +13,38 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class FancyFishingRod extends ItemCosmetic {
-
-    public static final Component NAME = Component.text("Fancy Fishing Rod")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.FISHING_ROD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.FishingRod.FANCY)
-            .supplier();
-
     public FancyFishingRod() {
-        super(Item.FANCY_FISHING_ROD.name(), NAME);
+        super(Item.FANCY_FISHING_ROD.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Fancy Fishing Rod")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.FISHING_ROD)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.FishingRod.FANCY)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.EPIC;
     }
 }

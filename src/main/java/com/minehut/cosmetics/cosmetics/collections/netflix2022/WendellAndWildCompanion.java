@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.cosmetics.collections.netflix2022;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
@@ -9,10 +11,13 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class WendellAndWildCompanion extends CompanionCosmetic {
@@ -49,12 +54,7 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
 
     public WendellAndWildCompanion() {
         super(
-                com.minehut.cosmetics.cosmetics.types.companion.Companion.WENDELL_AND_WILD.name(),
-                Component.text("Wendell & Wild").color(NamedTextColor.GOLD),
-                List.of(
-                        player -> WENDELL.get(),
-                        player -> WILD.get()
-                ),
+                Companion.WENDELL_AND_WILD.name(),
                 new Vector(0, -1.01, 0),
                 true,
                 true,
@@ -63,17 +63,30 @@ public class WendellAndWildCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
-    }
-
-    @Override
     public Permission visibility() {
         return Permission.deny();
     }
 
     @Override
-    public ItemStack menuIcon() {
+    public Component name() {
+        return Component.text("Wendell & Wild").color(rarity().display().color());
+    }
+
+    @Override
+    public List<Function<Player, ItemStack>> getCompanionSuppliers() {
+        return List.of(
+                p -> WENDELL.get(),
+                p -> WILD.get()
+        );
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
         return WENDELL_AND_WILD.get();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.WENDELL_AND_WILD;
     }
 }

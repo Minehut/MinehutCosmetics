@@ -56,7 +56,7 @@ public class SkinMenu extends SubMenu {
     private static final ItemStack CLEAR_ITEM = ItemBuilder.of(Material.BARRIER).display(Component.text("Remove Skin").color(NamedTextColor.RED)).build();
     private final HashSet<CosmeticSupplier<? extends Cosmetic>> cosmetics = new HashSet<>();
 
-    private List<MenuItem> items = new ArrayList<>();
+    private final List<MenuItem> items = new ArrayList<>();
 
     private final ItemStack item;
 

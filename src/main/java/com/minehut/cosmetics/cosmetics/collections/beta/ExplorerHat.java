@@ -12,52 +12,39 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class ExplorerHat extends HatCosmetic {
 
-    private static final Component NAME = Component.text("Explorer’s Hat")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Component.text("Minehut Cosmetic: Beta").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Hat.EXPLORER)
-            .supplier();
-
-
     public ExplorerHat() {
-        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.EXPLORER.name(), NAME, ITEM);
-    }
-
-    @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.BETA);
+        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.EXPLORER.name());
     }
 
     @Override
     public Component name() {
-        return NAME;
+        return Component.text("Explorer’s Hat")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Hat.EXPLORER)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.BETA;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }

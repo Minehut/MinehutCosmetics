@@ -52,4 +52,8 @@ public class ItemIcon {
             .modelData(Model.Ui.GEM_SHOP)
             .display(Component.text("Gem Shop").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
             .supplier();
+
+    public static final Supplier<ItemStack> UNEQUIP = ItemBuilder.of(Material.BARRIER)
+            .display(Component.text("Un-Equip").color(NamedTextColor.RED))
+            .supplier();
 }

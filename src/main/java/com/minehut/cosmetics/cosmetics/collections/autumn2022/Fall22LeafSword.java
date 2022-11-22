@@ -17,26 +17,12 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 public class Fall22LeafSword extends ItemCosmetic {
-
-    public static final Component NAME = Component.text("Fallbringer")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.FALL_22_LEAF_SWORD)
-            .supplier();
 
     public static final Permission PERMISSION = Permission.all(List.of(
             Permission.hasPurchased(CosmeticCategory.ITEM.name(), Item.FALL_22_SWORD.name()),
@@ -54,12 +40,7 @@ public class Fall22LeafSword extends ItemCosmetic {
     public static final Permission VISIBILITY = Permission.collectionIsActive(Collection.FALL_22);
 
     public Fall22LeafSword() {
-        super(Item.FALL_22_LEAF_SWORD.name(), NAME);
-    }
-
-    @Override
-    public ItemStack item() {
-        return ITEM.get();
+        super(Item.FALL_22_LEAF_SWORD.name());
     }
 
     @Override
@@ -68,12 +49,28 @@ public class Fall22LeafSword extends ItemCosmetic {
     }
 
     @Override
-    public Permission visibility() {
-        return VISIBILITY;
+    public Component name() {
+        return Component.text("Fallbringer")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Sword.FALL_22_LEAF_SWORD)
+                .build();
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.EPIC;
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 }

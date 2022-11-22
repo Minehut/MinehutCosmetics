@@ -11,16 +11,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class Cosmetic {
-    private final Component name;
     protected UUID owner;
     private final CosmeticCategory type;
     private final String id;
 
     protected Cosmetic(final String id,
-                       final CosmeticCategory type,
-                       final Component name) {
+                       final CosmeticCategory type) {
         this.id = id;
-        this.name = name;
         this.type = type;
     }
 
@@ -28,7 +25,9 @@ public abstract class Cosmetic {
         return Permission.hasPurchased(category(), id());
     }
 
-    public abstract Permission visibility();
+    public Permission visibility() {
+        return Permission.collectionIsActive(collection());
+    }
 
     public Optional<UUID> owner() {
         return Optional.ofNullable(owner);
@@ -50,9 +49,7 @@ public abstract class Cosmetic {
         return id;
     }
 
-    public Component name() {
-        return name;
-    }
+    public abstract Component name();
 
     /**
      * Gets the ID of the cosmetic used for deserializing, combines the
@@ -66,7 +63,14 @@ public abstract class Cosmetic {
 
     public abstract @NotNull ItemStack menuIcon();
 
-    public Rarity rarity() {
+    /**
+     * Get the cosmetic collection for this item
+     *
+     * @return the collection
+     */
+    public abstract @NotNull Collection collection();
+
+    public @NotNull Rarity rarity() {
         return Rarity.UNCOMMON;
     }
 

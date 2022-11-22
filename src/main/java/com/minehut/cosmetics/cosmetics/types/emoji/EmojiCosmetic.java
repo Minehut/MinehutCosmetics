@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class EmojiCosmetic extends Cosmetic {
 
-    protected EmojiCosmetic(String id, Component name) {
-        super(id, CosmeticCategory.EMOJI, name);
+    protected EmojiCosmetic(String id) {
+        super(id, CosmeticCategory.EMOJI);
     }
 
     @Override
-    public ItemStack menuIcon() {
+    public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.PAPER).display(component()).build();
     }
 

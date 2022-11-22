@@ -12,37 +12,34 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class ShortSword extends ItemCosmetic {
 
-    public static final Component NAME = Component.text("Short Sword")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.FANCY_SHORT_SWORD)
-            .supplier();
-
     public ShortSword() {
-        super(Item.FANCY_SHORT_SWORD.name(), NAME);
+        super(Item.FANCY_SHORT_SWORD.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Short Sword")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
+                .display(name())
+                .modelData(Model.Item.Sword.FANCY_SHORT_SWORD)
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
     }
 }

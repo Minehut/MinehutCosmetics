@@ -18,36 +18,32 @@ import java.util.function.Supplier;
 
 public class PaperDragonBalloon extends BalloonCosmetic {
 
-    private static final Component NAME = Component.text("Dragon Kite")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .modelData(Model.Balloon.PAPER_DRAGON)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public PaperDragonBalloon() {
-        super(Balloon.PAPER_DRAGON.name(), NAME, (p) -> ITEM.get());
+        super(Balloon.PAPER_DRAGON.name());
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Dragon Kite")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ITEM.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Balloon.PAPER_DRAGON)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.EPIC;
     }
 }

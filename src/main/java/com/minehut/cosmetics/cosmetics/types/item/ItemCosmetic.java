@@ -10,6 +10,7 @@ import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.SkinUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -19,8 +20,8 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
 
     private @Nullable CosmeticSlot slot = null;
 
-    protected ItemCosmetic(String id, final Component name) {
-        super(id, CosmeticCategory.ITEM, name);
+    protected ItemCosmetic(String id) {
+        super(id, CosmeticCategory.ITEM);
     }
 
     @Override
@@ -52,12 +53,8 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
         }));
     }
 
-    public abstract ItemStack item();
-
-    @Override
-    public ItemStack menuIcon() {
-        final ItemBuilder item = ItemBuilder.of(item());
-        return item.build();
+    public ItemStack item() {
+        return menuIcon();
     }
 
     @Override

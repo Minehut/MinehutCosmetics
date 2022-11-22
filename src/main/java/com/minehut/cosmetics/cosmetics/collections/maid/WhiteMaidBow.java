@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.collections.maid;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
+import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.ui.model.Model;
 
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
@@ -11,27 +12,13 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class WhiteMaidBow extends WingCosmetic {
-
-    private static final Component NAME = Component.text("Maid's White Bow")
-            .color(NamedTextColor.AQUA)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MAID.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Wing.BOW_WHITE)
-            .supplier();
-
     public WhiteMaidBow() {
-        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.BOW_WHITE.name(), NAME);
+        super(Wing.BOW_WHITE.name());
     }
 
     @Override
@@ -45,7 +32,22 @@ public class WhiteMaidBow extends WingCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Maid's White Bow")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Wing.BOW_WHITE)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.MAID;
     }
 }

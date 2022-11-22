@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -13,24 +14,18 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HaloParticle extends ParticleCosmetic {
     public static final String REQUIRED_RANK = "LEGEND";
-    private static final ItemStack ITEM = ItemBuilder.of(Material.FEATHER)
-            .display(Component.text("Halo Particles").color(NamedTextColor.YELLOW))
-            .lore(Component.empty(),
-                    Component.text("*heavenly choir plays*").color(NamedTextColor.WHITE),
-                    Component.empty(),
-                    Component.text("Requires ").color(NamedTextColor.GRAY).append(Component.text(REQUIRED_RANK)),
-                    Component.empty())
-            .build();
+
     private final List<Location> locations = new ArrayList<>();
 
     public HaloParticle() {
-        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.HALO.name(), Component.text("Halo Particles"), 2);
+        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.HALO.name(), 2);
     }
 
     @Override
@@ -44,8 +39,24 @@ public class HaloParticle extends ParticleCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM;
+    public Component name() {
+        return Component.text("Halo Particles").color(NamedTextColor.YELLOW);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.FEATHER)
+                .lore(Component.empty(),
+                        Component.text("*heavenly choir plays*").color(NamedTextColor.WHITE),
+                        Component.empty(),
+                        Component.text("Requires ").color(NamedTextColor.GRAY).append(Component.text(REQUIRED_RANK)),
+                        Component.empty())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 
     @Override

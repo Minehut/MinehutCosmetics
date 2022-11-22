@@ -14,46 +14,39 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class ExplorerSword extends ItemCosmetic {
 
-    private static final Component DISPLAY_NAME = Component.text("Explorer’s Blade")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(DISPLAY_NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.BETA.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.EXPLORER)
-            .supplier();
-
     public ExplorerSword() {
-        super(Item.EXPLORER_SWORD.name(), DISPLAY_NAME);
+        super(Item.EXPLORER_SWORD.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Explorer’s Blade")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Sword.EXPLORER)
+                .build();
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.BETA);
-    }
-
-    @Override
-    public Rarity rarity() {
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.BETA;
     }
 }

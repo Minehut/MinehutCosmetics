@@ -13,41 +13,34 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class Fall22Sword extends ItemCosmetic {
 
-    private static final Component NAME = Component.text("Blade of Autumn")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SWORD)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Sword.FALL_22)
-            .supplier();
-
     public Fall22Sword() {
-        super(Item.FALL_22_SWORD.name(), NAME);
+        super(Item.FALL_22_SWORD.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Blade of Autumn")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Sword.FALL_22)
+                .build();
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.FALL_22);
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 }

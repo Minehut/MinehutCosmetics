@@ -12,28 +12,13 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class DevilHorns extends HatCosmetic {
-
-    private static final Component NAME = Component.text("Devil Horns")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Component.text("Spooktacular 2022").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Hat.DEVIL_HORNS)
-            .supplier();
-
-
     public DevilHorns() {
-        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.DEVIL_HORNS.name(), NAME, ITEM);
+        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.DEVIL_HORNS.name());
     }
 
     @Override
@@ -48,11 +33,22 @@ public class DevilHorns extends HatCosmetic {
 
     @Override
     public Component name() {
-        return NAME;
+        return Component.text("Devil Horns")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Hat.DEVIL_HORNS)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.SPOOKY_22;
     }
 }

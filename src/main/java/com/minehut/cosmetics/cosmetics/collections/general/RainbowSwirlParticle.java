@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.general;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.ParticleCosmetic;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -10,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.List;
@@ -19,8 +21,6 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     public static final String REQUIRED_RANK = "PRO";
     private static final List<Material> RAINBOW = List.of(Material.RED_WOOL, Material.ORANGE_WOOL, Material.YELLOW_WOOL, Material.LIME_WOOL, Material.LIGHT_BLUE_WOOL, Material.CYAN_WOOL, Material.PURPLE_WOOL);
     private static final int RAINBOW_COLORS = RAINBOW.size();
-
-    private static final Component DISPLAY_NAME = Component.text("Rainbow Swirl Particles").color(NamedTextColor.AQUA);
     private static final Component[] LORE = new Component[]{Component.empty(),
             Component.text("Magical rainbow swirling around you!").color(NamedTextColor.WHITE),
             Component.empty(),
@@ -35,7 +35,7 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     private Color color;
 
     public RainbowSwirlParticle() {
-        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.RAINBOW_SWIRL.name(), Component.text("Rainbow Swirl Particles"), 0);
+        super(com.minehut.cosmetics.cosmetics.types.particle.Particle.RAINBOW_SWIRL.name(), 0);
     }
 
     @Override
@@ -49,13 +49,23 @@ public class RainbowSwirlParticle extends ParticleCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
+    public Component name() {
+        return Component.text("Rainbow Swirl Particles").color(rarity().display().color());
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
         final int index = (int) ((System.currentTimeMillis() / 500L) % RAINBOW_COLORS);
         final Material rainbowColor = RAINBOW.get(index);
         return ItemBuilder.of(rainbowColor)
-                .display(DISPLAY_NAME)
+                .display(name())
                 .lore(LORE)
                 .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 
     @Override

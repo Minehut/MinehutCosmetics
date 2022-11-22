@@ -19,23 +19,8 @@ import java.util.function.Supplier;
 
 public class YoungDragonCompanion extends CompanionCosmetic {
 
-    private static final Component NAME = Component.text("Young Dragon")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ICON = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .modelData(Model.Companion.YOUNG_DRAGON)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            ).supplier();
-
-
     public YoungDragonCompanion() {
         super(Companion.YOUNG_DRAGON.name(),
-                NAME,
-                (p) -> ICON.get(),
                 new Vector(0, -1, 0),
                 true,
                 true,
@@ -44,17 +29,27 @@ public class YoungDragonCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+    public Component name() {
+        return Component.text("Young Dragon")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ICON.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.YOUNG_DRAGON)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.LEGENDARY;
     }
 }

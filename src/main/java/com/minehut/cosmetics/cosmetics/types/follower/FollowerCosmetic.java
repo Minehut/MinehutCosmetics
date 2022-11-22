@@ -2,11 +2,9 @@ package com.minehut.cosmetics.cosmetics.types.follower;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -21,7 +19,6 @@ import java.util.UUID;
 import java.util.function.Function;
 
 public abstract class FollowerCosmetic extends Cosmetic implements Equippable, Tickable {
-    protected List<Function<Player, ItemStack>> companionSuppliers;
     protected List<UUID> entityUUIDs;
 
 
@@ -32,12 +29,9 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     protected FollowerCosmetic(
             String id,
             CosmeticCategory category,
-            final Component name,
-            List<Function<Player, ItemStack>> companionSuppliers,
             Vector offset
     ) {
-        super(id, category, name);
-        this.companionSuppliers = companionSuppliers;
+        super(id, category);
         this.offset = offset;
         entityUUIDs = new ArrayList<>();
     }
@@ -48,7 +42,7 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
         equipped = true;
         // we need the player to spawn the entity
         player().ifPresent(player -> {
-            for (Function<Player, ItemStack> companionSupplier : companionSuppliers) {
+            for (Function<Player, ItemStack> companionSupplier : getCompanionSuppliers()) {
                 final Location spawnLocation = player.getEyeLocation().clone().subtract(0, 0.5, 0);
                 final Vector behind = spawnLocation.getDirection().setY(0).normalize().multiply(-1);
                 spawnLocation.add(behind);
@@ -113,7 +107,13 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     }
 
     public List<? extends Entity> entities() {
-        return entityUUIDs.stream().map(Bukkit::getEntity).toList();
+        final List<Entity> entities = new ArrayList<>(entityUUIDs.size());
+        for (final UUID uuid : entityUUIDs) {
+            final Entity entity = Bukkit.getEntity(uuid);
+            if (entity == null) continue;
+            entities.add(entity);
+        }
+        return entities;
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -137,7 +137,7 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
      * This locks the output speed (y) between 0.25 (the max move towards player speed) and 0,
      * between the distance (x) ranges of 0 and 4.
      * <p>
-     * https://www.desmos.com/calculator/hrkyyewmzc
+     * <a href="https://www.desmos.com/calculator/hrkyyewmzc">Calculator</a>
      *
      * @param distanceSquared the distance between the two entities, squared
      * @return the speed to move away at
@@ -151,6 +151,6 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     }
 
     public List<Function<Player, ItemStack>> getCompanionSuppliers() {
-        return companionSuppliers;
+        return List.of(p -> menuIcon());
     }
 }

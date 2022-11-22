@@ -12,27 +12,13 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class BatWings extends WingCosmetic {
-
-    private static final Component NAME = Component.text("Bat Wings")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.SPOOKY_22.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Wing.BAT)
-            .supplier();
-
     public BatWings() {
-        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.BAT.name(), NAME);
+        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.BAT.name());
     }
 
     @Override
@@ -46,12 +32,27 @@ public class BatWings extends WingCosmetic {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Bat Wings")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Wing.BAT)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.SPOOKY_22;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }

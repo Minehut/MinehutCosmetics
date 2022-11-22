@@ -15,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -36,25 +37,9 @@ public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
     private int currentFrame = 0;
     private long lastTick = 0;
 
-    private static final Component NAME = Component.text("Yumm")
-            .decoration(TextDecoration.ITALIC, false)
-            .color(NamedTextColor.GOLD);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.GENERAL.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Companion.RED_ROBIN.FRAME_1)
-            .supplier();
-
     public RedRobinCompanion() {
         super(
                 com.minehut.cosmetics.cosmetics.types.companion.Companion.RED_ROBIN.name(),
-                NAME,
-                player -> ITEM.get(),
                 new Vector(0, -1, 0),
                 true,
                 true,
@@ -95,7 +80,22 @@ public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Yumm")
+                .decoration(TextDecoration.ITALIC, false)
+                .color(rarity().display().color());
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.RED_ROBIN.FRAME_1)
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.GENERAL;
     }
 }

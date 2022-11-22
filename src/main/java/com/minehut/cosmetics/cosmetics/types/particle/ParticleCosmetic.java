@@ -11,8 +11,8 @@ public abstract class ParticleCosmetic extends Cosmetic implements Tickable {
     protected final int delay;
     protected int tick;
 
-    protected ParticleCosmetic(final String id, final Component name, final int delay) {
-        super(id, CosmeticCategory.PARTICLE, name);
+    protected ParticleCosmetic(final String id, final int delay) {
+        super(id, CosmeticCategory.PARTICLE);
         this.delay = delay;
     }
 

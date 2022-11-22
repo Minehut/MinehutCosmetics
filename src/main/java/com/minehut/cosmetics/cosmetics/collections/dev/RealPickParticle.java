@@ -1,5 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.dev;
 
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.particle.Particle;
 import com.minehut.cosmetics.cosmetics.types.particle.base.AmbientPixelArtParticle;
@@ -9,18 +10,12 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class RealPickParticle extends AmbientPixelArtParticle {
-    public static final ItemStack ITEM = ItemBuilder.of(Material.GOLDEN_PICKAXE)
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .display(Component.text("Placeholder").color(NamedTextColor.GRAY))
-            .lore(Component.empty(),
-                    Component.text("Just another particle").color(NamedTextColor.WHITE),
-                    Component.empty())
-            .build();
 
     public RealPickParticle() {
-        super(Particle.REAL_PICK.name(), Component.text("Placeholder"), 1, "realpick", 3);
+        super(Particle.REAL_PICK.name(), 1, "realpick", 3);
     }
 
     @Override
@@ -34,7 +29,23 @@ public class RealPickParticle extends AmbientPixelArtParticle {
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM;
+    public Component name() {
+        return Component.text("Placeholder");
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.GOLDEN_PICKAXE)
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .display(name())
+                .lore(Component.empty(),
+                        Component.text("Just another particle").color(NamedTextColor.WHITE),
+                        Component.empty())
+                .build();
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.DEV;
     }
 }

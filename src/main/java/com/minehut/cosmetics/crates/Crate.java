@@ -5,7 +5,6 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
@@ -17,7 +16,6 @@ import kong.unirest.HttpResponse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -29,7 +27,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -38,8 +35,8 @@ public abstract class Crate extends Cosmetic {
 
     private final WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table;
 
-    protected Crate(String id, Component name, WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table) {
-        super(id, CosmeticCategory.CRATE, name);
+    protected Crate(String id, WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table) {
+        super(id, CosmeticCategory.CRATE);
         this.table = table;
     }
 

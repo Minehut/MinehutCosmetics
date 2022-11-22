@@ -12,31 +12,13 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class ExplorerSpyglass extends ItemCosmetic {
-
-    private static final Component DISPLAY_NAME = Component.text("Explorer’s Spyglass")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SPYGLASS)
-            .display(DISPLAY_NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.BETA.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Item.Spyglass.EXPLORER)
-            .supplier();
-
     public ExplorerSpyglass() {
-        super(Item.EXPLORER_SPYGLASS.name(), DISPLAY_NAME);
-    }
-
-    @Override
-    public ItemStack item() {
-        return ITEM.get();
+        super(Item.EXPLORER_SPYGLASS.name());
     }
 
     @Override
@@ -50,7 +32,27 @@ public class ExplorerSpyglass extends ItemCosmetic {
     }
 
     @Override
-    public Rarity rarity() {
+    public Component name() {
+        return Component.text("Explorer’s Spyglass")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SPYGLASS)
+                .display(name())
+                .modelData(Model.Item.Spyglass.EXPLORER)
+                .build();
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
+    }
+
+    @Override
+    public @NotNull Collection collection() {
+        return Collection.BETA;
     }
 }

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LocalizedMessage {
-    private String message;
-    private List<String> inserts;
+    private final String message;
+    private final List<String> inserts;
 
     public LocalizedMessage(String message, String... inserts) {
         this.message = message;

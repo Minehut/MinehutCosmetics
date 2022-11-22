@@ -12,41 +12,34 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class Fall22Shovel extends ItemCosmetic {
 
-    private static final Component DISPLAY_NAME = Component.text("Autumn's Shovel")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.DIAMOND_SHOVEL)
-            .display(DISPLAY_NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .flags(ItemFlag.HIDE_ATTRIBUTES)
-            .modelData(Model.Item.Shovel.FALL_22)
-            .supplier();
-
     public Fall22Shovel() {
-        super(Item.FALL_22_SHOVEL.name(), DISPLAY_NAME);
+        super(Item.FALL_22_SHOVEL.name());
     }
 
     @Override
-    public ItemStack item() {
-        return ITEM.get();
+    public Component name() {
+        return Component.text("Autumn's Shovel")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_SHOVEL)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Shovel.FALL_22)
+                .build();
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.none();
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 }

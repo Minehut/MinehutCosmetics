@@ -17,36 +17,37 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class ArcadeWings extends WingCosmetic {
-    private static final Component NAME = Component.text("Arcade Wings")
-            .color(NamedTextColor.GOLD)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .modelData(Model.Wing.ARCADE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MINEHUT_LEGENDARY_CRATE.tag(),
-                    Component.empty()
-            )
-            .supplier();
-
     public ArcadeWings() {
-        super(Wing.ARCADE.name(), NAME);
+        super(Wing.ARCADE.name());
     }
 
     @Override
     public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MINEHUT_LEGENDARY_CRATE);
+        return Permission.collectionIsActive(Collection.DRAGON_CRATE);
+    }
+
+    @Override
+    public Component name() {
+        return Component.text("Arcade Wings")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ITEM.get();
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Wing.ARCADE)
+                .build();
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Collection collection() {
+        return Collection.DRAGON_CRATE;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
         return Rarity.EPIC;
     }
 }

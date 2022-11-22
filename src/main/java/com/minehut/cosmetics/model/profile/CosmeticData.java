@@ -3,7 +3,7 @@ package com.minehut.cosmetics.model.profile;
 public class CosmeticData {
     private String category;
     private String id;
-    private CosmeticMeta meta;
+    private final CosmeticMeta meta;
 
     public CosmeticData(String category, String id, CosmeticMeta meta) {
         this.category = category;

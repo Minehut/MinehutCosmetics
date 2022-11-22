@@ -12,41 +12,33 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class BlackMaidBow extends WingCosmetic {
 
-    private static final Component NAME = Component.text("Maid's Black Bow")
-            .color(NamedTextColor.AQUA)
-            .decoration(TextDecoration.ITALIC, false);
-
-    private static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.MAID.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Wing.BOW_BLACk)
-            .supplier();
-
     public BlackMaidBow() {
-        super(Wing.BOW_BLACK.name(), NAME);
+        super(Wing.BOW_BLACK.name());
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public Component name() {
+        return Component.text("Maid's Black Bow")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.MAID);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Wing.BOW_BLACk)
+                .build();
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull Collection collection() {
+        return Collection.MAID;
     }
 }

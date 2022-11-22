@@ -11,46 +11,38 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class Fall22Wings extends WingCosmetic {
 
-    public static final Component NAME = Component.text("Wings of Autumn")
-            .color(NamedTextColor.AQUA)
-            .decoration(TextDecoration.ITALIC, false);
-
-    public static final Supplier<ItemStack> ITEM = ItemBuilder.of(Material.SCUTE)
-            .display(NAME)
-            .lore(
-                    Component.empty(),
-                    Collection.FALL_22.tag(),
-                    Component.empty()
-            )
-            .modelData(Model.Wing.FALL_22)
-            .supplier();
-
     public Fall22Wings() {
-        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.FALL_22.name(), NAME);
+        super(com.minehut.cosmetics.cosmetics.types.wing.Wing.FALL_22.name());
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
+    public Component name() {
+        return Component.text("Wings of Autumn")
+                .color(rarity().display().color())
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.FALL_22);
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Wing.FALL_22)
+                .build();
     }
 
     @Override
-    public ItemStack menuIcon() {
-        return ITEM.get();
+    public @NotNull Collection collection() {
+        return Collection.FALL_22;
     }
 
     @Override
-    public Rarity rarity() {
+    public @NotNull Rarity rarity() {
         return Rarity.RARE;
     }
 }
