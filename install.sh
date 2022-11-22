@@ -1,1 +1,0 @@
-mvn package && mcli cp ./target/cosmetics-plugin-1.0-SNAPSHOT.jar mhdev/io-slgg-dev-pkt-ewr2-mine-k8s-game-minehut-binaries/plugins/MinehutCosmetics.jar
