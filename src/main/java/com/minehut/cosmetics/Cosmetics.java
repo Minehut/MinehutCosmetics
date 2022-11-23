@@ -55,6 +55,8 @@ public final class Cosmetics extends JavaPlugin {
     private @Nullable LocalStorageManager localStorage;
     private @Nullable CratesModule crates;
 
+    private ResourcePackPollingModule packModule;
+
     // api for accessing remote services
     private CosmeticsAPI api;
 
@@ -92,15 +94,15 @@ public final class Cosmetics extends JavaPlugin {
         removeCosmeticEntities();
 
         // setup polling containers
-        ResourcePackPollingModule packInfoModule = new ResourcePackPollingModule(this);
-        packInfoModule.init();
+        this.packModule = new ResourcePackPollingModule(this);
+        packModule.init();
         RankPollingModule rankPollingModule = new RankPollingModule(this);
         rankPollingModule.init();
 
         getLogger().info("Using operation mode '%s'!".formatted(config.mode()));
 
         registerEvents(new CosmeticsListener(this));
-        registerEvents(new ResourcePackListener(this, packInfoModule));
+        registerEvents(new ResourcePackListener(this, packModule));
         registerEvents(new DeathListener(this));
         registerEvents(new LeashListener(this));
         registerEvents(new CosmeticsTeleportListener(this));
@@ -154,9 +156,14 @@ public final class Cosmetics extends JavaPlugin {
         return crates;
     }
 
+    public ResourcePackPollingModule packModule() {
+        return packModule;
+    }
+
     public static Mode mode() {
         return get().config().mode();
     }
+
 
     /**
      * Remove any entities that ar marked w/ the cosmetic key
@@ -176,4 +183,6 @@ public final class Cosmetics extends JavaPlugin {
     public Gson gson() {
         return gson;
     }
+
+
 }

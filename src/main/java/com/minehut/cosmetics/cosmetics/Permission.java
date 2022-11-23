@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -75,6 +76,24 @@ public interface Permission {
      */
     static Permission staff() {
         return player -> hasRank("MOD").hasAccess(player);
+    }
+
+    static Permission hasResourcePack() {
+        return player -> {
+            final boolean localStatus = player.hasResourcePack();
+            if (localStatus) {
+                return CompletableFuture.completedFuture(true);
+            }
+
+            final Optional<CosmeticProfileResponse> maybeResponse = Cosmetics.get()
+                    .cosmeticManager()
+                    .getProfile(player.getUniqueId())
+                    .join();
+            if (maybeResponse.isEmpty()) return CompletableFuture.completedFuture(false);
+
+            final CosmeticProfileResponse response = maybeResponse.get();
+            return CompletableFuture.completedFuture(Cosmetics.get().packModule().state().getSha1().equals(response.getPackHash()));
+        };
     }
 
 

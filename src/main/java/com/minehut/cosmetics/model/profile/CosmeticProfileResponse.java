@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.model.profile;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +10,16 @@ public class CosmeticProfileResponse {
     private Map<String, String> equipped = new HashMap<>();
     private CosmeticProfile profile = new CosmeticProfile();
     private String rank = "DEFAULT";
+    private String packHash = "";
 
     public CosmeticProfileResponse() {
     }
 
-    public CosmeticProfileResponse(Map<String, String> equipped, CosmeticProfile profile, String rank) {
+    public CosmeticProfileResponse(Map<String, String> equipped, CosmeticProfile profile, String rank, String packHash) {
         this.equipped = equipped;
         this.profile = profile;
         this.rank = rank;
+        this.packHash = packHash;
     }
 
     public Map<String, String> getEquipped() {
@@ -64,6 +65,10 @@ public class CosmeticProfileResponse {
         final CosmeticData data = currencyMap.get("GEM");
         if (data == null) return 0;
         return data.getMeta().getQuantity();
+    }
+
+    public String getPackHash() {
+        return packHash;
     }
 
     @Override
