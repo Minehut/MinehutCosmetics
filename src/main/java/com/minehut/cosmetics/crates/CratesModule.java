@@ -27,8 +27,6 @@ public class CratesModule {
     public CratesModule(Cosmetics cosmetics) {
         this.cosmetics = cosmetics;
         registerCommands();
-
-        Bukkit.getServer().getPluginManager().registerEvents(new CosmeticsVisibilityHandler(cosmetics.cosmeticManager()), cosmetics);
         Bukkit.getServer().getPluginManager().registerEvents(new CrateOpeningListener(this), cosmetics);
     }
 
