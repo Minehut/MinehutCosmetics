@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.events.skins;
+package com.minehut.cosmetics.listeners.skins;
 
 import com.minehut.cosmetics.util.data.Key;
 import org.bukkit.event.EventHandler;

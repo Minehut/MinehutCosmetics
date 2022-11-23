@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.events;
+package com.minehut.cosmetics.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 import com.minehut.cosmetics.Cosmetics;

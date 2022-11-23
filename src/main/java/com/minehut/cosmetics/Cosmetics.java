@@ -13,15 +13,15 @@ import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.crates.CratesModule;
-import com.minehut.cosmetics.events.CosmeticsListener;
-import com.minehut.cosmetics.events.CosmeticsTeleportListener;
-import com.minehut.cosmetics.events.DeathListener;
-import com.minehut.cosmetics.events.LeashListener;
-import com.minehut.cosmetics.events.ResourcePackListener;
-import com.minehut.cosmetics.events.skins.SkinDurabilityListener;
-import com.minehut.cosmetics.events.skins.SkinEquipListener;
-import com.minehut.cosmetics.events.skins.SkinModifyListener;
-import com.minehut.cosmetics.events.skins.SkinTriggerListener;
+import com.minehut.cosmetics.listeners.CosmeticsListener;
+import com.minehut.cosmetics.listeners.CosmeticsTeleportListener;
+import com.minehut.cosmetics.listeners.DeathListener;
+import com.minehut.cosmetics.listeners.LeashListener;
+import com.minehut.cosmetics.listeners.ResourcePackListener;
+import com.minehut.cosmetics.listeners.skins.SkinDurabilityListener;
+import com.minehut.cosmetics.listeners.skins.SkinEquipListener;
+import com.minehut.cosmetics.listeners.skins.SkinModifyListener;
+import com.minehut.cosmetics.listeners.skins.SkinTriggerListener;
 import com.minehut.cosmetics.listeners.CosmeticEntityListener;
 import com.minehut.cosmetics.listeners.EmojiHandler;
 import com.minehut.cosmetics.listeners.visibility.CosmeticsVisibilityHandler;
@@ -108,7 +108,6 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new TrinketListener());
         registerEvents(new EmojiHandler());
         registerEvents(new CosmeticsVisibilityHandler(cosmeticManager()));
-
 
         // register commands
         new MenuCommand().register(this);

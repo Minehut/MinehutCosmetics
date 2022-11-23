@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.events;
+package com.minehut.cosmetics.listeners;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
