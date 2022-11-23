@@ -107,7 +107,7 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
         registerEvents(new EmojiHandler());
-        registerEvents(new CosmeticsVisibilityHandler(cosmeticManager()), this);
+        registerEvents(new CosmeticsVisibilityHandler(cosmeticManager()));
 
 
         // register commands
