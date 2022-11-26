@@ -1,11 +1,13 @@
 package com.minehut.cosmetics.listeners;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -34,12 +36,10 @@ public class ResourcePackListener implements Listener {
         final PackInfo info = packPollingModule.state();
         if (!info.isValid()) return;
 
-        // send the pack to the player
-        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack(
-                info.getUrl(),
-                info.getSha1(),
-                false,
-                PACK_COPY
-        ), 10);
+        final Player player = event.getPlayer();
+        Permission.hasResourcePack().hasAccess(player).thenAccept(accepted -> {
+            if (accepted) return;
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> player.setResourcePack(info.getUrl(), info.getSha1(), false, PACK_COPY));
+        });
     }
 }
