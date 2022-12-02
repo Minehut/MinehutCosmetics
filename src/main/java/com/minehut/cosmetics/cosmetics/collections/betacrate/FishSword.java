@@ -24,7 +24,7 @@ public class FishSword extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Fish Sword")
+        return Component.text("15lb Fish")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

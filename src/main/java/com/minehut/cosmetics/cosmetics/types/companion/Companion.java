@@ -12,7 +12,7 @@ import com.minehut.cosmetics.cosmetics.collections.general.GreenTurtleCompanion;
 import com.minehut.cosmetics.cosmetics.collections.general.KittenCompanion;
 import com.minehut.cosmetics.cosmetics.collections.autumn2022.LatteCompanion;
 import com.minehut.cosmetics.cosmetics.collections.dev.MeFollower;
-import com.minehut.cosmetics.cosmetics.collections.blockfriday2022.RedRobinCompanion;
+import com.minehut.cosmetics.cosmetics.collections.general.RedRobinCompanion;
 import com.minehut.cosmetics.cosmetics.collections.netflix2022.WendellAndWildCompanion;
 import com.minehut.cosmetics.cosmetics.types.follower.FollowerCosmetic;
 

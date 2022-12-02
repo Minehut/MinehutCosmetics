@@ -25,7 +25,7 @@ public class GamerHeadset extends HatCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Gamer Headset")
+        return Component.text("Pink Gamer Headset")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

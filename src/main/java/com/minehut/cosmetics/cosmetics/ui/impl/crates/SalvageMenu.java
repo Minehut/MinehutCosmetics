@@ -37,11 +37,10 @@ public class SalvageMenu extends SubMenu {
     private SalvageMenu(UUID uuid) {
         super(Component.text("Salvage Menu"), (player, ignored) -> new CosmeticMenu(player).openTo(player));
 
-        final var maybeProfile = Cosmetics.get().cosmeticManager().getProfile(uuid).join();
+        final var maybeProfile = Cosmetics.get().manager().getProfile(uuid).join();
         if (maybeProfile.isEmpty()) return;
 
         final CosmeticProfileResponse response = maybeProfile.get();
-
 
         setTitle(Component.text()
                 .append(Component.text("Salvage "))
@@ -67,13 +66,13 @@ public class SalvageMenu extends SubMenu {
                 final ItemBuilder builder = ItemBuilder.of(base)
                         .display(display)
                         .appendLore(
-                                cosmetic.collection().display(),
+                                cosmetic.collection().display().color(NamedTextColor.GRAY),
                                 Component.empty(),
                                 Component.text()
                                         .append(Component.text("Salvage for").color(NamedTextColor.GRAY))
                                         .append(Component.space())
                                         .append(Component.text(cosmetic.salvageAmount()).color(NamedTextColor.LIGHT_PURPLE))
-                                        .append(Currency.GEM.display())
+                                        .append(Currency.GEM.display().color(NamedTextColor.WHITE))
                                         .decoration(TextDecoration.ITALIC, false)
                                         .build(),
                                 Component.empty(),

@@ -23,7 +23,7 @@ public class DragonCleaver extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Dragon Cleaver")
+        return Component.text("Large Dragon Sword")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

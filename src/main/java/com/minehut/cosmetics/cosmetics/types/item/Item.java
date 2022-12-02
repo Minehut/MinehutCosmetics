@@ -14,6 +14,9 @@ import com.minehut.cosmetics.cosmetics.collections.betacrate.FancyFishingRod;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.FishSword;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.MoltenPickaxe;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.ShortSword;
+import com.minehut.cosmetics.cosmetics.collections.general.ArcadeAxe;
+import com.minehut.cosmetics.cosmetics.collections.general.IcePickaxe;
+import com.minehut.cosmetics.cosmetics.collections.general.IceSword;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.GraveShovel;
 import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerSpyglass;
 import com.minehut.cosmetics.cosmetics.collections.crusader.CrusaderSword;
@@ -48,7 +51,7 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     KATANA(Katana::new),
     // maid
     MAID_DUSTER(MaidDuster::new),
-    // Crusader Collection
+    // crusader Collection
     CRUSADER_SWORD(CrusaderSword::new),
     // legendary crates
     FISH_SWORD(FishSword::new),
@@ -57,7 +60,10 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     FANCY_FISHING_ROD(FancyFishingRod::new),
     MOLTEN_PICKAXE(MoltenPickaxe::new),
     BAN_HAMMER(BanHammer::new),
-    ;
+    // general store
+    ICE_SWORD(IceSword::new),
+    ICE_PICKAXE(IcePickaxe::new),
+    ARCADE_AXE(ArcadeAxe::new);
 
     private final Supplier<ItemCosmetic> supplier;
 

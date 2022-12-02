@@ -25,7 +25,7 @@ public class CrusaderSword extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Crusader Sword")
+        return Component.text("Crusader's Sword")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

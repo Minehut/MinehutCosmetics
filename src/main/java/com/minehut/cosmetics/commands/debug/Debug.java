@@ -37,7 +37,7 @@ public class Debug extends Command {
             if (!Permission.staff().hasAccess(player).join()) return;
 
             sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
-            final Optional<CosmeticProfileResponse> profile = cosmetics.cosmeticManager().getProfile(player.getUniqueId()).join();
+            final Optional<CosmeticProfileResponse> profile = cosmetics.manager().getProfile(player.getUniqueId()).join();
 
             if (profile.isEmpty()) {
                 player.sendMessage(Component.text("No profile found."));

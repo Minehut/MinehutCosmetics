@@ -10,6 +10,7 @@ import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.Version;
 import com.minehut.cosmetics.util.messaging.Message;
 import com.minehut.cosmetics.util.structures.Pair;
 import kong.unirest.HttpResponse;
@@ -48,9 +49,7 @@ public abstract class Crate extends Cosmetic {
 
 
     public void playOpenAnimation(Player player, Location crateLoc, ItemStack resultStack, Runnable after) {
-        // We use 1.19 features during the animation so if we aren't 1.19 we return
-        // TODO: Remove whenever we move above 1.19 or whenever we only support cosmetics on 1.19+ servers
-        if (!Bukkit.getVersion().contains("1.19")) return;
+
 
         final Location playerLocation = crateLoc.clone().subtract(0, 0, 3.5);
         playerLocation.setYaw(0);
@@ -84,15 +83,20 @@ public abstract class Crate extends Cosmetic {
             entity.setUnlimitedLifetime(true);
             displayCloud.addPassenger(entity);
         });
-        player.hideEntity(Cosmetics.get(), displayItem);
 
-        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) return;
-            onlinePlayer.hideEntity(Cosmetics.get(), base);
-            onlinePlayer.hideEntity(Cosmetics.get(), lid);
-            onlinePlayer.hideEntity(Cosmetics.get(), displayItem);
-            onlinePlayer.hideEntity(Cosmetics.get(), displayCloud);
-        });
+        // only hide entities on 1.19 servers
+        if (Version.V_1_19.isSupported()) {
+            player.hideEntity(Cosmetics.get(), displayItem);
+
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) return;
+                onlinePlayer.hideEntity(Cosmetics.get(), base);
+                onlinePlayer.hideEntity(Cosmetics.get(), lid);
+                onlinePlayer.hideEntity(Cosmetics.get(), displayItem);
+                onlinePlayer.hideEntity(Cosmetics.get(), displayCloud);
+            });
+        }
+
 
         int totalChunks = 10;
         long ticksPerChunk = 2L;

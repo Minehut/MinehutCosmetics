@@ -6,6 +6,9 @@ import org.bukkit.Material;
 
 import java.util.List;
 
+/**
+ * TODO: Add some way to handle skin bindings using the {@link com.minehut.cosmetics.cosmetics.properties.Skinnable}
+ */
 public class Bindings {
     // bindings for sword items
     public static MaterialBinding SWORD = new MaterialBinding()
@@ -28,7 +31,8 @@ public class Bindings {
                     Item.DRAGON_SWORD,
                     Item.FANCY_SHORT_SWORD,
                     Item.FISH_SWORD,
-                    Item.BAN_HAMMER
+                    Item.BAN_HAMMER,
+                    Item.ICE_SWORD
             ));
 
     // bindings for pickaxe items
@@ -44,7 +48,8 @@ public class Bindings {
             .registerCosmetics(List.of(
                     Item.EXPLORER_PICKAXE,
                     Item.FALL_22_PICKAXE,
-                    Item.MOLTEN_PICKAXE
+                    Item.MOLTEN_PICKAXE,
+                    Item.ICE_PICKAXE
             ));
 
     // bindings for shovel items
@@ -73,7 +78,8 @@ public class Bindings {
                     Material.NETHERITE_AXE
             ))
             .registerCosmetics(List.of(
-                    Item.FALL_22_AXE
+                    Item.FALL_22_AXE,
+                    Item.ARCADE_AXE
             ));
 
     // bindings for spyglass items
@@ -108,7 +114,7 @@ public class Bindings {
                     Hat.MAID,
                     // Fall 2022
                     Hat.FALL_22,
-                    // crates
+                    // Crates
                     Hat.GAMER_HEADSET,
                     Hat.DRAGON,
                     Hat.STEAMPUNK,

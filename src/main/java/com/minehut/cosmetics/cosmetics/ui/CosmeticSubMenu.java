@@ -74,7 +74,7 @@ public abstract class CosmeticSubMenu extends SubMenu {
             final UUID uuid = who.getUniqueId();
 
             final CosmeticSlot slot = this.clickHandler.apply(click);
-            Cosmetics.get().cosmeticManager().removeCosmetic(uuid, slot, true);
+            Cosmetics.get().manager().removeCosmetic(uuid, slot, true);
         }));
     }
 
@@ -95,7 +95,7 @@ public abstract class CosmeticSubMenu extends SubMenu {
 
                 final CosmeticSlot slot = clickHandler.apply(click);
 
-                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().cosmeticManager().setCosmetic(uuid, slot, cosmetic, true));
+                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().manager().setCosmetic(uuid, slot, cosmetic, true));
                 return;
             }
 

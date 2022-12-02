@@ -1,45 +1,42 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.general;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
-public class ShortSword extends ItemCosmetic {
-
-    public ShortSword() {
-        super(Item.FANCY_SHORT_SWORD.name());
+public class IcePickaxe extends ItemCosmetic {
+    public IcePickaxe() {
+        super(Item.ICE_PICKAXE.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Fancy Shortsword")
+        return Component.text("Ice Pickaxe")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_SWORD)
+        return ItemBuilder.of(Material.DIAMOND_PICKAXE)
                 .display(name())
-                .modelData(Model.Item.Sword.FANCY_SHORT_SWORD)
                 .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Pickaxe.ICE_PICKAXE)
                 .build();
     }
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.DRAGON_CRATE;
+        return Collection.ICE;
     }
 }
+
+

@@ -16,9 +16,8 @@ import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.util.EnumUtil;
+import com.minehut.cosmetics.util.messaging.Message;
 import kong.unirest.HttpResponse;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -156,15 +155,10 @@ public class CosmeticsManager {
             if (player == null) return;
 
             switch (res.getStatus()) {
-                case 200 -> {
-                    player.sendMessage(Component.text("Equipped cosmetic!").color(NamedTextColor.GREEN));
-                }
-                case 429 -> {
-                    player.sendMessage(Component.text("Please wait a moment and try again...").color(NamedTextColor.RED));
-                }
-                default -> {
-                    player.sendMessage(Component.text("An unknown error occured while trying to equip your cosmetic...").color(NamedTextColor.RED));
-                }
+                case 200 -> player.sendMessage(Message.info("Equipped cosmetic!"));
+                case 429 -> player.sendMessage(Message.error("Please wait a moment and try again..."));
+                default ->
+                        player.sendMessage(Message.error("An unknown error occured while trying to equip your cosmetic..."));
             }
         });
     }
@@ -177,18 +171,15 @@ public class CosmeticsManager {
      */
     public void handleConnect(final UUID uuid) {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-            Optional<Map<String, String>> equipped = Optional.empty();
-
             final Mode mode = cosmetics.config().mode();
-            switch (mode) {
-                case LOBBY -> equipped = getProfile(uuid).join().map(CosmeticProfileResponse::getEquipped);
-                case PLAYER_SERVER ->
-                        equipped = Optional.of(cosmetics.localStorage().loadProfile(uuid).join().getEquipped());
-            }
 
             // equip on main thread
-            final Optional<Map<String, String>> finalEquipped = equipped;
-            Bukkit.getScheduler().runTask(cosmetics, () -> finalEquipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
+            final Optional<Map<String, String>> equipped = switch (mode) {
+                case LOBBY -> getProfile(uuid).join().map(CosmeticProfileResponse::getEquipped);
+                case PLAYER_SERVER -> Optional.of(cosmetics.localStorage().loadProfile(uuid).join().getEquipped());
+            };
+
+            Bukkit.getScheduler().runTask(cosmetics, () -> equipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
                 // grab the slot this cosmetic belongs to
                 EnumUtil.valueOfSafe(CosmeticSlot.class, slotName).ifPresent(slot -> {
                     // grab the cosmetic from its id

@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.collections.blockfriday2022;
+package com.minehut.cosmetics.cosmetics.collections.general;
 
 
 import com.minehut.cosmetics.cosmetics.Collection;

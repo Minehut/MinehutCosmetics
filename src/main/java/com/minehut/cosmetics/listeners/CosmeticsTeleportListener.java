@@ -23,7 +23,7 @@ public class CosmeticsTeleportListener implements Listener {
 
     public CosmeticsTeleportListener(Cosmetics cosmetics) {
         this.cosmetics = cosmetics;
-        this.manager = cosmetics.cosmeticManager();
+        this.manager = cosmetics.manager();
     }
 
     // handle player teleportation
@@ -48,13 +48,13 @@ public class CosmeticsTeleportListener implements Listener {
         final boolean shouldRemove = blacklist.contains(targetType);
 
         if (!shouldRemove && portalFlag.contains(uuid)) {
-            cosmetics.cosmeticManager().equipAll(uuid);
+            cosmetics.manager().equipAll(uuid);
             portalFlag.remove(uuid);
             return;
         }
 
         if (shouldRemove) {
-            cosmetics.cosmeticManager().unEquipAll(uuid);
+            cosmetics.manager().unEquipAll(uuid);
             portalFlag.add(uuid);
         }
     }

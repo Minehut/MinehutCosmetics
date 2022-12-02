@@ -23,11 +23,6 @@ public class GraveShovel extends ItemCosmetic {
     }
 
     @Override
-    public Permission visibility() {
-        return Permission.deny();
-    }
-
-    @Override
     public Component name() {
         return Component.text("Graverobber's Shovel")
                 .color(rarity().display().color())

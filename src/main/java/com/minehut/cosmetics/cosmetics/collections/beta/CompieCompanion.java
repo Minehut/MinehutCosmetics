@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-// TODO: Refactor to modern style
 public class CompieCompanion extends CompanionCosmetic {
     public CompieCompanion() {
         super(
@@ -22,11 +21,6 @@ public class CompieCompanion extends CompanionCosmetic {
                 true,
                 false
         );
-    }
-
-    @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
     }
 
     @Override

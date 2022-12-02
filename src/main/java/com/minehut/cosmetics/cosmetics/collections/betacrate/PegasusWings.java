@@ -28,7 +28,7 @@ public class PegasusWings extends WingCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Pegasus Wings")
+        return Component.text("Small Pegasus Wings")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

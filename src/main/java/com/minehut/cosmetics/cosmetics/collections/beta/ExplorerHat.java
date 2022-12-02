@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.collections.beta;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.Rarity;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -19,7 +20,7 @@ import java.util.function.Supplier;
 public class ExplorerHat extends HatCosmetic {
 
     public ExplorerHat() {
-        super(com.minehut.cosmetics.cosmetics.types.hat.Hat.EXPLORER.name());
+        super(Hat.EXPLORER.name());
     }
 
     @Override

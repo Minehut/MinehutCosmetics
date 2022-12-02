@@ -30,7 +30,7 @@ public class BanHammer extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Ban Hammer")
+        return Component.text("The Ban Hammer")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

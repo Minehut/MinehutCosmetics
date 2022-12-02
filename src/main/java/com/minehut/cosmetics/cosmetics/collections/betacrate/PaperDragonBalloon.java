@@ -24,7 +24,7 @@ public class PaperDragonBalloon extends BalloonCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Dragon Kite")
+        return Component.text("Paper Dragon Kite")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

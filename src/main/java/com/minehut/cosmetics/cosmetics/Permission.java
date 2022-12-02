@@ -59,7 +59,7 @@ public interface Permission {
      */
     static Permission hasRank(String name) {
         return player -> Cosmetics.get()
-                .cosmeticManager()
+                .manager()
                 .getProfile(player.getUniqueId())
                 .thenApplyAsync(maybeProfile -> maybeProfile
                         .flatMap((res) -> PlayerRank.getBackingRank(res.getRank())) // get rank for this player
@@ -78,6 +78,7 @@ public interface Permission {
         return player -> hasRank("MOD").hasAccess(player);
     }
 
+    // TODO: Cache until disconnect
     static Permission hasResourcePack() {
         return player -> {
             final boolean localStatus = player.hasResourcePack();
@@ -86,7 +87,7 @@ public interface Permission {
             }
 
             final Optional<CosmeticProfileResponse> maybeResponse = Cosmetics.get()
-                    .cosmeticManager()
+                    .manager()
                     .getProfile(player.getUniqueId())
                     .join();
             if (maybeResponse.isEmpty()) return CompletableFuture.completedFuture(false);
@@ -106,7 +107,7 @@ public interface Permission {
      */
     static Permission hasPurchased(final String category, final String id) {
         return player -> Cosmetics.get()
-                .cosmeticManager()
+                .manager()
                 .getProfile(player.getUniqueId())
                 .thenApplyAsync((maybeResponse) ->
                         maybeResponse.map(CosmeticProfileResponse::getProfile)

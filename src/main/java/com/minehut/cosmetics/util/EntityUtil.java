@@ -23,8 +23,6 @@ public class EntityUtil {
      */
     public static <T extends Entity> T spawnCosmeticEntity(Location location, Class<T> clazz, Consumer<T> consumer) {
         return location.getWorld().spawn(location, clazz, (entity) -> {
-            consumer.accept(entity);
-
             // set attributes
             entity.setInvulnerable(true);
             entity.setPersistent(false);
@@ -38,7 +36,9 @@ public class EntityUtil {
             }
 
             // apply data keys
+            consumer.accept(entity);
             Key.COSMETIC_ENTITY.write(entity, "");
+
         });
     }
 

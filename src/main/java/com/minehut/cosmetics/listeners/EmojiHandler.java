@@ -43,7 +43,7 @@ public class EmojiHandler implements Listener {
         switch (Cosmetics.mode()) {
 
             case LOBBY -> {
-                final PlayerRank rank = Cosmetics.get().cosmeticManager().getProfile(event.getPlayer().getUniqueId()).join()
+                final PlayerRank rank = Cosmetics.get().manager().getProfile(event.getPlayer().getUniqueId()).join()
                         .map(CosmeticProfileResponse::getRank)
                         .flatMap(PlayerRank::getBackingRank)
                         .orElse(PlayerRank.DEFAULT);

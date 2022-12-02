@@ -31,7 +31,7 @@ public class GemShopMenu extends SubMenu {
     private GemShopMenu(UUID uuid) {
         super(Component.text("Gem Shop"), (player, click) -> new CosmeticMenu(player).openTo(player));
 
-        final var maybeProfile = Cosmetics.get().cosmeticManager().getProfile(uuid).join();
+        final var maybeProfile = Cosmetics.get().manager().getProfile(uuid).join();
         if (maybeProfile.isEmpty()) return;
         final CosmeticProfileResponse response = maybeProfile.get();
 

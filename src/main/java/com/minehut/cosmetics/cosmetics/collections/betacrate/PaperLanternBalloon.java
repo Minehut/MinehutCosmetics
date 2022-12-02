@@ -25,7 +25,7 @@ public class PaperLanternBalloon extends BalloonCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Paper Lantern")
+        return Component.text("Candle-lit Lantern")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

@@ -14,6 +14,7 @@ public final class Model {
         public static final int KITTEN = 1_002_009;
         public static final int DRAGON_EGG = 1_002_016;
         public static final int UFO_COW = 1_002_017;
+
         public static final class YOUNG_DRAGON {
             public static final int FRAME_1 = 1_002_018;
             public static final int FRAME_2 = 1_002_019;
@@ -83,23 +84,25 @@ public final class Model {
             public static final int FANCY_SHORT_SWORD = 1_000_009;
             public static final int DRAGON_SWORD = 1_000_010;
             public static final int BAN_HAMMER = 1_000_011;
+            public static final int ICE_SWORD = 1_000_012;
+
         }
 
         public static class Pickaxe {
             public static final int EXPLORER = 1_000_001;
             public static final int FALL_22 = 1_000_002;
             public static final int MOLTEN = 1_000_003;
-
+            public static final int ICE_PICKAXE = 1_000_004;
         }
 
         public static class Shovel {
             public static final int FALL_22 = 1_000_001;
             public static final int GRAVE = 1_000_002;
-
         }
 
         public static class Axe {
             public static final int FALL_22 = 1_000_001;
+            public static final int ARCADE_AXE = 1_000_0002;
         }
 
         public static class Spyglass {

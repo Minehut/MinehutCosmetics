@@ -48,7 +48,7 @@ public class Fall22LeafSword extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Fallbringer")
+        return Component.text("The Fall Bringer")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

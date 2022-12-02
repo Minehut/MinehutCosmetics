@@ -16,11 +16,11 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        cosmetics.cosmeticManager().unEquipAll(event.getPlayer().getUniqueId());
+        cosmetics.manager().unEquipAll(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onRespawn(PlayerPostRespawnEvent event) {
-        cosmetics.cosmeticManager().equipAll(event.getPlayer().getUniqueId());
+        cosmetics.manager().equipAll(event.getPlayer().getUniqueId());
     }
 }

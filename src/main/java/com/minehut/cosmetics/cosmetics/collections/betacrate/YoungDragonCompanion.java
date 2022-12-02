@@ -34,7 +34,7 @@ public class YoungDragonCompanion extends CompanionCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Young Dragon")
+        return Component.text("Young Dragon Pet")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
@@ -43,42 +43,9 @@ public class YoungDragonCompanion extends CompanionCosmetic {
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
                 .display(name())
-                .modelData(Model.Companion.YOUNG_DRAGON.FRAME_2)
+                .modelData(Model.Companion.YOUNG_DRAGON.FRAME_1)
                 .build();
     }
-
-    private final Animation animation = new Animation(
-            List.of(
-                    Model.Companion.YOUNG_DRAGON.FRAME_1,
-                    Model.Companion.YOUNG_DRAGON.FRAME_2,
-                    Model.Companion.YOUNG_DRAGON.FRAME_3,
-                    Model.Companion.YOUNG_DRAGON.FRAME_4,
-                    Model.Companion.YOUNG_DRAGON.FRAME_3,
-                    Model.Companion.YOUNG_DRAGON.FRAME_2
-            )
-    );
-
-    // TODO: Add animated companion
-    private long lastTick = 0;
-
-    @Override
-    public void tick() {
-        super.tick();
-        long currentTick = Bukkit.getCurrentTick();
-        if ((currentTick - lastTick) < 2) return;
-
-        for (LivingEntity entity : entities()) {
-            final var equipment = entity.getEquipment();
-            if (equipment == null) continue;
-            final ItemStack helmet = equipment.getHelmet();
-            if (helmet == null) continue;
-            helmet.editMeta(meta -> meta.setCustomModelData(animation.getNextFrame()));
-            equipment.setHelmet(helmet);
-        }
-
-        lastTick = currentTick;
-    }
-
     @Override
     public @NotNull Collection collection() {
         return Collection.DRAGON_CRATE;

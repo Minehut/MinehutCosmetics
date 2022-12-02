@@ -11,6 +11,7 @@ import com.minehut.cosmetics.commands.debug.GiveCosmetic;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
+import com.minehut.cosmetics.cosmetics.entities.CosmeticEntityHandler;
 import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.crates.CratesModule;
 import com.minehut.cosmetics.listeners.CosmeticsListener;
@@ -54,8 +55,8 @@ public final class Cosmetics extends JavaPlugin {
     // Local storage only for use on player servers
     private @Nullable LocalStorageManager localStorage;
     private @Nullable CratesModule crates;
-
     private ResourcePackPollingModule packModule;
+    private CosmeticEntityHandler entityHandler;
 
     // api for accessing remote services
     private CosmeticsAPI api;
@@ -69,6 +70,7 @@ public final class Cosmetics extends JavaPlugin {
         this.gson = buildGson();
         this.config = new Config(this);
         this.manager = new CosmeticsManager(this);
+        this.entityHandler = new CosmeticEntityHandler();
 
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
@@ -109,7 +111,8 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
         registerEvents(new EmojiHandler());
-        registerEvents(new CosmeticsVisibilityHandler(cosmeticManager()));
+        registerEvents(new CosmeticsVisibilityHandler(this));
+        registerEvents(entityHandler);
 
         // register commands
         new MenuCommand().register(this);
@@ -133,7 +136,7 @@ public final class Cosmetics extends JavaPlugin {
         return builder.create();
     }
 
-    public CosmeticsManager cosmeticManager() {
+    public CosmeticsManager manager() {
         return manager;
     }
 
@@ -156,6 +159,10 @@ public final class Cosmetics extends JavaPlugin {
         return crates;
     }
 
+    public CosmeticEntityHandler entityHandler() {
+        return entityHandler;
+    }
+
     public ResourcePackPollingModule packModule() {
         return packModule;
     }
@@ -163,7 +170,6 @@ public final class Cosmetics extends JavaPlugin {
     public static Mode mode() {
         return get().config().mode();
     }
-
 
     /**
      * Remove any entities that ar marked w/ the cosmetic key

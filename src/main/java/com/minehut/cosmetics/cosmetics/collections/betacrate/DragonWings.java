@@ -22,7 +22,7 @@ public class DragonWings extends WingCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Dragon Wings")
+        return Component.text("Large Dragon Wings")
                 .color(NamedTextColor.GOLD)
                 .decoration(TextDecoration.ITALIC, false);
     }

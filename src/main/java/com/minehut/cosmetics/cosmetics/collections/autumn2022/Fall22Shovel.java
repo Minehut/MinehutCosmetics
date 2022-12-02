@@ -24,7 +24,7 @@ public class Fall22Shovel extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Autumn's Shovel")
+        return Component.text("Shovel of Autumn")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

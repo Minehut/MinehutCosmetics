@@ -20,7 +20,7 @@ public class Fall22Pickaxe extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Autumn's Pickaxe")
+        return Component.text("Pickaxe of Autumn")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

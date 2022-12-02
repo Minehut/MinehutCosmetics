@@ -23,7 +23,7 @@ public class Fall2022Axe extends ItemCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Autumn's Axe")
+        return Component.text("Battle Axe of Autumn")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

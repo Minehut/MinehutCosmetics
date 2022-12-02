@@ -23,7 +23,7 @@ public class WitchHat extends HatCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Witches Hat")
+        return Component.text("Witch's Hat")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }

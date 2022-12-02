@@ -26,7 +26,7 @@ public class CrateMenu extends SubMenu {
     private CrateMenu(Player player) {
         super(Component.text("Crates Menu"), (who, click) -> new CosmeticMenu(who).openTo(who));
 
-        final CosmeticProfileResponse response = Cosmetics.get().cosmeticManager().getProfile(player.getUniqueId()).join().orElse(null);
+        final CosmeticProfileResponse response = Cosmetics.get().manager().getProfile(player.getUniqueId()).join().orElse(null);
         if (response == null) {
             player.sendMessage(Component.text("Could not retrieve cosmetic profile!").color(NamedTextColor.RED));
             return;

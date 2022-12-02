@@ -4,13 +4,10 @@ package com.minehut.cosmetics.cosmetics.ui.impl.category;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
-import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.bindings.MaterialBinding;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
-import com.minehut.cosmetics.ui.Menu;
-import com.minehut.cosmetics.ui.ProxyInventory;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -26,15 +23,12 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class SkinMenu extends SubMenu {
     private static final Book CTA_BOOK = Book.book(
@@ -66,7 +60,7 @@ public class SkinMenu extends SubMenu {
 
         final Material type = SkinUtil.getBaseType(item);
 
-        final Optional<MaterialBinding> maybeBinds = Cosmetics.get().cosmeticManager().getBindings().getBinding(type);
+        final Optional<MaterialBinding> maybeBinds = Cosmetics.get().manager().getBindings().getBinding(type);
         if (maybeBinds.isEmpty()) {
             player.sendMessage(Component.text("Cannot skin this item."));
             return;

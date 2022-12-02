@@ -26,16 +26,6 @@ public class GhostCompanion extends CompanionCosmetic {
     }
 
     @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.SPOOKY_22);
-    }
-
-    @Override
     public Component name() {
         return Component.text("Ghosty-sama")
                 .decoration(TextDecoration.ITALIC, false)

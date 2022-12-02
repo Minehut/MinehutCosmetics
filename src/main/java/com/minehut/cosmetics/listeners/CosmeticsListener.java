@@ -15,11 +15,11 @@ public class CosmeticsListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        cosmetics.cosmeticManager().handleConnect(event.getPlayer().getUniqueId());
+        cosmetics.manager().handleConnect(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        cosmetics.cosmeticManager().handleDisconnect(event.getPlayer().getUniqueId());
+        cosmetics.manager().handleDisconnect(event.getPlayer().getUniqueId());
     }
 }

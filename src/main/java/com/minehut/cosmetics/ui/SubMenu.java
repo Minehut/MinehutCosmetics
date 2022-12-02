@@ -21,7 +21,7 @@ public abstract class SubMenu extends MenuItemMultiPageMenu<MenuItem> {
     private static final Set<Integer> restricted = Set.of(
             0, 1, 2, 3, 4, 5, 6, 7, 8,
             9, 10, 11, 12, 13, 14, 15, 16, 17,
-            43, 44, 45, 46, 47, 48, 49, 40, 51
+            45, 46, 47, 48, 49, 50, 51, 52, 53
     );
 
     private final ActionHandler backAction;
