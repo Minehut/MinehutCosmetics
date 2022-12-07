@@ -35,6 +35,7 @@ public class GhostCompanion extends CompanionCosmetic {
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
+                .display(name())
                 .lore(
                         Component.empty(),
                         Collection.GENERAL.display(),
