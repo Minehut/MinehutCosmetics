@@ -71,7 +71,7 @@ public final class Cosmetics extends JavaPlugin {
         this.config = new Config(this);
         this.manager = new CosmeticsManager(this);
         this.entityHandler = new CosmeticEntityHandler();
-
+        
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
             case LOBBY -> {
@@ -185,10 +185,4 @@ public final class Cosmetics extends JavaPlugin {
     public static Cosmetics get() {
         return INSTANCE;
     }
-
-    public Gson gson() {
-        return gson;
-    }
-
-
 }

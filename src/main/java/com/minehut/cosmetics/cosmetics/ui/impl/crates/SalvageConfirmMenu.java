@@ -20,7 +20,7 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
         super(Component.text("Salvage for ")
                 .append(Component.text()
                         .append(Component.text(cosmetic.salvageAmount()))
-                        .append(Currency.GEM.display())
+                        .append(Currency.GEM.display().color(NamedTextColor.WHITE))
                         .append(Component.text("?").color(NamedTextColor.BLACK))
                         .build()
                 )
