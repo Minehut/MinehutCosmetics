@@ -8,7 +8,7 @@ import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
-import com.minehut.cosmetics.currency.Currency;
+import com.minehut.cosmetics.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;

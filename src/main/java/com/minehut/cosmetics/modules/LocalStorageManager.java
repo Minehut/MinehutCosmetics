@@ -49,7 +49,6 @@ public class LocalStorageManager {
                 profile = new LocalCosmeticProfile();
             }
 
-
             profiles.put(uuid, profile);
             return profile;
         });

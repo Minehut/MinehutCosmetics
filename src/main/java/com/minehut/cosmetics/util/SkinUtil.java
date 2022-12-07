@@ -87,6 +87,15 @@ public class SkinUtil {
         );
     }
 
+    public static Optional<Cosmetic> getCosmetic(@Nullable PersistentDataHolder holder) {
+        if (holder == null) return Optional.empty();
+        return Key.COSMETIC_CATEGORY.read(holder).flatMap(category ->
+                Key.COSMETIC_ID.read(holder).flatMap(id ->
+                        Cosmetic.fromCategoryId(category, id)
+                )
+        );
+    }
+
     public static void writeCosmeticKeys(@NotNull PersistentDataHolder holder, @NotNull Cosmetic cosmetic) {
         Key.COSMETIC_CATEGORY.write(holder, cosmetic.category().name());
         Key.COSMETIC_ID.write(holder, cosmetic.id());

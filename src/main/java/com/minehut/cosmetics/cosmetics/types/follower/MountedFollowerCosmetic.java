@@ -2,7 +2,6 @@ package com.minehut.cosmetics.cosmetics.types.follower;
 
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.util.EntityUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -57,7 +56,7 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
         spawnLocation.setYaw(0);
         spawnLocation.setPitch(0);
 
-        return EntityUtil.spawnModelStand(spawnLocation.add(getOffset()), stand -> {
+        return EntityUtil.spawnCosmeticEntity(spawnLocation.add(getOffset()), ArmorStand.class, stand -> {
             stand.setItem(EquipmentSlot.HEAD, companionSupplier.apply(player));
             stand.setSmall(small);
         });

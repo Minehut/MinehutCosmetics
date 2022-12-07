@@ -73,7 +73,8 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
             final Location spawn = player.getLocation();
             spawn.setYaw(0);
             spawn.setPitch(0);
-            this.wings = EntityUtil.spawnModelStand(player.getLocation(), wings -> {
+
+            this.wings = EntityUtil.spawnCosmeticEntity(player.getLocation(), ArmorStand.class, wings -> {
                 wings.setItem(EquipmentSlot.HEAD, menuIcon());
                 wings.setVisible(true);
             });

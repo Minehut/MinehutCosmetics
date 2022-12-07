@@ -2,8 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.currency.Currency;
+import com.minehut.cosmetics.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;

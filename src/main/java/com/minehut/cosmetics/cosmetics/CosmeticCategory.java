@@ -8,7 +8,7 @@ import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.particle.Particle;
 import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
-import com.minehut.cosmetics.crates.CrateType;
+import com.minehut.cosmetics.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.util.EnumUtil;
 
 import java.util.Optional;

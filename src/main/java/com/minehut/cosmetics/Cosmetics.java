@@ -11,27 +11,28 @@ import com.minehut.cosmetics.commands.debug.GiveCosmetic;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.cosmetics.entities.CosmeticEntityHandler;
+import com.minehut.cosmetics.cosmetics.entities.EntityHandler;
 import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
-import com.minehut.cosmetics.crates.CratesModule;
-import com.minehut.cosmetics.listeners.CosmeticsListener;
-import com.minehut.cosmetics.listeners.CosmeticsTeleportListener;
-import com.minehut.cosmetics.listeners.DeathListener;
-import com.minehut.cosmetics.listeners.LeashListener;
-import com.minehut.cosmetics.listeners.ResourcePackListener;
-import com.minehut.cosmetics.listeners.skins.SkinDurabilityListener;
-import com.minehut.cosmetics.listeners.skins.SkinEquipListener;
-import com.minehut.cosmetics.listeners.skins.SkinModifyListener;
-import com.minehut.cosmetics.listeners.skins.SkinTriggerListener;
-import com.minehut.cosmetics.listeners.CosmeticEntityListener;
-import com.minehut.cosmetics.listeners.EmojiHandler;
-import com.minehut.cosmetics.listeners.visibility.CosmeticsVisibilityHandler;
+import com.minehut.cosmetics.cosmetics.crates.CratesModule;
+import com.minehut.cosmetics.cosmetics.listeners.CosmeticsListener;
+import com.minehut.cosmetics.cosmetics.listeners.CosmeticsTeleportListener;
+import com.minehut.cosmetics.cosmetics.listeners.DeathListener;
+import com.minehut.cosmetics.cosmetics.listeners.LeashListener;
+import com.minehut.cosmetics.cosmetics.listeners.ResourcePackListener;
+import com.minehut.cosmetics.cosmetics.listeners.skins.SkinDurabilityListener;
+import com.minehut.cosmetics.cosmetics.listeners.skins.SkinEquipListener;
+import com.minehut.cosmetics.cosmetics.listeners.skins.SkinModifyListener;
+import com.minehut.cosmetics.cosmetics.listeners.skins.SkinTriggerListener;
+import com.minehut.cosmetics.cosmetics.listeners.CosmeticEntityListener;
+import com.minehut.cosmetics.cosmetics.listeners.EmojiHandler;
+import com.minehut.cosmetics.cosmetics.listeners.visibility.VisibilityHandler;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
 import com.minehut.cosmetics.network.CosmeticsAPI;
 import com.minehut.cosmetics.network.ExternalAPI;
 import com.minehut.cosmetics.network.InternalAPI;
+import com.minehut.cosmetics.pack.ResourcePackManager;
 import com.minehut.cosmetics.util.EntityUtil;
 import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -56,7 +57,9 @@ public final class Cosmetics extends JavaPlugin {
     private @Nullable LocalStorageManager localStorage;
     private @Nullable CratesModule crates;
     private ResourcePackPollingModule packModule;
-    private CosmeticEntityHandler entityHandler;
+    private EntityHandler entityHandler;
+    private VisibilityHandler visibilityHandler;
+    private ResourcePackManager resourcePackManager;
 
     // api for accessing remote services
     private CosmeticsAPI api;
@@ -70,7 +73,9 @@ public final class Cosmetics extends JavaPlugin {
         this.gson = buildGson();
         this.config = new Config(this);
         this.manager = new CosmeticsManager(this);
-        this.entityHandler = new CosmeticEntityHandler();
+        this.entityHandler = new EntityHandler();
+        this.visibilityHandler = new VisibilityHandler(this);
+        this.resourcePackManager = new ResourcePackManager();
         
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
@@ -104,14 +109,15 @@ public final class Cosmetics extends JavaPlugin {
         getLogger().info("Using operation mode '%s'!".formatted(config.mode()));
 
         registerEvents(new CosmeticsListener(this));
-        registerEvents(new ResourcePackListener(this, packModule));
+        registerEvents(new ResourcePackListener(packModule));
         registerEvents(new DeathListener(this));
         registerEvents(new LeashListener(this));
         registerEvents(new CosmeticsTeleportListener(this));
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
         registerEvents(new EmojiHandler());
-        registerEvents(new CosmeticsVisibilityHandler(this));
+        registerEvents(resourcePackManager);
+        registerEvents(visibilityHandler);
         registerEvents(entityHandler);
 
         // register commands
@@ -159,7 +165,7 @@ public final class Cosmetics extends JavaPlugin {
         return crates;
     }
 
-    public CosmeticEntityHandler entityHandler() {
+    public EntityHandler entityHandler() {
         return entityHandler;
     }
 
@@ -181,6 +187,13 @@ public final class Cosmetics extends JavaPlugin {
         }));
     }
 
+    public VisibilityHandler visibilityHandler() {
+        return visibilityHandler;
+    }
+
+    public ResourcePackManager resourcePackManager() {
+        return resourcePackManager;
+    }
 
     public static Cosmetics get() {
         return INSTANCE;

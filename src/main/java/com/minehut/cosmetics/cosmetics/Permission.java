@@ -78,26 +78,6 @@ public interface Permission {
         return player -> hasRank("MOD").hasAccess(player);
     }
 
-    // TODO: Cache until disconnect
-    static Permission hasResourcePack() {
-        return player -> {
-            final boolean localStatus = player.hasResourcePack();
-            if (localStatus) {
-                return CompletableFuture.completedFuture(true);
-            }
-
-            final Optional<CosmeticProfileResponse> maybeResponse = Cosmetics.get()
-                    .manager()
-                    .getProfile(player.getUniqueId())
-                    .join();
-            if (maybeResponse.isEmpty()) return CompletableFuture.completedFuture(false);
-
-            final CosmeticProfileResponse response = maybeResponse.get();
-            return CompletableFuture.completedFuture(Cosmetics.get().packModule().state().getSha1().equals(response.getPackHash()));
-        };
-    }
-
-
     /**
      * Check if a given player has purchased the given item.
      *

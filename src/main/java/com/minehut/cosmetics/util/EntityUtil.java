@@ -1,6 +1,8 @@
 package com.minehut.cosmetics.util;
 
+import com.minehut.cosmetics.cosmetics.events.CosmeticEntitySpawnEvent;
 import com.minehut.cosmetics.util.data.Key;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -22,7 +24,7 @@ public class EntityUtil {
      * @return the entity that was spawned
      */
     public static <T extends Entity> T spawnCosmeticEntity(Location location, Class<T> clazz, Consumer<T> consumer) {
-        return location.getWorld().spawn(location, clazz, (entity) -> {
+        final T cosmeticEntity = location.getWorld().spawn(location, clazz, (entity) -> {
             // set attributes
             entity.setInvulnerable(true);
             entity.setPersistent(false);
@@ -35,11 +37,22 @@ public class EntityUtil {
                 living.setRemoveWhenFarAway(false);
             }
 
+            if (entity instanceof ArmorStand stand) {
+                // lock equipment slots
+                for (final EquipmentSlot slot : EquipmentSlot.values()) {
+                    stand.addEquipmentLock(slot, ArmorStand.LockType.ADDING_OR_CHANGING);
+                    stand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                }
+                stand.setInvisible(true);
+            }
+
             // apply data keys
             consumer.accept(entity);
             Key.COSMETIC_ENTITY.write(entity, "");
-
         });
+
+        Bukkit.getServer().getPluginManager().callEvent(new CosmeticEntitySpawnEvent(cosmeticEntity));
+        return cosmeticEntity;
     }
 
     /**
@@ -50,25 +63,5 @@ public class EntityUtil {
      */
     public static boolean isCosmeticEntity(Entity entity) {
         return Key.COSMETIC_ENTITY.read(entity).isPresent();
-    }
-
-    /**
-     * Spawn an armor stand with the slots locked, used for displaying itemstacks etc
-     *
-     * @param location to spawn the entity at
-     * @param actions  to apply before spawning
-     * @return the armor stand
-     */
-    public static ArmorStand spawnModelStand(Location location, Consumer<ArmorStand> actions) {
-        return spawnCosmeticEntity(location, ArmorStand.class, stand -> {
-            // lock equipment slots
-            for (final EquipmentSlot slot : EquipmentSlot.values()) {
-                stand.addEquipmentLock(slot, ArmorStand.LockType.ADDING_OR_CHANGING);
-                stand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
-            }
-
-            stand.setInvisible(true);
-            actions.accept(stand);
-        });
     }
 }

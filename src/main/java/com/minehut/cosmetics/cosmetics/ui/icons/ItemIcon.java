@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.ui.icons;
 
-import com.minehut.cosmetics.currency.Currency;
+import com.minehut.cosmetics.cosmetics.currency.Currency;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;

@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
-import com.minehut.cosmetics.currency.Currency;
+import com.minehut.cosmetics.cosmetics.currency.Currency;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
