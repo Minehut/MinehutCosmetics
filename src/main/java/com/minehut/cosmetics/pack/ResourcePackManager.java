@@ -27,7 +27,7 @@ public class ResourcePackManager implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         // check if the player has the pack
         Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
-            final boolean accepted = fetchPackStatus(event.getPlayer()).join();
+            final boolean accepted = fetchPackStatus(event.getPlayer(), true).join();
 
             // catch the case where they accepted the pack before the request completes
             if (hasAccepted(event.getPlayer().getUniqueId())) return;
@@ -59,9 +59,8 @@ public class ResourcePackManager implements Listener {
         accepted.remove(event.getPlayer().getUniqueId());
     }
 
-    private CompletableFuture<Boolean> fetchPackStatus(Player player) {
-        final boolean localStatus = player.hasResourcePack();
-        if (localStatus) {
+    public CompletableFuture<Boolean> fetchPackStatus(Player player, boolean useLocal) {
+        if (useLocal && player.hasResourcePack()) {
             return CompletableFuture.completedFuture(true);
         }
 

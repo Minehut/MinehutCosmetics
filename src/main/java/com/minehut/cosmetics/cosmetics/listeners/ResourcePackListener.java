@@ -34,8 +34,10 @@ public class ResourcePackListener implements Listener {
 
         final Player player = event.getPlayer();
 
-        Bukkit.getScheduler().runTaskLater(Cosmetics.get(), () -> {
-            player.setResourcePack(info.getUrl(), info.getSha1(), false, PACK_COPY);
-        }, 1);
+        Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
+            final boolean accepted = Cosmetics.get().resourcePackManager().fetchPackStatus(player, false).join();
+            if (accepted) return;
+            Bukkit.getScheduler().runTask(Cosmetics.get(), () -> player.setResourcePack(info.getUrl(), info.getSha1(), false, PACK_COPY));
+        });
     }
 }
