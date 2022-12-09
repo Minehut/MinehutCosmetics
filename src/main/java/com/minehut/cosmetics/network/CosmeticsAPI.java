@@ -55,7 +55,7 @@ public abstract class CosmeticsAPI {
 
     public abstract CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req);
 
-    public abstract CompletableFuture<HttpResponse<PlayerRank[]>> getRanks();
+    public abstract CompletableFuture<PlayerRank[]> getRanks();
 
 
     public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req);
