@@ -4,6 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.commands.Command;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -29,25 +30,26 @@ public class Debug extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text("You must be a player to use this command."));
+            sender.sendMessage(Message.error("You must be a player to use this command."));
             return;
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             if (!Permission.staff().hasAccess(player).join()) return;
 
-            sender.sendMessage(Component.text("Retrieving Profile...").color(NamedTextColor.YELLOW));
+            sender.sendMessage(Message.info("Retrieving Profile..."));
             final Optional<CosmeticProfileResponse> profile = cosmetics.manager().getProfile(player.getUniqueId()).join();
 
             if (profile.isEmpty()) {
-                player.sendMessage(Component.text("No profile found."));
+                player.sendMessage(Message.error("No profile found."));
                 return;
             }
 
-            player.sendMessage(Component.text()
+            player.sendMessage(Message.info(Component.text()
                     .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
                     .append(Component.newline())
                     .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
+                    .build())
             );
 
             final ItemStack item = player.getInventory().getItemInMainHand();
@@ -59,7 +61,7 @@ public class Debug extends Command {
                 keylist = keylist.append(Component.newline().append(Component.text(key.toString())));
             }
 
-            player.sendMessage(keylist);
+            player.sendMessage(Message.info(keylist));
         });
     }
 }

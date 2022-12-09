@@ -12,6 +12,7 @@ import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -62,7 +63,7 @@ public class SkinMenu extends SubMenu {
 
         final Optional<MaterialBinding> maybeBinds = Cosmetics.get().manager().getBindings().getBinding(type);
         if (maybeBinds.isEmpty()) {
-            player.sendMessage(Component.text("Cannot skin this item."));
+            player.sendMessage(Message.error(Component.text("Cannot skin this item.")));
             return;
         }
 
@@ -78,7 +79,13 @@ public class SkinMenu extends SubMenu {
                 cosmetic.owner(player.getUniqueId());
                 skinnable.applySkin(item);
 
-                player.sendMessage(Component.text().append(Component.text("Applied item skin")).append(Component.space()).append(cosmetic.name()).color(NamedTextColor.GREEN).build());
+                player.sendMessage(Message.error(Component.text()
+                        .append(Component.text("Applied item skin"))
+                        .append(Component.space())
+                        .append(cosmetic.name())
+                        .color(NamedTextColor.GREEN)
+                        .build())
+                );
                 player.getInventory().close();
             });
 
@@ -97,7 +104,7 @@ public class SkinMenu extends SubMenu {
                 skinnable.removeSkin(item);
             });
 
-            player.sendMessage(Component.text("Removed item skin.").color(NamedTextColor.RED));
+            player.sendMessage(Message.error(Component.text("Removed item skin.").color(NamedTextColor.RED)));
             player.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
         });
     }

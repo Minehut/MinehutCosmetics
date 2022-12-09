@@ -8,6 +8,7 @@ import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,7 @@ public class GiveCosmetic extends Command {
         if (Cosmetics.mode() != Mode.LOBBY) return;
 
         if (args.size() < 4) {
-            player.sendMessage(Component.text("/givecosmetic <player> <category> <id> <amount>"));
+            player.sendMessage(Message.info("/givecosmetic <player> <category> <id> <amount>"));
             return;
         }
 
@@ -47,7 +48,7 @@ public class GiveCosmetic extends Command {
             final UnlockCosmeticRequest req = new UnlockCosmeticRequest(target.getUniqueId(), data);
             Cosmetics.get().api().unlockCosmetic(req).join();
 
-            player.sendMessage(Component.text("Gave cosmetic."));
+            player.sendMessage(Message.info("Gave cosmetic."));
         });
     }
 }

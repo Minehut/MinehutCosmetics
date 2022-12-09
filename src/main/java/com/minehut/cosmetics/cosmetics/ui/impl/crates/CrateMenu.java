@@ -9,6 +9,7 @@ import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -28,7 +29,7 @@ public class CrateMenu extends SubMenu {
 
         final CosmeticProfileResponse response = Cosmetics.get().manager().getProfile(player.getUniqueId()).join().orElse(null);
         if (response == null) {
-            player.sendMessage(Component.text("Could not retrieve cosmetic profile!").color(NamedTextColor.RED));
+            player.sendMessage(Message.error("Could not retrieve cosmetic profile!"));
             return;
         }
 

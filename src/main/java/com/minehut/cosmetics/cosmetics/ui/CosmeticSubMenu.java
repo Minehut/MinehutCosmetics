@@ -11,6 +11,7 @@ import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.messaging.Message;
 import com.minehut.cosmetics.util.structures.Pair;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -91,7 +92,13 @@ public abstract class CosmeticSubMenu extends SubMenu {
 
             if (canUse) {
                 final UUID uuid = player.getUniqueId();
-                player.sendMessage(Component.text().append(Component.text("Selected ")).append(cosmetic.name()).append(Component.text("!")).color(NamedTextColor.AQUA).build());
+                player.sendMessage(Message.info(Component.text()
+                                .append(Component.text("Selected "))
+                                .append(cosmetic.name()).append(Component.text("!"))
+                                .color(NamedTextColor.AQUA)
+                                .build()
+                        )
+                );
 
                 final CosmeticSlot slot = clickHandler.apply(click);
 

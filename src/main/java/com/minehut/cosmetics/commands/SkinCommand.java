@@ -2,6 +2,7 @@ package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.ui.impl.category.SkinMenu;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class SkinCommand extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text("You must be a player to use this command."));
+            sender.sendMessage(Message.error(Component.text("You must be a player to use this command.")));
             return;
         }
 

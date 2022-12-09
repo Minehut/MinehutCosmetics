@@ -2,8 +2,8 @@ package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,7 +20,7 @@ public class UnSkinCommand extends Command {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String command, @NotNull List<String> args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text("You must be a player to use this command."));
+            sender.sendMessage(Message.error("You must be a player to use this command."));
             return;
         }
 
@@ -29,10 +29,10 @@ public class UnSkinCommand extends Command {
         SkinUtil.getCosmetic(item).ifPresentOrElse(cosmetic -> {
             if (!(cosmetic instanceof Skinnable skinnable)) return;
             skinnable.removeSkin(item);
-            player.sendMessage(Component.text("Removed item skin").color(NamedTextColor.GREEN));
+            player.sendMessage(Message.info("Removed item skin"));
         }, () -> {
             // tell them if we were unable to skin this item
-            player.sendMessage(Component.text("Unable to remove a skin from this item.").color(NamedTextColor.RED));
+            player.sendMessage(Message.error("Unable to remove a skin from this item."));
         });
     }
 }

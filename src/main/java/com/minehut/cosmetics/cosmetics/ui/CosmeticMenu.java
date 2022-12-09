@@ -17,6 +17,7 @@ import com.minehut.cosmetics.cosmetics.ui.impl.category.ParticleMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.category.TrinketMenu;
 import com.minehut.cosmetics.ui.Menu;
 import com.minehut.cosmetics.util.ItemBuilder;
+import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -170,7 +171,7 @@ public class CosmeticMenu extends Menu {
                 });
 
                 getProxy().setItem(51, AURA_MENU_ICON.get(), (player, ignored) -> {
-                    player.sendMessage(Component.text("You cannot use auras on player servers!").color(NamedTextColor.RED));
+                    player.sendMessage(Message.error("You cannot use auras on player servers!"));
                 });
             }
         }

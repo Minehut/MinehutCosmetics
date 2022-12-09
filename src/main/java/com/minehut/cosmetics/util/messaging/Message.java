@@ -26,7 +26,10 @@ public class Message {
     }
 
     public static Component error(String content) {
-        return minehutTag().append(Component.text(content).color(NamedTextColor.RED));
+        return error(Component.text(content));
+    }
+    public static Component error(Component content) {
+        return minehutTag().append(content.color(NamedTextColor.RED));
     }
 
     public static Component minehutTag() {
