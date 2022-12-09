@@ -10,6 +10,7 @@ import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
+import kong.unirest.GenericType;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
 
@@ -37,10 +38,10 @@ public class ExternalAPI extends CosmeticsAPI {
     }
 
     @Override
-    public CompletableFuture<PlayerRank[]> getRanks() {
+    public CompletableFuture<HttpResponse<PlayerRank[]>> getRanks() {
         return request(HttpMethod.GET, "/network/ranks")
-                .asStringAsync()
-                .thenApplyAsync(response -> gson().fromJson(response.getBody(), PlayerRank[].class));
+                .asObjectAsync(new GenericType<>() {
+                });
     }
 
     /*

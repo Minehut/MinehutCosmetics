@@ -17,7 +17,7 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
 
     @Override
     public Optional<List<PlayerRank>> poll() {
-        final PlayerRank[] ranks = cosmetics.api().getRanks().join();
+        final PlayerRank[] ranks = cosmetics.api().getRanks().join().getBody();
 
         if (ranks == null || ranks.length == 0) return Optional.empty();
         return Optional.of(List.of(ranks));

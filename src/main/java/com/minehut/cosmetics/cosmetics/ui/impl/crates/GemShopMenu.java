@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
@@ -47,7 +48,8 @@ public class GemShopMenu extends SubMenu {
                 shopItem(Item.DRAGON_SWORD, 500),
                 shopItem(Companion.YOUNG_DRAGON, 500),
                 shopItem(Hat.DRAGON, 500),
-                shopItem(Wing.DRAGON, 500)
+                shopItem(Wing.DRAGON, 500),
+                shopItem(CrateType.DRAGON_CRATE, 500)
         ));
     }
 

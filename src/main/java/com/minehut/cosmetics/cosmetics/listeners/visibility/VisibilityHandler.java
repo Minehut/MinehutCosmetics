@@ -23,7 +23,6 @@ public class VisibilityHandler implements Listener {
     // listen for pack accepted status
     @EventHandler
     public void onPackAccepted(MinehutPackEvent event) {
-        Bukkit.getLogger().info("PACK EVENT");
         setCosmeticVisibility(event.player(), event.accepted());
     }
 
