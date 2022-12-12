@@ -9,6 +9,7 @@ import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.Version;
 import com.minehut.cosmetics.util.messaging.Message;
@@ -60,13 +61,13 @@ public abstract class Crate extends Cosmetic {
         final Entity base = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
             entity.setGravity(false);
-            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(1_000_001).build());
+            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(Model.Crate.CRATE_BASE).build());
         });
 
         final ArmorStand lid = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
             entity.setGravity(false);
-            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(1_000_002).build());
+            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(Model.Crate.CRATE_LID).build());
         });
 
         final AreaEffectCloud displayCloud = crateLoc.getWorld().spawn(crateLoc.clone().add(0, 1.5, 0), AreaEffectCloud.class, (entity) -> {

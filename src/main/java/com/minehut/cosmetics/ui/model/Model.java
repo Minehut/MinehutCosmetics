@@ -135,4 +135,10 @@ public final class Model {
         public static final int GEM_SHOP = 1_000_001;
 
     }
+
+    public static class Crate {
+        public static final int CRATE_BASE = 1_000_001;
+        public static final int CRATE_LID = 1_000_002;
+        public static final int CRATE_FULL = 1_000_003;
+    }
 }
