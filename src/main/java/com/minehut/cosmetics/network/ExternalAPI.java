@@ -39,9 +39,13 @@ public class ExternalAPI extends CosmeticsAPI {
 
     @Override
     public CompletableFuture<PlayerRank[]> getRanks() {
-        return request(HttpMethod.GET, "/network/ranks")
-                .asObjectAsync(new GenericType<PlayerRank[]>() {
-                }).thenApplyAsync(HttpResponse::getBody);
+        try {
+            return request(HttpMethod.GET, "/network/ranks")
+                    .asObjectAsync(new GenericType<PlayerRank[]>() {
+                    }).thenApplyAsync(HttpResponse::getBody);
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture(new PlayerRank[0]);
+        }
     }
 
     /*
