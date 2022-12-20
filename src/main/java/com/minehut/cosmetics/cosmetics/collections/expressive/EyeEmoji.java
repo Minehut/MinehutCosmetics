@@ -19,13 +19,8 @@ public class EyeEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.EYE;
-    }
-
-    @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
     }
 
     @Override

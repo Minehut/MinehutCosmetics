@@ -19,13 +19,8 @@ public class SkullEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.SKULL;
-    }
-
-    @Override
-    public Permission permission() {
-        return Permission.hasPurchased(this);
     }
 
     @Override

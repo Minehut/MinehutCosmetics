@@ -19,7 +19,7 @@ public class ThumbsUpEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.THUMBS_UP;
     }
 

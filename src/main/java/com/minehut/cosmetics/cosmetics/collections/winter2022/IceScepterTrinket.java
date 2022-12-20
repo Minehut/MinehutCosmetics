@@ -1,7 +1,6 @@
-package com.minehut.cosmetics.cosmetics.collections.netflix2022;
+package com.minehut.cosmetics.cosmetics.collections.winter2022;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.trinket.ItemTrinket;
 import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
 import com.minehut.cosmetics.ui.model.Model;
@@ -12,34 +11,28 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class SpooktacularBoombox extends ItemTrinket {
-
-    public SpooktacularBoombox() {
-        super(Trinket.SPOOKTACULAR_BOOMBOX.name());
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.deny();
+public class IceScepterTrinket extends ItemTrinket {
+    public IceScepterTrinket() {
+        super(Trinket.ICE_SCEPTER.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Kat's Boombox")
-                .color(rarity().display().color())
-                .decoration(TextDecoration.ITALIC, false);
+        return Component.text("Ice Scepter")
+                .decoration(TextDecoration.ITALIC, false)
+                .color(rarity().display().color());
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
                 .display(name())
-                .modelData(Model.Trinket.BOOMBOX)
+                .modelData(Model.Trinket.ICE_SCEPTER)
                 .build();
     }
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.WENDELL_AND_WILD;
+        return Collection.ICE;
     }
 }

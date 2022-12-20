@@ -2,7 +2,9 @@ package com.minehut.cosmetics.modules.polling;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.model.rank.PlayerRank;
+import kong.unirest.HttpResponse;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +19,19 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
 
     @Override
     public Optional<List<PlayerRank>> poll() {
-        final PlayerRank[] ranks = cosmetics.api().getRanks().join();
+        final HttpResponse<PlayerRank[]> response = cosmetics.api().getRanks().join();
 
-        if (ranks == null || ranks.length == 0) return Optional.empty();
-        return Optional.of(List.of(ranks));
+        if (!response.isSuccess()) {
+            return Optional.empty();
+        }
+
+
+        final PlayerRank[] ranks = response.getBody();
+
+        if (ranks.length == 0) {
+            return Optional.empty();
+        }
+        return Optional.of(Arrays.asList(ranks));
     }
 
     @Override

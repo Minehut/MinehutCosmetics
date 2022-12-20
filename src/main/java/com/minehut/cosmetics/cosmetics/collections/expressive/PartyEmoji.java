@@ -19,7 +19,7 @@ public class PartyEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.PARTY;
     }
 

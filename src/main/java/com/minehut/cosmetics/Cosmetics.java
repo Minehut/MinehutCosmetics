@@ -12,6 +12,7 @@ import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.entities.EntityHandler;
+import com.minehut.cosmetics.cosmetics.listeners.trinkets.IceStaffListener;
 import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.cosmetics.crates.CratesModule;
 import com.minehut.cosmetics.cosmetics.listeners.CosmeticsListener;
@@ -24,7 +25,7 @@ import com.minehut.cosmetics.cosmetics.listeners.skins.SkinEquipListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinModifyListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinTriggerListener;
 import com.minehut.cosmetics.cosmetics.listeners.CosmeticEntityListener;
-import com.minehut.cosmetics.cosmetics.listeners.EmojiHandler;
+import com.minehut.cosmetics.cosmetics.listeners.EmojiListener;
 import com.minehut.cosmetics.cosmetics.listeners.visibility.VisibilityHandler;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
@@ -115,10 +116,13 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticsTeleportListener(this));
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
-        registerEvents(new EmojiHandler());
+        registerEvents(new EmojiListener());
         registerEvents(resourcePackManager);
         registerEvents(visibilityHandler);
         registerEvents(entityHandler);
+
+        // trinket listeners
+        registerEvents(new IceStaffListener());
 
         // register commands
         new MenuCommand().register(this);

@@ -79,11 +79,10 @@ public class SkinMenu extends SubMenu {
                 cosmetic.owner(player.getUniqueId());
                 skinnable.applySkin(item);
 
-                player.sendMessage(Message.error(Component.text()
+                player.sendMessage(Message.info(Component.text()
                         .append(Component.text("Applied item skin"))
                         .append(Component.space())
                         .append(cosmetic.name())
-                        .color(NamedTextColor.GREEN)
                         .build())
                 );
                 player.getInventory().close();

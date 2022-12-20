@@ -13,6 +13,7 @@ import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import kong.unirest.GenericType;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -37,15 +38,9 @@ public class ExternalAPI extends CosmeticsAPI {
                 .asObjectAsync(CosmeticProfileResponse.class);
     }
 
-    @Override
-    public CompletableFuture<PlayerRank[]> getRanks() {
-        try {
-            return request(HttpMethod.GET, "/network/ranks")
-                    .asObjectAsync(new GenericType<PlayerRank[]>() {
-                    }).thenApplyAsync(HttpResponse::getBody);
-        } catch (Exception e) {
-            return CompletableFuture.completedFuture(new PlayerRank[0]);
-        }
+    public CompletableFuture<HttpResponse<PlayerRank[]>> getRanks() {
+        return Unirest.get(config().apiUrl() + "/network/ranks").asObjectAsync(new GenericType<>() {
+        });
     }
 
     /*

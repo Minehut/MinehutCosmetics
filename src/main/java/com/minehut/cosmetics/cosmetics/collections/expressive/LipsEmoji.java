@@ -19,7 +19,7 @@ public class LipsEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.LIPS;
     }
 

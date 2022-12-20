@@ -64,7 +64,8 @@ public class Bindings {
             ))
             .registerCosmetics(List.of(
                     Item.FALL_22_SHOVEL,
-                    Item.GRAVE_SHOVEL
+                    Item.GRAVE_SHOVEL,
+                    Item.ICE_SHOVEL
             ));
 
     // bindings for axe items
@@ -79,7 +80,8 @@ public class Bindings {
             ))
             .registerCosmetics(List.of(
                     Item.FALL_22_AXE,
-                    Item.ARCADE_AXE
+                    Item.ARCADE_AXE,
+                    Item.ICE_AXE
             ));
 
     // bindings for spyglass items
@@ -127,7 +129,8 @@ public class Bindings {
                     Material.SHIELD
             ))
             .registerCosmetics(List.of(
-                    Item.FALL_22_SHIELD
+                    Item.FALL_22_SHIELD,
+                    Item.ICE_SHIELD
             ));
 
     public static MaterialBinding FISHING_ROD = new MaterialBinding()

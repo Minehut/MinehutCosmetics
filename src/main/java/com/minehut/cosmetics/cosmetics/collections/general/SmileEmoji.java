@@ -19,7 +19,7 @@ public class SmileEmoji extends EmojiCosmetic {
     }
 
     @Override
-    public @NotNull Component component() {
+    public String characters() {
         return Fonts.Emoji.SMILE;
     }
 

@@ -10,6 +10,7 @@ import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
+import kong.unirest.GenericType;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequestWithBody;
 import kong.unirest.HttpResponse;
@@ -39,6 +40,16 @@ public abstract class CosmeticsAPI {
             }
 
             @Override
+            public <T> T readValue(String value, GenericType<T> genericType) {
+                try {
+                    return gson.fromJson(value, genericType.getType());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+            @Override
             public String writeValue(Object value) {
                 try {
                     return gson.toJson(value);
@@ -55,7 +66,7 @@ public abstract class CosmeticsAPI {
 
     public abstract CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req);
 
-    public abstract CompletableFuture<PlayerRank[]> getRanks();
+    public abstract CompletableFuture<HttpResponse<PlayerRank[]>> getRanks();
 
 
     public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req);

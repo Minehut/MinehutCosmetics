@@ -85,7 +85,6 @@ public final class Model {
             public static final int DRAGON_SWORD = 1_000_010;
             public static final int BAN_HAMMER = 1_000_011;
             public static final int ICE_SWORD = 1_000_012;
-
         }
 
         public static class Pickaxe {
@@ -98,11 +97,15 @@ public final class Model {
         public static class Shovel {
             public static final int FALL_22 = 1_000_001;
             public static final int GRAVE = 1_000_002;
+            public static final int ICE = 1_000_003;
+
         }
 
         public static class Axe {
             public static final int FALL_22 = 1_000_001;
-            public static final int ARCADE_AXE = 1_000_0002;
+            public static final int ARCADE_AXE = 1_000_002;
+            public static final int ICE = 1_000_003;
+
         }
 
         public static class Spyglass {
@@ -111,6 +114,7 @@ public final class Model {
 
         public static class Shield {
             public static final int FALL_22 = 1_000_001;
+            public static final int ICE = 1_000_002;
         }
 
         public static class FishingRod {
@@ -128,12 +132,12 @@ public final class Model {
 
     public static class Trinket {
         public static final int BOOMBOX = 1_005_001;
+        public static final int ICE_SCEPTER = 1_005_002;
     }
 
     public static class Ui {
         public static final int SHOP_ICON = 1_000_001;
         public static final int GEM_SHOP = 1_000_001;
-
     }
 
     public static class Crate {
