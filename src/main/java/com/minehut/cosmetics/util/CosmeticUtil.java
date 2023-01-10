@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.util;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.util.data.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -14,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class SkinUtil {
+public class CosmeticUtil {
 
     public static void copyAttributes(@Nullable ItemStack fromItem, @Nullable ItemStack toItem) {
         if (fromItem == null || toItem == null) return;
@@ -78,7 +77,7 @@ public class SkinUtil {
         return Key.SKINNED.read(item.getItemMeta()).isPresent();
     }
 
-    public static Optional<Cosmetic> getCosmetic(@Nullable ItemStack stack) {
+    public static Optional<Cosmetic> readCosmetic(@Nullable ItemStack stack) {
         if (stack == null) return Optional.empty();
         return Key.COSMETIC_CATEGORY.read(stack.getItemMeta()).flatMap(category ->
                 Key.COSMETIC_ID.read(stack.getItemMeta()).flatMap(id ->
@@ -87,7 +86,7 @@ public class SkinUtil {
         );
     }
 
-    public static Optional<Cosmetic> getCosmetic(@Nullable PersistentDataHolder holder) {
+    public static Optional<Cosmetic> readCosmetic(@Nullable PersistentDataHolder holder) {
         if (holder == null) return Optional.empty();
         return Key.COSMETIC_CATEGORY.read(holder).flatMap(category ->
                 Key.COSMETIC_ID.read(holder).flatMap(id ->

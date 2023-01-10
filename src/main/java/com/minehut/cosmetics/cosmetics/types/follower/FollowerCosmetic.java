@@ -27,9 +27,9 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     private final Vector offset;
 
     protected FollowerCosmetic(
-            String id,
-            CosmeticCategory category,
-            Vector offset
+        String id,
+        CosmeticCategory category,
+        Vector offset
     ) {
         super(id, category);
         this.offset = offset;
@@ -83,7 +83,10 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
             } else {
                 target.setYaw(0);
                 target.setPitch(0);
-                entity.teleport(target);
+
+                // unequip to de-spawn then re-equip to spawn near the player
+                unequip();
+                equip();
             }
 
             //Move away from each other

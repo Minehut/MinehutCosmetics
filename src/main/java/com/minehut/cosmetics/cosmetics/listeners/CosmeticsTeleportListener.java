@@ -54,13 +54,13 @@ public class CosmeticsTeleportListener implements Listener {
         }
 
         if (shouldRemove) {
-            cosmetics.manager().unEquipAll(uuid);
+            cosmetics.manager().unequipAll(uuid);
             portalFlag.add(uuid);
         }
     }
 
     private void handleTeleport(UUID uuid) {
-        manager.unEquipAll(uuid);
+        manager.unequipAll(uuid);
 
         Bukkit.getScheduler().runTaskLater(cosmetics, () -> {
             manager.equipAll(uuid);

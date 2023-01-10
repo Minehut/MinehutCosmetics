@@ -1,7 +1,8 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.winter2023;
+
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Rarity;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -13,39 +14,34 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class YoungDragonCompanion extends CompanionCosmetic {
-
-    public YoungDragonCompanion() {
-        super(Companion.YOUNG_DRAGON.name(),
-            new Vector(0, -1, 0),
-            true,
-            true,
-            false
+public class SnowmanCompanion extends CompanionCosmetic {
+    public SnowmanCompanion() {
+        super(
+                Companion.SNOWMAN.name(),
+                new Vector(0, -1, 0),
+                true,
+                true,
+                false
         );
     }
 
     @Override
     public Component name() {
-        return Component.text("Young Dragon Pet")
-            .color(rarity().display().color())
-            .decoration(TextDecoration.ITALIC, false);
+        return Component.text("Snowman")
+                .decoration(TextDecoration.ITALIC, false)
+                .color(rarity().display().color());
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
-            .display(name())
-            .modelData(Model.Companion.YOUNG_DRAGON)
-            .build();
+                .display(name())
+                .modelData(Model.Companion.SNOWMAN)
+                .build();
     }
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.DRAGON_CRATE;
-    }
-
-    @Override
-    public @NotNull Rarity rarity() {
-        return Rarity.LEGENDARY;
+        return Collection.WINTER_2023;
     }
 }

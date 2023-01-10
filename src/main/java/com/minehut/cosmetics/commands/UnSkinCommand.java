@@ -1,9 +1,8 @@
 package com.minehut.cosmetics.commands;
 
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import com.minehut.cosmetics.util.messaging.Message;
-import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,7 +25,7 @@ public class UnSkinCommand extends Command {
 
         // grab the cosmetic for this item and unskin it if possible
         final ItemStack item = player.getInventory().getItemInMainHand();
-        SkinUtil.getCosmetic(item).ifPresentOrElse(cosmetic -> {
+        CosmeticUtil.readCosmetic(item).ifPresentOrElse(cosmetic -> {
             if (!(cosmetic instanceof Skinnable skinnable)) return;
             skinnable.removeSkin(item);
             player.sendMessage(Message.info("Removed item skin"));

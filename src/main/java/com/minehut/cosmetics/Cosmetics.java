@@ -3,30 +3,30 @@ package com.minehut.cosmetics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
-import com.minehut.cosmetics.commands.debug.Debug;
 import com.minehut.cosmetics.commands.MenuCommand;
 import com.minehut.cosmetics.commands.SkinCommand;
 import com.minehut.cosmetics.commands.UnSkinCommand;
+import com.minehut.cosmetics.commands.debug.Debug;
 import com.minehut.cosmetics.commands.debug.GiveCosmetic;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
-import com.minehut.cosmetics.cosmetics.entities.EntityHandler;
-import com.minehut.cosmetics.cosmetics.listeners.trinkets.IceStaffListener;
-import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.cosmetics.crates.CratesModule;
+import com.minehut.cosmetics.cosmetics.entities.EntityHandler;
+import com.minehut.cosmetics.cosmetics.listeners.CosmeticEntityListener;
 import com.minehut.cosmetics.cosmetics.listeners.CosmeticsListener;
 import com.minehut.cosmetics.cosmetics.listeners.CosmeticsTeleportListener;
 import com.minehut.cosmetics.cosmetics.listeners.DeathListener;
+import com.minehut.cosmetics.cosmetics.listeners.EmojiListener;
 import com.minehut.cosmetics.cosmetics.listeners.LeashListener;
 import com.minehut.cosmetics.cosmetics.listeners.ResourcePackListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinDurabilityListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinEquipListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinModifyListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinTriggerListener;
-import com.minehut.cosmetics.cosmetics.listeners.CosmeticEntityListener;
-import com.minehut.cosmetics.cosmetics.listeners.EmojiListener;
+import com.minehut.cosmetics.cosmetics.listeners.trinkets.IceStaffListener;
 import com.minehut.cosmetics.cosmetics.listeners.visibility.VisibilityHandler;
+import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
@@ -77,7 +77,7 @@ public final class Cosmetics extends JavaPlugin {
         this.entityHandler = new EntityHandler();
         this.visibilityHandler = new VisibilityHandler(this);
         this.resourcePackManager = new ResourcePackManager();
-        
+
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
             case LOBBY -> {
@@ -112,14 +112,18 @@ public final class Cosmetics extends JavaPlugin {
         registerEvents(new CosmeticsListener(this));
         registerEvents(new ResourcePackListener(packModule));
         registerEvents(new DeathListener(this));
-        registerEvents(new LeashListener(this));
+        registerEvents(new LeashListener());
         registerEvents(new CosmeticsTeleportListener(this));
         registerEvents(new CosmeticEntityListener());
         registerEvents(new TrinketListener());
         registerEvents(new EmojiListener());
         registerEvents(resourcePackManager);
-        registerEvents(visibilityHandler);
         registerEvents(entityHandler);
+
+        // manage visibility events
+        if (config.hideEntitiesWithoutPack()) {
+            registerEvents(visibilityHandler);
+        }
 
         // trinket listeners
         registerEvents(new IceStaffListener());
@@ -146,19 +150,19 @@ public final class Cosmetics extends JavaPlugin {
         return builder.create();
     }
 
+    public LocalStorageManager localStorage() {
+        if (Mode.PLAYER_SERVER != config().mode()) {
+            throw new IllegalStateException("Must be in player server mode to access local storage");
+        }
+        return localStorage;
+    }
+
     public CosmeticsManager manager() {
         return manager;
     }
 
     public Config config() {
         return config;
-    }
-
-    public LocalStorageManager localStorage() {
-        if (Mode.PLAYER_SERVER != config().mode()) {
-            throw new IllegalStateException("Must be in player server mode to access local storage");
-        }
-        return localStorage;
     }
 
     public CosmeticsAPI api() {
@@ -177,6 +181,10 @@ public final class Cosmetics extends JavaPlugin {
         return packModule;
     }
 
+    public VisibilityHandler visibilityHandler() {
+        return visibilityHandler;
+    }
+
     public static Mode mode() {
         return get().config().mode();
     }
@@ -186,13 +194,11 @@ public final class Cosmetics extends JavaPlugin {
      */
     private void removeCosmeticEntities() {
         Bukkit.getWorlds().forEach(world -> world.getEntities().forEach(entity -> {
-            if (!EntityUtil.isCosmeticEntity(entity)) return;
+            if (!EntityUtil.isCosmeticEntity(entity)) {
+                return;
+            }
             entity.remove();
         }));
-    }
-
-    public VisibilityHandler visibilityHandler() {
-        return visibilityHandler;
     }
 
     public ResourcePackManager resourcePackManager() {

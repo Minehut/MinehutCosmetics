@@ -4,7 +4,7 @@ import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceScepterTrinket;
 import com.minehut.cosmetics.util.ExpiringSet;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import com.minehut.cosmetics.util.messaging.Message;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -43,7 +43,7 @@ public class IceStaffListener implements Listener {
             return;
         }
 
-        SkinUtil.getCosmetic(item).ifPresent(cosmetic -> {
+        CosmeticUtil.readCosmetic(item).ifPresent(cosmetic -> {
             if (!cosmetic.getQualifiedId().equals(scepter.getQualifiedId())) {
                 return;
             }

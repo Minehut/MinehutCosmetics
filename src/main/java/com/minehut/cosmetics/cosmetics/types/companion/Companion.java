@@ -14,6 +14,8 @@ import com.minehut.cosmetics.cosmetics.collections.autumn2022.LatteCompanion;
 import com.minehut.cosmetics.cosmetics.collections.dev.MeFollower;
 import com.minehut.cosmetics.cosmetics.collections.general.RedRobinCompanion;
 import com.minehut.cosmetics.cosmetics.collections.netflix2022.WendellAndWildCompanion;
+import com.minehut.cosmetics.cosmetics.collections.winter2023.ArcticFoxCompanion;
+import com.minehut.cosmetics.cosmetics.collections.winter2023.SnowmanCompanion;
 import com.minehut.cosmetics.cosmetics.types.follower.FollowerCosmetic;
 
 import java.util.function.Supplier;
@@ -31,7 +33,9 @@ public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
     RED_ROBIN(RedRobinCompanion::new),
     DRAGON_EGG(DragonEggCompanion::new),
     YOUNG_DRAGON(YoungDragonCompanion::new),
-    UFO_COW(UfoCowCompanion::new);
+    UFO_COW(UfoCowCompanion::new),
+    SNOWMAN(SnowmanCompanion::new),
+    ARCTIC_FOX(ArcticFoxCompanion::new);
 
     private final Supplier<FollowerCosmetic> supplier;
 

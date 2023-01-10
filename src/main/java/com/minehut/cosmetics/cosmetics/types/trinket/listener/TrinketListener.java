@@ -2,8 +2,7 @@ package com.minehut.cosmetics.cosmetics.types.trinket.listener;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.util.SkinUtil;
-import org.bukkit.Bukkit;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -20,7 +19,7 @@ public class TrinketListener implements Listener {
 
     @EventHandler
     public void onUse(PlayerInteractEvent event) {
-        SkinUtil.getCosmetic(event.getItem()).ifPresent(cosmetic -> {
+        CosmeticUtil.readCosmetic(event.getItem()).ifPresent(cosmetic -> {
             if (CosmeticCategory.TRINKET != cosmetic.category()) return;
             event.setCancelled(true);
         });
@@ -54,7 +53,7 @@ public class TrinketListener implements Listener {
      */
     private boolean containsIllegalItems(Inventory inventory) {
         for (final ItemStack item : inventory) {
-            final Optional<Cosmetic> cosmetic = SkinUtil.getCosmetic(item);
+            final Optional<Cosmetic> cosmetic = CosmeticUtil.readCosmetic(item);
             if (cosmetic.isEmpty()) continue;
             return true;
         }

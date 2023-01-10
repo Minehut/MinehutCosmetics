@@ -18,6 +18,8 @@ public enum Collection {
     DRAGON_CRATE(Component.text("Minehut Dragon Crate").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)),
     WENDELL_AND_WILD(Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
     ICE(Component.text("Ice Collection").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
+    WINTER_2023(Component.text("Winter 2023").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
+
     ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false));;
 
 
@@ -31,7 +33,14 @@ public enum Collection {
         return tag;
     }
 
-    private static final Set<Collection> ACTIVE = Set.of(FALL_22, GENERAL, MAID, DRAGON_CRATE, ICE, ARCADE);
+    private static final Set<Collection> ACTIVE = Set.of(
+        GENERAL,
+        MAID,
+        DRAGON_CRATE,
+        ICE,
+        ARCADE,
+        WINTER_2023
+    );
 
     public static boolean isActive(Collection collection) {
         return ACTIVE.contains(collection);

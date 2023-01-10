@@ -6,14 +6,13 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.bindings.Bindings;
 import com.minehut.cosmetics.cosmetics.bindings.CosmeticBindings;
+import com.minehut.cosmetics.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
-import com.minehut.cosmetics.cosmetics.events.CosmeticEquipEvent;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
-import com.minehut.cosmetics.model.rank.PlayerRank;
 import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
 import com.minehut.cosmetics.util.EnumUtil;
 import com.minehut.cosmetics.util.messaging.Message;
@@ -23,7 +22,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,8 +34,8 @@ public class CosmeticsManager {
      * Cache for retrieving player cosmetic profiles
      */
     private final Cache<UUID, CosmeticProfileResponse> cache = CacheBuilder.newBuilder()
-            .expireAfterWrite(15, TimeUnit.SECONDS)
-            .build();
+        .expireAfterWrite(15, TimeUnit.SECONDS)
+        .build();
 
     /**
      * Map of active cosmetics for each user
@@ -49,12 +47,12 @@ public class CosmeticsManager {
     public CosmeticsManager(Cosmetics cosmetics) {
         this.cosmetics = cosmetics;
         Bukkit.getScheduler().runTaskTimer(cosmetics, () -> cosmeticsCache.values()
-                .forEach((userCosmetics) -> userCosmetics.values()
-                        .forEach((cosmetic) -> {
-                            if (!(cosmetic instanceof Tickable tickable)) return;
-                            tickable.tick();
-                        })
-                ), 0, 1);
+            .forEach((userCosmetics) -> userCosmetics.values()
+                .forEach((cosmetic) -> {
+                    if (!(cosmetic instanceof Tickable tickable)) return;
+                    tickable.tick();
+                })
+            ), 0, 1);
         bindings.registerBinding(Bindings.ALL);
     }
 
@@ -107,7 +105,7 @@ public class CosmeticsManager {
             equippable.equip();
         }
 
-        getEquippedForUser(uuid).put(slot, cosmetic);
+        getEquippedMap(uuid).put(slot, cosmetic);
 
         if (updateMeta) {
             sendEquipmentUpdate(uuid, slot, cosmetic.getQualifiedId());
@@ -124,14 +122,14 @@ public class CosmeticsManager {
      */
     public void removeCosmetic(UUID uuid, CosmeticSlot slot, boolean updateMeta) {
         // remove the cosmetic
-        getCosmeticForUser(uuid, slot).ifPresent((cosmetic) -> {
+        getEquippedCosmetic(uuid, slot).ifPresent((cosmetic) -> {
             if (cosmetic instanceof Equippable equippable) {
                 equippable.unequip();
             }
         });
 
         // remove the cosmetic from that players map
-        getEquippedForUser(uuid).remove(slot);
+        getEquippedMap(uuid).remove(slot);
 
         if (updateMeta) {
             sendEquipmentUpdate(uuid, slot, "EMPTY");
@@ -158,7 +156,7 @@ public class CosmeticsManager {
                 case 200 -> player.sendMessage(Message.info("Equipped cosmetic!"));
                 case 429 -> player.sendMessage(Message.error("Please wait a moment and try again..."));
                 default ->
-                        player.sendMessage(Message.error("An unknown error occured while trying to equip your cosmetic..."));
+                    player.sendMessage(Message.error("An unknown error occured while trying to equip your cosmetic..."));
             }
         });
     }
@@ -204,7 +202,7 @@ public class CosmeticsManager {
         cache.invalidate(uuid);
 
         // un-equip and clear the players map
-        Map<CosmeticSlot, Cosmetic> equipped = getEquippedForUser(uuid);
+        Map<CosmeticSlot, Cosmetic> equipped = getEquippedMap(uuid);
         equipped.values().forEach((cosmetic) -> {
             // un-equip if that's possible
             if (cosmetic instanceof Equippable equippable) {
@@ -222,23 +220,41 @@ public class CosmeticsManager {
         equipped.clear();
     }
 
-    public HashSet<Cosmetic> getEquipped(UUID uuid) {
-        return Optional.ofNullable(cosmeticsCache.get(uuid))
-                .map(Map::values)
-                .map(HashSet::new)
-                .orElseGet(HashSet::new);
-    }
+    public void unequipAll(UUID uuid) {
+        getEquippedMap(uuid).forEach((slot, cosmetic) -> {
+            if (!(cosmetic instanceof Equippable equippable)) {
+                return;
+            }
 
-    public void unEquipAll(UUID uuid) {
-        getEquipped(uuid).forEach(cosmetic -> {
-            if (!(cosmetic instanceof Equippable equippable)) return;
             equippable.unequip();
         });
     }
 
+    public void unequip(UUID uuid, CosmeticSlot slot) {
+
+    }
+
+    /**
+     * Run the equip method on the cosmetic in the
+     * provided slot
+     *
+     * @param uuid user to equip for
+     * @param slot to equip in
+     */
+    public void equip(UUID uuid, CosmeticSlot slot) {
+        getEquippedCosmetic(uuid, slot).ifPresent(cosmetic -> {
+            if (!(cosmetic instanceof Equippable equippable)) {
+                return;
+            }
+            equippable.equip();
+        });
+    }
+
     public void equipAll(UUID uuid) {
-        getEquipped(uuid).forEach(cosmetic -> {
-            if (!(cosmetic instanceof Equippable equippable)) return;
+        getEquippedMap(uuid).forEach((slot, cosmetic) -> {
+            if (!(cosmetic instanceof Equippable equippable)) {
+                return;
+            }
             equippable.equip();
         });
     }
@@ -250,7 +266,7 @@ public class CosmeticsManager {
      * @param uuid of the user to get equipped items for
      * @return map containing info on equipped cosmetics
      */
-    public Map<CosmeticSlot, Cosmetic> getEquippedForUser(UUID uuid) {
+    public Map<CosmeticSlot, Cosmetic> getEquippedMap(UUID uuid) {
         return cosmeticsCache.computeIfAbsent(uuid, (k) -> new HashMap<>());
     }
 
@@ -261,23 +277,8 @@ public class CosmeticsManager {
      * @param type of cosmetic to get
      * @return a possible cosmetic
      */
-    public Optional<Cosmetic> getCosmeticForUser(final UUID uuid, CosmeticSlot type) {
-        return Optional.ofNullable(getEquippedForUser(uuid).get(type));
-    }
-
-
-    /**
-     * Get a future containing the players rank, defaults to DEFAULT if a rank was not found.
-     *
-     * @param uuid of the player to get the rank for
-     * @return the players rank
-     */
-    public CompletableFuture<PlayerRank> getRank(UUID uuid) {
-        return CompletableFuture.supplyAsync(() -> getProfile(uuid)
-                .join()
-                .map(CosmeticProfileResponse::getRank)
-                .flatMap(PlayerRank::getBackingRank)
-                .orElse(PlayerRank.DEFAULT));
+    public Optional<Cosmetic> getEquippedCosmetic(final UUID uuid, CosmeticSlot type) {
+        return Optional.ofNullable(getEquippedMap(uuid).get(type));
     }
 
     public CosmeticBindings getBindings() {

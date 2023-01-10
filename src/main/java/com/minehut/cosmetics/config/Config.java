@@ -9,16 +9,15 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.util.Optional;
 
 public class Config {
 
-    private String apiUrl = "https://api.minehut.com";
-    private String apiSecret = "";
-    private Mode mode = Mode.PLAYER_SERVER;
+    private String apiUrl;
+    private String apiSecret;
+    private Mode mode;
     private Location crateLocation = null;
 
-    private final CompanionConfig companion;
+    private boolean hideEntitiesWithoutPack = true;
 
     private final Plugin plugin;
 
@@ -26,35 +25,32 @@ public class Config {
         this.plugin = plugin;
         plugin.saveDefaultConfig();
         reload();
-
-        this.companion = new CompanionConfig(plugin);
     }
 
     public void load() {
         final FileConfiguration pluginConfig = plugin.getConfig();
 
         // load the mode we're using for the plugin
-        EnumUtil.valueOfSafe(Mode.class, pluginConfig.getString("mode")).ifPresent(newMode -> this.mode = newMode);
+        this.mode = EnumUtil.valueOfSafe(Mode.class, pluginConfig.getString("mode")).orElse(Mode.PLAYER_SERVER);
+        this.hideEntitiesWithoutPack = pluginConfig.getBoolean("hide-entities-without-pack", false);
 
         switch (mode) {
             // if we're using the lobby, try to load the socket auth config as well
             case LOBBY -> {
                 final YamlConfiguration lobbyConfig = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder().getParent(), "Lobby/socketauth.yml"));
-                Optional.ofNullable(lobbyConfig.getString("api.url")).ifPresent(url -> this.apiUrl = url);
-                Optional.ofNullable(lobbyConfig.getString("api.auth")).ifPresent(secret -> this.apiSecret = secret);
+                this.apiUrl = lobbyConfig.getString("api.url", "https://api.minehut.com");
+                this.apiSecret = lobbyConfig.getString("api.auth", "nicetry");
 
-                String worldName = pluginConfig.getString("crateLocation.name", "lobby");
+                World world = Bukkit.getWorld(pluginConfig.getString("crateLocation.name", "lobby"));
                 double x = pluginConfig.getDouble("crateLocation.x", 0);
                 double y = pluginConfig.getDouble("crateLocation.y", 0);
                 double z = pluginConfig.getDouble("crateLocation.z", 0);
                 float yaw = (float) pluginConfig.getDouble("crateLocation.yaw", 0);
 
-
-                final World world = Bukkit.getWorld(worldName);
                 this.crateLocation = new Location(world, x, y, z, yaw, 0);
             }
             case PLAYER_SERVER -> {
-                Optional.ofNullable(pluginConfig.getString("apiUrl")).ifPresent(newUrl -> this.apiUrl = newUrl);
+                this.apiUrl = pluginConfig.getString("apiUrl", "https://api.minehut.com");
             }
         }
     }
@@ -67,10 +63,6 @@ public class Config {
      */
     public Mode mode() {
         return mode;
-    }
-
-    public CompanionConfig companion() {
-        return companion;
     }
 
     /**
@@ -88,6 +80,11 @@ public class Config {
 
     public Location crateLocation() {
         return crateLocation;
+    }
+
+
+    public boolean hideEntitiesWithoutPack() {
+        return hideEntitiesWithoutPack;
     }
 
     public void reload() {

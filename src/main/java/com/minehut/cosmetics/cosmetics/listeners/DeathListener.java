@@ -16,7 +16,7 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        cosmetics.manager().unEquipAll(event.getPlayer().getUniqueId());
+        cosmetics.manager().unequipAll(event.getPlayer().getUniqueId());
     }
 
     @EventHandler

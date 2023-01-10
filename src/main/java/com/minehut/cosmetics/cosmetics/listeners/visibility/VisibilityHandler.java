@@ -3,7 +3,6 @@ package com.minehut.cosmetics.cosmetics.listeners.visibility;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.events.CosmeticEntitySpawnEvent;
 import com.minehut.cosmetics.cosmetics.events.MinehutPackEvent;
-import com.minehut.cosmetics.util.SkinUtil;
 import com.minehut.cosmetics.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;

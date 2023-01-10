@@ -7,6 +7,9 @@ import net.kyori.adventure.text.format.Style;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.WHITE;
 
+/**
+ * TODO: Add 'Font Character' class of some kind that takes the raw string & component
+ */
 public class Fonts {
 
     public static class Font {
@@ -15,8 +18,8 @@ public class Fonts {
     }
 
     public static class Icon {
-        public static final Component COSMETICS_CTA = text("\ue003").color(WHITE);
-        public static final Component COSMETICS_CTA_PREFIX = text("\uF82C\uF82A\uF828\uF822").append(COSMETICS_CTA).append(text("\uF80D\uF809"));
+        public static final String COSMETICS_CTA = "\ue003";
+        public static final Component COSMETICS_CTA_PREFIX = text("\uF82C\uF82A\uF828\uF822").append(text(COSMETICS_CTA)).append(text("\uF80D\uF809"));
         public static final Component GEM = text("\ue001").color(WHITE).style(Style.style().font(Font.UI));
     }
 

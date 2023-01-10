@@ -1,10 +1,9 @@
 package com.minehut.cosmetics.cosmetics.listeners.skins;
 
 import com.minehut.cosmetics.util.BlockUtil;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.EnchantingTable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -13,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +35,7 @@ public class SkinEquipListener implements Listener {
         // handle shift clicking
         final ItemStack clicked = event.getCurrentItem();
         final EntityEquipment equipment = player.getEquipment();
-        final EquipmentSlot clickedSlot = SkinUtil.getEquipmentSlot(clicked).orElse(null);
+        final EquipmentSlot clickedSlot = CosmeticUtil.getEquipmentSlot(clicked).orElse(null);
 
         if (clicked != null && clickedSlot != null && event.isShiftClick()) {
             if (Material.AIR == player.getEquipment().getItem(clickedSlot).getType()) {
@@ -57,14 +55,14 @@ public class SkinEquipListener implements Listener {
 
         // handle clicking the head slot
         final ItemStack cursor = event.getCursor();
-        final EquipmentSlot cursorSlot = SkinUtil.getEquipmentSlot(cursor).orElse(null);
+        final EquipmentSlot cursorSlot = CosmeticUtil.getEquipmentSlot(cursor).orElse(null);
 
         // they have a cursor item, and they clicked an armor slot
         if (cursor != null && cursorSlot != null && InventoryType.SlotType.ARMOR == event.getSlotType()) {
             event.setCancelled(true);
 
             // if we clicked the wrong item slot don't do anything
-            if (event.getRawSlot() != SkinUtil.getEquipmentSlotIndex(cursorSlot)) {
+            if (event.getRawSlot() != CosmeticUtil.getEquipmentSlotIndex(cursorSlot)) {
                 return;
             }
 
@@ -87,7 +85,7 @@ public class SkinEquipListener implements Listener {
         final Player player = event.getPlayer();
 
         // if the item has a slot we want to handle it w/ custom logic
-        SkinUtil.getEquipmentSlot(item).ifPresent(slot -> {
+        CosmeticUtil.getEquipmentSlot(item).ifPresent(slot -> {
             event.setUseItemInHand(Event.Result.DENY);
 
             // if they don't have an item in the head slot, perform the swap

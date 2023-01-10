@@ -1,6 +1,6 @@
 package com.minehut.cosmetics.cosmetics.listeners.skins;
 
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -24,7 +24,7 @@ public class SkinModifyListener implements Listener {
     public void onEnchantSkin(InventoryClickEvent event) {
         if (!isModifier(event.getInventory())) return;
 
-        if (SkinUtil.isSkinned(event.getCurrentItem()) || SkinUtil.isSkinned(event.getCursor())) {
+        if (CosmeticUtil.isSkinned(event.getCurrentItem()) || CosmeticUtil.isSkinned(event.getCursor())) {
             event.getWhoClicked().sendMessage(UNSKIN_CTA);
             event.setCancelled(true);
         }

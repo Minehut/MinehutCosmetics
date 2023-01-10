@@ -37,12 +37,12 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
      * @param lookY    whether to track rotation on the y-axis
      */
     public MountedFollowerCosmetic(
-            final String id,
-            final CosmeticCategory category,
-            final Vector offset,
-            final boolean small,
-            final boolean lookX,
-            final boolean lookY
+        final String id,
+        final CosmeticCategory category,
+        final Vector offset,
+        final boolean small,
+        final boolean lookX,
+        final boolean lookY
     ) {
         super(id, category, offset);
         this.small = small;
@@ -71,7 +71,11 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
 
         // make the pet 'look' at the player
         player().ifPresent(player -> entities().forEach((entity) -> {
-            ArmorStand stand = (ArmorStand) entity;
+
+            if (!(entity instanceof ArmorStand stand)) {
+                return;
+            }
+
             Location dir = player.getEyeLocation().subtract(stand.getEyeLocation());
 
             double x = dir.getX();
@@ -82,9 +86,9 @@ public abstract class MountedFollowerCosmetic extends FollowerCosmetic {
             double eulerY = lookX ? -(Math.PI - Math.atan2(z, x)) + Math.PI / 2 : 0f;
 
             EulerAngle angle = new EulerAngle(
-                    eulerX,
-                    eulerY,
-                    0
+                eulerX,
+                eulerY,
+                0
             );
             stand.setHeadPose(angle);
         }));

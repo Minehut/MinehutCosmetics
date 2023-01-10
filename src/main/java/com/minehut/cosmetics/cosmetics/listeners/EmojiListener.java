@@ -5,6 +5,7 @@ import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiCosmetic;
+import com.minehut.cosmetics.ui.font.Fonts;
 import com.minehut.cosmetics.util.Version;
 import com.minehut.cosmetics.util.messaging.Message;
 import io.papermc.paper.event.player.AsyncChatDecorateEvent;
@@ -28,7 +29,7 @@ import java.util.Set;
 public class EmojiListener implements Listener {
 
     private final Map<String, EmojiCosmetic> emojiBindings = new HashMap<>();
-    private final Set<String> emojis = new HashSet<>();
+    private final Set<String> blacklisted = new HashSet<>();
 
     private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.builder().build();
 
@@ -36,17 +37,17 @@ public class EmojiListener implements Listener {
         for (final Emoji emoji : Emoji.values()) {
             final EmojiCosmetic cosmetic = emoji.get();
             emojiBindings.put(cosmetic.keyword(), cosmetic);
-            emojis.add(cosmetic.characters());
+            blacklisted.add(cosmetic.characters());
         }
+
+        blacklisted.add(Fonts.Icon.COSMETICS_CTA);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void cancelChat(AsyncChatEvent event) {
-
         if (containsIllegalCharacter(event.originalMessage())) {
-            event.setCancelled(true);
             event.getPlayer().sendMessage(Message.error("Illegal Characters."));
-            return;
+            event.setCancelled(true);
         }
     }
 
@@ -57,7 +58,6 @@ public class EmojiListener implements Listener {
         }
 
         final Component replaced = event.message().replaceText(generateConfig(event.getPlayer(), NamedTextColor.WHITE));
-        event.getPlayer().sendMessage(replaced);
         event.message(replaced);
     }
 
@@ -68,7 +68,18 @@ public class EmojiListener implements Listener {
             return;
         }
 
-        final Component result = event.originalMessage().replaceText(generateConfig(event.player(), NamedTextColor.WHITE));
+        final Player player = event.player();
+        if (player == null) {
+            return;
+        }
+
+        if (containsIllegalCharacter(event.originalMessage())) {
+            player.sendMessage(Message.error("Illegal Characters."));
+            event.setCancelled(true);
+            return;
+        }
+
+        final Component result = event.originalMessage().replaceText(generateConfig(player, NamedTextColor.WHITE));
         event.result(result);
     }
 
@@ -101,7 +112,7 @@ public class EmojiListener implements Listener {
     private boolean containsIllegalCharacter(Component component) {
         final String message = legacySerializer.serialize(component);
 
-        for (final String emoji : emojis) {
+        for (final String emoji : blacklisted) {
             if (message.contains(emoji)) {
                 return true;
             }

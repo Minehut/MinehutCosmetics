@@ -1,7 +1,9 @@
 package com.minehut.cosmetics.network;
 
 import com.google.gson.Gson;
+import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Config;
+import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
@@ -76,8 +78,14 @@ public abstract class CosmeticsAPI {
     public abstract CompletableFuture<HttpResponse<Void>> salvageCosmetic(SalvageCosmeticRequest req);
 
     protected HttpRequestWithBody request(HttpMethod method, String endpoint) {
-        return Unirest.request(method.name(), config().apiUrl() + endpoint)
-                .headers(Map.of("x-access-token", config.apiSecret()));
+
+        final HttpRequestWithBody req = Unirest.request(method.name(), config().apiUrl() + endpoint);
+
+        if (Mode.LOBBY == Cosmetics.mode()) {
+            return req.headers(Map.of("x-access-token", config.apiSecret()));
+        }
+
+        return req;
     }
 
     protected HttpRequestWithBody postJSON(String endpoint) {

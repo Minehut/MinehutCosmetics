@@ -11,7 +11,7 @@ import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.ui.SubMenu;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
@@ -59,7 +59,7 @@ public class SkinMenu extends SubMenu {
         super(Component.text("Skin an item."), (who, click) -> new CosmeticMenu(who).openTo(who));
         this.item = item;
 
-        final Material type = SkinUtil.getBaseType(item);
+        final Material type = CosmeticUtil.getBaseType(item);
 
         final Optional<MaterialBinding> maybeBinds = Cosmetics.get().manager().getBindings().getBinding(type);
         if (maybeBinds.isEmpty()) {
@@ -97,7 +97,7 @@ public class SkinMenu extends SubMenu {
         super.render();
 
         getProxy().setItem(8, CLEAR_ITEM, (player, click) -> {
-            SkinUtil.getCosmetic(item).ifPresent(cosmetic -> {
+            CosmeticUtil.readCosmetic(item).ifPresent(cosmetic -> {
                 if (!(cosmetic instanceof Skinnable skinnable)) return;
                 cosmetic.owner(player.getUniqueId());
                 skinnable.removeSkin(item);

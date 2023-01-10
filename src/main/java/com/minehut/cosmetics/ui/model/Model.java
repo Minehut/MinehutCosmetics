@@ -12,16 +12,6 @@ public final class Model {
         public static final int BEAR = 1_002_007;
         public static final int GOLD_FISH = 1_002_008;
         public static final int KITTEN = 1_002_009;
-        public static final int DRAGON_EGG = 1_002_016;
-        public static final int UFO_COW = 1_002_017;
-
-        public static final class YOUNG_DRAGON {
-            public static final int FRAME_1 = 1_002_018;
-            public static final int FRAME_2 = 1_002_019;
-            public static final int FRAME_3 = 1_002_020;
-            public static final int FRAME_4 = 1_002_021;
-        }
-
 
         public static final class RED_ROBIN {
             public static final int FRAME_1 = 1_002_010;
@@ -31,6 +21,12 @@ public final class Model {
             public static final int FRAME_5 = 1_002_014;
             public static final int FRAME_6 = 1_002_015;
         }
+
+        public static final int DRAGON_EGG = 1_002_016;
+        public static final int UFO_COW = 1_002_017;
+        public static final int YOUNG_DRAGON = 1_002_018;
+        public static final int ARCTIC_FOX = 1_002_019;
+        public static final int SNOWMAN = 1_002_020;
 
     }
 
@@ -133,6 +129,8 @@ public final class Model {
     public static class Trinket {
         public static final int BOOMBOX = 1_005_001;
         public static final int ICE_SCEPTER = 1_005_002;
+        public static final int ICE_SPELLBOOK = 1_005_003;
+
     }
 
     public static class Ui {

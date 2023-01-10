@@ -3,7 +3,7 @@ package com.minehut.cosmetics.cosmetics.listeners.skins;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.ui.impl.category.SkinMenu;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -48,7 +48,7 @@ public class SkinTriggerListener implements Listener {
         Bukkit.getScheduler().runTaskTimer(cosmetics, () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 if (Material.AIR == player.getInventory().getItemInMainHand().getType()) return;
-                Material type = SkinUtil.getBaseType(player.getInventory().getItemInMainHand());
+                Material type = CosmeticUtil.getBaseType(player.getInventory().getItemInMainHand());
                 if (!manager.getBindings().hasBinding(type)) return;
 
                 // target block

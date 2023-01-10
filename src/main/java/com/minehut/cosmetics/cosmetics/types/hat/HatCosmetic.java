@@ -2,12 +2,10 @@ package com.minehut.cosmetics.cosmetics.types.hat;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
-import com.minehut.cosmetics.util.SkinUtil;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import com.minehut.cosmetics.util.data.Key;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.EquipmentSlot;
@@ -17,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinnable {
 
@@ -62,13 +59,13 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
         ItemStack base = item();
 
         // apply any keys we need to the item
-        SkinUtil.copyAttributes(item, item);
-        SkinUtil.writeSkinKeys(item);
+        CosmeticUtil.copyAttributes(item, item);
+        CosmeticUtil.writeSkinKeys(item);
 
         final Material type = item.getType();
 
         item.editMeta(meta -> {
-            SkinUtil.writeCosmeticKeys(meta, this);
+            CosmeticUtil.writeCosmeticKeys(meta, this);
 
             Key.EQUIPMENT_SLOT.writeIfAbsent(meta, EquipmentSlot.HEAD.name());
             Key.MATERIAL.writeIfAbsent(meta, type.name());
@@ -82,12 +79,12 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
             meta.setCustomModelData(base.getItemMeta().getCustomModelData());
         });
 
-        SkinUtil.swapType(item, base.getType());
+        CosmeticUtil.swapType(item, base.getType());
     }
 
     @Override
     public void removeSkin(ItemStack item) {
-        item.setType(SkinUtil.getBaseType(item));
+        item.setType(CosmeticUtil.getBaseType(item));
         item.editMeta(meta -> Key.SKINNED.remove(meta));
     }
 }

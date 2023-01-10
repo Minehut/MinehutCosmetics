@@ -2,25 +2,13 @@ package com.minehut.cosmetics.cosmetics.types.trinket;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
-import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
-import com.minehut.cosmetics.cosmetics.types.trinket.TrinketCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
-import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
-import com.minehut.cosmetics.ui.model.Model;
-import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.util.SkinUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Material;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public abstract class ItemTrinket extends TrinketCosmetic implements Equippable, SlotHandler {
     private CosmeticSlot slot = null;
@@ -34,7 +22,7 @@ public abstract class ItemTrinket extends TrinketCosmetic implements Equippable,
         player().ifPresent(player -> slot().ifPresent(slot -> {
 
             final ItemStack item = menuIcon();
-            item.editMeta(meta -> SkinUtil.writeCosmeticKeys(meta, this));
+            item.editMeta(meta -> CosmeticUtil.writeCosmeticKeys(meta, this));
 
             switch (Cosmetics.mode()) {
                 // handle based on the slot being used

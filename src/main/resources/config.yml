@@ -1,2 +1,5 @@
 apiUrl: https://api.minehut.com
 mode: "PLAYER_SERVER"
+
+settings:
+  hide-entities-without-pack: true

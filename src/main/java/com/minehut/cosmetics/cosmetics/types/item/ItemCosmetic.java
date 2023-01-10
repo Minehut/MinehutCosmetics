@@ -6,11 +6,8 @@ import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Skinnable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
-import com.minehut.cosmetics.util.ItemBuilder;
-import com.minehut.cosmetics.util.SkinUtil;
-import net.kyori.adventure.text.Component;
+import com.minehut.cosmetics.util.CosmeticUtil;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -59,11 +56,11 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
 
     @Override
     public void applySkin(ItemStack item) {
-        SkinUtil.writeSkinKeys(item);
+        CosmeticUtil.writeSkinKeys(item);
         ItemStack base = item();
         item.editMeta(meta -> {
             meta.setCustomModelData(base.getItemMeta().getCustomModelData());
-            SkinUtil.writeCosmeticKeys(meta, this);
+            CosmeticUtil.writeCosmeticKeys(meta, this);
         });
     }
 
