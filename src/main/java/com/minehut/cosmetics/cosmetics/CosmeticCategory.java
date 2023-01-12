@@ -1,14 +1,14 @@
 package com.minehut.cosmetics.cosmetics;
 
-import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.emoji.Emoji;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.particle.Particle;
 import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
-import com.minehut.cosmetics.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.util.EnumUtil;
 
 import java.util.Optional;

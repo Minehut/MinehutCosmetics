@@ -2,19 +2,19 @@ package com.minehut.cosmetics.cosmetics.types.hat;
 
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Hat;
+import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerHat;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.DragonHat;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.GamerHeadset;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.SteampunkHat;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.MechVisor;
+import com.minehut.cosmetics.cosmetics.collections.betacrate.SteampunkHat;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.TurtleHat;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.CatEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.DevilHorns;
-import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Hat;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.FoxEars;
-import com.minehut.cosmetics.cosmetics.collections.halloween2022.WitchHat;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.MouseEars;
+import com.minehut.cosmetics.cosmetics.collections.halloween2022.WitchHat;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidHeadband;
-import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerHat;
 
 import java.util.function.Supplier;
 

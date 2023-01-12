@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class Katana extends ItemCosmetic {
     public Katana() {

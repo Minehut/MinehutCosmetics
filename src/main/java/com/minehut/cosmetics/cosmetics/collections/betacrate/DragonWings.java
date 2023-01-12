@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -12,8 +11,6 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public class DragonWings extends WingCosmetic {
     public DragonWings() {

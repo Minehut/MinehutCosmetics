@@ -4,12 +4,11 @@ package com.minehut.cosmetics.cosmetics.collections.general;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Animation;
-import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
+import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,7 +18,6 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
     public RedRobinCompanion() {

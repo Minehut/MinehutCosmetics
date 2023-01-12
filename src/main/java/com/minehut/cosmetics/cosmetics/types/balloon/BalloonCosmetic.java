@@ -14,11 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
-import org.bukkit.util.Vector;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Tickable {
 
@@ -118,7 +116,6 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
             double eulerY = -(Math.PI - Math.atan2(dir.getZ(), dir.getX())) + Math.PI / 2;
             balloon.setHeadPose(new EulerAngle(eulerX, eulerY, 0));
 
-            this.rotationTick++;
             this.bobTick++;
         })));
 

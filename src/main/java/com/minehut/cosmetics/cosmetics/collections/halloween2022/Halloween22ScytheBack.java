@@ -1,9 +1,7 @@
 package com.minehut.cosmetics.cosmetics.collections.halloween2022;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
 import net.kyori.adventure.text.Component;

@@ -14,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
 public class BearCompanion extends CompanionCosmetic {
     public BearCompanion() {
         super(

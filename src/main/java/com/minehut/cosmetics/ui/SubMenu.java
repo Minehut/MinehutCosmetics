@@ -2,9 +2,9 @@ package com.minehut.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
+import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.GemShopMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.SalvageMenu;
-import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
 import com.minehut.cosmetics.ui.icon.ActionHandler;
 import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.icon.MenuItemMultiPageMenu;

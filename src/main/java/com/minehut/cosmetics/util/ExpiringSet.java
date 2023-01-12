@@ -1,7 +1,5 @@
 package com.minehut.cosmetics.util;
 
-import org.bukkit.Bukkit;
-
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 

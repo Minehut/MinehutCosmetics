@@ -2,21 +2,21 @@ package com.minehut.cosmetics.cosmetics.types.particle;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.collections.dev.BlobDanceParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.CloudParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.CompassBurstParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.CompassParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.ExplorerParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.FancyCompassParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.FireParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.FlameParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.GoldPickParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.HaloParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.NetherParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.QuillParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.RainCloudParticle;
-import com.minehut.cosmetics.cosmetics.collections.general.RainbowSwirlParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.RealPickParticle;
 import com.minehut.cosmetics.cosmetics.collections.dev.StarParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.CloudParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.CompassParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.ExplorerParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.FlameParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.HaloParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.NetherParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.RainCloudParticle;
+import com.minehut.cosmetics.cosmetics.collections.general.RainbowSwirlParticle;
 
 import java.util.function.Supplier;
 

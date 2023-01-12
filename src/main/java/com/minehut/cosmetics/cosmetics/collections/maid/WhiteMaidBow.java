@@ -3,18 +3,14 @@ package com.minehut.cosmetics.cosmetics.collections.maid;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
-import com.minehut.cosmetics.ui.model.Model;
-
 import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public class WhiteMaidBow extends WingCosmetic {
     public WhiteMaidBow() {

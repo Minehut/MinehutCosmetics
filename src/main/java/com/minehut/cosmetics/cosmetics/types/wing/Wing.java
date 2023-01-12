@@ -1,16 +1,16 @@
 package com.minehut.cosmetics.cosmetics.types.wing;
 
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22LeafSwordWings;
+import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Wings;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.ArcadeWings;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.DragonWings;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.LargePegasusWings;
 import com.minehut.cosmetics.cosmetics.collections.betacrate.PegasusWings;
-import com.minehut.cosmetics.cosmetics.collections.halloween2022.BatWings;
-import com.minehut.cosmetics.cosmetics.collections.maid.BlackMaidBow;
-import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22LeafSwordWings;
-import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Wings;
-import com.minehut.cosmetics.cosmetics.collections.halloween2022.Halloween22ScytheBack;
 import com.minehut.cosmetics.cosmetics.collections.dev.KatanaBack;
+import com.minehut.cosmetics.cosmetics.collections.halloween2022.BatWings;
+import com.minehut.cosmetics.cosmetics.collections.halloween2022.Halloween22ScytheBack;
+import com.minehut.cosmetics.cosmetics.collections.maid.BlackMaidBow;
 import com.minehut.cosmetics.cosmetics.collections.maid.WhiteMaidBow;
 
 import java.util.function.Supplier;

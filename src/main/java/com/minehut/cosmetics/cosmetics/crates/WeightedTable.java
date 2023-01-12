@@ -2,7 +2,6 @@ package com.minehut.cosmetics.cosmetics.crates;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class WeightedTable<T> {
 

@@ -4,7 +4,6 @@ import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.Constants;
-import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
 public abstract class ParticleCosmetic extends Cosmetic implements Tickable {

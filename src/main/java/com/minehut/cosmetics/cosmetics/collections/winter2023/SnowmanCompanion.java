@@ -2,7 +2,6 @@ package com.minehut.cosmetics.cosmetics.collections.winter2023;
 
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;

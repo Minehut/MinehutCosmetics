@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.betacrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
@@ -14,8 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public class MoltenPickaxe extends ItemCosmetic {
     public MoltenPickaxe() {

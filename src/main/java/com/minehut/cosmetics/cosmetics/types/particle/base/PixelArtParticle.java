@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.cosmetics.types.particle.base;
 
 import com.minehut.cosmetics.cosmetics.types.particle.ParticleCosmetic;
-import net.kyori.adventure.text.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

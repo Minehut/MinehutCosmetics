@@ -3,9 +3,8 @@ package com.minehut.cosmetics.cosmetics.collections.netflix2022;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
-import com.minehut.cosmetics.ui.model.Model;
-
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
+import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

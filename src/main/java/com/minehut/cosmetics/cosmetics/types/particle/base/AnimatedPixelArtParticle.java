@@ -1,7 +1,5 @@
 package com.minehut.cosmetics.cosmetics.types.particle.base;
 
-import com.minehut.cosmetics.cosmetics.Permission;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;

@@ -6,7 +6,6 @@ import com.minehut.cosmetics.cosmetics.types.particle.Particle;
 import com.minehut.cosmetics.cosmetics.types.particle.base.AmbientPixelArtParticle;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

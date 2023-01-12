@@ -5,18 +5,17 @@ import com.minehut.cosmetics.cosmetics.collections.expressive.ClownEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.CryEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.EyeEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.FireEmoji;
-import com.minehut.cosmetics.cosmetics.collections.general.HeartEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.LipsEmoji;
-import com.minehut.cosmetics.cosmetics.collections.general.MinehutEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.ObviousEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.OutrageEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.PartyEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.SadEmoji;
 import com.minehut.cosmetics.cosmetics.collections.expressive.SkullEmoji;
+import com.minehut.cosmetics.cosmetics.collections.expressive.WeirdSmileEmoji;
+import com.minehut.cosmetics.cosmetics.collections.general.HeartEmoji;
+import com.minehut.cosmetics.cosmetics.collections.general.MinehutEmoji;
 import com.minehut.cosmetics.cosmetics.collections.general.SmileEmoji;
 import com.minehut.cosmetics.cosmetics.collections.general.ThumbsUpEmoji;
-import com.minehut.cosmetics.cosmetics.collections.expressive.WeirdSmileEmoji;
-
 
 import java.util.function.Supplier;
 
