@@ -86,12 +86,8 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
         string().ifPresent(Entity::remove);
     }
 
-    private static final long ROTATION_CYCLE_DURATION = 20;
-
     private static final long BOB_CYCLE_DURATION = 60L;
     private static final float MAX_BOB = .5f;
-    private float targetYaw = 0;
-    private long rotationTick = 0;
     private long bobTick = 0;
 
     @Override
@@ -99,19 +95,9 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
         player().ifPresent(player -> string().ifPresent(string -> balloon().ifPresent(balloon -> {
             Location location = player.getLocation();
             location.setYaw(0);
-            if (rotationTick > ROTATION_CYCLE_DURATION) {
-                this.targetYaw = ThreadLocalRandom.current().nextInt(10) - 5;
-                this.rotationTick = 0;
-            }
 
             if (bobTick > BOB_CYCLE_DURATION) {
                 this.bobTick = 0;
-            }
-
-            if (this.targetYaw > location.getYaw()) {
-                location.setYaw(location.getYaw() + 0.2f);
-            } else if (this.targetYaw < location.getYaw()) {
-                location.setYaw(location.getYaw() - 0.2f);
             }
 
             if (bobTick <= BOB_CYCLE_DURATION / 2) {
