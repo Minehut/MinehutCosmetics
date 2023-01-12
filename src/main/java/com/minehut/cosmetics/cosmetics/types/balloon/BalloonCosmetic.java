@@ -45,7 +45,6 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
         if (equipped || player == null) {
             return;
         }
-        this.referenceLocation = player.getLocation();
 
         this.equipped = true;
         final ArmorStand balloon = EntityUtil.spawnCosmeticEntity(player.getLocation(), ArmorStand.class, stand -> {
@@ -92,7 +91,6 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
     private static final long BOB_CYCLE_DURATION = 60L;
     private static final float MAX_BOB = .5f;
     private float targetYaw = 0;
-    private Location referenceLocation;
     private long rotationTick = 0;
     private long bobTick = 0;
 
@@ -100,7 +98,7 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
     public void tick() {
         player().ifPresent(player -> string().ifPresent(string -> balloon().ifPresent(balloon -> {
             Location location = player.getLocation();
-            location.setYaw(referenceLocation.getYaw());
+            location.setYaw(0);
             if (rotationTick > ROTATION_CYCLE_DURATION) {
                 this.targetYaw = ThreadLocalRandom.current().nextInt(10) - 5;
                 this.rotationTick = 0;
@@ -116,26 +114,23 @@ public abstract class BalloonCosmetic extends Cosmetic implements Equippable, Ti
                 location.setYaw(location.getYaw() - 0.2f);
             }
 
-            Location targetLocation = balloon.getLocation().subtract(0f, 3f, 0f).clone();
             if (bobTick <= BOB_CYCLE_DURATION / 2) {
                 location.subtract(0, (bobTick / (float) BOB_CYCLE_DURATION) * MAX_BOB, 0);
             } else {
                 location.subtract(0, MAX_BOB - ((bobTick / (float) BOB_CYCLE_DURATION) * MAX_BOB), 0);
             }
 
-            Vector vector = location.toVector().subtract(targetLocation.toVector());
-            vector.multiply(.3f);
-            targetLocation.add(vector);
-            double x = Math.toRadians(vector.getZ() * 50D * -1D);
-            double y = Math.toRadians(location.getYaw());
-            double z = Math.toRadians(vector.getX() * 50D * -1D);
-            balloon.setHeadPose(new EulerAngle(x, y, z));
+            double angle = -Math.toRadians((player.getEyeLocation().getYaw() + 360) % 360);
+            double xOff = -Math.sin(angle) * 1.5;
+            double zOff = -Math.cos(angle);
 
-            balloon.teleport(location.add(0f, 2f, 0f));
-            string.teleport(location.add(0f, 1.2f, 0f));
+            balloon.teleport(location.add(xOff, 2f, zOff));
+            string.teleport(balloon.getLocation().clone().add(0, 1.8, 0));
 
-            this.referenceLocation = player.getLocation();
-            this.referenceLocation.setYaw(location.getYaw());
+            final Location dir = player.getEyeLocation().subtract(balloon.getEyeLocation());
+            double eulerX = -(Math.PI - Math.atan2(Math.hypot(dir.getX(), dir.getZ()), dir.getY())) + Math.PI / 2;
+            double eulerY = -(Math.PI - Math.atan2(dir.getZ(), dir.getX())) + Math.PI / 2;
+            balloon.setHeadPose(new EulerAngle(eulerX, eulerY, 0));
 
             this.rotationTick++;
             this.bobTick++;
