@@ -51,6 +51,16 @@ public class EmojiListener implements Listener {
         }
     }
 
+
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public void preventEmojiChats(AsyncChatEvent event) {
+        if (containsIllegalCharacter(event.originalMessage())) {
+            Message.error("Contains illegal characters");
+            event.setCancelled(true);
+        }
+    }
+
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void replaceEmojisOnChat(AsyncChatEvent event) {
         if (!event.isAsynchronous() || Mode.PLAYER_SERVER != Cosmetics.mode()) {
@@ -61,46 +71,40 @@ public class EmojiListener implements Listener {
         event.message(replaced);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void replaceEmojisOnDecorate(AsyncChatDecorateEvent event) {
-        if (!Version.V_1_19.isSupported() || !event.isAsynchronous() || Mode.LOBBY != Cosmetics.mode()) {
-            return;
-        }
-
-        final Player player = event.player();
-        if (player == null) {
-            return;
-        }
-
-        if (containsIllegalCharacter(event.originalMessage())) {
-            player.sendMessage(Message.error("Illegal Characters."));
-            event.setCancelled(true);
-            return;
-        }
-
-        final Component result = event.originalMessage().replaceText(generateConfig(player, NamedTextColor.WHITE));
-        event.result(result);
-    }
+//    @SuppressWarnings("UnstableApiUsage")
+//    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+//    public void replaceEmojisOnDecorate(AsyncChatDecorateEvent event) {
+//        if (!Version.V_1_19.isSupported() || !event.isAsynchronous() || Mode.LOBBY != Cosmetics.mode()) {
+//            return;
+//        }
+//
+//        final Player player = event.player();
+//        if (player == null) {
+//            return;
+//        }
+//
+//        final Component result = event.originalMessage().replaceText(generateConfig(player, NamedTextColor.WHITE));
+//        event.result(result);
+//    }
 
 
     private TextReplacementConfig generateConfig(Player player, TextColor color) {
         return TextReplacementConfig.builder()
-                .match("\\:[a-z_]*\\:")
-                .replacement((match, ignored) -> {
-                    final String input = match.group();
-                    final EmojiCosmetic cosmetic = emojiBindings.get(input);
-                    if (cosmetic == null || !Permission.staff().hasAccess(player).join() && !cosmetic.permission().hasAccess(player).join()) {
-                        return Component.text(input);
-                    }
+            .match("\\:[a-z_]*\\:")
+            .replacement((match, ignored) -> {
+                final String input = match.group();
+                final EmojiCosmetic cosmetic = emojiBindings.get(input);
+                if (cosmetic == null || !Permission.staff().hasAccess(player).join() && !cosmetic.permission().hasAccess(player).join()) {
+                    return Component.text(input);
+                }
 
-                    return Component.text()
-                            .append(cosmetic.component().color(NamedTextColor.WHITE))
-                            .hoverEvent(HoverEvent.showText(Component.text(cosmetic.keyword())))
-                            .append(Component.empty().color(color))
-                            .build();
-                })
-                .build();
+                return Component.text()
+                    .append(cosmetic.component().color(NamedTextColor.WHITE))
+                    .hoverEvent(HoverEvent.showText(Component.text(cosmetic.keyword())))
+                    .append(Component.empty().color(color))
+                    .build();
+            })
+            .build();
     }
 
     /**

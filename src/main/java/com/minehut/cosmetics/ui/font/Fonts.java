@@ -19,7 +19,7 @@ public class Fonts {
 
     public static class Icon {
         public static final String COSMETICS_CTA = "\ue003";
-        public static final Component COSMETICS_CTA_PREFIX = text("\uF82C\uF82A\uF828\uF822").append(text(COSMETICS_CTA)).append(text("\uF80D\uF809"));
+        public static final Component COSMETICS_CTA_PREFIX = text("\uF82C\uF82A\uF828\uF822").append(text(COSMETICS_CTA)).append(text("\uF80D\uF809")).color(WHITE);
         public static final Component GEM = text("\ue001").color(WHITE).style(Style.style().font(Font.UI));
     }
 

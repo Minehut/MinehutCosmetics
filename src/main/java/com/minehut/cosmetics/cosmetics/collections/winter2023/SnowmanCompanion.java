@@ -26,7 +26,7 @@ public class SnowmanCompanion extends CompanionCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Snowman")
+        return Component.text("Frosty")
                 .decoration(TextDecoration.ITALIC, false)
                 .color(rarity().display().color());
     }
