@@ -14,6 +14,7 @@ import com.minehut.cosmetics.cosmetics.collections.halloween2022.DevilHorns;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.FoxEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.MouseEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.WitchHat;
+import com.minehut.cosmetics.cosmetics.collections.jan2023.NinjaMask;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidHeadband;
 
 import java.util.function.Supplier;
@@ -33,7 +34,8 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     DRAGON(DragonHat::new),
     TURTLE(TurtleHat::new),
     STEAMPUNK(SteampunkHat::new),
-    TECHNICAL_VISOR(MechVisor::new);
+    TECHNICAL_VISOR(MechVisor::new),
+    NINJA_MASK(NinjaMask::new);
 
     private final Supplier<HatCosmetic> supplier;
 

@@ -19,8 +19,8 @@ public enum Collection {
     WENDELL_AND_WILD(Component.text("From the Netflix Original Film Wendell & Wild").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
     ICE(Component.text("Ice Collection").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
     WINTER_2023(Component.text("Winter 2023").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false)),
-
-    ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false));;
+    NINJA(Component.text("Ninja Collection").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)),
+    ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false));
 
 
     private final Component tag;

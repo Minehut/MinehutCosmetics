@@ -45,6 +45,8 @@ public final class Model {
         public static final int TURTLE = 1_001_011;
         public static final int GAMER_HEADSET = 1_001_012;
         public static final int TECHNICAL_VISOR = 1_001_013;
+        public static final int NINJA_MASK = 1_001_014;
+
     }
 
     public static class Wing {
@@ -63,7 +65,7 @@ public final class Model {
         public static final int JACK_O_LANTERN = 1_004_001;
         public static final int PAPER_DRAGON = 1_004_002;
         public static final int PAPER_LANTERN = 1_004_003;
-
+        public static final int ARCADE_FIGHTER = 1_004_004;
     }
 
     public static class Item {
@@ -81,6 +83,8 @@ public final class Model {
             public static final int DRAGON_SWORD = 1_000_010;
             public static final int BAN_HAMMER = 1_000_011;
             public static final int ICE_SWORD = 1_000_012;
+            public static final int EIGHT_BIT = 1_000_013;
+
         }
 
         public static class Pickaxe {

@@ -34,34 +34,5 @@ public class Debug extends Command {
             return;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-            if (!Permission.staff().hasAccess(player).join()) return;
-
-            sender.sendMessage(Message.info("Retrieving Profile..."));
-            final Optional<CosmeticProfileResponse> profile = cosmetics.manager().getProfile(player.getUniqueId()).join();
-
-            if (profile.isEmpty()) {
-                player.sendMessage(Message.error("No profile found."));
-                return;
-            }
-
-            player.sendMessage(Message.info(Component.text()
-                    .append(Component.text("Found profile!").color(NamedTextColor.GREEN))
-                    .append(Component.newline())
-                    .append(Component.text(profile.get().toString()).color(NamedTextColor.YELLOW))
-                    .build())
-            );
-
-            final ItemStack item = player.getInventory().getItemInMainHand();
-            if (Material.AIR == item.getType()) return;
-
-            Component keylist = Component.empty();
-
-            for (final NamespacedKey key : item.getItemMeta().getPersistentDataContainer().getKeys()) {
-                keylist = keylist.append(Component.newline().append(Component.text(key.toString())));
-            }
-
-            player.sendMessage(Message.info(keylist));
-        });
     }
 }
