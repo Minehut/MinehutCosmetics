@@ -46,7 +46,7 @@ public final class Model {
         public static final int GAMER_HEADSET = 1_001_012;
         public static final int TECHNICAL_VISOR = 1_001_013;
         public static final int NINJA_MASK = 1_001_014;
-
+        public static final int RICE_HAT = 1_001_015;
     }
 
     public static class Wing {
@@ -138,6 +138,8 @@ public final class Model {
         public static final int BOOMBOX = 1_005_001;
         public static final int ICE_SCEPTER = 1_005_002;
         public static final int ICE_SPELLBOOK = 1_005_003;
+        public static final int ROYAL_SCEPTER = 1_005_004;
+
 
     }
 

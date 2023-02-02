@@ -125,7 +125,8 @@ public class Bindings {
             Hat.STEAMPUNK,
             Hat.TURTLE,
             Hat.TECHNICAL_VISOR,
-            Hat.NINJA_MASK
+            Hat.NINJA_MASK,
+            Hat.RICE_HAT
         ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()

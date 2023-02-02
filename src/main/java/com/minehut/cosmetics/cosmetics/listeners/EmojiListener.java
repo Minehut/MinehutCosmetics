@@ -71,21 +71,21 @@ public class EmojiListener implements Listener {
         event.message(replaced);
     }
 
-//    @SuppressWarnings("UnstableApiUsage")
-//    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-//    public void replaceEmojisOnDecorate(AsyncChatDecorateEvent event) {
-//        if (!Version.V_1_19.isSupported() || !event.isAsynchronous() || Mode.LOBBY != Cosmetics.mode()) {
-//            return;
-//        }
-//
-//        final Player player = event.player();
-//        if (player == null) {
-//            return;
-//        }
-//
-//        final Component result = event.originalMessage().replaceText(generateConfig(player, NamedTextColor.WHITE));
-//        event.result(result);
-//    }
+    @SuppressWarnings("UnstableApiUsage")
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void replaceEmojisOnDecorate(AsyncChatDecorateEvent event) {
+        if (!Version.V_1_19.isSupported() || !event.isAsynchronous() || Mode.LOBBY != Cosmetics.mode()) {
+            return;
+        }
+
+        final Player player = event.player();
+        if (player == null) {
+            return;
+        }
+
+        final Component result = event.originalMessage().replaceText(generateConfig(player, NamedTextColor.WHITE));
+        event.result(result);
+    }
 
 
     private TextReplacementConfig generateConfig(Player player, TextColor color) {
