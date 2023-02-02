@@ -10,6 +10,7 @@ import com.minehut.cosmetics.cosmetics.collections.betacrate.PegasusWings;
 import com.minehut.cosmetics.cosmetics.collections.dev.KatanaBack;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.BatWings;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.Halloween22ScytheBack;
+import com.minehut.cosmetics.cosmetics.collections.jan2023.ArcadeBackpack;
 import com.minehut.cosmetics.cosmetics.collections.maid.BlackMaidBow;
 import com.minehut.cosmetics.cosmetics.collections.maid.WhiteMaidBow;
 
@@ -27,6 +28,8 @@ public enum Wing implements CosmeticSupplier<WingCosmetic> {
     PEGASUS(PegasusWings::new),
     PEGASUS_LARGE(LargePegasusWings::new),
     ARCADE(ArcadeWings::new),
+    ARCADE_BACKPACK(ArcadeBackpack::new),
+
     ;
 
     private final Supplier<WingCosmetic> supplier;

@@ -26,6 +26,8 @@ import com.minehut.cosmetics.cosmetics.collections.general.IceSword;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.GraveShovel;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.Halloween22Scythe;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.EightBitSword;
+import com.minehut.cosmetics.cosmetics.collections.jan2023.Kunai;
+import com.minehut.cosmetics.cosmetics.collections.jan2023.Ninjato;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidDuster;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceAxe;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceShield;
@@ -72,7 +74,9 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     ICE_SHIELD(IceShield::new),
     // arcade collection
     ARCADE_AXE(ArcadeAxe::new),
-    EIGHT_BIT_SWORD(EightBitSword::new);
+    EIGHT_BIT_SWORD(EightBitSword::new),
+    KUNAI(Kunai::new),
+    NINJATO(Ninjato::new);
 
     private final Supplier<ItemCosmetic> supplier;
 

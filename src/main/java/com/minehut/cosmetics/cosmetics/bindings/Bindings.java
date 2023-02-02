@@ -33,7 +33,9 @@ public class Bindings {
             Item.FISH_SWORD,
             Item.BAN_HAMMER,
             Item.ICE_SWORD,
-            Item.EIGHT_BIT_SWORD
+            Item.EIGHT_BIT_SWORD,
+            Item.KUNAI,
+            Item.NINJATO
         ));
 
     // bindings for pickaxe items

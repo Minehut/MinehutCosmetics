@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 
 public enum Rarity {
     UNCOMMON(Component.text("Uncommon").color(NamedTextColor.DARK_GREEN), 50),
@@ -24,5 +25,13 @@ public enum Rarity {
 
     public int salvageValue() {
         return slavageValue;
+    }
+
+    public TextColor color() {
+        return display.color();
+    }
+
+    public NamedTextColor closestNamedColor() {
+        return NamedTextColor.nearestTo(color());
     }
 }

@@ -130,7 +130,7 @@ public final class Cosmetics extends JavaPlugin {
 
         // register commands
         new MenuCommand().register(this);
-        new Debug(this).register(this);
+        new Debug().register(this);
     }
 
     private void registerEvents(Listener listener) {

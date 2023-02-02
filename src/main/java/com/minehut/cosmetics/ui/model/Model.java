@@ -58,6 +58,8 @@ public final class Model {
         public static final int PEGASUS = 1_003_006;
         public static final int LARGE_PEGASUS = 1_003_007;
         public static final int ARCADE = 1_003_008;
+        public static final int ARCADE_BACKPACK = 1_003_009;
+
 
     }
 
@@ -84,6 +86,8 @@ public final class Model {
             public static final int BAN_HAMMER = 1_000_011;
             public static final int ICE_SWORD = 1_000_012;
             public static final int EIGHT_BIT = 1_000_013;
+            public static final int KUNAI = 1_000_014;
+            public static final int NINJATO = 1_000_015;
 
         }
 
