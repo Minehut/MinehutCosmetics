@@ -112,6 +112,7 @@ public abstract class Crate extends Cosmetic {
             entity.setCanPlayerPickup(false);
             entity.setUnlimitedLifetime(true);
             entity.setInvulnerable(true);
+            entity.setCustomNameVisible(true);
             displayCloud.addPassenger(entity);
         });
 
@@ -134,7 +135,6 @@ public abstract class Crate extends Cosmetic {
         }
         Bukkit.getScheduler().runTaskLater(Cosmetics.get(), () -> player.showEntity(Cosmetics.get(), displayItem), TOTAL_LID_OPEN_TICKs);
 
-
         for (int roll = 0; roll < ITEM_ROLLS; roll++) {
             final Cosmetic cosmetic = roll == ITEM_ROLLS - 1
                 ? result
@@ -143,6 +143,7 @@ public abstract class Crate extends Cosmetic {
             Bukkit.getScheduler().runTaskLater(Cosmetics.get(), () -> {
                 // set the display item
                 displayItem.setItemStack(cosmetic.menuIcon());
+                displayItem.customName(cosmetic.name());
                 glowUtil.setColoredGlow(displayItem, Bukkit.getScoreboardManager().getMainScoreboard(), cosmetic.rarity().closestNamedColor());
                 player.playSound(Sound.sound(Key.key("minecraft", "ui.button.click"), Sound.Source.AMBIENT, .6f, .8f));
             }, TOTAL_LID_OPEN_TICKs + (roll * TICKS_PER_ROLL));
