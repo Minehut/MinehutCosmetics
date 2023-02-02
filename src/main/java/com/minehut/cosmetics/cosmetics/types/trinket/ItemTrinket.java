@@ -30,7 +30,6 @@ public abstract class ItemTrinket extends TrinketCosmetic implements Equippable,
                     switch (slot) {
                         case MAIN_HAND -> {
                             player.getInventory().setItem(6, item);
-                            player.getInventory().setHeldItemSlot(6);
                         }
                         case OFF_HAND -> player.getInventory().setItemInOffHand(item);
                     }
