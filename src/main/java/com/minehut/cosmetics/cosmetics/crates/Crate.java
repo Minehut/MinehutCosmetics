@@ -4,13 +4,12 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.crates.impl.CrateEntry;
 import com.minehut.cosmetics.model.profile.CosmeticData;
 import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
-import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.GlowUtil;
-import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.messaging.Message;
 import com.minehut.cosmetics.util.structures.Pair;
 import kong.unirest.HttpResponse;
@@ -31,10 +30,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.EulerAngle;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -54,7 +56,7 @@ public abstract class Crate extends Cosmetic {
 
     private final GlowUtil glowUtil = new GlowUtil();
 
-    private final WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table;
+    private final WeightedTable<CrateEntry> table;
 
     /**
      * Create a new crate that rewards cosmetic items
@@ -62,7 +64,7 @@ public abstract class Crate extends Cosmetic {
      * @param id    the identifier for this crate
      * @param table weighted table used for rolling crate items
      */
-    protected Crate(String id, WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> table) {
+    public Crate(String id, WeightedTable<CrateEntry> table) {
         super(id, CosmeticCategory.CRATE);
         this.table = table;
     }
@@ -88,14 +90,14 @@ public abstract class Crate extends Cosmetic {
             entity.setInvisible(true);
             entity.setGravity(false);
             entity.setInvulnerable(true);
-            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(Model.Crate.CRATE_BASE).build());
+            entity.getEquipment().setHelmet(crateBase());
         });
 
         final ArmorStand crateLid = crateLoc.getWorld().spawn(crateLoc, ArmorStand.class, (entity) -> {
             entity.setInvisible(true);
             entity.setGravity(false);
             entity.setInvulnerable(true);
-            entity.getEquipment().setHelmet(ItemBuilder.of(Material.IRON_INGOT).modelData(Model.Crate.CRATE_LID).build());
+            entity.getEquipment().setHelmet(crateLid());
         });
 
         final AreaEffectCloud displayCloud = crateLoc.getWorld().spawn(crateLoc.clone().add(0, 1.5, 0), AreaEffectCloud.class, (entity) -> {
@@ -138,7 +140,7 @@ public abstract class Crate extends Cosmetic {
         for (int roll = 0; roll < ITEM_ROLLS; roll++) {
             final Cosmetic cosmetic = roll == ITEM_ROLLS - 1
                 ? result
-                : getTable().roll().left().get();
+                : roll().left().get();
 
             Bukkit.getScheduler().runTaskLater(Cosmetics.get(), () -> {
                 // set the display item
@@ -198,9 +200,10 @@ public abstract class Crate extends Cosmetic {
         }
 
         // roll for the item reward
-        final var result = table.roll();
-        final Cosmetic cosmetic = result.left().get();
-        final int quantity = result.right();
+
+        final Pair<CosmeticSupplier<? extends Cosmetic>, Integer> roll = roll();
+        final Cosmetic cosmetic = roll.left().get();
+        final int quantity = roll.right();
 
         final AtomicBoolean success = new AtomicBoolean(false);
         player().ifPresent(player -> Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
@@ -218,7 +221,9 @@ public abstract class Crate extends Cosmetic {
                         Cosmetics.get().crates().opening().add(uuid);
                         playOpenAnimation(player, Cosmetics.get().config().crateLocation(), cosmetic, () -> {
                             Cosmetics.get().crates().opening().remove(uuid);
-                            if (!success.get()) return;
+                            if (!success.get()) {
+                                return;
+                            }
 
                             final Component content = Component.text()
                                 .append(Component.text("Opened Crate").color(NamedTextColor.GREEN))
@@ -252,9 +257,20 @@ public abstract class Crate extends Cosmetic {
         }));
     }
 
-    public WeightedTable<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> getTable() {
+    public Pair<CosmeticSupplier<? extends Cosmetic>, Integer> roll() {
+        final CrateEntry entry = table.roll();
+        final List<Pair<CosmeticSupplier<? extends Cosmetic>, Integer>> items = entry.items();
+        return items.get(ThreadLocalRandom.current().nextInt(items.size()));
+
+    }
+
+    public WeightedTable<CrateEntry> getTable() {
         return table;
     }
+
+    public abstract ItemStack crateBase();
+
+    public abstract ItemStack crateLid();
 
     @Override
     public int salvageAmount() {

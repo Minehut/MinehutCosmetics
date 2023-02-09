@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Rarity;
@@ -13,25 +13,17 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class MechVisor extends HatCosmetic {
-    public MechVisor() {
-        super(Hat.TECHNICAL_VISOR.name());
+public class GamerHeadset extends HatCosmetic {
+
+    public GamerHeadset() {
+        super(Hat.GAMER_HEADSET.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Mech Visor")
+        return Component.text("Pink Gamer Headset")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
-    }
-
-    @Override
-    public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-                .modelData(Model.Hat.TECHNICAL_VISOR)
-                .display(name())
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .build();
     }
 
     @Override
@@ -40,7 +32,16 @@ public class MechVisor extends HatCosmetic {
     }
 
     @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .modelData(Model.Hat.GAMER_HEADSET)
+                .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .build();
+    }
+
+    @Override
     public @NotNull Rarity rarity() {
-        return Rarity.LEGENDARY;
+        return Rarity.RARE;
     }
 }

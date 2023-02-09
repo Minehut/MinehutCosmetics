@@ -1,40 +1,36 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.types.companion.Companion;
-import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class DragonEggCompanion extends CompanionCosmetic {
+public class FishSword extends ItemCosmetic {
 
-    public DragonEggCompanion() {
-        super(Companion.DRAGON_EGG.name(),
-                new Vector(0, -1, 0),
-                true,
-                true,
-                false
-        );
+    public FishSword() {
+        super(Item.FISH_SWORD.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Dragon Egg")
+        return Component.text("15lb Fish")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.SCUTE)
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
                 .display(name())
-                .modelData(Model.Companion.DRAGON_EGG)
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.Sword.FISH_SWORD)
                 .build();
     }
 

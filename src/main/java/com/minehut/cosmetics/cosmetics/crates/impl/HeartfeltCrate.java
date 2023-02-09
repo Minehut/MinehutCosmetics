@@ -10,6 +10,7 @@ import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
 import com.minehut.cosmetics.cosmetics.types.companion.Companion;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.trinket.Trinket;
 import com.minehut.cosmetics.cosmetics.types.wing.Wing;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -22,37 +23,29 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class DragonCrate extends Crate {
+public class HeartfeltCrate extends Crate {
 
     private static final WeightedTable<CrateEntry> table = WeightedTable.<CrateEntry>builder()
         .register(CrateEntry.of(Rarity.UNCOMMON, List.of(
-            Pair.of(Item.FISH_SWORD, 1),
-            Pair.of(Item.FANCY_SHORT_SWORD, 1),
-            Pair.of(Balloon.PAPER_LANTERN, 1),
-            Pair.of(Hat.STEAMPUNK, 1))
-        ), 40)
+            Pair.of(Hat.VALENTINE_HEADBAND, 1),
+            Pair.of(Balloon.VALENTINE, 1)
+        )), 40)
         .register(CrateEntry.of(Rarity.RARE, List.of(
-            Pair.of(Hat.GAMER_HEADSET, 1),
-            Pair.of(Companion.UFO_COW, 1),
-            Pair.of(Hat.TURTLE, 1),
-            Pair.of(Wing.PEGASUS, 1))
-        ), 35)
+            Pair.of(Hat.VALENTINES_SUNGLASSES, 1),
+            Pair.of(Item.VALENTINE_PICKAXE, 1)
+        )), 35)
         .register(CrateEntry.of(Rarity.EPIC, List.of(
-            Pair.of(Item.BAN_HAMMER, 1),
-            Pair.of(Item.FANCY_FISHING_ROD, 1),
-            Pair.of(Balloon.PAPER_DRAGON, 1),
-            Pair.of(Wing.ARCADE, 1))
-        ), 20)
+            Pair.of(Trinket.VALENTINE_STAFF, 1),
+            Pair.of(Companion.VALENTINE_PET, 1)
+        )), 20)
         .register(CrateEntry.of(Rarity.LEGENDARY, List.of(
-            Pair.of(Companion.DRAGON_EGG, 1),
-            Pair.of(Hat.TECHNICAL_VISOR, 1),
-            Pair.of(Item.MOLTEN_PICKAXE, 1),
-            Pair.of(Wing.PEGASUS_LARGE, 1)
+            Pair.of(Item.VALENTINE_SWORD, 1),
+            Pair.of(Wing.VALENTINE_WINGS, 1)
         )), 5)
         .build();
 
-    public DragonCrate() {
-        super(CrateType.DRAGON_CRATE.name(), table);
+    public HeartfeltCrate() {
+        super(CrateType.HEARTFELT.name(), table);
     }
 
     @Override
@@ -62,8 +55,8 @@ public class DragonCrate extends Crate {
 
     @Override
     public Component name() {
-        return Component.text("Minehut Dragon Crate")
-            .color(rarity().display().color())
+        return Component.text("Heartfelt Crate")
+            .color(Collection.VALENTINES_2023.display().color())
             .decoration(TextDecoration.ITALIC, false);
     }
 
@@ -71,26 +64,26 @@ public class DragonCrate extends Crate {
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.IRON_INGOT)
             .display(name())
-            .modelData(Model.Crate.Dragon.FULL)
+            .modelData(Model.Crate.Valentine.FULL)
             .build();
     }
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.DRAGON_CRATE;
+        return Collection.VALENTINES_2023;
     }
 
     @Override
     public ItemStack crateBase() {
         return ItemBuilder.of(Material.IRON_INGOT)
-            .modelData(Model.Crate.Dragon.BASE)
+            .modelData(Model.Crate.Valentine.BASE)
             .build();
     }
 
     @Override
     public ItemStack crateLid() {
         return ItemBuilder.of(Material.IRON_INGOT)
-            .modelData(Model.Crate.Dragon.LID)
+            .modelData(Model.Crate.Valentine.LID)
             .build();
     }
 }

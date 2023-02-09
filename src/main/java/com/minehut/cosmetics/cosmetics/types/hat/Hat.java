@@ -4,11 +4,11 @@ package com.minehut.cosmetics.cosmetics.types.hat;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Hat;
 import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerHat;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.DragonHat;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.GamerHeadset;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.MechVisor;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.SteampunkHat;
-import com.minehut.cosmetics.cosmetics.collections.betacrate.TurtleHat;
+import com.minehut.cosmetics.cosmetics.collections.dragoncrate.DragonHat;
+import com.minehut.cosmetics.cosmetics.collections.dragoncrate.GamerHeadset;
+import com.minehut.cosmetics.cosmetics.collections.dragoncrate.MechVisor;
+import com.minehut.cosmetics.cosmetics.collections.dragoncrate.SteampunkHat;
+import com.minehut.cosmetics.cosmetics.collections.dragoncrate.TurtleHat;
 import com.minehut.cosmetics.cosmetics.collections.feb2023.RiceHat;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.CatEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.DevilHorns;
@@ -17,6 +17,8 @@ import com.minehut.cosmetics.cosmetics.collections.halloween2022.MouseEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.WitchHat;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.NinjaMask;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidHeadband;
+import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltHeadband;
+import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltSunglasses;
 
 import java.util.function.Supplier;
 
@@ -37,7 +39,10 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     STEAMPUNK(SteampunkHat::new),
     TECHNICAL_VISOR(MechVisor::new),
     NINJA_MASK(NinjaMask::new),
-    RICE_HAT(RiceHat::new);
+    RICE_HAT(RiceHat::new),
+    VALENTINES_SUNGLASSES(HeartfeltSunglasses::new),
+    VALENTINE_HEADBAND(HeartfeltHeadband::new)
+    ;
 
     private final Supplier<HatCosmetic> supplier;
 

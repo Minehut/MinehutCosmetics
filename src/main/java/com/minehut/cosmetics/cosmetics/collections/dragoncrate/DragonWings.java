@@ -1,33 +1,34 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
-import com.minehut.cosmetics.cosmetics.types.balloon.BalloonCosmetic;
+import com.minehut.cosmetics.cosmetics.types.wing.Wing;
+import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class PaperLanternBalloon extends BalloonCosmetic {
-    public PaperLanternBalloon() {
-        super(Balloon.PAPER_LANTERN.name());
+public class DragonWings extends WingCosmetic {
+    public DragonWings() {
+        super(Wing.DRAGON.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Candle-lit Lantern")
-                .color(rarity().display().color())
+        return Component.text("Large Dragon Wings")
+                .color(NamedTextColor.GOLD)
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
+                .modelData(Model.Wing.DRAGON)
                 .display(name())
-                .modelData(Model.Balloon.PAPER_LANTERN)
                 .build();
     }
 

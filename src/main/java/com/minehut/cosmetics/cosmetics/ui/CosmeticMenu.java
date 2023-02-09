@@ -2,6 +2,7 @@ package com.minehut.cosmetics.cosmetics.ui;
 
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.types.emoji.EmojiDisplay;
 import com.minehut.cosmetics.cosmetics.ui.icons.ItemIcon;
@@ -34,70 +35,73 @@ import java.util.function.Supplier;
 public class CosmeticMenu extends Menu {
 
     private static final Supplier<ItemStack> SKIN_INFO = ItemBuilder.of(Material.PLAYER_HEAD)
-            .display(Component.text("How to apply skins.", NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
-            .lore(
-                    Component.empty(),
-                    Component.text("Hold the item you'd like to skin and type ", NamedTextColor.AQUA)
-                            .append(Component.text("/skin", NamedTextColor.GOLD)
-                                    .decorate(TextDecoration.BOLD))
-            )
-            .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjcwNWZkOTRhMGM0MzE5MjdmYjRlNjM5YjBmY2ZiNDk3MTdlNDEyMjg1YTAyYjQzOWUwMTEyZGEyMmIyZTJlYyJ9fX0=")
-            .supplier();
+        .display(Component.text("How to apply skins.", NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
+        .lore(
+            Component.empty(),
+            Component.text("Hold the item you'd like to skin and type ", NamedTextColor.AQUA)
+                .append(Component.text("/skin", NamedTextColor.GOLD)
+                    .decorate(TextDecoration.BOLD))
+        )
+        .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjcwNWZkOTRhMGM0MzE5MjdmYjRlNjM5YjBmY2ZiNDk3MTdlNDEyMjg1YTAyYjQzOWUwMTEyZGEyMmIyZTJlYyJ9fX0=")
+        .supplier();
 
     private static final Supplier<ItemStack> BLANK_LEGGINGS = ItemBuilder.of(Material.IRON_LEGGINGS)
-            .display(Component.text("Leggings", NamedTextColor.DARK_PURPLE).decoration(TextDecoration.ITALIC, false))
-            .flags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES)
-            .lore(
-                    Component.empty()
-            )
-            .supplier();
+        .display(Component.text("Leggings", NamedTextColor.DARK_PURPLE).decoration(TextDecoration.ITALIC, false))
+        .flags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES)
+        .lore(
+            Component.empty()
+        )
+        .supplier();
 
     private static final Supplier<ItemStack> EXIT_ICON = ItemBuilder.of(Material.DARK_OAK_DOOR)
-            .display(Component.text("Back", NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
-            .supplier();
+        .display(Component.text("Back", NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
+        .supplier();
 
     private static final Supplier<ItemStack> FILLER_ICON = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)
-            .display(Component.text(" ").decoration(TextDecoration.ITALIC, false))
-            .supplier();
+        .display(Component.text(" ").decoration(TextDecoration.ITALIC, false))
+        .supplier();
 
     private static final Supplier<ItemStack> EMOJI_ICON = ItemBuilder.of(Material.PLAYER_HEAD)
-            .display(Component.text("Emojis").decoration(TextDecoration.ITALIC, false))
-            .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDgxN2E3OTA5ODBhZDAwMmIzMTlmZWI2OTU2N2EwNmEwMjE1NGJhOWFjNDY5OTNkNWNmZDYyMDEwZTBmODNjYiJ9fX0=")
-            .supplier();
+        .display(Component.text("Emojis").decoration(TextDecoration.ITALIC, false))
+        .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDgxN2E3OTA5ODBhZDAwMmIzMTlmZWI2OTU2N2EwNmEwMjE1NGJhOWFjNDY5OTNkNWNmZDYyMDEwZTBmODNjYiJ9fX0=")
+        .supplier();
 
     private static final Supplier<ItemStack> CRATE_ICON = ItemBuilder.of(Material.IRON_INGOT)
-            .display(Component.text("Crates").decoration(TextDecoration.ITALIC, false))
-            .modelData(Model.Crate.CRATE_FULL)
-            .supplier();
+        .display(Component.text("Crates").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
+        .lore(Component.empty(),
+            Component.text("New Heartfelt Crate!").color(Collection.VALENTINES_2023.display().color()).decoration(TextDecoration.ITALIC, false)
+        )
+        .modelData(Model.Crate.Valentine.FULL)
+        .supplier();
 
     private static final Component EQUIPMENT_SKIN_MESSAGE = Component.text()
-            .append(Component.newline())
-            .append(Component.text("How to apply equipment skins:"))
-            .append(Component.newline())
-            .append(Component.text("Hold the item you'd like to skin and type ").color(NamedTextColor.AQUA).append(Component.text("/skin").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD)))
-            .append(Component.newline())
-            .build();
+        .append(Component.newline())
+        .append(Component.text("How to apply equipment skins:"))
+        .append(Component.newline())
+        .append(Component.text("Hold the item you'd like to skin and type ").color(NamedTextColor.AQUA).append(Component.text("/skin").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD)))
+        .append(Component.newline())
+        .build();
 
     private static final Component HAT_SKIN_MESSAGE = Component.text()
-            .append(Component.newline())
-            .append(Component.text("How to apply hat skins:"))
-            .append(Component.newline())
-            .append(Component.text("Hold the helmet you'd like to skin and type ").color(NamedTextColor.AQUA)
-                    .append(Component.text("/skin")
-                            .color(NamedTextColor.GOLD)
-                            .decorate(TextDecoration.BOLD)
-                            .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/skin"))))
-            .append(Component.newline())
-            .build();
+        .append(Component.newline())
+        .append(Component.text("How to apply hat skins:"))
+        .append(Component.newline())
+        .append(Component.text("Hold the helmet you'd like to skin and type ").color(NamedTextColor.AQUA)
+            .append(Component.text("/skin")
+                .color(NamedTextColor.GOLD)
+                .decorate(TextDecoration.BOLD)
+                .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/skin"))))
+        .append(Component.newline())
+        .build();
 
     private static final Supplier<ItemStack> AURA_MENU_ICON = ItemBuilder.of(Material.NETHER_STAR)
-            .display(Component.text("Aura Menu").color(NamedTextColor.AQUA))
-            .lore(
-                    Component.empty(),
-                    Component.text("Let it glow!").color(NamedTextColor.LIGHT_PURPLE),
-                    Component.empty()
-            )
-            .supplier();
+        .display(Component.text("Aura Menu").color(NamedTextColor.AQUA))
+        .lore(
+            Component.empty(),
+            Component.text("Let it glow!").color(NamedTextColor.LIGHT_PURPLE),
+            Component.empty()
+        )
+        .supplier();
 
     public CosmeticMenu(Player user) {
         super(Cosmetics.get(), 6, "Cosmetics");

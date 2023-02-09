@@ -1,10 +1,8 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
-import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.item.Item;
-import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
+import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -14,40 +12,29 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class BanHammer extends ItemCosmetic {
-
-    public BanHammer() {
-        super(Item.BAN_HAMMER.name());
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.DRAGON_CRATE);
+public class DragonHat extends HatCosmetic {
+    public DragonHat() {
+        super(Hat.DRAGON.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("The Ban Hammer")
+        return Component.text("Dragon Hat")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_SWORD)
+        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
+                .modelData(Model.Hat.DRAGON)
                 .display(name())
                 .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .modelData(Model.Item.Sword.BAN_HAMMER)
                 .build();
     }
 
     @Override
     public @NotNull Collection collection() {
         return Collection.DRAGON_CRATE;
-    }
-
-    @Override
-    public @NotNull Rarity rarity() {
-        return Rarity.EPIC;
     }
 }

@@ -1,40 +1,36 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.wing.Wing;
-import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class PegasusWings extends WingCosmetic {
-    public PegasusWings() {
-        super(Wing.PEGASUS.name());
-    }
-
-    @Override
-    public Permission visibility() {
-        return Permission.collectionIsActive(Collection.DRAGON_CRATE);
+public class FancyFishingRod extends ItemCosmetic {
+    public FancyFishingRod() {
+        super(Item.FANCY_FISHING_ROD.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Small Pegasus Wings")
+        return Component.text("Fancy Fishing Rod")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.SCUTE)
-                .modelData(Model.Wing.PEGASUS)
+        return ItemBuilder.of(Material.FISHING_ROD)
                 .display(name())
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
+                .modelData(Model.Item.FishingRod.FANCY)
                 .build();
     }
 
@@ -45,6 +41,6 @@ public class PegasusWings extends WingCosmetic {
 
     @Override
     public @NotNull Rarity rarity() {
-        return Rarity.RARE;
+        return Rarity.EPIC;
     }
 }

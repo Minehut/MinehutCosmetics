@@ -1,36 +1,33 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.types.item.Item;
-import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
+import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
+import com.minehut.cosmetics.cosmetics.types.balloon.BalloonCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class FishSword extends ItemCosmetic {
-
-    public FishSword() {
-        super(Item.FISH_SWORD.name());
+public class PaperLanternBalloon extends BalloonCosmetic {
+    public PaperLanternBalloon() {
+        super(Balloon.PAPER_LANTERN.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("15lb Fish")
+        return Component.text("Candle-lit Lantern")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_SWORD)
+        return ItemBuilder.of(Material.SCUTE)
                 .display(name())
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .modelData(Model.Item.Sword.FISH_SWORD)
+                .modelData(Model.Balloon.PAPER_LANTERN)
                 .build();
     }
 

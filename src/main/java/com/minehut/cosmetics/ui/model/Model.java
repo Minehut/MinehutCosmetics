@@ -27,7 +27,7 @@ public final class Model {
         public static final int YOUNG_DRAGON = 1_002_018;
         public static final int ARCTIC_FOX = 1_002_019;
         public static final int SNOWMAN = 1_002_020;
-
+        public static final int VALENTINE_PET = 1_002_021;
     }
 
     public static class Hat {
@@ -39,7 +39,6 @@ public final class Model {
         public static final int MOUSE_EARS = 1_001_006;
         public static final int MAID = 1_001_007;
         public static final int FALL_22 = 1_001_008;
-
         public static final int DRAGON = 1_001_009;
         public static final int STEAMPUNK = 1_001_010;
         public static final int TURTLE = 1_001_011;
@@ -47,6 +46,10 @@ public final class Model {
         public static final int TECHNICAL_VISOR = 1_001_013;
         public static final int NINJA_MASK = 1_001_014;
         public static final int RICE_HAT = 1_001_015;
+        public static final int VALENTINE_SUNGLASSES = 1_001_016;
+        public static final int VALENTINE_HEADBAND = 1_001_017;
+
+
     }
 
     public static class Wing {
@@ -59,8 +62,7 @@ public final class Model {
         public static final int LARGE_PEGASUS = 1_003_007;
         public static final int ARCADE = 1_003_008;
         public static final int ARCADE_BACKPACK = 1_003_009;
-
-
+        public static final int VALENTINE_WINGS = 1_003_010;
     }
 
     public static class Balloon {
@@ -68,6 +70,8 @@ public final class Model {
         public static final int PAPER_DRAGON = 1_004_002;
         public static final int PAPER_LANTERN = 1_004_003;
         public static final int ARCADE_FIGHTER = 1_004_004;
+        public static final int VALENTINE = 1_004_005;
+
     }
 
     public static class Item {
@@ -88,7 +92,7 @@ public final class Model {
             public static final int EIGHT_BIT = 1_000_013;
             public static final int KUNAI = 1_000_014;
             public static final int NINJATO = 1_000_015;
-
+            public static final int VALENTINE = 1_000_016;
         }
 
         public static class Pickaxe {
@@ -96,6 +100,8 @@ public final class Model {
             public static final int FALL_22 = 1_000_002;
             public static final int MOLTEN = 1_000_003;
             public static final int ICE_PICKAXE = 1_000_004;
+            public static final int VALENTINE = 1_000_005;
+
         }
 
         public static class Shovel {
@@ -139,8 +145,7 @@ public final class Model {
         public static final int ICE_SCEPTER = 1_005_002;
         public static final int ICE_SPELLBOOK = 1_005_003;
         public static final int ROYAL_SCEPTER = 1_005_004;
-
-
+        public static final int VALENTINE_STAFF = 1_005_005;
     }
 
     public static class Ui {
@@ -149,8 +154,16 @@ public final class Model {
     }
 
     public static class Crate {
-        public static final int CRATE_BASE = 1_000_001;
-        public static final int CRATE_LID = 1_000_002;
-        public static final int CRATE_FULL = 1_000_003;
+        public static class Dragon {
+            public static final int BASE = 1_000_001;
+            public static final int LID = 1_000_002;
+            public static final int FULL = 1_000_003;
+        }
+
+        public static class Valentine {
+            public static final int BASE = 1_000_004;
+            public static final int LID = 1_000_005;
+            public static final int FULL = 1_000_006;
+        }
     }
 }

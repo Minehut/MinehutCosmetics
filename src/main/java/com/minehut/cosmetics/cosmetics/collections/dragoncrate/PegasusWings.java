@@ -1,4 +1,4 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
@@ -13,9 +13,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class ArcadeWings extends WingCosmetic {
-    public ArcadeWings() {
-        super(Wing.ARCADE.name());
+public class PegasusWings extends WingCosmetic {
+    public PegasusWings() {
+        super(Wing.PEGASUS.name());
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ArcadeWings extends WingCosmetic {
 
     @Override
     public Component name() {
-        return Component.text("Mech Wings")
+        return Component.text("Small Pegasus Wings")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
@@ -33,8 +33,8 @@ public class ArcadeWings extends WingCosmetic {
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
+                .modelData(Model.Wing.PEGASUS)
                 .display(name())
-                .modelData(Model.Wing.ARCADE)
                 .build();
     }
 
@@ -45,6 +45,6 @@ public class ArcadeWings extends WingCosmetic {
 
     @Override
     public @NotNull Rarity rarity() {
-        return Rarity.EPIC;
+        return Rarity.RARE;
     }
 }

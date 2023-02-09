@@ -35,7 +35,8 @@ public class Bindings {
             Item.ICE_SWORD,
             Item.EIGHT_BIT_SWORD,
             Item.KUNAI,
-            Item.NINJATO
+            Item.NINJATO,
+            Item.VALENTINE_SWORD
         ));
 
     // bindings for pickaxe items
@@ -52,7 +53,8 @@ public class Bindings {
             Item.EXPLORER_PICKAXE,
             Item.FALL_22_PICKAXE,
             Item.MOLTEN_PICKAXE,
-            Item.ICE_PICKAXE
+            Item.ICE_PICKAXE,
+            Item.VALENTINE_PICKAXE
         ));
 
     // bindings for shovel items
@@ -107,26 +109,23 @@ public class Bindings {
             Material.TURTLE_HELMET
         ))
         .registerCosmetics(List.of(
-            // Explorer
             Hat.EXPLORER,
-            // Spooktacular 2022
             Hat.WITCH,
             Hat.CAT_EARS,
             Hat.DEVIL_HORNS,
             Hat.FOX_EARS,
             Hat.FOX_EARS,
-            // Maid
             Hat.MAID,
-            // Fall 2022
             Hat.FALL_22,
-            // Crates
             Hat.GAMER_HEADSET,
             Hat.DRAGON,
             Hat.STEAMPUNK,
             Hat.TURTLE,
             Hat.TECHNICAL_VISOR,
             Hat.NINJA_MASK,
-            Hat.RICE_HAT
+            Hat.RICE_HAT,
+            Hat.VALENTINES_SUNGLASSES,
+            Hat.VALENTINE_HEADBAND
         ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()

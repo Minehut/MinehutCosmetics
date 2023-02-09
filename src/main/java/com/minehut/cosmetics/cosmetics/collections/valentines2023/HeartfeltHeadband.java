@@ -1,6 +1,7 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.valentines2023;
 
 import com.minehut.cosmetics.cosmetics.Collection;
+import com.minehut.cosmetics.cosmetics.Rarity;
 import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
@@ -12,29 +13,35 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class SteampunkHat extends HatCosmetic {
-    public SteampunkHat() {
-        super(Hat.STEAMPUNK.name());
+public class HeartfeltHeadband extends HatCosmetic {
+
+    public HeartfeltHeadband() {
+        super(Hat.VALENTINE_HEADBAND.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Steampunk Hat")
-                .color(rarity().display().color())
-                .decoration(TextDecoration.ITALIC, false);
+        return Component.text("Heartfelt Headband")
+            .color(rarity().display().color())
+            .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-                .modelData(Model.Hat.STEAMPUNK)
-                .display(name())
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .build();
+            .display(name())
+            .flags(ItemFlag.HIDE_ATTRIBUTES)
+            .modelData(Model.Hat.VALENTINE_HEADBAND)
+            .build();
     }
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.DRAGON_CRATE;
+        return Collection.VALENTINES_2023;
+    }
+
+    @Override
+    public @NotNull Rarity rarity() {
+        return Rarity.UNCOMMON;
     }
 }

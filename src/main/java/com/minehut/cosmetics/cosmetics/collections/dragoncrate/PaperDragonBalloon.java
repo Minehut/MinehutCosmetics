@@ -1,29 +1,36 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.hat.Hat;
-import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
+import com.minehut.cosmetics.cosmetics.types.balloon.Balloon;
+import com.minehut.cosmetics.cosmetics.types.balloon.BalloonCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class GamerHeadset extends HatCosmetic {
+public class PaperDragonBalloon extends BalloonCosmetic {
 
-    public GamerHeadset() {
-        super(Hat.GAMER_HEADSET.name());
+    public PaperDragonBalloon() {
+        super(Balloon.PAPER_DRAGON.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Pink Gamer Headset")
+        return Component.text("Paper Dragon Kite")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Balloon.PAPER_DRAGON)
+                .build();
     }
 
     @Override
@@ -32,16 +39,7 @@ public class GamerHeadset extends HatCosmetic {
     }
 
     @Override
-    public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-                .modelData(Model.Hat.GAMER_HEADSET)
-                .display(name())
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .build();
-    }
-
-    @Override
     public @NotNull Rarity rarity() {
-        return Rarity.RARE;
+        return Rarity.EPIC;
     }
 }

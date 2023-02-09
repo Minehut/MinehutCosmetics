@@ -22,8 +22,8 @@ public enum Collection {
     NINJA(Component.text("Ninja Collection").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)),
     ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)),
     ROYAL(Component.text("Royal Collection").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)),
+    VALENTINES_2023(Component.text("Valentines 2023").color(TextColor.color(255, 182, 193)).decoration(TextDecoration.ITALIC, false)),
     ;
-
 
     private final Component tag;
 

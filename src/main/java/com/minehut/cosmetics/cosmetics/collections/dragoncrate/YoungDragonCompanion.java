@@ -1,35 +1,42 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.wing.Wing;
-import com.minehut.cosmetics.cosmetics.types.wing.WingCosmetic;
+import com.minehut.cosmetics.cosmetics.types.companion.Companion;
+import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class LargePegasusWings extends WingCosmetic {
-    public LargePegasusWings() {
-        super(Wing.PEGASUS_LARGE.name());
+public class YoungDragonCompanion extends CompanionCosmetic {
+
+    public YoungDragonCompanion() {
+        super(Companion.YOUNG_DRAGON.name(),
+            new Vector(0, -1, 0),
+            true,
+            true,
+            false
+        );
     }
 
     @Override
     public Component name() {
-        return Component.text("Large Pegasus Wings")
-                .color(rarity().display().color())
-                .decoration(TextDecoration.ITALIC, false);
+        return Component.text("Young Dragon Pet")
+            .color(rarity().display().color())
+            .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
         return ItemBuilder.of(Material.SCUTE)
-                .modelData(Model.Wing.LARGE_PEGASUS)
-                .display(name())
-                .build();
+            .display(name())
+            .modelData(Model.Companion.YOUNG_DRAGON)
+            .build();
     }
 
     @Override

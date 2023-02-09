@@ -1,51 +1,41 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.companion.Companion;
-import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
+import com.minehut.cosmetics.cosmetics.types.item.Item;
+import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class UfoCowCompanion extends CompanionCosmetic {
+public class ShortSword extends ItemCosmetic {
 
-    public UfoCowCompanion() {
-        super(Companion.UFO_COW.name(),
-                new Vector(0, -1, 0),
-                true,
-                true,
-                false
-        );
+    public ShortSword() {
+        super(Item.FANCY_SHORT_SWORD.name());
     }
 
     @Override
     public Component name() {
-        return Component.text("Mooon Cow")
+        return Component.text("Fancy Shortsword")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.SCUTE)
+        return ItemBuilder.of(Material.DIAMOND_SWORD)
                 .display(name())
-                .modelData(Model.Companion.UFO_COW)
+                .modelData(Model.Item.Sword.FANCY_SHORT_SWORD)
+                .flags(ItemFlag.HIDE_ATTRIBUTES)
                 .build();
     }
 
     @Override
     public @NotNull Collection collection() {
         return Collection.DRAGON_CRATE;
-    }
-
-    @Override
-    public @NotNull Rarity rarity() {
-        return Rarity.RARE;
     }
 }

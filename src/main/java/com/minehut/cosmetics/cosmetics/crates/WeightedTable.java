@@ -28,4 +28,21 @@ public class WeightedTable<T> {
         table.put(item, weight);
         totalWeight += weight;
     }
+
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    public static class Builder<T> {
+        private final WeightedTable<T> table = new WeightedTable<>();
+
+        public Builder<T> register(T entry, int weight) {
+            table.registerItem(entry, weight);
+            return this;
+        }
+
+        public WeightedTable<T> build() {
+            return table;
+        }
+    }
 }

@@ -51,9 +51,9 @@ public class Debug extends Command {
 
                     EnumUtil.valueOfSafe(CrateType.class, args.get(1)).ifPresent(type -> {
                         final Crate crate = type.get();
-                        final Pair<CosmeticSupplier<? extends Cosmetic>, Integer> result = crate.getTable().roll();
-
-                        Bukkit.getScheduler().runTask(Cosmetics.get(), () -> type.get().playOpenAnimation(player, player.getLocation(), result.left().get(), () -> {}));
+                        final Pair<CosmeticSupplier<? extends Cosmetic>, Integer> result = crate.roll();
+                        Bukkit.getScheduler().runTask(Cosmetics.get(), () -> type.get().playOpenAnimation(player, player.getLocation(), result.left().get(), () -> {
+                        }));
                     });
                 }
             }

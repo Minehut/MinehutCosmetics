@@ -1,29 +1,42 @@
-package com.minehut.cosmetics.cosmetics.collections.betacrate;
+package com.minehut.cosmetics.cosmetics.collections.dragoncrate;
 
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Rarity;
-import com.minehut.cosmetics.cosmetics.types.hat.Hat;
-import com.minehut.cosmetics.cosmetics.types.hat.HatCosmetic;
+import com.minehut.cosmetics.cosmetics.types.companion.Companion;
+import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class TurtleHat extends HatCosmetic {
+public class UfoCowCompanion extends CompanionCosmetic {
 
-    public TurtleHat() {
-        super(Hat.TURTLE.name());
+    public UfoCowCompanion() {
+        super(Companion.UFO_COW.name(),
+                new Vector(0, -1, 0),
+                true,
+                true,
+                false
+        );
     }
 
     @Override
     public Component name() {
-        return Component.text("Turtle Hat")
+        return Component.text("Mooon Cow")
                 .color(rarity().display().color())
                 .decoration(TextDecoration.ITALIC, false);
+    }
+
+    @Override
+    public @NotNull ItemStack menuIcon() {
+        return ItemBuilder.of(Material.SCUTE)
+                .display(name())
+                .modelData(Model.Companion.UFO_COW)
+                .build();
     }
 
     @Override
@@ -34,14 +47,5 @@ public class TurtleHat extends HatCosmetic {
     @Override
     public @NotNull Rarity rarity() {
         return Rarity.RARE;
-    }
-
-    @Override
-    public @NotNull ItemStack menuIcon() {
-        return ItemBuilder.of(Material.DIAMOND_LEGGINGS)
-                .display(name())
-                .modelData(Model.Hat.TURTLE)
-                .flags(ItemFlag.HIDE_ATTRIBUTES)
-                .build();
     }
 }

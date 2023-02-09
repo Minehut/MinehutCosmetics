@@ -37,19 +37,20 @@ public class GemShopMenu extends SubMenu {
         final CosmeticProfileResponse response = maybeProfile.get();
 
         setTitle(Component.text()
-                .append(Component.text("Gem Shop"))
-                .append(Component.text(" - Gems: ").color(NamedTextColor.BLACK))
-                .append(Component.text(response.getGems()).color(NamedTextColor.BLACK))
-                .append(Currency.GEM.display().color(NamedTextColor.WHITE))
-                .build()
+            .append(Component.text("Gem Shop"))
+            .append(Component.text(" - Gems: ").color(NamedTextColor.BLACK))
+            .append(Component.text(response.getGems()).color(NamedTextColor.BLACK))
+            .append(Currency.GEM.display().color(NamedTextColor.WHITE))
+            .build()
         );
 
         item.addAll(List.of(
-                shopItem(Item.DRAGON_SWORD, 500),
-                shopItem(Companion.YOUNG_DRAGON, 500),
-                shopItem(Hat.DRAGON, 500),
-                shopItem(Wing.DRAGON, 500),
-                shopItem(CrateType.DRAGON_CRATE, 500)
+            shopItem(CrateType.HEARTFELT, 1000),
+            shopItem(Item.DRAGON_SWORD, 500),
+            shopItem(Companion.YOUNG_DRAGON, 500),
+            shopItem(Hat.DRAGON, 500),
+            shopItem(Wing.DRAGON, 500),
+            shopItem(CrateType.DRAGON_CRATE, 500)
         ));
     }
 
@@ -57,25 +58,24 @@ public class GemShopMenu extends SubMenu {
     public List<MenuItem> getItemList() {
         return item;
     }
-
     private MenuItem shopItem(CosmeticSupplier<? extends Cosmetic> supplier, int price) {
         final Cosmetic cosmetic = supplier.get();
 
         final Component costComponent =
-                Component.text()
-                        .append(Component.text("Price: ").color(NamedTextColor.GRAY))
-                        .append(Component.text(price).color(NamedTextColor.AQUA))
-                        .append(Currency.GEM.display())
-                        .decoration(TextDecoration.ITALIC, false)
-                        .build();
+            Component.text()
+                .append(Component.text("Price: ").color(NamedTextColor.GRAY))
+                .append(Component.text(price).color(NamedTextColor.AQUA))
+                .append(Currency.GEM.display())
+                .decoration(TextDecoration.ITALIC, false)
+                .build();
 
         final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
-                .appendLore(
-                        cosmetic.collection().display(),
-                        Component.empty(),
-                        costComponent
-                )
-                .build();
+            .appendLore(
+                cosmetic.collection().display(),
+                Component.empty(),
+                costComponent
+            )
+            .build();
 
         return MenuItem.of(icon, (who, click) -> new GemShopConfirmPurchase(cosmetic, price).openTo(who));
     }
