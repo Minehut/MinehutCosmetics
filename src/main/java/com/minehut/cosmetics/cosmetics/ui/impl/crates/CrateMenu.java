@@ -1,6 +1,7 @@
 package com.minehut.cosmetics.cosmetics.ui.impl.crates;
 
 import com.minehut.cosmetics.Cosmetics;
+import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.crates.Crate;
 import com.minehut.cosmetics.cosmetics.crates.CrateType;
 import com.minehut.cosmetics.cosmetics.ui.BookUI;
@@ -46,21 +47,28 @@ public class CrateMenu extends SubMenu {
 
 
             final Component openCTA = openable ?
-                    Component.text("Click to open").color(NamedTextColor.GREEN)
-                    : Component.text("Click to buy").color(NamedTextColor.GREEN);
+                Component.text("Click to open").color(NamedTextColor.GREEN)
+                : Component.text("Click to buy").color(NamedTextColor.GREEN);
 
             final Component display = openable ? crate.name() : crate.name().color(NamedTextColor.GRAY);
 
-            final ItemStack builder = ItemBuilder.of(crate.menuIcon().clone())
-                    .display(display)
-                    .appendLore(
-                            Component.empty(),
-                            openCTA.decoration(TextDecoration.ITALIC, false),
-                            Component.text("" + qtyOwned + " Available").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
-                    )
-                    .build();
+            final boolean available = Collection.isActive(crate.collection());
+            ItemBuilder builder = ItemBuilder.of(crate.menuIcon().clone())
+                .display(display);
 
-            final MenuItem menuItem = MenuItem.of(builder, (who, click) -> {
+            if (!available) {
+                builder = builder.appendLore(Component.text("Currently Unavailable").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false));
+            }
+
+            builder = builder.appendLore(
+                Component.empty(),
+                openCTA.decoration(TextDecoration.ITALIC, false),
+                Component.text("" + qtyOwned + " Available").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+            );
+
+            final ItemStack item = builder.build();
+
+            final MenuItem menuItem = MenuItem.of(item, (who, click) -> {
                 if (!openable) {
                     player.closeInventory();
                     player.openBook(BookUI.COSMETICS_STORE_URL);

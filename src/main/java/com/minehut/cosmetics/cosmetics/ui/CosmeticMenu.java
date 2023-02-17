@@ -69,9 +69,9 @@ public class CosmeticMenu extends Menu {
     private static final Supplier<ItemStack> CRATE_ICON = ItemBuilder.of(Material.IRON_INGOT)
         .display(Component.text("Crates").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
         .lore(Component.empty(),
-            Component.text("New Heartfelt Crate!").color(Collection.VALENTINES_2023.display().color()).decoration(TextDecoration.ITALIC, false)
+            Component.text("Open crates!").color(Collection.VALENTINES_2023.display().color()).decoration(TextDecoration.ITALIC, false)
         )
-        .modelData(Model.Crate.Valentine.FULL)
+        .modelData(Model.Crate.Dragon.FULL)
         .supplier();
 
     private static final Component EQUIPMENT_SKIN_MESSAGE = Component.text()
