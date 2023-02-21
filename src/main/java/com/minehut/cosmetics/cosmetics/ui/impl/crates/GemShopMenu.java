@@ -65,7 +65,7 @@ public class GemShopMenu extends SubMenu {
             Component.text()
                 .append(Component.text("Price: ").color(NamedTextColor.GRAY))
                 .append(Component.text(price).color(NamedTextColor.AQUA))
-                .append(Currency.GEM.display())
+                .append(Currency.GEM.display().color(NamedTextColor.WHITE))
                 .decoration(TextDecoration.ITALIC, false)
                 .build();
 
