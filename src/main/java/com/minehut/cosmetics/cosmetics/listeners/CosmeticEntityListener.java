@@ -1,6 +1,5 @@
 package com.minehut.cosmetics.cosmetics.listeners;
 
-import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import com.minehut.cosmetics.util.EntityUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,14 +44,11 @@ public class CosmeticEntityListener implements Listener {
      */
 
     @EventHandler
-    public void onProjectileCollide(ProjectileCollideEvent event) {
-        if (!EntityUtil.isCosmeticEntity(event.getCollidedWith())) return;
-        event.setCancelled(true);
-    }
-
-    @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-        if (!EntityUtil.isCosmeticEntity(event.getHitEntity())) return;
+        if (!EntityUtil.isCosmeticEntity(event.getEntity())) {
+            return;
+        }
+
         event.setCancelled(true);
     }
 

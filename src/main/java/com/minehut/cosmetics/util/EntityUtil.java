@@ -8,6 +8,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -61,7 +62,11 @@ public class EntityUtil {
      * @param entity to check
      * @return whether the entity is used for cosmetics
      */
-    public static boolean isCosmeticEntity(Entity entity) {
+    public static boolean isCosmeticEntity(@Nullable Entity entity) {
+        if (entity == null) {
+            return false;
+        }
+
         return Key.COSMETIC_ENTITY.read(entity).isPresent();
     }
 }

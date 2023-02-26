@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.cosmetics.listeners.trinkets;
 
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
-import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceScepterTrinket;
 import com.minehut.cosmetics.util.CosmeticUtil;
 import com.minehut.cosmetics.util.ExpiringSet;
@@ -12,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -54,8 +54,8 @@ public class IceStaffListener implements Listener {
             }
 
             final Location spawnLocation = player.getEyeLocation()
-                    .clone()
-                    .add(player.getEyeLocation().getDirection());
+                .clone()
+                .add(player.getEyeLocation().getDirection());
 
             final Vector velocity = player.getEyeLocation().getDirection().multiply(1.5);
 
@@ -70,8 +70,9 @@ public class IceStaffListener implements Listener {
     }
 
     @EventHandler
-    public void onSnowballCollide(ProjectileCollideEvent event) {
-        if (!snowballs.contains(event.getEntity().getUniqueId())) {
+    public void onSnowballHit(ProjectileHitEvent event) {
+        final Entity hit = event.getHitEntity();
+        if (hit == null || !snowballs.contains(hit.getUniqueId())) {
             return;
         }
 
