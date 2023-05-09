@@ -43,6 +43,7 @@ public class IceStaffListener implements Listener {
             return;
         }
 
+
         CosmeticUtil.readCosmetic(item).ifPresent(cosmetic -> {
             if (!cosmetic.getQualifiedId().equals(scepter.getQualifiedId())) {
                 return;

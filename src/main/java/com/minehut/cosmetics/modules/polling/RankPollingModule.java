@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public class RankPollingModule extends PollingModule<List<PlayerRank>> {
 
+    private boolean success = false;
     private final Cosmetics cosmetics;
 
     public RankPollingModule(Cosmetics cosmetics) {
@@ -19,6 +20,10 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
 
     @Override
     public Optional<List<PlayerRank>> poll() {
+        if (success) {
+            return Optional.empty();
+        }
+
         final HttpResponse<PlayerRank[]> response = cosmetics.api().getRanks().join();
 
         if (!response.isSuccess()) {
@@ -31,6 +36,8 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
         if (ranks.length == 0) {
             return Optional.empty();
         }
+
+        this.success = true;
         return Optional.of(Arrays.asList(ranks));
     }
 
