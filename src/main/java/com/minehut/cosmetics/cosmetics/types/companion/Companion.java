@@ -3,6 +3,7 @@ package com.minehut.cosmetics.cosmetics.types.companion;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.collections.autumn2022.LatteCompanion;
 import com.minehut.cosmetics.cosmetics.collections.beta.CompieCompanion;
+import com.minehut.cosmetics.cosmetics.collections.cheeseheads.CheeseHorseCompanion;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.DragonEggCompanion;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.UfoCowCompanion;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.YoungDragonCompanion;
@@ -38,6 +39,8 @@ public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
     SNOWMAN(SnowmanCompanion::new),
     ARCTIC_FOX(ArcticFoxCompanion::new),
     VALENTINE_PET(HeartfeltCompanion::new),
+    CHEESE_HORSE(CheeseHorseCompanion::new),
+
     ;
 
     private final Supplier<FollowerCosmetic> supplier;

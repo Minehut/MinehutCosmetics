@@ -23,7 +23,7 @@ public enum Collection {
     ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)),
     ROYAL(Component.text("Royal Collection").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)),
     VALENTINES_2023(Component.text("Valentines 2023").color(TextColor.color(255, 182, 193)).decoration(TextDecoration.ITALIC, false)),
-    ;
+    CHEESE_HEADS(Component.text("Cheese Heads", NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false));
 
     private final Component tag;
 

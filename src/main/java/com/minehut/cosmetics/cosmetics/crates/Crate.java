@@ -10,6 +10,7 @@ import com.minehut.cosmetics.model.profile.CosmeticMeta;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
 import com.minehut.cosmetics.util.GlowUtil;
+import com.minehut.cosmetics.util.TeleportUtil;
 import com.minehut.cosmetics.util.messaging.Message;
 import com.minehut.cosmetics.util.structures.Pair;
 import kong.unirest.HttpResponse;
@@ -82,7 +83,7 @@ public abstract class Crate extends Cosmetic {
         final Location playerLocation = crateLoc.clone().subtract(0, 0, 3.5);
         playerLocation.setYaw(0);
 
-        player.teleport(playerLocation, true);
+        TeleportUtil.teleport(player, playerLocation);
         player.setGameMode(GameMode.SPECTATOR);
 
         // spawn all the entities we'll be using for the animation

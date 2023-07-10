@@ -28,6 +28,7 @@ public final class Model {
         public static final int ARCTIC_FOX = 1_002_019;
         public static final int SNOWMAN = 1_002_020;
         public static final int VALENTINE_PET = 1_002_021;
+        public static final int CHEESE_HORSE = 1_002_022;
     }
 
     public static class Hat {
