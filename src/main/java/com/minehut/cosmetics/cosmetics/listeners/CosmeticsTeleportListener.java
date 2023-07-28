@@ -62,8 +62,6 @@ public class CosmeticsTeleportListener implements Listener {
     private void handleTeleport(UUID uuid) {
         manager.unequipAll(uuid);
 
-        Bukkit.getScheduler().runTaskLater(cosmetics, () -> {
-            manager.equipAll(uuid);
-        }, 1);
+        Bukkit.getScheduler().runTaskLater(cosmetics, () -> manager.equipAll(uuid), 1);
     }
 }
