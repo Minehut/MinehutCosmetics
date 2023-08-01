@@ -34,7 +34,7 @@ public class CosmeticsManager {
      * Cache for retrieving player cosmetic profiles
      */
     private final Cache<UUID, CosmeticProfileResponse> cache = CacheBuilder.newBuilder()
-        .expireAfterWrite(15, TimeUnit.SECONDS)
+        .expireAfterWrite(3, TimeUnit.SECONDS)
         .build();
 
     /**

@@ -21,9 +21,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CheeseHorseCompanion extends CompanionCosmetic {
 
-    private static final Sound SOUND = Sound.sound(Key.key("entity.horse.ambient"), Sound.Source.AMBIENT, 1, 1.15f);
-    private static final long MAX_SOUND_TICKS = 20 * 60 * 2;
-    private static final long MIN_SOUND_TICKS = 20 * 60;
+    private static final Sound SOUND = Sound.sound(Key.key("entity.horse.ambient"), Sound.Source.AMBIENT, .5f, 1.15f);
+    private static final long MAX_SOUND_TICKS = 20 * 60 * 3;
+    private static final long MIN_SOUND_TICKS = (long) (20 * 60 * 1.5);
 
     private long nextTick = 0;
 
@@ -59,7 +59,8 @@ public class CheeseHorseCompanion extends CompanionCosmetic {
         if (Bukkit.getCurrentTick() >= nextTick) {
 
             for (LivingEntity entity : entities()) {
-                entity.getWorld().playSound(SOUND, entity);
+                Location location = entity.getLocation();
+                entity.getWorld().playSound(SOUND, location.getX(), location.getY(), location.getZ());
             }
 
             updateSoundTicks();
