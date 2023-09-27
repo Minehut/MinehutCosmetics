@@ -24,7 +24,7 @@ public class RankPollingModule extends PollingModule<List<PlayerRank>> {
             return Optional.empty();
         }
 
-        final HttpResponse<PlayerRank[]> response = cosmetics.api().getRanks().join();
+        final HttpResponse<PlayerRank[]> response = cosmetics.networkApi().getRanks().join();
 
         if (!response.isSuccess()) {
             return Optional.empty();

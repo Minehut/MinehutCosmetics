@@ -70,7 +70,7 @@ public class CosmeticsManager {
         }
 
         return CompletableFuture.supplyAsync(() -> {
-            final HttpResponse<CosmeticProfileResponse> response = cosmetics.api().getProfile(uuid).join();
+            final HttpResponse<CosmeticProfileResponse> response = cosmetics.networkApi().getProfile(uuid).join();
             final CosmeticProfileResponse profile = response.getBody();
 
             if (Cosmetics.mode() != Mode.LOBBY && profile != null) {
@@ -147,7 +147,7 @@ public class CosmeticsManager {
      */
     private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-            final HttpResponse<SimpleResponse> res = cosmetics.api().equipCosmetic(new EquipCosmeticRequest(uuid, slot.name(), id)).join();
+            final HttpResponse<SimpleResponse> res = cosmetics.networkApi().equipCosmetic(new EquipCosmeticRequest(uuid, slot.name(), id)).join();
             if (res == null) return;
             final Player player = Bukkit.getPlayer(uuid);
             if (player == null) return;

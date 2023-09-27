@@ -211,7 +211,7 @@ public abstract class Crate extends Cosmetic {
             // try to consume the item
             final ModifyCosmeticQuantityRequest req = new ModifyCosmeticQuantityRequest(uuid, category().name(), id(), -amount);
             final HttpResponse<Void> response = Cosmetics.get()
-                .api()
+                .networkApi()
                 .modifyCosmeticQuantity(req)
                 .join();
 
@@ -246,7 +246,7 @@ public abstract class Crate extends Cosmetic {
                     });
 
                     final CosmeticData data = new CosmeticData(cosmetic.category().name(), cosmetic.id(), new CosmeticMeta(quantity));
-                    Cosmetics.get().api().unlockCosmetic(new UnlockCosmeticRequest(uuid, data));
+                    Cosmetics.get().networkApi().unlockCosmetic(new UnlockCosmeticRequest(uuid, data));
                     success.set(true);
                 }
                 // handle error cases

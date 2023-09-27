@@ -16,6 +16,6 @@ public class ResourcePackPollingModule extends PollingModule<PackInfo> {
 
     @Override
     public Optional<PackInfo> poll() {
-        return Optional.ofNullable(cosmetics.api().getPackInfo().join().getBody());
+        return Optional.ofNullable(cosmetics.networkApi().getPackInfo().join().getBody());
     }
 }

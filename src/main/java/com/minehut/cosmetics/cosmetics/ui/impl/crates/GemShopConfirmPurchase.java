@@ -50,7 +50,7 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
             );
 
             final HttpResponse<Void> response = Cosmetics.get()
-                    .api()
+                    .networkApi()
                     .modifyCosmeticQuantity(req)
                     .join();
 
@@ -58,7 +58,7 @@ public class GemShopConfirmPurchase extends ConfirmationMenu {
             switch (response.getStatus()) {
                 case 200 -> {
                     final CosmeticData data = new CosmeticData(cosmetic.category().name(), cosmetic.id(), new CosmeticMeta(1));
-                    Cosmetics.get().api().unlockCosmetic(new UnlockCosmeticRequest(player.getUniqueId(), data));
+                    Cosmetics.get().networkApi().unlockCosmetic(new UnlockCosmeticRequest(player.getUniqueId(), data));
 
                     final Component content = Component.text()
                             .append(Component.text("Gem Shop").color(NamedTextColor.GREEN))

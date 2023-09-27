@@ -17,7 +17,7 @@ import kong.unirest.HttpResponse;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class InternalAPI extends CosmeticsAPI {
+public class InternalAPI extends NetworkApi {
 
     public InternalAPI(Config config, Gson gson) {
         super(config, gson);
