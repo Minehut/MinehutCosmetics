@@ -44,7 +44,7 @@ public class GiveCosmetic extends Command {
             final CosmeticMeta meta = new CosmeticMeta(amount);
             final CosmeticData data = new CosmeticData(category, id, meta);
             final UnlockCosmeticRequest req = new UnlockCosmeticRequest(target.getUniqueId(), data);
-            Cosmetics.get().api().unlockCosmetic(req).join();
+            Cosmetics.get().networkApi().unlockCosmetic(req).join();
 
             player.sendMessage(Message.info("Gave cosmetic."));
         });

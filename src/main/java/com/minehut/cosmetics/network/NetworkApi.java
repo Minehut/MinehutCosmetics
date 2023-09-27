@@ -23,12 +23,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class CosmeticsAPI {
+public abstract class NetworkApi {
 
     private final Gson gson;
     private final Config config;
 
-    public CosmeticsAPI(Config config, Gson gson) {
+    public NetworkApi(Config config, Gson gson) {
         this.config = config;
         this.gson = gson;
         Unirest.config().setObjectMapper(new ObjectMapper() {

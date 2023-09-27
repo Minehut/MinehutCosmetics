@@ -3,6 +3,7 @@ package com.minehut.cosmetics.commands;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
+import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.util.EnumUtil;
@@ -18,11 +19,11 @@ import java.util.List;
 
 public class EquipCommand extends Command {
 
-    private CosmeticsManager cosmeticsManager;
-    private Plugin plugin;
+    private final CosmeticsManager cosmeticsManager;
+    private final Plugin plugin;
 
     public EquipCommand(Plugin plugin, CosmeticsManager cosmeticsManager) {
-        super("cosmetics");
+        super("equipcosmetic");
         setDescription("Equips a given cosmetic");
 
         this.plugin = plugin;
@@ -60,7 +61,7 @@ public class EquipCommand extends Command {
         }
 
         // check for permission
-        cosmetic.permission().hasAccess(player).thenAccept((permission) -> {
+        Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).thenAccept((permission) -> {
             if (!permission) {
                 player.sendMessage(Message.error("You do not have this cosmetic unlocked."));
                 return;
@@ -68,7 +69,5 @@ public class EquipCommand extends Command {
 
             Bukkit.getScheduler().runTask(plugin, () -> cosmeticsManager.setCosmetic(player.getUniqueId(), slot, cosmetic, true));
         });
-
-        new CosmeticMenu(player).openTo(player);
     }
 }

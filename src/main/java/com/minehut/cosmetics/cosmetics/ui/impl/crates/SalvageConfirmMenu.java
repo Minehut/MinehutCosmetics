@@ -34,7 +34,7 @@ public class SalvageConfirmMenu extends ConfirmationMenu {
             final SalvageCosmeticRequest req = new SalvageCosmeticRequest(player.getUniqueId(), cosmetic.category().name(), cosmetic.id(), -1, cosmetic.salvageAmount());
 
             Bukkit.getScheduler().runTaskAsynchronously(Cosmetics.get(), () -> {
-                final HttpResponse<Void> res = Cosmetics.get().api().salvageCosmetic(req).join();
+                final HttpResponse<Void> res = Cosmetics.get().networkApi().salvageCosmetic(req).join();
                 switch (res.getStatus()) {
                     case 412 ->
                             player.sendMessage(Component.text("You do not own enough of this cosmetic!").color(NamedTextColor.RED));

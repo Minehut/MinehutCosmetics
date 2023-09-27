@@ -3,6 +3,8 @@ package com.minehut.cosmetics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
+import com.minehut.cosmetics.api.PluginApi;
+import com.minehut.cosmetics.commands.EquipCommand;
 import com.minehut.cosmetics.commands.MenuCommand;
 import com.minehut.cosmetics.commands.SkinCommand;
 import com.minehut.cosmetics.commands.UnSkinCommand;
@@ -30,7 +32,7 @@ import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
-import com.minehut.cosmetics.network.CosmeticsAPI;
+import com.minehut.cosmetics.network.NetworkApi;
 import com.minehut.cosmetics.network.ExternalAPI;
 import com.minehut.cosmetics.network.InternalAPI;
 import com.minehut.cosmetics.pack.ResourcePackManager;
@@ -61,9 +63,10 @@ public final class Cosmetics extends JavaPlugin {
     private EntityHandler entityHandler;
     private VisibilityHandler visibilityHandler;
     private ResourcePackManager resourcePackManager;
+    private PluginApi pluginApi;
 
     // api for accessing remote services
-    private CosmeticsAPI api;
+    private NetworkApi api;
 
     // Polling Modules
     @Override
@@ -77,6 +80,7 @@ public final class Cosmetics extends JavaPlugin {
         this.entityHandler = new EntityHandler();
         this.visibilityHandler = new VisibilityHandler(this);
         this.resourcePackManager = new ResourcePackManager();
+        this.pluginApi = new PluginApi(this);
 
         // process different actions depending on the operation mode the server is in
         switch (config().mode()) {
@@ -130,6 +134,7 @@ public final class Cosmetics extends JavaPlugin {
 
         // register commands
         new MenuCommand().register(this);
+        new EquipCommand(this, manager).register(this);
         new Debug().register(this);
     }
 
@@ -165,8 +170,12 @@ public final class Cosmetics extends JavaPlugin {
         return config;
     }
 
-    public CosmeticsAPI api() {
+    public NetworkApi networkApi() {
         return api;
+    }
+
+    public PluginApi getPluginApi() {
+        return pluginApi;
     }
 
     public CratesModule crates() {
