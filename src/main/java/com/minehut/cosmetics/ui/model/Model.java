@@ -49,7 +49,7 @@ public final class Model {
         public static final int RICE_HAT = 1_001_015;
         public static final int VALENTINE_SUNGLASSES = 1_001_016;
         public static final int VALENTINE_HEADBAND = 1_001_017;
-
+        public static final int ARRGH_HELMET = 1_001_021;
 
     }
 
@@ -64,6 +64,7 @@ public final class Model {
         public static final int ARCADE = 1_003_008;
         public static final int ARCADE_BACKPACK = 1_003_009;
         public static final int VALENTINE_WINGS = 1_003_010;
+        public static final int TURTLE_SHELL = 1_003_011;
     }
 
     public static class Balloon {
@@ -94,6 +95,8 @@ public final class Model {
             public static final int KUNAI = 1_000_014;
             public static final int NINJATO = 1_000_015;
             public static final int VALENTINE = 1_000_016;
+            public static final int SPATULA = 1_000_017;
+
         }
 
         public static class Pickaxe {

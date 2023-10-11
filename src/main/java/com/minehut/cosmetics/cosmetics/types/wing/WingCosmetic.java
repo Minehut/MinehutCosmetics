@@ -5,6 +5,7 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.util.EntityUtil;
+import com.minehut.cosmetics.util.Version;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -115,14 +116,17 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
 
 
             wings().ifPresent(wing -> {
-
-
-
-                final float rawAngle = player.getEyeLocation().getYaw();
-                if (Math.abs(lastAngle - (rawAngle + 180)) >= 10) {
-                    wings.setRotation(player.getEyeLocation().getYaw(), 0);
-                    lastAngle = rawAngle + 180;
+                if (Version.V_1_20.isSupported()) {
+                    wing.setRotation(player.getBodyYaw(), 0);
+                    Bukkit.getLogger().info("using body yaw");
+                } else {
+                    final float rawAngle = player.getEyeLocation().getYaw();
+                    if (Math.abs(lastAngle - (rawAngle + 180)) >= 10) {
+                        wings.setRotation(player.getEyeLocation().getYaw(), 0);
+                        lastAngle = rawAngle + 180;
+                    }
                 }
+
             });
         });
     }

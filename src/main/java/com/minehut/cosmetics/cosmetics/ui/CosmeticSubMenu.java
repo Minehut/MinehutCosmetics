@@ -49,16 +49,15 @@ public abstract class CosmeticSubMenu extends SubMenu {
             }
 
             final Component ownershipText = owns ?
-                    Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
-                    : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
+                Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
+                : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
 
             final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
-                    .appendLore(
-                            cosmetic.collection().display(),
-                            Component.empty(),
-                            ownershipText
-                    )
-                    .build();
+                .appendLore(cosmetic.collection().display())
+                .appendLore(cosmetic.collection().lore())
+                .appendLore(Component.empty())
+                .appendLore(ownershipText)
+                .build();
 
             items.add(Pair.of(icon, cosmetic));
         }
@@ -93,11 +92,11 @@ public abstract class CosmeticSubMenu extends SubMenu {
             if (canUse) {
                 final UUID uuid = player.getUniqueId();
                 player.sendMessage(Message.info(Component.text()
-                                .append(Component.text("Selected "))
-                                .append(cosmetic.name()).append(Component.text("!"))
-                                .color(NamedTextColor.AQUA)
-                                .build()
-                        )
+                        .append(Component.text("Selected "))
+                        .append(cosmetic.name()).append(Component.text("!"))
+                        .color(NamedTextColor.AQUA)
+                        .build()
+                    )
                 );
 
                 final CosmeticSlot slot = clickHandler.apply(click);

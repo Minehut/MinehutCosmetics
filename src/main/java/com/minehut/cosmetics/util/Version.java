@@ -3,7 +3,9 @@ package com.minehut.cosmetics.util;
 import org.bukkit.Material;
 
 public enum Version {
-    V_1_19(materialExists("SCULK"));
+    V_1_19(materialExists("SCULK")),
+    V_1_20(materialExists("BAMBOO_BLOCK"));
+    ;
 
     private final boolean supported;
 
