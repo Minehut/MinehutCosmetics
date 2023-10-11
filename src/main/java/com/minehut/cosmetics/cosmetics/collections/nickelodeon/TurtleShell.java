@@ -22,7 +22,7 @@ public class TurtleShell extends WingCosmetic {
     @Override
     public Component name() {
         return Component.text("Teenage Mutant Ninja Turtle Shell")
-            .color(NamedTextColor.GOLD)
+            .color(NamedTextColor.YELLOW)
             .decoration(TextDecoration.ITALIC, false);
     }
 

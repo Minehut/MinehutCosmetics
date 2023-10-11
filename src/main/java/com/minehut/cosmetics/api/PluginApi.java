@@ -35,11 +35,20 @@ public class PluginApi {
                     return;
                 }
 
-                Bukkit.getScheduler().runTask(cosmetics, () -> manager.setCosmetic(player.getUniqueId(), slot, cosmetic, true));
+                Bukkit.getScheduler().runTask(cosmetics, () -> manager.setCosmetic(player.getUniqueId(), slot, cosmetic, persist));
             });
             return;
         }
 
-        manager.setCosmetic(player.getUniqueId(), slot, cosmetic, false);
+        manager.setCosmetic(player.getUniqueId(), slot, cosmetic, persist);
+    }
+
+    public void unequip(Player player, CosmeticSlot slot, boolean persist) {
+        if (Cosmetics.mode() != Mode.LOBBY) {
+            return;
+        }
+
+        CosmeticsManager manager = cosmetics.manager();
+        manager.removeCosmetic(player.getUniqueId(), slot, persist);
     }
 }
