@@ -7,6 +7,7 @@ import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
@@ -21,7 +22,7 @@ public class SpongebobSpatula extends ItemCosmetic {
     @Override
     public Component name() {
         return Component.text("Spongebob's Spatula")
-            .color(rarity().display().color())
+            .color(NamedTextColor.YELLOW)
             .decoration(TextDecoration.ITALIC, false);
     }
 
