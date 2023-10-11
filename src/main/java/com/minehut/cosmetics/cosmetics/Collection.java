@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 
+import java.util.List;
 import java.util.Set;
 
 public enum Collection {
@@ -23,16 +24,29 @@ public enum Collection {
     ARCADE(Component.text("Arcade Collection").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)),
     ROYAL(Component.text("Royal Collection").color(NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)),
     VALENTINES_2023(Component.text("Valentines 2023").color(TextColor.color(255, 182, 193)).decoration(TextDecoration.ITALIC, false)),
-    CHEESE_HEADS(Component.text("Cheese Heads", NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false));
+    CHEESE_HEADS(Component.text("Cheese Heads", NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)),
+    NICKELODEON_SEASON_1(Component.text("Earned from Nickelodeon Slime Blast 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 1 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)));
 
     private final Component tag;
+    private final List<Component> lore;
 
     Collection(Component tag) {
-        this.tag = tag;
+        this(tag, List.of());
     }
+
+    Collection(Component tag, List<Component> lore) {
+        this.tag = tag;
+        this.lore = lore;
+    }
+
 
     public Component display() {
         return tag;
+    }
+
+    public List<Component> lore() {
+        return lore;
     }
 
     private static final Set<Collection> ACTIVE = Set.of(

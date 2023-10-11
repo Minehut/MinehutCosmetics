@@ -12,14 +12,14 @@ import com.minehut.cosmetics.cosmetics.collections.autumn2022.Fall22Sword;
 import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerPickaxe;
 import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerSpyglass;
 import com.minehut.cosmetics.cosmetics.collections.beta.ExplorerSword;
+import com.minehut.cosmetics.cosmetics.collections.crusader.CrusaderSword;
+import com.minehut.cosmetics.cosmetics.collections.dev.Katana;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.BanHammer;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.DragonCleaver;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.FancyFishingRod;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.FishSword;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.MoltenPickaxe;
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.ShortSword;
-import com.minehut.cosmetics.cosmetics.collections.crusader.CrusaderSword;
-import com.minehut.cosmetics.cosmetics.collections.dev.Katana;
 import com.minehut.cosmetics.cosmetics.collections.general.ArcadeAxe;
 import com.minehut.cosmetics.cosmetics.collections.general.IcePickaxe;
 import com.minehut.cosmetics.cosmetics.collections.general.IceSword;
@@ -29,6 +29,7 @@ import com.minehut.cosmetics.cosmetics.collections.jan2023.EightBitSword;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.Kunai;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.Ninjato;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidDuster;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.SpongebobSpatula;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltPickaxe;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltSword;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceAxe;
@@ -81,7 +82,7 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     NINJATO(Ninjato::new),
     VALENTINE_SWORD(HeartfeltSword::new),
     VALENTINE_PICKAXE(HeartfeltPickaxe::new),
-    ;
+    SPONGEBOB_SPATULA(SpongebobSpatula::new);
 
     private final Supplier<ItemCosmetic> supplier;
 

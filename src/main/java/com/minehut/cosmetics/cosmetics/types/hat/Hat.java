@@ -17,6 +17,7 @@ import com.minehut.cosmetics.cosmetics.collections.halloween2022.MouseEars;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.WitchHat;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.NinjaMask;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidHeadband;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.ArrghHelmet;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltHeadband;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltSunglasses;
 
@@ -41,8 +42,8 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     NINJA_MASK(NinjaMask::new),
     RICE_HAT(RiceHat::new),
     VALENTINES_SUNGLASSES(HeartfeltSunglasses::new),
-    VALENTINE_HEADBAND(HeartfeltHeadband::new)
-    ;
+    VALENTINE_HEADBAND(HeartfeltHeadband::new),
+    ARRGH_HELMET(ArrghHelmet::new);
 
     private final Supplier<HatCosmetic> supplier;
 

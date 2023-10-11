@@ -36,7 +36,8 @@ public class Bindings {
             Item.EIGHT_BIT_SWORD,
             Item.KUNAI,
             Item.NINJATO,
-            Item.VALENTINE_SWORD
+            Item.VALENTINE_SWORD,
+            Item.SPONGEBOB_SPATULA
         ));
 
     // bindings for pickaxe items
@@ -125,7 +126,8 @@ public class Bindings {
             Hat.NINJA_MASK,
             Hat.RICE_HAT,
             Hat.VALENTINES_SUNGLASSES,
-            Hat.VALENTINE_HEADBAND
+            Hat.VALENTINE_HEADBAND,
+            Hat.ARRGH_HELMET
         ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()
