@@ -3,12 +3,15 @@ package com.minehut.cosmetics.api;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.util.messaging.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.concurrent.CompletableFuture;
 
 public class PluginApi {
 
@@ -50,5 +53,13 @@ public class PluginApi {
 
         CosmeticsManager manager = cosmetics.manager();
         manager.removeCosmetic(player.getUniqueId(), slot, persist);
+    }
+
+    public CompletableFuture<Boolean> ownsCosmetic(Player player, CosmeticSupplier<? extends Cosmetic> supplier) {
+        if (Cosmetics.mode() != Mode.LOBBY) {
+            return CompletableFuture.completedFuture(false);
+        }
+
+        return Permission.hasPurchased(supplier.get()).hasAccess(player);
     }
 }
