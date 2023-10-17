@@ -15,6 +15,8 @@ import com.minehut.cosmetics.cosmetics.collections.general.KittenCompanion;
 import com.minehut.cosmetics.cosmetics.collections.general.RedRobinCompanion;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.GhostCompanion;
 import com.minehut.cosmetics.cosmetics.collections.netflix2022.WendellAndWildCompanion;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.AppaCompanion;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.ReptarCompanion;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltCompanion;
 import com.minehut.cosmetics.cosmetics.collections.winter2023.ArcticFoxCompanion;
 import com.minehut.cosmetics.cosmetics.collections.winter2023.SnowmanCompanion;
@@ -40,7 +42,8 @@ public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
     ARCTIC_FOX(ArcticFoxCompanion::new),
     VALENTINE_PET(HeartfeltCompanion::new),
     CHEESE_HORSE(CheeseHorseCompanion::new),
-
+    APPA(AppaCompanion::new),
+    REPTAR(ReptarCompanion::new)
     ;
 
     private final Supplier<FollowerCosmetic> supplier;
