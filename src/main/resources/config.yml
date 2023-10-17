@@ -3,3 +3,4 @@ mode: "PLAYER_SERVER"
 
 settings:
   hide-entities-without-pack: true
+  send-resource-pack: true

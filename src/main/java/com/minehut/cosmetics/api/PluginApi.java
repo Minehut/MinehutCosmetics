@@ -7,6 +7,7 @@ import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
+import com.minehut.cosmetics.cosmetics.types.hat.Hat;
 import com.minehut.cosmetics.util.messaging.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
