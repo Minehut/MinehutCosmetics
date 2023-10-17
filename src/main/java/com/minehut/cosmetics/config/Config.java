@@ -18,6 +18,7 @@ public class Config {
     private Location crateLocation = null;
 
     private boolean hideEntitiesWithoutPack = true;
+    private boolean sendResourcePack = true;
 
     private final Plugin plugin;
 
@@ -33,6 +34,8 @@ public class Config {
         // load the mode we're using for the plugin
         this.mode = EnumUtil.valueOfSafe(Mode.class, pluginConfig.getString("mode")).orElse(Mode.PLAYER_SERVER);
         this.hideEntitiesWithoutPack = pluginConfig.getBoolean("hide-entities-without-pack", false);
+        this.sendResourcePack = pluginConfig.getBoolean("send-resource-pack", true);
+
 
         switch (mode) {
             // if we're using the lobby, try to load the socket auth config as well
@@ -85,6 +88,10 @@ public class Config {
 
     public boolean hideEntitiesWithoutPack() {
         return hideEntitiesWithoutPack;
+    }
+
+    public boolean sendResourcePack() {
+        return sendResourcePack;
     }
 
     public void reload() {

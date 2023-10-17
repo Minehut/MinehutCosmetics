@@ -14,12 +14,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class ResourcePackListener implements Listener {
 
     private static final Component PACK_COPY = Component.text()
-            .append(Component.text("Welcome to Minehut!").color(NamedTextColor.AQUA))
-            .append(Component.newline())
-            .append(Component.text("For the best experience, we recommend using our custom resource pack."))
-            .append(Component.space())
-            .append(Component.text("Would you like to install it automagically?"))
-            .build();
+        .append(Component.text("Welcome to Minehut!").color(NamedTextColor.AQUA))
+        .append(Component.newline())
+        .append(Component.text("For the best experience, we recommend using our custom resource pack."))
+        .append(Component.space())
+        .append(Component.text("Would you like to install it automagically?"))
+        .build();
 
     private final ResourcePackPollingModule packPollingModule;
 
@@ -29,6 +29,10 @@ public class ResourcePackListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        if (!Cosmetics.get().config().sendResourcePack()) {
+            return;
+        }
+
         final PackInfo info = packPollingModule.state();
         if (!info.isValid()) return;
 
