@@ -34,7 +34,7 @@ public class JellyfishBalloon extends BalloonCosmetic {
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.NICKELODEON_SEASON_1;
+        return Collection.NICK_GOLF_SEASON_1;
     }
 
     @Override
