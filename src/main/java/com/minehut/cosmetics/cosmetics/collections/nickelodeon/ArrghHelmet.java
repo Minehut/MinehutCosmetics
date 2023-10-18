@@ -38,7 +38,7 @@ public class ArrghHelmet extends HatCosmetic {
 
     @Override
     public @NotNull Collection collection() {
-        return Collection.NICKELODEON_SEASON_1;
+        return Collection.NICK_ARCHERY_SEASON_1;
     }
 
     @Override
