@@ -77,6 +77,8 @@ public final class Model {
         public static final int ARCADE_FIGHTER = 1_004_004;
         public static final int VALENTINE = 1_004_005;
         public static final int JELLYFISH = 1_004_006;
+        public static final int DIAPER = 1_004_007;
+        public static final int FLYING_DUTCHMAN = 1_004_008;
 
 
     }
@@ -155,6 +157,7 @@ public final class Model {
         public static final int ICE_SPELLBOOK = 1_005_003;
         public static final int ROYAL_SCEPTER = 1_005_004;
         public static final int VALENTINE_STAFF = 1_005_005;
+        public static final int AARGH_VACCUUM = 1_005_006;
     }
 
     public static class Ui {
