@@ -82,6 +82,7 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     NINJATO(Ninjato::new),
     VALENTINE_SWORD(HeartfeltSword::new),
     VALENTINE_PICKAXE(HeartfeltPickaxe::new),
+    // nickelodeon
     SPONGEBOB_SPATULA(SpongebobSpatula::new);
 
     private final Supplier<ItemCosmetic> supplier;

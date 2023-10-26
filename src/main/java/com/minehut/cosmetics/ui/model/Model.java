@@ -68,6 +68,7 @@ public final class Model {
         public static final int ARCADE_BACKPACK = 1_003_009;
         public static final int VALENTINE_WINGS = 1_003_010;
         public static final int TURTLE_SHELL = 1_003_011;
+        public static final int ATOMIC_JETPACK = 1_003_012;
     }
 
     public static class Balloon {
@@ -158,6 +159,8 @@ public final class Model {
         public static final int ROYAL_SCEPTER = 1_005_004;
         public static final int VALENTINE_STAFF = 1_005_005;
         public static final int AARGH_VACCUUM = 1_005_006;
+        public static final int CLARINET = 1_005_007;
+        public static final int PIZZA = 1_005_008;
     }
 
     public static class Ui {

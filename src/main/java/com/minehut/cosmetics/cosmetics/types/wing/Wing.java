@@ -13,6 +13,7 @@ import com.minehut.cosmetics.cosmetics.collections.halloween2022.Halloween22Scyt
 import com.minehut.cosmetics.cosmetics.collections.jan2023.ArcadeBackpack;
 import com.minehut.cosmetics.cosmetics.collections.maid.BlackMaidBow;
 import com.minehut.cosmetics.cosmetics.collections.maid.WhiteMaidBow;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.AtomicJetpack;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.TurtleShell;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltWings;
 
@@ -32,7 +33,9 @@ public enum Wing implements CosmeticSupplier<WingCosmetic> {
     ARCADE(ArcadeWings::new),
     ARCADE_BACKPACK(ArcadeBackpack::new),
     VALENTINE_WINGS(HeartfeltWings::new),
-    TURTLE_SHELL(TurtleShell::new)
+    // nickelodeon
+    TURTLE_SHELL(TurtleShell::new),
+    ATOMIC_JETPACK(AtomicJetpack::new)
     ;
 
     private final Supplier<WingCosmetic> supplier;
