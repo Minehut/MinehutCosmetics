@@ -28,6 +28,8 @@ public enum Collection {
     NICK_ARCHERY_SEASON_1(Component.text("Earned from Nickelodeon Slime Blast 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
         List.of(Component.text("Season 1 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
     NICK_GOLF_SEASON_1(Component.text("Earned from Nickelodeon Golf 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 1 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
+    NICK_ESCAPE_SEASON_1(Component.text("Earned from Nickelodeon Escape 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
         List.of(Component.text("Season 1 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)));
 
     private final Component tag;
