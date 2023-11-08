@@ -53,7 +53,10 @@ public final class Model {
         public static final int VALENTINE_SUNGLASSES = 1_001_016;
         public static final int VALENTINE_HEADBAND = 1_001_017;
         public static final int ARRGH_HELMET = 1_001_021;
-
+        public static final int BANDANA_DONATELLO = 1_001_022;
+        public static final int BANDANA_LEONARDO = 1_001_023;
+        public static final int BANDANA_MICHELANGELO = 1_001_024;
+        public static final int BANDANA_RAPHAEL = 1_001_025;
     }
 
     public static class Wing {
@@ -80,7 +83,7 @@ public final class Model {
         public static final int JELLYFISH = 1_004_006;
         public static final int DIAPER = 1_004_007;
         public static final int FLYING_DUTCHMAN = 1_004_008;
-
+        public static final int LOUD_HOUSE = 1_004_009;
 
     }
 
@@ -161,6 +164,7 @@ public final class Model {
         public static final int AARGH_VACCUUM = 1_005_006;
         public static final int CLARINET = 1_005_007;
         public static final int PIZZA = 1_005_008;
+        public static final int MAGIC_CONCH = 1_005_009;
     }
 
     public static class Ui {
