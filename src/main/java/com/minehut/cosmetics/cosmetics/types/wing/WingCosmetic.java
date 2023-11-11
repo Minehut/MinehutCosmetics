@@ -116,17 +116,11 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
 
 
             wings().ifPresent(wing -> {
-                if (Version.V_1_20.isSupported()) {
-                    wing.setRotation(player.getBodyYaw(), 0);
-                    Bukkit.getLogger().info("using body yaw");
-                } else {
-                    final float rawAngle = player.getEyeLocation().getYaw();
-                    if (Math.abs(lastAngle - (rawAngle + 180)) >= 10) {
-                        wings.setRotation(player.getEyeLocation().getYaw(), 0);
-                        lastAngle = rawAngle + 180;
-                    }
+                final float rawAngle = player.getEyeLocation().getYaw();
+                if (Math.abs(lastAngle - (rawAngle + 180)) >= 10) {
+                    wings.setRotation(player.getEyeLocation().getYaw(), 0);
+                    lastAngle = rawAngle + 180;
                 }
-
             });
         });
     }
