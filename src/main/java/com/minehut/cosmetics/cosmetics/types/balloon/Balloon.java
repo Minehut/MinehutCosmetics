@@ -8,6 +8,7 @@ import com.minehut.cosmetics.cosmetics.collections.jan2023.ArcadeFighterBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.DiaperBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.FlyingDutchmanBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.JellyfishBalloon;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.LoudHouseBalloon;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltBalloon;
 
 import java.util.function.Supplier;
@@ -21,7 +22,7 @@ public enum Balloon implements CosmeticSupplier<BalloonCosmetic> {
     JELLYFISH(JellyfishBalloon::new),
     FLYING_DUTCHMAN(FlyingDutchmanBalloon::new),
     DIAPER(DiaperBalloon::new),
-
+    LOUD_HOUSE(LoudHouseBalloon::new),
     ;
     private final Supplier<BalloonCosmetic> supplier;
 
