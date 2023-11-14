@@ -34,7 +34,15 @@ public enum Collection {
     NICK_ARCHERY_SEASON_2(Component.text("Earned from Nickelodeon Slime Blast 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
         List.of(Component.text("Season 2 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
     NICK_GOLF_SEASON_2(Component.text("Earned from Nickelodeon Golf 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
-        List.of(Component.text("Season 2 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)));
+        List.of(Component.text("Season 2 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
+    NICK_ESCAPE_SEASON_2(Component.text("Earned from Nickelodeon Escape 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 2 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
+    NICK_ARCHERY_SEASON_3(Component.text("Earned from Nickelodeon Slime Blast 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 3 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
+    NICK_GOLF_SEASON_3(Component.text("Earned from Nickelodeon Golf 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 3 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))),
+    NICK_ESCAPE_SEASON_3(Component.text("Earned from Nickelodeon Escape 2023", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+        List.of(Component.text("Season 3 Reward", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)));
 
     private final Component tag;
     private final List<Component> lore;

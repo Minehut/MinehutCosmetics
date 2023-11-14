@@ -29,7 +29,9 @@ import com.minehut.cosmetics.cosmetics.collections.jan2023.EightBitSword;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.Kunai;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.Ninjato;
 import com.minehut.cosmetics.cosmetics.collections.maid.MaidDuster;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.Bo;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.SpongebobSpatula;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.TwinSai;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltPickaxe;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltSword;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceAxe;
@@ -83,7 +85,10 @@ public enum Item implements CosmeticSupplier<ItemCosmetic> {
     VALENTINE_SWORD(HeartfeltSword::new),
     VALENTINE_PICKAXE(HeartfeltPickaxe::new),
     // nickelodeon
-    SPONGEBOB_SPATULA(SpongebobSpatula::new);
+    SPONGEBOB_SPATULA(SpongebobSpatula::new),
+    TWIN_SAI(TwinSai::new),
+    BO(Bo::new),
+    NINJA_KATANA(com.minehut.cosmetics.cosmetics.collections.nickelodeon.Katana::new);
 
     private final Supplier<ItemCosmetic> supplier;
 

@@ -16,6 +16,8 @@ import com.minehut.cosmetics.cosmetics.collections.general.RedRobinCompanion;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.GhostCompanion;
 import com.minehut.cosmetics.cosmetics.collections.netflix2022.WendellAndWildCompanion;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.AppaCompanion;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.GaryCompanion;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.MuscleFishCompanion;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.ReptarCompanion;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltCompanion;
 import com.minehut.cosmetics.cosmetics.collections.winter2023.ArcticFoxCompanion;
@@ -43,7 +45,9 @@ public enum Companion implements CosmeticSupplier<FollowerCosmetic> {
     VALENTINE_PET(HeartfeltCompanion::new),
     CHEESE_HORSE(CheeseHorseCompanion::new),
     APPA(AppaCompanion::new),
-    REPTAR(ReptarCompanion::new)
+    REPTAR(ReptarCompanion::new),
+    GARY(GaryCompanion::new),
+    MUSCLE_FISH(MuscleFishCompanion::new)
     ;
 
     private final Supplier<FollowerCosmetic> supplier;

@@ -6,8 +6,12 @@ import com.minehut.cosmetics.cosmetics.collections.feb2023.RoyalScepter;
 import com.minehut.cosmetics.cosmetics.collections.netflix2022.SpooktacularBoombox;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.AARGHVacuumTrinket;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.Clarinet;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.DavidSteeleDartBlaster;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.JellyfishNet;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.MagicConchTrinket;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.Nunchaku;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.Pizza;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.SlimeBlaster;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltStaff;
 import com.minehut.cosmetics.cosmetics.collections.winter2022.IceScepterTrinket;
 import com.minehut.cosmetics.cosmetics.collections.winter2023.IceSpellbookTrinket;
@@ -27,7 +31,11 @@ public enum Trinket implements CosmeticSupplier<TrinketCosmetic> {
 
     PIZZA(Pizza::new),
 
-    MAGIC_CONCH(MagicConchTrinket::new);
+    MAGIC_CONCH(MagicConchTrinket::new),
+    JELLYFISH_NET(JellyfishNet::new),
+    SLIME_BLASTER(SlimeBlaster::new),
+    NUNCHAKU(Nunchaku::new),
+    DAVID_STEELE_DART_BLASTER(DavidSteeleDartBlaster::new);
 
     private final Supplier<TrinketCosmetic> supplier;
 

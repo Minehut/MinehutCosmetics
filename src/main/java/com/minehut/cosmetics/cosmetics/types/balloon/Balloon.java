@@ -5,6 +5,7 @@ import com.minehut.cosmetics.cosmetics.collections.dragoncrate.PaperDragonBalloo
 import com.minehut.cosmetics.cosmetics.collections.dragoncrate.PaperLanternBalloon;
 import com.minehut.cosmetics.cosmetics.collections.halloween2022.JackOLanternBalloon;
 import com.minehut.cosmetics.cosmetics.collections.jan2023.ArcadeFighterBalloon;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.AirballBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.DiaperBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.FlyingDutchmanBalloon;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.JellyfishBalloon;
@@ -23,6 +24,7 @@ public enum Balloon implements CosmeticSupplier<BalloonCosmetic> {
     FLYING_DUTCHMAN(FlyingDutchmanBalloon::new),
     DIAPER(DiaperBalloon::new),
     LOUD_HOUSE(LoudHouseBalloon::new),
+    AIRBALL(AirballBalloon::new),
     ;
     private final Supplier<BalloonCosmetic> supplier;
 

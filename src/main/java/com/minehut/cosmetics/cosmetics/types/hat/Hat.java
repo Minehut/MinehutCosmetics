@@ -22,6 +22,9 @@ import com.minehut.cosmetics.cosmetics.collections.nickelodeon.BandanaDonatello;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.BandanaLeonardo;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.BandanaMichelangelo;
 import com.minehut.cosmetics.cosmetics.collections.nickelodeon.BandanaRaphael;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.EarthKingdomHat;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.KrustyKrabHat;
+import com.minehut.cosmetics.cosmetics.collections.nickelodeon.SandyAirHelmet;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltHeadband;
 import com.minehut.cosmetics.cosmetics.collections.valentines2023.HeartfeltSunglasses;
 
@@ -51,7 +54,10 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     BANDANA_DONATELLO(BandanaDonatello::new),
     BANDANA_LEONARDO(BandanaLeonardo::new),
     BANDANA_MICHELANGELO(BandanaMichelangelo::new),
-    BANDANA_RAPHAEL(BandanaRaphael::new);
+    BANDANA_RAPHAEL(BandanaRaphael::new),
+    KRUSTY_KRAB(KrustyKrabHat::new),
+    AIR_HELMET(SandyAirHelmet::new),
+    EARTH_KINGDOM(EarthKingdomHat::new);
     private final Supplier<HatCosmetic> supplier;
 
     /**
