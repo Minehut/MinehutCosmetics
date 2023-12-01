@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class EarthKingdomHat extends HatCosmetic {
 
     public EarthKingdomHat() {
-        super(Hat.EARTH_KINGDOM.name());
+        super(Hat.EARTH_KINGDOM_HAT.name());
     }
 
     @Override

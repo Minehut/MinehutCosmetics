@@ -57,7 +57,7 @@ public enum Hat implements CosmeticSupplier<HatCosmetic> {
     BANDANA_RAPHAEL(BandanaRaphael::new),
     KRUSTY_KRAB(KrustyKrabHat::new),
     AIR_HELMET(SandyAirHelmet::new),
-    EARTH_KINGDOM(EarthKingdomHat::new);
+    EARTH_KINGDOM_HAT(EarthKingdomHat::new);
     private final Supplier<HatCosmetic> supplier;
 
     /**

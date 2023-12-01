@@ -133,7 +133,7 @@ public class Bindings {
             Hat.ARRGH_HELMET,
             Hat.KRUSTY_KRAB,
             Hat.AIR_HELMET,
-            Hat.EARTH_KINGDOM
+            Hat.EARTH_KINGDOM_HAT
         ));
 
     public static MaterialBinding SHIELD = new MaterialBinding()
