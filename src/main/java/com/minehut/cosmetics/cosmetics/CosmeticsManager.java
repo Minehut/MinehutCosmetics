@@ -137,6 +137,25 @@ public class CosmeticsManager {
         }
     }
 
+    public void removeAllCosmetics(UUID uuid, boolean updateMeta) {
+        for (CosmeticSlot slot : CosmeticSlot.values()) {
+            // remove the cosmetic
+            getEquippedCosmetic(uuid, slot).ifPresent((cosmetic) -> {
+                if (cosmetic instanceof Equippable equippable) {
+                    equippable.unequip();
+                }
+            });
+
+            // remove the cosmetic from that players map
+            getEquippedMap(uuid).remove(slot);
+
+            if (updateMeta) {
+                sendEquipmentUpdate(uuid, slot, "EMPTY");
+                Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
+            }
+        }
+    }
+
 
     /**
      * Updates this users equipment meta

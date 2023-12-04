@@ -17,6 +17,7 @@ import com.minehut.cosmetics.cosmetics.ui.impl.crates.CrateMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.GemShopMenu;
 import com.minehut.cosmetics.cosmetics.ui.impl.crates.SalvageMenu;
 import com.minehut.cosmetics.ui.Menu;
+import com.minehut.cosmetics.ui.icon.MenuItem;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
 import com.minehut.cosmetics.util.messaging.Message;
@@ -125,6 +126,15 @@ public class CosmeticMenu extends Menu {
             getProxy().setItem(2, ItemIcon.GEM_SHOP_ICON.get(), (player, ignored) -> GemShopMenu.open(player));
             getProxy().setItem(3, ItemIcon.SALVAGE_ICON.get(), (player, ignored) -> SalvageMenu.open(player));
         }
+
+        getProxy().setItem(7, MenuItem.of(
+                ItemBuilder.of(Material.BARRIER)
+                        .display(Component.text("Unequip All", NamedTextColor.RED)
+                                .decoration(TextDecoration.ITALIC, false))
+                        .build(),
+                (player, ignored) -> {
+                    Cosmetics.get().manager().removeAllCosmetics(player.getUniqueId(), true);
+                }));
 
         //Filler
         for (int i = 9; i <= 17; i++) {
