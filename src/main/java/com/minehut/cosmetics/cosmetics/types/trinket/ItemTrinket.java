@@ -3,14 +3,13 @@ package com.minehut.cosmetics.cosmetics.types.trinket;
 import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.config.Mode;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
-import com.minehut.cosmetics.cosmetics.properties.Equippable;
 import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.util.CosmeticUtil;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
 
-public abstract class ItemTrinket extends TrinketCosmetic implements Equippable, SlotHandler {
+public abstract class ItemTrinket extends TrinketCosmetic implements SlotHandler {
     private CosmeticSlot slot = null;
 
     public ItemTrinket(String name) {
@@ -32,6 +31,9 @@ public abstract class ItemTrinket extends TrinketCosmetic implements Equippable,
                             player.getInventory().setItem(6, item);
                         }
                         case OFF_HAND -> player.getInventory().setItemInOffHand(item);
+                        default -> {
+                            // ignored
+                        }
                     }
                 }
                 case PLAYER_SERVER -> player.getInventory().addItem(item);
@@ -47,6 +49,9 @@ public abstract class ItemTrinket extends TrinketCosmetic implements Equippable,
                 switch (slot) {
                     case MAIN_HAND -> player.getInventory().setItem(6, null);
                     case OFF_HAND -> player.getInventory().setItemInOffHand(null);
+                    default -> {
+                        // ignored
+                    }
                 }
             }
         }));

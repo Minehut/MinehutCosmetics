@@ -8,10 +8,11 @@ import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
-import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
+import com.minehut.cosmetics.model.request.EquipmentUpdateRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
+
 import kong.unirest.GenericType;
 import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequestWithBody;
@@ -50,7 +51,6 @@ public abstract class NetworkApi {
                 }
             }
 
-
             @Override
             public String writeValue(Object value) {
                 try {
@@ -62,20 +62,19 @@ public abstract class NetworkApi {
         });
     }
 
-    public abstract CompletableFuture<HttpResponse<PackInfo>> getPackInfo();
-
     public abstract CompletableFuture<HttpResponse<CosmeticProfileResponse>> getProfile(UUID uuid);
 
-    public abstract CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req);
-
-    public abstract CompletableFuture<HttpResponse<PlayerRank[]>> getRanks();
-
+    public abstract CompletableFuture<HttpResponse<SimpleResponse>> updateEquipment(EquipmentUpdateRequest request);
 
     public abstract CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req);
 
     public abstract CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req);
 
     public abstract CompletableFuture<HttpResponse<Void>> salvageCosmetic(SalvageCosmeticRequest req);
+
+    public abstract CompletableFuture<HttpResponse<PlayerRank[]>> getRanks();
+
+    public abstract CompletableFuture<HttpResponse<PackInfo>> getPackInfo();
 
     protected HttpRequestWithBody request(HttpMethod method, String endpoint) {
 

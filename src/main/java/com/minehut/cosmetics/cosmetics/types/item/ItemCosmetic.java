@@ -23,7 +23,9 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
 
     @Override
     public void equip() {
-        if (equipped) return;
+        if (equipped) {
+            return;
+        }
         equipped = true;
         player().ifPresent(player -> slot().ifPresent(slot -> {
 
@@ -32,19 +34,28 @@ public abstract class ItemCosmetic extends Cosmetic implements Equippable, Skinn
                     player.getInventory().setItem(6, item());
                 }
                 case OFF_HAND -> player.getInventory().setItemInOffHand(item());
+                default -> {
+                    // ignored
+                }
             }
         }));
     }
 
     @Override
     public void unequip() {
-        if (!equipped) return;
+        if (!equipped) {
+            return;
+        }
+
         equipped = false;
 
         player().ifPresent(player -> slot().ifPresent(slot -> {
             switch (slot) {
                 case MAIN_HAND -> player.getInventory().setItem(6, null);
                 case OFF_HAND -> player.getInventory().setItemInOffHand(null);
+                default -> {
+                    // ignored
+                }
             }
         }));
     }

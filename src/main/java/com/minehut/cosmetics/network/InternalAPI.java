@@ -6,7 +6,7 @@ import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
-import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
+import com.minehut.cosmetics.model.request.EquipmentUpdateRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
@@ -37,9 +37,9 @@ public class InternalAPI extends NetworkApi {
     }
 
     @Override
-    public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req) {
-        return postJSON("/v1/cosmetics/equip")
-                .body(req)
+    public CompletableFuture<HttpResponse<SimpleResponse>> updateEquipment(EquipmentUpdateRequest request) {
+        return postJSON("/v2/cosmetics/update")
+                .body(request)
                 .asObjectAsync(SimpleResponse.class);
     }
 

@@ -23,7 +23,8 @@ import java.util.Set;
 
 public abstract class WingCosmetic extends Cosmetic implements Equippable, Tickable {
 
-    private static final Set<Pose> blacklisted = Set.of(Pose.SWIMMING, Pose.SLEEPING, Pose.DYING, Pose.FALL_FLYING, Pose.SPIN_ATTACK);
+    private static final Set<Pose> blacklisted = Set.of(Pose.SWIMMING, Pose.SLEEPING, Pose.DYING, Pose.FALL_FLYING,
+            Pose.SPIN_ATTACK);
     private ArmorStand wings;
     private Entity base;
 
@@ -36,18 +37,21 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
 
     @Override
     public void equip() {
-        if (equipped) return;
+        if (equipped) {
+            return;
+        }
         equipped = true;
         show();
     }
 
     @Override
     public void unequip() {
-        if (!equipped) return;
+        if (!equipped) {
+            return;
+        }
         equipped = false;
         hide();
     }
-
 
     /**
      * Get the item to be used for the wings
@@ -59,14 +63,16 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
     }
 
     public void hide() {
-        if (hidden) return;
+        if (hidden)
+            return;
         hidden = true;
         wings().ifPresent(Entity::remove);
         base().ifPresent(Entity::remove);
     }
 
     public void show() {
-        if (!hidden) return;
+        if (!hidden)
+            return;
         hidden = false;
 
         player().ifPresent(player -> {
@@ -91,12 +97,13 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
         });
     }
 
-
     float lastAngle = 0;
 
     @Override
     public void tick() {
-        if (!equipped) return;
+        if (!equipped) {
+            return;
+        }
 
         player().ifPresent(player -> {
 
@@ -112,7 +119,6 @@ public abstract class WingCosmetic extends Cosmetic implements Equippable, Ticka
                 show();
                 player.sendActionBar(Component.text("Your wings have been un-hidden").color(NamedTextColor.GRAY));
             }
-
 
             wings().ifPresent(wing -> {
                 final float rawAngle = player.getEyeLocation().getYaw();

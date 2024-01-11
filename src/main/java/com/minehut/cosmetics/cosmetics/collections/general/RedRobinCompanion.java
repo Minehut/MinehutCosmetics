@@ -4,7 +4,6 @@ package com.minehut.cosmetics.cosmetics.collections.general;
 import com.minehut.cosmetics.cosmetics.Collection;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.Animation;
-import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.cosmetics.types.companion.CompanionCosmetic;
 import com.minehut.cosmetics.ui.model.Model;
 import com.minehut.cosmetics.util.ItemBuilder;
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class RedRobinCompanion extends CompanionCosmetic implements Tickable {
+public class RedRobinCompanion extends CompanionCosmetic {
     public RedRobinCompanion() {
         super(
                 com.minehut.cosmetics.cosmetics.types.companion.Companion.RED_ROBIN.name(),

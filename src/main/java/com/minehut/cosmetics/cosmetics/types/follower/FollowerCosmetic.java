@@ -21,16 +21,14 @@ import java.util.function.Function;
 public abstract class FollowerCosmetic extends Cosmetic implements Equippable, Tickable {
     protected List<UUID> entityUUIDs;
 
-
     protected boolean equipped = false;
 
     private final Vector offset;
 
     protected FollowerCosmetic(
-        String id,
-        CosmeticCategory category,
-        Vector offset
-    ) {
+            String id,
+            CosmeticCategory category,
+            Vector offset) {
         super(id, category);
         this.offset = offset;
         entityUUIDs = new ArrayList<>();
@@ -38,7 +36,10 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
 
     @Override
     public void equip() {
-        if (equipped) return;
+        if (equipped) {
+            return;
+        }
+
         equipped = true;
         // we need the player to spawn the entity
         player().ifPresent(player -> {
@@ -58,7 +59,10 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
 
     @Override
     public void unequip() {
-        if (!equipped) return;
+        if (!equipped) {
+            return;
+        }
+
         equipped = false;
         entities().forEach(Entity::remove);
     }
@@ -89,21 +93,23 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
                 equip();
             }
 
-            //Move away from each other
+            // Move away from each other
             for (Entity otherEntity : entities()) {
                 if (entity.equals(otherEntity)) {
                     continue;
                 }
 
-                //Rarely they can get stacked on top of each other, this adds some random velocity to move them away from each other
-                if (entity.getLocation().getX() == otherEntity.getLocation().getX() && entity.getLocation().getZ() == otherEntity.getLocation().getZ()) {
+                // Rarely they can get stacked on top of each other, this adds some random
+                // velocity to move them away from each other
+                if (entity.getLocation().getX() == otherEntity.getLocation().getX()
+                        && entity.getLocation().getZ() == otherEntity.getLocation().getZ()) {
                     final Vector random = new Vector(Math.random() - 0.5, 0, Math.random() - 0.5);
                     entity.setVelocity(entity.getVelocity().add(random));
                 }
 
                 double speed = getMoveAwaySpeed(entity.getLocation().distanceSquared(otherEntity.getLocation()));
 
-                //Negative speed to move away
+                // Negative speed to move away
                 entity.setVelocity(entity.getVelocity().add(moveAway(entity, otherEntity.getLocation(), speed)));
             }
         }), this::unequip);
@@ -113,14 +119,16 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
         final List<Entity> entities = new ArrayList<>(entityUUIDs.size());
         for (final UUID uuid : entityUUIDs) {
             final Entity entity = Bukkit.getEntity(uuid);
-            if (entity == null) continue;
+            if (entity == null)
+                continue;
             entities.add(entity);
         }
         return entities;
     }
 
     @SuppressWarnings("SameParameterValue")
-    private Vector moveTowards(final Entity entity, final Location target, final double speed, final double followDistance) {
+    private Vector moveTowards(final Entity entity, final Location target, final double speed,
+            final double followDistance) {
         final Location location = entity.getLocation().clone();
         final Vector movement = target.toVector().add(offset).subtract(location.toVector()).normalize().multiply(speed);
         final double distance = entity.getLocation().distance(target);
@@ -137,7 +145,8 @@ public abstract class FollowerCosmetic extends Cosmetic implements Equippable, T
     /**
      * Takes distance of two entities squared and outputs a speed with this formula:
      * y = -0.0625x + 0.25
-     * This locks the output speed (y) between 0.25 (the max move towards player speed) and 0,
+     * This locks the output speed (y) between 0.25 (the max move towards player
+     * speed) and 0,
      * between the distance (x) ranges of 0 and 4.
      * <p>
      * <a href="https://www.desmos.com/calculator/hrkyyewmzc">Calculator</a>

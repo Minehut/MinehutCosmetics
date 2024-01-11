@@ -13,10 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class LocalProfileListener implements Listener {
 
-    private final Cosmetics cosmetics;
-
     public LocalProfileListener(Cosmetics cosmetics) {
-        this.cosmetics = cosmetics;
     }
 
     /**
@@ -25,7 +22,6 @@ public class LocalProfileListener implements Listener {
      * @param event join event
      */
     public void onJoin(PlayerJoinEvent event) {
-
     }
 
     /**

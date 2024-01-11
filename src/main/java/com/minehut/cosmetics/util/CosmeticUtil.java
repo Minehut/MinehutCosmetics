@@ -16,7 +16,8 @@ import java.util.Optional;
 public class CosmeticUtil {
 
     public static void copyAttributes(@Nullable ItemStack fromItem, @Nullable ItemStack toItem) {
-        if (fromItem == null || toItem == null) return;
+        if (fromItem == null || toItem == null)
+            return;
 
         // copy any attributes from the item type
         for (final EquipmentSlot slot : EquipmentSlot.values()) {
@@ -26,16 +27,16 @@ public class CosmeticUtil {
                 meta.setAttributeModifiers(attrs);
             }));
 
-
-            fromItem.getItemMeta().getAttributeModifiers(slot).forEach((attribute, modifier) -> toItem.editMeta(meta -> {
-                var attrs = meta.getAttributeModifiers(slot);
-                attrs.put(attribute, modifier);
-                meta.setAttributeModifiers(attrs);
-            }));
+            fromItem.getItemMeta().getAttributeModifiers(slot)
+                    .forEach((attribute, modifier) -> toItem.editMeta(meta -> {
+                        var attrs = meta.getAttributeModifiers(slot);
+                        attrs.put(attribute, modifier);
+                        meta.setAttributeModifiers(attrs);
+                    }));
         }
 
         // copy enchants
-        fromItem.getEnchantments().forEach(toItem::addUnsafeEnchantment);
+        fromItem.getEnchantments().forEach((ench, level) -> toItem.addEnchantment(ench, level));
     }
 
     /**
@@ -58,7 +59,8 @@ public class CosmeticUtil {
             final Material base = item.getType();
 
             if (!meta.hasDisplayName()) {
-                meta.displayName(Component.translatable(base.translationKey()).decoration(TextDecoration.ITALIC, false));
+                meta.displayName(
+                        Component.translatable(base.translationKey()).decoration(TextDecoration.ITALIC, false));
             }
         });
 
@@ -73,26 +75,23 @@ public class CosmeticUtil {
     }
 
     public static boolean isSkinned(@Nullable ItemStack item) {
-        if (item == null) return false;
+        if (item == null)
+            return false;
         return Key.SKINNED.read(item.getItemMeta()).isPresent();
     }
 
     public static Optional<Cosmetic> readCosmetic(@Nullable ItemStack stack) {
-        if (stack == null) return Optional.empty();
-        return Key.COSMETIC_CATEGORY.read(stack.getItemMeta()).flatMap(category ->
-                Key.COSMETIC_ID.read(stack.getItemMeta()).flatMap(id ->
-                        Cosmetic.fromCategoryId(category, id)
-                )
-        );
+        if (stack == null)
+            return Optional.empty();
+        return Key.COSMETIC_CATEGORY.read(stack.getItemMeta()).flatMap(category -> Key.COSMETIC_ID
+                .read(stack.getItemMeta()).flatMap(id -> Cosmetic.fromCategoryId(category, id)));
     }
 
     public static Optional<Cosmetic> readCosmetic(@Nullable PersistentDataHolder holder) {
-        if (holder == null) return Optional.empty();
-        return Key.COSMETIC_CATEGORY.read(holder).flatMap(category ->
-                Key.COSMETIC_ID.read(holder).flatMap(id ->
-                        Cosmetic.fromCategoryId(category, id)
-                )
-        );
+        if (holder == null)
+            return Optional.empty();
+        return Key.COSMETIC_CATEGORY.read(holder)
+                .flatMap(category -> Key.COSMETIC_ID.read(holder).flatMap(id -> Cosmetic.fromCategoryId(category, id)));
     }
 
     public static void writeCosmeticKeys(@NotNull PersistentDataHolder holder, @NotNull Cosmetic cosmetic) {

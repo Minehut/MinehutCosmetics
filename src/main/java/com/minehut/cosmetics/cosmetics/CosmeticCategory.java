@@ -14,7 +14,6 @@ import com.minehut.cosmetics.util.EnumUtil;
 import java.util.Optional;
 import java.util.function.Function;
 
-// TODO Convert class to static stuff
 public enum CosmeticCategory {
     PARTICLE("Particles", query -> EnumUtil.valueOfSafe(Particle.class, query).map(Particle::get), true),
     HAT("Hats", query -> EnumUtil.valueOfSafe(Hat.class, query).map(Hat::get), false),

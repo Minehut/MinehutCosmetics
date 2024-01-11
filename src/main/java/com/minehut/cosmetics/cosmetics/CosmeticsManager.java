@@ -13,10 +13,13 @@ import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
-import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
+import com.minehut.cosmetics.model.request.CosmeticState;
+import com.minehut.cosmetics.model.request.EquipmentUpdateRequest;
 import com.minehut.cosmetics.util.EnumUtil;
 import com.minehut.cosmetics.util.messaging.Message;
 import kong.unirest.HttpResponse;
+import net.kyori.adventure.text.Component;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -34,8 +37,8 @@ public class CosmeticsManager {
      * Cache for retrieving player cosmetic profiles
      */
     private final Cache<UUID, CosmeticProfileResponse> cache = CacheBuilder.newBuilder()
-        .expireAfterWrite(3, TimeUnit.SECONDS)
-        .build();
+            .expireAfterWrite(3, TimeUnit.SECONDS)
+            .build();
 
     /**
      * Map of active cosmetics for each user
@@ -47,12 +50,13 @@ public class CosmeticsManager {
     public CosmeticsManager(Cosmetics cosmetics) {
         this.cosmetics = cosmetics;
         Bukkit.getScheduler().runTaskTimer(cosmetics, () -> cosmeticsCache.values()
-            .forEach((userCosmetics) -> userCosmetics.values()
-                .forEach((cosmetic) -> {
-                    if (!(cosmetic instanceof Tickable tickable)) return;
-                    tickable.tick();
-                })
-            ), 0, 1);
+                .forEach((userCosmetics) -> userCosmetics.values()
+                        .forEach((cosmetic) -> {
+                            if (!(cosmetic instanceof Tickable tickable))
+                                return;
+                            tickable.tick();
+                        })),
+                0, 1);
         bindings.registerBinding(Bindings.ALL);
     }
 
@@ -82,14 +86,16 @@ public class CosmeticsManager {
     }
 
     /**
-     * Set cosmetic for the given user and updates their profile, assumes the cosmetic type
+     * Set cosmetic for the given user and updates their profile, assumes the
+     * cosmetic type
      * based on the cosmetic passed, does not allow null cosmetics
      *
      * @param uuid       of the user
      * @param cosmetic   to apply
      * @param updateMeta whether to update metadata with this decision
      */
-    public void setCosmetic(@NotNull final UUID uuid, @NotNull CosmeticSlot slot, @NotNull final Cosmetic cosmetic, boolean updateMeta) {
+    public void setCosmetic(@NotNull final UUID uuid, @NotNull CosmeticSlot slot, @NotNull final Cosmetic cosmetic,
+            boolean updateMeta) {
         // remove the existing cosmetic
         removeCosmetic(uuid, slot, false);
 
@@ -106,10 +112,10 @@ public class CosmeticsManager {
         }
 
         getEquippedMap(uuid).put(slot, cosmetic);
+        new CosmeticEquipEvent(uuid, slot, cosmetic).callEvent();
 
         if (updateMeta) {
-            sendEquipmentUpdate(uuid, slot, cosmetic.getQualifiedId());
-            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, cosmetic));
+            updateEquipment(uuid);
         }
     }
 
@@ -118,7 +124,8 @@ public class CosmeticsManager {
      *
      * @param uuid       of the player to remove cosmetics for
      * @param slot       of the cosmetic to remove
-     * @param updateMeta whether to update the players meta for this removal, defaults to true
+     * @param updateMeta whether to update the players meta for this removal,
+     *                   defaults to true
      */
     public void removeCosmetic(UUID uuid, CosmeticSlot slot, boolean updateMeta) {
         // remove the cosmetic
@@ -129,11 +136,16 @@ public class CosmeticsManager {
         });
 
         // remove the cosmetic from that players map
-        getEquippedMap(uuid).remove(slot);
+        Map<CosmeticSlot, Cosmetic> map = getEquippedMap(uuid);
+        if (map == null) {
+            return;
+        }
+
+        map.remove(slot);
+        Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
 
         if (updateMeta) {
-            sendEquipmentUpdate(uuid, slot, "EMPTY");
-            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
+            updateEquipment(uuid);
         }
     }
 
@@ -148,35 +160,45 @@ public class CosmeticsManager {
 
             // remove the cosmetic from that players map
             getEquippedMap(uuid).remove(slot);
+            new CosmeticEquipEvent(uuid, slot, null).callEvent();
+        }
 
-            if (updateMeta) {
-                sendEquipmentUpdate(uuid, slot, "EMPTY");
-                Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
-            }
+        if (updateMeta) {
+            updateEquipment(uuid);
         }
     }
 
-
     /**
-     * Updates this users equipment meta
-     *
-     * @param uuid of the user to update data for
-     * @param slot that this cosmetic occupies
-     * @param id   of the cosmetic in COSMETIC:CATEGORY format
+     * Update equipment for the player and send message to player based on response
+     * 
+     * @param request
      */
-    private void sendEquipmentUpdate(UUID uuid, CosmeticSlot slot, String id) {
-        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
-            final HttpResponse<SimpleResponse> res = cosmetics.networkApi().equipCosmetic(new EquipCosmeticRequest(uuid, slot.name(), id)).join();
-            if (res == null) return;
-            final Player player = Bukkit.getPlayer(uuid);
-            if (player == null) return;
+    private void updateEquipment(UUID uuid) {
+        Map<CosmeticSlot, Cosmetic> map = getEquippedMap(uuid);
+        if (map == null) {
+            return;
+        }
 
-            switch (res.getStatus()) {
-                case 200 -> player.sendMessage(Message.info("Equipped cosmetic!"));
-                case 429 -> player.sendMessage(Message.error("Please wait a moment and try again..."));
-                default ->
-                    player.sendMessage(Message.error("An unknown error occured while trying to equip your cosmetic..."));
+        EquipmentUpdateRequest request = new EquipmentUpdateRequest(uuid, CosmeticState.fromMap(map));
+        Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
+            final HttpResponse<SimpleResponse> res = cosmetics.networkApi()
+                    .updateEquipment(request)
+                    .join();
+            if (res == null) {
+                return;
             }
+
+            final Player player = Bukkit.getPlayer(request.getUuid());
+            if (player != null) {
+                Component message = switch (res.getStatus()) {
+                    case 200 -> Message.info("Updated equipment.");
+                    case 429 -> Message.error("Please wait a moment and try again...");
+                    default -> Message.error("Failed to update equipment");
+                };
+
+                player.sendActionBar(message);
+            }
+
         });
     }
 
@@ -196,17 +218,20 @@ public class CosmeticsManager {
                 case PLAYER_SERVER -> Optional.of(cosmetics.localStorage().loadProfile(uuid).join().getEquipped());
             };
 
-            Bukkit.getScheduler().runTask(cosmetics, () -> equipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
-                // grab the slot this cosmetic belongs to
-                EnumUtil.valueOfSafe(CosmeticSlot.class, slotName).ifPresent(slot -> {
-                    // grab the cosmetic from its id
-                    Cosmetic.fromQualifiedId(qualifiedId).ifPresent(cosmetic -> {
-                        // this is here for legacy cosmetic profiles, probably want to invalidate those at some point
-                        if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal()) return;
-                        setCosmetic(uuid, slot, cosmetic, false);
-                    });
-                });
-            })));
+            Bukkit.getScheduler().runTask(cosmetics,
+                    () -> equipped.ifPresent(equipMap -> equipMap.forEach((slotName, qualifiedId) -> {
+                        // grab the slot this cosmetic belongs to
+                        EnumUtil.valueOfSafe(CosmeticSlot.class, slotName).ifPresent(slot -> {
+                            // grab the cosmetic from its id
+                            Cosmetic.fromQualifiedId(qualifiedId).ifPresent(cosmetic -> {
+                                // this is here for legacy cosmetic profiles, probably want to invalidate those
+                                // at some point
+                                if (Mode.PLAYER_SERVER == mode && !cosmetic.category().isSaveLocal())
+                                    return;
+                                setCosmetic(uuid, slot, cosmetic, false);
+                            });
+                        });
+                    })));
         });
     }
 
@@ -247,10 +272,6 @@ public class CosmeticsManager {
 
             equippable.unequip();
         });
-    }
-
-    public void unequip(UUID uuid, CosmeticSlot slot) {
-
     }
 
     /**
