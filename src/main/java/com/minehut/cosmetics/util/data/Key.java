@@ -35,7 +35,7 @@ public class Key {
 
         // durability management
         DURABILITY = new DataKey<>(new NamespacedKey(plugin, "DURABILITY"), PersistentDataType.INTEGER);
-        MAX_DURABILITY = new DataKey(new NamespacedKey(plugin, "MAX_DURABILITY"), PersistentDataType.INTEGER);
+        MAX_DURABILITY = new DataKey<>(new NamespacedKey(plugin, "MAX_DURABILITY"), PersistentDataType.INTEGER);
 
         // entity keys
         LEASHED = new DataKey<>(new NamespacedKey(plugin, "LEASHED"), PersistentDataType.STRING);

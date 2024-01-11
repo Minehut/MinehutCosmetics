@@ -5,7 +5,6 @@ import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
-import com.minehut.cosmetics.cosmetics.ui.CosmeticMenu;
 import com.minehut.cosmetics.util.EnumUtil;
 import com.minehut.cosmetics.util.messaging.Message;
 import net.kyori.adventure.text.Component;

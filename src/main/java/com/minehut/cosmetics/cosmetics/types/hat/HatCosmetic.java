@@ -14,8 +14,6 @@ import org.bukkit.inventory.meta.Damageable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinnable {
 
     private boolean equipped = false;
@@ -41,10 +39,6 @@ public abstract class HatCosmetic extends Cosmetic implements Equippable, Skinna
 
         player().ifPresent(player -> player.getInventory().setHelmet(null));
 
-    }
-
-    private Optional<ArmorStand> entity() {
-        return Optional.ofNullable(entity);
     }
 
     public ItemStack item() {

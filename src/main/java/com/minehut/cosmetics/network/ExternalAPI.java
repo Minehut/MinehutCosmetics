@@ -6,7 +6,7 @@ import com.minehut.cosmetics.model.PackInfo;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
 import com.minehut.cosmetics.model.rank.PlayerRank;
-import com.minehut.cosmetics.model.request.EquipCosmeticRequest;
+import com.minehut.cosmetics.model.request.EquipmentUpdateRequest;
 import com.minehut.cosmetics.model.request.ModifyCosmeticQuantityRequest;
 import com.minehut.cosmetics.model.request.SalvageCosmeticRequest;
 import com.minehut.cosmetics.model.request.UnlockCosmeticRequest;
@@ -43,17 +43,6 @@ public class ExternalAPI extends NetworkApi {
         });
     }
 
-    /*
-     *  Stubbed out methods because they do not have external access
-     */
-
-    @Override
-    public CompletableFuture<HttpResponse<SimpleResponse>> equipCosmetic(EquipCosmeticRequest req) {
-        // stub this because equipCosmetic cannot be accessed by player servers
-        return CompletableFuture.completedFuture(null);
-    }
-
-
     @Override
     public CompletableFuture<HttpResponse<Void>> modifyCosmeticQuantity(ModifyCosmeticQuantityRequest req) {
         // cannot be called from player servers so we stub this
@@ -67,6 +56,11 @@ public class ExternalAPI extends NetworkApi {
 
     @Override
     public CompletableFuture<HttpResponse<Void>> unlockCosmetic(UnlockCosmeticRequest req) {
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<HttpResponse<SimpleResponse>> updateEquipment(EquipmentUpdateRequest request) {
         return CompletableFuture.completedFuture(null);
     }
 }

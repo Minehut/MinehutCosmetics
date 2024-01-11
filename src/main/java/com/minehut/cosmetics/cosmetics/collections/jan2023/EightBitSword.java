@@ -1,7 +1,6 @@
 package com.minehut.cosmetics.cosmetics.collections.jan2023;
 
 import com.minehut.cosmetics.cosmetics.Collection;
-import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.types.item.Item;
 import com.minehut.cosmetics.cosmetics.types.item.ItemCosmetic;
 import com.minehut.cosmetics.ui.model.Model;

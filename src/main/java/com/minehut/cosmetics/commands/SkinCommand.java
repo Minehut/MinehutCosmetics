@@ -12,12 +12,8 @@ import java.util.List;
 
 public class SkinCommand extends Command {
 
-    private final Cosmetics cosmetics;
-
     public SkinCommand(Cosmetics cosmetics) {
         super("skin");
-        this.cosmetics = cosmetics;
-
         setDescription("Opens the skin menu for the held item");
     }
 

@@ -16,13 +16,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Set;
-
 public class SkinEquipListener implements Listener {
-
-    private static final Set<Material> BLACKLIST = Set.of(
-
-    );
 
     /*
     Handle player shift clicking items into armor slots
