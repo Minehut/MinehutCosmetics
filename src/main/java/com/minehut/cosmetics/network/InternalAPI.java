@@ -38,7 +38,7 @@ public class InternalAPI extends NetworkApi {
 
     @Override
     public CompletableFuture<HttpResponse<SimpleResponse>> updateEquipment(EquipmentUpdateRequest request) {
-        return postJSON("/v1/cosmetics/update")
+        return postJSON("/v2/cosmetics/update")
                 .body(request)
                 .asObjectAsync(SimpleResponse.class);
     }

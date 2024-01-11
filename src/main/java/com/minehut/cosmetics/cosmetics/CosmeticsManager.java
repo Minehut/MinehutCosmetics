@@ -13,6 +13,7 @@ import com.minehut.cosmetics.cosmetics.properties.SlotHandler;
 import com.minehut.cosmetics.cosmetics.properties.Tickable;
 import com.minehut.cosmetics.model.profile.CosmeticProfileResponse;
 import com.minehut.cosmetics.model.profile.SimpleResponse;
+import com.minehut.cosmetics.model.request.CosmeticState;
 import com.minehut.cosmetics.model.request.EquipmentUpdateRequest;
 import com.minehut.cosmetics.util.EnumUtil;
 import com.minehut.cosmetics.util.messaging.Message;
@@ -111,10 +112,10 @@ public class CosmeticsManager {
         }
 
         getEquippedMap(uuid).put(slot, cosmetic);
+        new CosmeticEquipEvent(uuid, slot, cosmetic).callEvent();
 
         if (updateMeta) {
-            updateEquipment(new EquipmentUpdateRequest(uuid, Map.of(slot, cosmetic)));
-            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, cosmetic));
+            updateEquipment(uuid);
         }
     }
 
@@ -135,16 +136,20 @@ public class CosmeticsManager {
         });
 
         // remove the cosmetic from that players map
-        getEquippedMap(uuid).remove(slot);
+        Map<CosmeticSlot, Cosmetic> map = getEquippedMap(uuid);
+        if (map == null) {
+            return;
+        }
+
+        map.remove(slot);
+        Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
 
         if (updateMeta) {
-            updateEquipment(new EquipmentUpdateRequest(uuid, Map.of(slot, null)));
-            Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
+            updateEquipment(uuid);
         }
     }
 
     public void removeAllCosmetics(UUID uuid, boolean updateMeta) {
-        Map<CosmeticSlot, Cosmetic> updates = new HashMap<>();
         for (CosmeticSlot slot : CosmeticSlot.values()) {
             // remove the cosmetic
             getEquippedCosmetic(uuid, slot).ifPresent((cosmetic) -> {
@@ -155,13 +160,11 @@ public class CosmeticsManager {
 
             // remove the cosmetic from that players map
             getEquippedMap(uuid).remove(slot);
+            new CosmeticEquipEvent(uuid, slot, null).callEvent();
         }
 
         if (updateMeta) {
-            updateEquipment(new EquipmentUpdateRequest(uuid, updates));
-            updates.forEach((slot, _cosmetic) -> {
-                Bukkit.getServer().getPluginManager().callEvent(new CosmeticEquipEvent(uuid, slot, null));
-            });
+            updateEquipment(uuid);
         }
     }
 
@@ -170,7 +173,13 @@ public class CosmeticsManager {
      * 
      * @param request
      */
-    private void updateEquipment(EquipmentUpdateRequest request) {
+    private void updateEquipment(UUID uuid) {
+        Map<CosmeticSlot, Cosmetic> map = getEquippedMap(uuid);
+        if (map == null) {
+            return;
+        }
+
+        EquipmentUpdateRequest request = new EquipmentUpdateRequest(uuid, CosmeticState.fromMap(map));
         Bukkit.getScheduler().runTaskAsynchronously(cosmetics, () -> {
             final HttpResponse<SimpleResponse> res = cosmetics.networkApi()
                     .updateEquipment(request)
