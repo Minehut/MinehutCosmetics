@@ -1,7 +1,7 @@
 package com.minehut.cosmetics.model.profile;
 
-import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
+import com.minehut.cosmetics.model.request.CosmeticState;
+
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
@@ -11,27 +11,27 @@ import java.util.Map;
 
 @SerializableAs("CosmeticProfile")
 public class LocalCosmeticProfile implements ConfigurationSerializable {
-    private Map<String, String> equipped;
+    private CosmeticState equipped;
 
-    public LocalCosmeticProfile(Map<String, String> equipped) {
+    public LocalCosmeticProfile(CosmeticState equipped) {
         this.equipped = equipped;
     }
 
     public LocalCosmeticProfile() {
-        this(new HashMap<>());
+        this(new CosmeticState());
     }
 
-    public Map<String, String> getEquipped() {
+    public CosmeticState getEquipped() {
         return equipped;
     }
 
-    public void setEquipped(Map<String, String> equipped) {
+    public void setEquipped(CosmeticState equipped) {
         this.equipped = equipped;
     }
 
     public static LocalCosmeticProfile deserialize(Map<String, Object> map) {
         try {
-            final Map<String, String> equipped = (Map<String, String>) map.getOrDefault("equipped", new HashMap<>());
+            final CosmeticState equipped = (CosmeticState) map.getOrDefault("equipped", new HashMap<>());
             return new LocalCosmeticProfile(equipped);
         } catch (Exception ignored) {
             return new LocalCosmeticProfile();
@@ -45,9 +45,7 @@ public class LocalCosmeticProfile implements ConfigurationSerializable {
         );
     }
 
-    public static LocalCosmeticProfile from(Map<CosmeticSlot, Cosmetic> profile) {
-        final LocalCosmeticProfile local = new LocalCosmeticProfile();
-        profile.forEach(((slot, cosmetic) -> local.equipped.put(slot.name(), cosmetic.getQualifiedId())));
-        return local;
+    public static LocalCosmeticProfile from(CosmeticState state) {
+        return new LocalCosmeticProfile(state);
     }
 }

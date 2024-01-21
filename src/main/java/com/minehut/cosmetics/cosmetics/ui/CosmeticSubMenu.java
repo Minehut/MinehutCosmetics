@@ -4,6 +4,7 @@ import com.minehut.cosmetics.Cosmetics;
 import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticCategory;
 import com.minehut.cosmetics.cosmetics.CosmeticSupplier;
+import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.Permission;
 import com.minehut.cosmetics.cosmetics.properties.ClickHandler;
 import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
@@ -30,9 +31,9 @@ public abstract class CosmeticSubMenu extends SubMenu {
     private final ClickHandler clickHandler;
 
     public CosmeticSubMenu(CosmeticCategory category,
-                           Player player,
-                           List<CosmeticSupplier<? extends Cosmetic>> cosmetics,
-                           ClickHandler clickHandler) {
+            Player player,
+            List<CosmeticSupplier<? extends Cosmetic>> cosmetics,
+            ClickHandler clickHandler) {
         super(Component.text(category.categoryName()), (who, ignored) -> new CosmeticMenu(who).openTo(who));
         this.clickHandler = clickHandler;
 
@@ -48,16 +49,17 @@ public abstract class CosmeticSubMenu extends SubMenu {
                 continue;
             }
 
-            final Component ownershipText = owns ?
-                Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
-                : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
+            final Component ownershipText = owns
+                    ? Component.text("Click to Equip").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC,
+                            false)
+                    : Component.text("Not Owned").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false);
 
             final ItemStack icon = ItemBuilder.of(cosmetic.menuIcon().clone())
-                .appendLore(cosmetic.collection().display())
-                .appendLore(cosmetic.collection().lore())
-                .appendLore(Component.empty())
-                .appendLore(ownershipText)
-                .build();
+                    .appendLore(cosmetic.collection().display())
+                    .appendLore(cosmetic.collection().lore())
+                    .appendLore(Component.empty())
+                    .appendLore(ownershipText)
+                    .build();
 
             items.add(Pair.of(icon, cosmetic));
         }
@@ -84,29 +86,32 @@ public abstract class CosmeticSubMenu extends SubMenu {
     }
 
     private MenuItem menuItem(ItemStack icon, Cosmetic cosmetic) {
-        return MenuItem.of(icon, (player, click) -> Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).whenComplete((canUse, err) -> {
-            if (err != null) {
-                err.printStackTrace();
-            }
+        return MenuItem.of(icon, (player, click) -> Permission.any(Permission.staff(), cosmetic.permission())
+                .hasAccess(player).whenComplete((canUse, err) -> {
+                    if (err != null) {
+                        err.printStackTrace();
+                    }
 
-            if (canUse) {
-                final UUID uuid = player.getUniqueId();
-                player.sendMessage(Message.info(Component.text()
-                        .append(Component.text("Selected "))
-                        .append(cosmetic.name()).append(Component.text("!"))
-                        .color(NamedTextColor.AQUA)
-                        .build()
-                    )
-                );
+                    if (Boolean.TRUE.equals(canUse)) {
+                        final UUID uuid = player.getUniqueId();
+                        player.sendMessage(Message.info(Component.text()
+                                .append(Component.text("Selected "))
+                                .append(cosmetic.name()).append(Component.text("!"))
+                                .color(NamedTextColor.AQUA)
+                                .build()));
 
-                final CosmeticSlot slot = clickHandler.apply(click);
+                        final CosmeticSlot slot = clickHandler.apply(click);
 
-                Bukkit.getScheduler().runTask(Cosmetics.get(), () -> Cosmetics.get().manager().setCosmetic(uuid, slot, cosmetic, true));
-                return;
-            }
+                        Bukkit.getScheduler().runTask(Cosmetics.get(), () -> {
+                            CosmeticsManager manager = Cosmetics.get().manager();
+                            manager.applyCosmetic(uuid, slot, cosmetic);
+                            manager.updateEquipment(uuid);
+                        });
+                        return;
+                    }
 
-            player.closeInventory();
-            player.openBook(BookUI.UNOWNED_CTA);
-        }));
+                    player.closeInventory();
+                    player.openBook(BookUI.UNOWNED_CTA);
+                }));
     }
 }

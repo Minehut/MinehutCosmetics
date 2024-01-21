@@ -18,7 +18,7 @@ import java.util.List;
 
 public class EquipCommand extends Command {
 
-    private final CosmeticsManager cosmeticsManager;
+    private final CosmeticsManager manager;
     private final Plugin plugin;
 
     public EquipCommand(Plugin plugin, CosmeticsManager cosmeticsManager) {
@@ -26,7 +26,7 @@ public class EquipCommand extends Command {
         setDescription("Equips a given cosmetic");
 
         this.plugin = plugin;
-        this.cosmeticsManager = cosmeticsManager;
+        this.manager = cosmeticsManager;
     }
 
     @Override
@@ -60,13 +60,16 @@ public class EquipCommand extends Command {
         }
 
         // check for permission
-        Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).thenAccept((permission) -> {
-            if (!permission) {
+        Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).thenAccept(permission -> {
+            if (Boolean.FALSE.equals(permission)) {
                 player.sendMessage(Message.error("You do not have this cosmetic unlocked."));
                 return;
             }
 
-            Bukkit.getScheduler().runTask(plugin, () -> cosmeticsManager.setCosmetic(player.getUniqueId(), slot, cosmetic, true));
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                manager.applyCosmetic(player.getUniqueId(), slot, cosmetic);
+                manager.updateEquipment(player.getUniqueId());
+            });
         });
     }
 }

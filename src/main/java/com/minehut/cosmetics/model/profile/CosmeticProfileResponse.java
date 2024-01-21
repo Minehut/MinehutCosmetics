@@ -1,33 +1,32 @@
 package com.minehut.cosmetics.model.profile;
 
 import com.minehut.cosmetics.cosmetics.Cosmetic;
+import com.minehut.cosmetics.model.request.CosmeticState;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class CosmeticProfileResponse {
-    private Map<String, String> equipped = new HashMap<>();
-    private CosmeticProfile profile = new CosmeticProfile();
+    private CosmeticState equipped;
+    private CosmeticProfile profile;
     private String rank = "DEFAULT";
     private String packHash = "";
 
     public CosmeticProfileResponse() {
+        this.equipped = new CosmeticState();
+        this.profile = new CosmeticProfile();
     }
 
-    public CosmeticProfileResponse(Map<String, String> equipped, CosmeticProfile profile, String rank, String packHash) {
+    public CosmeticProfileResponse(CosmeticState equipped, CosmeticProfile profile, String rank, String packHash) {
         this.equipped = equipped;
         this.profile = profile;
         this.rank = rank;
         this.packHash = packHash;
     }
 
-    public Map<String, String> getEquipped() {
-        return equipped;
-    }
 
-    public void setEquipped(Map<String, String> equipped) {
-        this.equipped = equipped;
+    public CosmeticState getEquipped() {
+        return equipped;
     }
 
     public CosmeticProfile getProfile() {
@@ -61,9 +60,11 @@ public class CosmeticProfileResponse {
     public int getGems() {
         final CosmeticProfile purchases = profile;
         final Map<String, CosmeticData> currencyMap = purchases.getPurchased().get("CURRENCY");
-        if (currencyMap == null) return 0;
+        if (currencyMap == null)
+            return 0;
         final CosmeticData data = currencyMap.get("GEM");
-        if (data == null) return 0;
+        if (data == null)
+            return 0;
         return data.getMeta().getQuantity();
     }
 

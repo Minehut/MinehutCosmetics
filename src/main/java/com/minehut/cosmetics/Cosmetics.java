@@ -3,6 +3,9 @@ package com.minehut.cosmetics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializer;
 import com.minehut.cosmetics.api.PluginApi;
 import com.minehut.cosmetics.commands.EquipCommand;
 import com.minehut.cosmetics.commands.MenuCommand;
@@ -12,6 +15,7 @@ import com.minehut.cosmetics.commands.debug.Debug;
 import com.minehut.cosmetics.commands.debug.GiveCosmetic;
 import com.minehut.cosmetics.config.Config;
 import com.minehut.cosmetics.config.Mode;
+import com.minehut.cosmetics.cosmetics.Cosmetic;
 import com.minehut.cosmetics.cosmetics.CosmeticsManager;
 import com.minehut.cosmetics.cosmetics.crates.CratesModule;
 import com.minehut.cosmetics.cosmetics.entities.EntityHandler;
@@ -28,7 +32,9 @@ import com.minehut.cosmetics.cosmetics.listeners.skins.SkinModifyListener;
 import com.minehut.cosmetics.cosmetics.listeners.skins.SkinTriggerListener;
 import com.minehut.cosmetics.cosmetics.listeners.trinkets.IceStaffListener;
 import com.minehut.cosmetics.cosmetics.listeners.visibility.VisibilityHandler;
+import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.cosmetics.types.trinket.listener.TrinketListener;
+import com.minehut.cosmetics.model.request.CosmeticState;
 import com.minehut.cosmetics.modules.LocalStorageManager;
 import com.minehut.cosmetics.modules.polling.RankPollingModule;
 import com.minehut.cosmetics.modules.polling.ResourcePackPollingModule;
@@ -49,11 +55,10 @@ import java.util.Locale;
 
 public final class Cosmetics extends JavaPlugin {
 
-    private static Cosmetics INSTANCE;
 
     // utilities
     private Config config;
-    private Gson gson;
+    
 
     private CosmeticsManager manager;
     // Local storage only for use on player servers
@@ -71,12 +76,12 @@ public final class Cosmetics extends JavaPlugin {
     // Polling Modules
     @Override
     public void onEnable() {
-        Cosmetics.INSTANCE = this;
+        Gson gson;
         Key.init(this);
 
-        this.gson = buildGson();
+        gson = buildGson();
         this.config = new Config(this);
-        this.manager = new CosmeticsManager(this);
+        this.manager = new CosmeticsManager();
         this.entityHandler = new EntityHandler();
         this.visibilityHandler = new VisibilityHandler(this);
         this.resourcePackManager = new ResourcePackManager();
@@ -152,6 +157,36 @@ public final class Cosmetics extends JavaPlugin {
             }
         });
 
+        builder.registerTypeAdapter(CosmeticState.class, (JsonDeserializer<CosmeticState>) (element, type, context) -> {
+            CosmeticState state = new CosmeticState();
+            try {
+                JsonObject obj = element.getAsJsonObject();
+                for (CosmeticSlot slot : CosmeticSlot.values()) {
+                    JsonElement idElement = obj.get(slot.name());
+                    if (idElement == null) {
+                        continue;
+                    }
+
+                    Cosmetic cosmetic = Cosmetic.fromQualifiedId(idElement.getAsString()).orElse(null);
+                    state.set(slot, cosmetic);
+                }
+            } catch (IllegalArgumentException ignored) {
+                // ignored
+            }
+
+            return state;
+        });
+
+        builder.registerTypeAdapter(CosmeticState.class, (JsonSerializer<CosmeticState>) (element, type, context) -> {
+            JsonObject obj = new JsonObject();
+            for (CosmeticSlot slot : CosmeticSlot.values()) {
+                Cosmetic cosmetic = element.get(slot);
+                obj.addProperty(slot.name(), cosmetic == null ? "EMPTY" : cosmetic.getQualifiedId());
+            }
+
+            return obj;
+        });
+
         return builder.create();
     }
 
@@ -215,6 +250,6 @@ public final class Cosmetics extends JavaPlugin {
     }
 
     public static Cosmetics get() {
-        return INSTANCE;
+        return JavaPlugin.getPlugin(Cosmetics.class);
     }
 }

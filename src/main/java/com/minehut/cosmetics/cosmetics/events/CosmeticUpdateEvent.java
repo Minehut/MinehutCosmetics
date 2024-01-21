@@ -9,13 +9,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class CosmeticEquipEvent extends Event {
+public class CosmeticUpdateEvent extends Event {
 
     private final UUID playerUUID;
     private final CosmeticSlot slot;
     private final @Nullable Cosmetic cosmetic;
 
-    public CosmeticEquipEvent(UUID playerUUID, CosmeticSlot slot, @Nullable Cosmetic cosmetic) {
+    public CosmeticUpdateEvent(UUID playerUUID, CosmeticSlot slot, @Nullable Cosmetic cosmetic) {
         this.playerUUID = playerUUID;
         this.slot = slot;
         this.cosmetic = cosmetic;

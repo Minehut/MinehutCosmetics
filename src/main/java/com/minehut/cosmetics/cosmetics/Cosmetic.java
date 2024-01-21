@@ -91,7 +91,7 @@ public abstract class Cosmetic {
     public static Optional<Cosmetic> fromCategoryId(String category, String id) {
         return EnumUtil
                 .valueOfSafe(CosmeticCategory.class, category.toUpperCase())
-                .flatMap((cat) -> cat.cosmetic(id.toUpperCase()));
+                .flatMap(cat -> cat.cosmetic(id.toUpperCase()));
     }
 
     /**

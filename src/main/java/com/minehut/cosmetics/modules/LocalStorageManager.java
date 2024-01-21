@@ -1,15 +1,14 @@
 package com.minehut.cosmetics.modules;
 
-import com.minehut.cosmetics.cosmetics.Cosmetic;
-import com.minehut.cosmetics.cosmetics.properties.CosmeticSlot;
 import com.minehut.cosmetics.model.profile.LocalCosmeticProfile;
+import com.minehut.cosmetics.model.request.CosmeticState;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -26,7 +25,8 @@ public class LocalStorageManager {
 
     /**
      * Load the cosmetic profile for the user w/ the given UUID from disk.
-     * If this is called after a profile has already been loaded for this user, the newly loaded
+     * If this is called after a profile has already been loaded for this user, the
+     * newly loaded
      * profile will overwrite the old one.
      * <p>
      * After a profile is loaded it can be retrieved using {@link #getProfile(UUID)}
@@ -42,6 +42,7 @@ public class LocalStorageManager {
                 YamlConfiguration yamlProfile = YamlConfiguration.loadConfiguration(profilePath.toFile());
                 profile = yamlProfile.getObject("profile", LocalCosmeticProfile.class);
             } catch (Exception ignored) {
+                // ignored
             }
 
             // handle null cases if it ever occurs (someone messes up a profile file)
@@ -54,9 +55,9 @@ public class LocalStorageManager {
         });
     }
 
-    public void writeProfile(UUID uuid, Map<CosmeticSlot, Cosmetic> equipped) {
+    public void writeProfile(UUID uuid, CosmeticState state) {
         CompletableFuture.runAsync(() -> {
-            final LocalCosmeticProfile profile = LocalCosmeticProfile.from(equipped);
+            final LocalCosmeticProfile profile = new LocalCosmeticProfile(state);
             final Path path = createPath(uuid);
 
             try {
@@ -77,7 +78,8 @@ public class LocalStorageManager {
 
     /**
      * Retrieve the users cosmetic profile from the cache. You must first call
-     * {@link #loadProfile(UUID)} for this user before retrieving their profile here.
+     * {@link #loadProfile(UUID)} for this user before retrieving their profile
+     * here.
      *
      * @param uuid of the user to load the profile for
      * @return the loaded profile for that user
@@ -87,7 +89,8 @@ public class LocalStorageManager {
     }
 
     /**
-     * 'Unloads' a profile by removing it from the local profile cache, if you wish to
+     * 'Unloads' a profile by removing it from the local profile cache, if you wish
+     * to
      * once again retrieve this users profile you must load it through
      * {@link #loadProfile(UUID)}
      *

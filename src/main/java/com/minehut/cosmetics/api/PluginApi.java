@@ -28,22 +28,29 @@ public class PluginApi {
             return;
         }
 
-
         CosmeticsManager manager = cosmetics.manager();
         if (checkPermission) {
             // check for permission
-            Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).thenAccept((permission) -> {
-                if (!permission) {
+            Permission.any(Permission.staff(), cosmetic.permission()).hasAccess(player).thenAccept(permission -> {
+                if (Boolean.FALSE.equals(permission)) {
                     player.sendMessage(Message.error("You do not have this cosmetic unlocked."));
                     return;
                 }
 
-                Bukkit.getScheduler().runTask(cosmetics, () -> manager.setCosmetic(player.getUniqueId(), slot, cosmetic, persist));
+                Bukkit.getScheduler().runTask(Cosmetics.get(),
+                        () -> manager.applyCosmetic(player.getUniqueId(), slot, cosmetic));
+
+                if (persist) {
+                    manager.updateEquipment(player.getUniqueId());
+                }
             });
             return;
         }
 
-        manager.setCosmetic(player.getUniqueId(), slot, cosmetic, persist);
+        manager.applyCosmetic(player.getUniqueId(), slot, cosmetic);
+        if (persist) {
+            manager.updateEquipment(player.getUniqueId());
+        }
     }
 
     public void unequip(Player player, CosmeticSlot slot, boolean persist) {
